@@ -1,0 +1,16 @@
+; =========================================================================================================
+;
+; Preheat to PETG
+;
+; =========================================================================================================
+;
+M291 P"Heating up for PETG. Press OK to continue or CANCEL to abort." R"PETG at 235°C" S3
+;
+G91                                   ; relative positioning
+G1 Z20 F6000 H2                       ; lift Z relative to current position
+G90                                   ; absolute positioning
+M104 S235	                          ; Set current tool temperature to 235C
+;
+; =========================================================================================================
+
+

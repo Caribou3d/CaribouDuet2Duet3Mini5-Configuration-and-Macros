@@ -1,0 +1,16 @@
+; =========================================================================================================
+;
+; Preheat to HIPS
+;
+; =========================================================================================================
+;
+M291 P"Heating up for HIPS. Press OK to continue or CANCEL to abort." R"HIPS at 240°C" S3
+;
+G91                                   ; relative positioning
+G1 Z20 F6000 H2                       ; lift Z relative to current position
+G90                                   ; absolute positioning
+M104 S240	                          ; Set current tool temperature to 240C
+;
+; =========================================================================================================
+
+
