@@ -76,7 +76,7 @@ M558 P5 C"zprobe.in" H1.5 F1000 T12000 A3               ; set Z probe to PINDA
 M557 X23:235 Y5:186 S30.25:30                           ; define mesh grid
 ;
 M574 Z1 S2                                                ; Set endstops controlled by probe
-M308 S1 P"e0temp" A"Pinda V2" Y"thermistor" T100000 B3950 ; USE FOR PINDA!
+M308 S1 P"e1temp" A"Pinda V2" Y"thermistor" T100000 B3950 ; USE FOR PINDA!
 ;
 ;
 ; Stallguard Sensitivy
