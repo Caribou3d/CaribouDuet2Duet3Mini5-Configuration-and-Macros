@@ -35,7 +35,7 @@ G1 H2 Y5 F1000                    ; go back a few mm
 G1 H1 Y-10 F3000                  ; move slowly to X axis endstop once more (second pass)
 ;
 M400                              ; wait for current moves to finish
-M913 X100 Y100                    ; return X & Y motor currents to 100%
+M913 X100 Y100                    ; return X & Y motor
 G4 P200                           ; wait 200ms
 ;
 G90                               ; absolute positioning
