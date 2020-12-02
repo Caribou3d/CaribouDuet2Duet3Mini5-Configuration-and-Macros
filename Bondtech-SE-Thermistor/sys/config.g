@@ -76,7 +76,7 @@ M558 P5 C"zprobe.in" H1.5 F1000 T12000 A3               ; set Z probe to PINDA
 M557 X23:235 Y5:186 S30.25:30                           ; define mesh grid
 ;
 M574 Z1 S2                                                ; Set endstops controlled by probe
-M308 S1 P"e1temp" A"Pinda V2" Y"thermistor" T100000 B3950 ; USE FOR PINDA!
+M308 S1 P"e0temp" A"Pinda V2" Y"thermistor" T100000 B3950 ; USE FOR PINDA!
 ;
 ;
 ; Stallguard Sensitivy
@@ -108,8 +108,8 @@ M140 H0                                                      ; map heated bed to
 ;
 M308 S1 P"e0temp" Y"thermistor" T500000 B4723 C1.19622e-7 A"Nozzle"   ;  SE    configure sensor 0 as thermistor on pin e0temp
 ;
-M950 H2 C"e0heat" T1                                        ; create nozzle heater output on e0heat and map it to sensor 1
-M307 H2 B0 S1.00                                            ; disable bang-bang mode for heater  and set PWM limit
+M950 H1 C"e0heat" T1                                        ; create nozzle heater output on e0heat and map it to sensor 1
+M307 H1 B0 S1.00                                            ; disable bang-bang mode for heater  and set PWM limit
 M143 H0 S365                                                ; set temperature limit for heater 1 to 365C
 ;
 ; =========================================================================================================
