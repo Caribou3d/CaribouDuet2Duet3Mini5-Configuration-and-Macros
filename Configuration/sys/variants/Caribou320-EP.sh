@@ -23,10 +23,10 @@ M307 H1 B0 S1.00                                            ; disable bang-bang 
 M143 H1 S280                                                ; set temperature limit for heater 1 to 280C
 };
 {/#CARIBOU_ZPROBE/ c\
-; PINDA \
+; PINDA2\
 ;\
-M558 P5 C"zprobe.in" H1.5 F1000 T12000 A3                   ; set Z probe to PINDA\
-M308 S1 P"e0temp" A"Pinda V2" Y"thermistor" T100000 B3950   ; USE FOR PINDA\
+M558 P5 C"zprobe.in" H1.5 F1000 T12000 A3                   ; set Z probe to PINDA2\
+M308 S2 P"e1temp" A"Pinda V2" Y"thermistor" T100000 B3950   ; temperature of PINDA2\
 M557 X23:235 Y5:186 S30.25:30                               ; define mesh grid
 }
 ' < ../config.g > ../$fcname
