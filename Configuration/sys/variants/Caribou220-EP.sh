@@ -14,7 +14,7 @@ sed '
 {s/#CARIBOU_NAME/Caribou220-EP/};
 {s/#CARIBOU_ZHEIGHT/Z216.50/};
 {/#CARIBOU_HOTEND_THERMISTOR/ c\
-; Hotend (Mosquito or Mosquito Magnum with E3d Thermistor) a\
+; Hotend (Mosquito or Mosquito Magnum with E3d Thermistor) \
 ;\
 M308 S1 P"e0temp" Y"thermistor" T100000 B4725 C7.060000e-8 R4700 A"Nozzle E1"  ; E3d configure sensor 0 as thermistor on pin e0temp\
 ;\
