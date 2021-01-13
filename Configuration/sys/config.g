@@ -3,7 +3,7 @@
 ; Configuration version
 ;
 ; CC_VERSION "1.10"
-; CC_COMMIT_NR   21
+; CC_COMMIT_NR   24
 ; CC_COMMIT_HASH ""
 
 ;
