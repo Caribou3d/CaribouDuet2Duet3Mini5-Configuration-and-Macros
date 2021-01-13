@@ -3,13 +3,13 @@
 ; Configuration version
 ;
 ; CC_VERSION "1.10"
-; CC_COMMIT_NR   20
+; CC_COMMIT_NR   21
 ; CC_COMMIT_HASH ""
 
 ;
 ;
 ; Configuration file for Duet WiFi (firmware version 3.2)
-; for 0.9° motors on xyz
+; for 0.9° motors on xye
 ;
 ; for #CARIBOU_VARIANT
 ;
