@@ -164,5 +164,10 @@ do
 	# move config-xxx.g to output folder and rename to config.g
 	mv ../config-$VARIANT.g $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/config.g
 
+	# move homez-xxx.g to output folder and rename to homez.g
+	mv ../homez-$VARIANT.g $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/homez.g
 	
+	# move homeall-xxx.g to output folder and rename to homeall.g
+	mv ../homeall-$VARIANT.g $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/homeall.g
+
 done

@@ -152,12 +152,7 @@ M83                                                      ; ... but relative extr
 ;
 ; Z-Offsets - Once done with babystepping place your final here for ease of use, then uncomment the one your currently using
 ;
-G31 P1000 X23 Y5
-;G31 P1000 X23 Y5 Z0.985                        ; PEI Sheet (Prusa) Offset Spool3D Tungsten Carbide
-;G31 P1000 X23 Y5 Z0.440                        ; PEI Sheet (Prusa) Offset MICRO SWISS NOZZLE	
-;G31 P1000 X23 Y5 Z1.285                        ; Textured Sheet (Prusa) Offset MICRO SWISS NOZZLE
-;G31 P1000 X23 Y5 Z0.64                         ; Textured Sheet (thekkiinngg) Offset MICRO SWISS NOZZLE
-;G31 P1000 X23 Y5 Z0.03                         ; Textured Sheet (thekkiinngg) Offset MICRO SWISS NOZZLE
+; #CARIBOU_ZOFFSETS
 ;
 ; =========================================================================================================
 ;
