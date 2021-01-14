@@ -153,6 +153,11 @@ do
 	# copy sys directory
 	mkdir -p $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys || exit 27
 	cp  $SCRIPT_PATH/Configuration/sys/*.* $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys
+	# delete deploy.g and retract.g from target for all variants except BL-Touch versions
+	if [[ $VARIANT != *"BL"* ]]; then
+	  rm $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/deploy.g
+	  rm $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/retract.g
+    fi
 	
 	# run script to generate config.g and change macros
 	cd $SCRIPT_PATH/Configuration/sys/variants/
