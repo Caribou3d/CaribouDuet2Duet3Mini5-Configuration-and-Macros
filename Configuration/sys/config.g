@@ -3,9 +3,7 @@
 ; Configuration version
 ;
 ; CC_VERSION "1.10"
-; CC_COMMIT_NR   24
-; CC_COMMIT_HASH ""
-
+; CC_COMMIT_NR   25
 ;
 ;
 ; Configuration file for Duet WiFi (firmware version 3.2)
