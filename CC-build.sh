@@ -172,8 +172,8 @@ do
 	cp  $SCRIPT_PATH/Configuration/sys/*.* $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys
 	# delete deploy.g and retract.g from target for all variants except BL-Touch versions
 	if [[ $VARIANT != *"BL"* ]]; then
-	  rm $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/deploy.g
-	  rm $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/retract.g
+	  rm $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/deployprobe.g
+	  rm $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/retractprobe.g
     fi
 	
 	# run script to generate config.g and change macros
