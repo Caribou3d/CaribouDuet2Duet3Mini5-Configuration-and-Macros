@@ -2,9 +2,28 @@
 
 This repository contains the source code and the development versions of the configuration and macros running on the Original CaribouDuet line of printers.
 
+# Naming convention
+
+Sorting order is height / Thermistor / Sensor
+
+### Thermistor
+
+1. E = E3d thermistor
+2. S = Slice Engineering Thermistor
+
+### Sensor
+1. P = Pinda
+2. SP = SuperPinda
+3. BL = BL-Touch
+
+Example:
+
+ CaribouDuet320-SBL ist the 320mm version with Slice Engineering thermistor and BL-Touch
+
+
 # Build
 
-In you preferred Unix environment follow these steps
+In your preferred Unix environment follow these steps
 
 1. Clone this repository and checkout the correct branch for your desired release version.
 2. change into the directory `CaribouDuet-Configuration-and-Macros`
