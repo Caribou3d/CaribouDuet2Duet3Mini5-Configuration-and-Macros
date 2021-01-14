@@ -48,6 +48,23 @@ fi
 #sleep 2
 #### End check if OSTYPE is supported
 
+# Check for zip
+if ! type zip > /dev/null; then
+	if [ $TARGET_OS == "windows" ]; then
+		echo "$(tput setaf 1)Missing 'zip' which is important to run this script"
+		echo "Download and install 7z-zip from its official website https://www.7-zip.org/"
+		echo "By default, it is installed under the directory /c/Program Files/7-Zip in Windows 10 as my case."
+		echo "Run git Bash under Administrator privilege and"
+		echo "navigate to the directory /c/Program Files/Git/mingw64/bin,"
+		echo "you can run the command $(tput setaf 2)ln -s /c/Program Files/7-Zip/7z.exe zip.exe$(tput sgr0)"
+		exit 3
+	elif [ $TARGET_OS == "linux" ]; then
+		echo "$(tput setaf 1)Missing 'zip' which is important to run this script"
+		echo "install it with the command $(tput setaf 2)'sudo apt-get install zip'$(tput sgr0)"
+		exit 3
+	fi
+fi
+
 #### Set build environment 
 BUILD_ENV="0.1"
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
@@ -175,4 +192,5 @@ do
 	# move homeall-xxx.g to output folder and rename to homeall.g
 	mv ../homeall-$VARIANT.g $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/homeall.g
 
+	zip a $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/CC$CC-$VARIANT-Build$BUILD.zip  $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT
 done
