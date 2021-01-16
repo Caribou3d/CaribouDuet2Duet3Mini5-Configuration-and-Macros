@@ -175,6 +175,7 @@ do
 	cp $FILAMENTPATH/config.g $FILAMENTOUTPUT/$FILAMENTNAME/
 done
 
+# create zip file for filaments
 zip a $FILAMENTOUTPUT/filaments.zip $FILAMENTOUTPUT/*
 
 echo
@@ -255,7 +256,16 @@ do
 	# move homeall-xxx.g to output folder and rename to homeall.g
 	mv ../homeall-$VARIANT.g $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/homeall.g
 
-	zip a $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/CC$CC-$VARIANT-Build$BUILD.zip  $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT
+	# create zip file for macros and remove directory
+	zip a $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/macros.zip $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/macros/*
+	rm -fr $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/macros
+
+	# create zip file for sys and remove directory
+	zip a $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys.zip $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/*
+	rm -fr $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys
+
+	# create zip-file for configuration
+	zip a $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/CC$CC-$VARIANT-Build$BUILD.zip  $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/*.zip
 done
 
 # delete filament folders in source directory
