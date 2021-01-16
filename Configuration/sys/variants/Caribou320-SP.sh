@@ -29,7 +29,7 @@ M308 S2 P"e1temp" A"Pinda V2" Y"thermistor" T100000 B3950   ; temperature of PIN
 M557 X23:235 Y5:186 S30.25:30                               ; define mesh grid
 };
 {/#CARIBOU_OFFSETS/ c\
-G31 P1000 X23 Y5\
+G31 P1000 X23 Y5
 }
 ' < ../config.g > ../$fname
 

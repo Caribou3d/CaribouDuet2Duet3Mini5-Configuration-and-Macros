@@ -28,7 +28,7 @@ M558 P5 C"zprobe.in" H1.5 F1000 T12000 A3               ; set Z probe to PINDA\
 M557 X23:235 Y5:186 S30.25:30                           ; define mesh grid
 };
 {/#CARIBOU_OFFSETS/ c\
-G31 P1000 X23 Y5\
+G31 P1000 X23 Y5
 }
 ' < ../config.g > ../$fname
 
