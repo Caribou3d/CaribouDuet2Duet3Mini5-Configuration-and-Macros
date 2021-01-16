@@ -12,7 +12,7 @@ G90                                                        ; Set absolute positi
 G1 X200 Y0 F6000                                           ; Go to the parking position.
 M300 S800 P8000                                            ; Play a beep sound.
 ;
-M98 P"0:/macros/Filament Handling"                         ; Unload and load filament using the macro.       
+M98 P"0:/macros/Filament Handling"                         ; Unload and load filament using the macro.
 M400                                                       ; Finish all moves, clear the buffer.
 ;
 M291 P"Press OK to recommence print." R"Filament Handling" S2

@@ -27,4 +27,7 @@ G4 P200                           ; wait 200ms
 ;
 G90                               ; absolute positioning
 ;
+M98 P"current-sense-normal.g"     ; Ensure the current and sensitivity is set for homing routines.
+;
+; =========================================================================================================
 

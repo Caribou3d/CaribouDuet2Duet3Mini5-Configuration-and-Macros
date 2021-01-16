@@ -3,7 +3,6 @@
 ; Home XYZ Axis
 ;
 ; for #CARIBOU_VARIANT
-
 ;
 ; =========================================================================================================
 ;
@@ -55,5 +54,11 @@ G91                               ; relative positioning
 G1 Z1 F100                        ; lift Z relative to current position
 G90                               ; absolute positioning
 M400	     	                  ; Wait for current moves to finish
+;
+; =========================================================================================================
+;
+G90                               ; absolute positioning
+;
+M98 P"current-sense-normal.g"     ; Ensure the current and sensitivity is set for homing routines.
 ;
 ; =========================================================================================================

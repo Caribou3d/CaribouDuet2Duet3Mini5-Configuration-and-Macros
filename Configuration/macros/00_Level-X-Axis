@@ -17,7 +17,7 @@ M913 Z40                     ; Reduce Z motor current to 30% of set current
 G91                          ; Relative positioning
 G1 H1 Z15 F300               ; Move Z axis 20mm up slowly levling the X gantry
 M913 Z100                    ; Return Z motor current to 100% of set current
-G90                          ; Absolute positioning 
+G90                          ; Absolute positioning
 M564 S1                      ; Enable minimum and maximum axis limits
 M208 X256.9 Y214 #CARIBOU_ZHEIGHT S0  ; set axis maxima
 G1 X11.5 Y4.5 F6000          ; go to first probe point

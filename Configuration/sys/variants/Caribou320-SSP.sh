@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# set output 
+# set output
 #
 fullfilename=$0
 filename=$(basename "$fullfilename")
@@ -54,7 +54,7 @@ sed '
 {s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - SuperPINDA/}
 
 ' < ../homeall.g > ../$fname
- 
+
 fname="homez-${filename%.*}.g"
 sed '
 {s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - SuperPINDA/}

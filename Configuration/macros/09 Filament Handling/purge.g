@@ -1,4 +1,7 @@
-;SEQUENCE PURGE FILAMENT
+; =========================================================================================================
+;
+; purge filament. Inifinite loop, can be cancel once filament is correct
+;
 T0		; Select tool
 ;
 while true
@@ -8,5 +11,7 @@ while true
 	G4 P200                         ; pause for 200ms
 	M300 S600 P300                  ; play beep sound
 	G4 P1000                        ; pause for 1000ms
+
 ;
+; =========================================================================================================
 	

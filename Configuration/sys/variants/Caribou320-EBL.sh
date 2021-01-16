@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# set output 
+# set output
 #
 fullfilename=$0
 filename=$(basename "$fullfilename")
@@ -50,7 +50,7 @@ sed '
 {s/#CARIBOU_VARIANT/Caribou320- E3d Thermistor - BL-Touch/};
 {s/G1 X11.5 Y4.5 F6000/G1 X147 Y136 F6000 /};
 ' < ../homeall.g > ../$fname
- 
+
 fname="homez-${filename%.*}.g"
 sed '
 {s/#CARIBOU_VARIANT/Caribou320- E3d Thermistor - BL-Touch/};
