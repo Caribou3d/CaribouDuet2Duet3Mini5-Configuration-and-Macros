@@ -171,9 +171,11 @@ do
 	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g}
 	" < $FILAMENTPATH/unload.g > $FILAMENTOUTPUT/$FILAMENTNAME/unload.g
 
-	# create congig.g
+	# create config.g
 	cp $FILAMENTPATH/config.g $FILAMENTOUTPUT/$FILAMENTNAME/
 done
+
+zip a $FILAMENTOUTPUT/filaments.zip $FILAMENTOUTPUT/*
 
 echo
 echo '... done'
@@ -222,8 +224,8 @@ do
 		mkdir -p $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT || exit 27
 	fi
 	
-	# copy filaments directory
-	cp -r $SCRIPT_PATH/Configuration/filaments/filaments $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT
+	# copy filament.zip to build directory
+	cp $FILAMENTOUTPUT/filaments.zip $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT
 
 	# copy macros directory
 	cp -r $SCRIPT_PATH/Configuration/macros $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT

@@ -27,13 +27,8 @@ M143 H1 S365                                                ; set temperature li
 M558 P5 C"zprobe.in" H1.5 F1000 T12000 A3               ; set Z probe to PINDA\
 M557 X23:235 Y5:186 S30.25:30                           ; define mesh grid
 };
-{/#CARIBOU_ZOFFSETS/ c\
+{/#CARIBOU_OFFSETS/ c\
 G31 P1000 X23 Y5\
-;G31 P1000 X23 Y5 Z0.985                        ; PEI Sheet (Prusa) Offset Spool3D Tungsten Carbide\
-;G31 P1000 X23 Y5 Z0.440                        ; PEI Sheet (Prusa) Offset MICRO SWISS NOZZLE\
-;G31 P1000 X23 Y5 Z1.285                        ; Textured Sheet (Prusa) Offset MICRO SWISS NOZZLE\
-;G31 P1000 X23 Y5 Z0.64                         ; Textured Sheet (thekkiinngg) Offset MICRO SWISS NOZZLE\
-;G31 P1000 X23 Y5 Z0.03                         ; Textured Sheet (thekkiinngg) Offset MICRO SWISS NOZZLE
 }
 ' < ../config.g > ../$fname
 

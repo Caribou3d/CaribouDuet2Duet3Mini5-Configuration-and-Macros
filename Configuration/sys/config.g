@@ -148,9 +148,9 @@ M83                                                      ; ... but relative extr
 ;
 ; =========================================================================================================
 ;
-; Z-Offsets - Once done with babystepping place your final here for ease of use, then uncomment the one your currently using
+; Offsets - place off-sets for x and y here. z-offsets are handled in the print sheet macros
 ;
-; #CARIBOU_ZOFFSETS
+; #CARIBOU_OFFSETS
 ;
 ; =========================================================================================================
 ;
