@@ -121,6 +121,67 @@ else
 	fi
 fi
 
+# generate filaments
+#
+# read existing variants
+while IFS= read -r -d $'\0' f; do
+	filamentoptions[i++]="$f"
+done < <(find Configuration/filaments/*.h -maxdepth 1 -type f -name "*" -print0 )
+FILAMENTVARIANTS=${filamentoptions[*]}
+
+echo
+echo 'creating filament files ...'
+echo
+
+for v in ${FILAMENTVARIANTS[*]}
+do
+	
+	VARIANT=$(basename "$v" ".h")
+	
+	# =========================================================================================================
+	#
+	# set output 
+	#
+
+	FILAMENTPATH=$SCRIPT_PATH/Configuration/filaments
+	FILAMENTOUTPUT=$SCRIPT_PATH/Configuration/filaments/filaments
+
+	# read filament definition
+	source $FILAMENTPATH/$VARIANT.h
+	
+	echo 'generating files for:' $FILAMENTNAME
+
+	# prepare output folder
+	if [ ! -d "$SCRIPT_PATH/filaments/$FILAMENTNAME" ]; then
+		mkdir -p $FILAMENTOUTPUT/$FILAMENTNAME || exit 27
+	else 	
+		rm -fr $FILAMENTOUTPUT/$FILAMENTNAME || exit 27
+		mkdir -p $FILAMENTOUTPUT/$FILAMENTNAME || exit 27
+	fi
+
+	# create load.g
+	sed "
+	{s/#FILAMENT_NAME/${FILAMENTNAME}/};
+	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g}
+	" < $FILAMENTPATH/load.g > $FILAMENTOUTPUT/$FILAMENTNAME/load.g
+
+	# create load.g
+	sed "
+	{s/#FILAMENT_NAME/${FILAMENTNAME}/};
+	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g}
+	" < $FILAMENTPATH/unload.g > $FILAMENTOUTPUT/$FILAMENTNAME/unload.g
+
+	# create congig.g
+	cp $FILAMENTPATH/config.g $FILAMENTOUTPUT/$FILAMENTNAME/
+done
+
+echo
+echo '... done'
+echo
+echo 'generating configurations and macros ....'
+echo
+
+
 for v in ${VARIANTS[*]}
 do
 	VARIANT=$(basename "$v" ".sh")
@@ -162,7 +223,7 @@ do
 	fi
 	
 	# copy filaments directory
-	cp -r $SCRIPT_PATH/Configuration/filaments $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT
+	cp -r $SCRIPT_PATH/Configuration/filaments/filaments $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT
 
 	# copy macros directory
 	cp -r $SCRIPT_PATH/Configuration/macros $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT
@@ -194,3 +255,6 @@ do
 
 	zip a $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/CC$CC-$VARIANT-Build$BUILD.zip  $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT
 done
+
+# delete filament folders in source directory
+rm -fr $SCRIPT_PATH/Configuration/filaments/filaments
