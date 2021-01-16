@@ -9,7 +9,7 @@ G1 Z20 F6000 H2                               ; lift Z relative to current posit
 M104 S#FILAMENT_TEMPERATURE	                                  ; Set current tool temperature to filament #FILAMENT_TEMPERATURE°C
 M116        	                              ; Wait for the temperatures to be reached
 ;
-M98 P"0:/macros/09 Filament Handling/load.g"  ; execute macro to load and purge filament
+M98 P"0:/macros/03 Filament Handling/load.g"  ; execute macro to load and purge filament
 ;
 ; =========================================================================================================
 ;
