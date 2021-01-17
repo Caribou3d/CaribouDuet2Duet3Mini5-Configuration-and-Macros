@@ -3,7 +3,7 @@
 ; Configuration version
 ;
 ; CC_VERSION "1.1.1-RC2"
-; CC_COMMIT_NR   42
+; CC_COMMIT_NR   46
 ;
 ;
 ; Configuration file for Duet WiFi (firmware version 3.2)
@@ -142,7 +142,7 @@ M302 S190 R190                                           ; allow extrusion start
 ; =========================================================================================================
 ;
 M18 XYE                                                  ; release / unlock X, Y, and E axis
-M501 													 ; use config-override (for Thermistor Parameters)
+M501 													 ; use config-override (for Thermistor Parameters and other settings)
 G90                                                      ; send absolute coordinates...
 M83                                                      ; ... but relative extruder moves
 ;

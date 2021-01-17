@@ -1,9 +1,12 @@
 ; =========================================================================================================
 ;
-; This macro displays the current trigger height 
+; with this macro you can set the sensor trigger height for a certain print surface / nozzle combination
+; you have to set the correct value in line 8 and the remove the semicolon in front
 ;
 ; =========================================================================================================
 ;
-echo {"Current Z probe trigger height: " ^ sensors.probes[0].triggerHeight}
+;G31 Z0.440                                     ; BuildTak sheet E3d brass nozzle
+M500 P10:31                                     ; save settings to config-overide.g - G31 P31 saves trigger height
+M290 R0 S0                                      ; set babystep to 0mm absolute
 ;
 ; =========================================================================================================
