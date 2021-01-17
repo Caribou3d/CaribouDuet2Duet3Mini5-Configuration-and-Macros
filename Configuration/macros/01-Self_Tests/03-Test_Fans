@@ -31,3 +31,5 @@ M106 P1 H1 T45 ; set minimun temperature back to 45°C
 M291 P"Press OK if left fan is OFF, else press CANCEL to exit." R"EXTRUDER fan test" S3
 
 M291 P"all ok" R"FAN test" S2
+;
+; =========================================================================================================
