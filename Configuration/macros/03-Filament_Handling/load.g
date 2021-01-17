@@ -2,7 +2,7 @@
 ;
 M300 S500 P600         ; beep
 T0		               ; Select tool
-M291 P"Insert filament. Press ok to start feeding filament..." S2; Display new message
+M291 P"Insert filament. Press ok to start feeding filament..." S2       ; Display new message
 M291 P"Feeding filament.... " S1 T25
 ;
 G91                    ; Set to Relative Positioning
