@@ -33,15 +33,15 @@ G31 P1000 X23 Y5
 }
 ' < ../config.g > ../$fname
 
-# create 00_Level-X-Axis
+# create 00-Level-X-Axis
 #
-fname="00_Level-X-Axis-${filename%.*}"
+fname="00-Level-X-Axis-${filename%.*}"
 sed '
 {s/#CARIBOU_VARIANT/Caribou220- E3d Thermistor - PINDA/};
 {s/#CARIBOU_NAME/Caribou220-EP/};
 {s/#CARIBOU_ZHEIGHTLEVELING/Z205/}
 {s/#CARIBOU_ZHEIGHT/Z216.50/}
-' < ../../macros/00_Level-X-Axis > ../../macros/$fname
+' < ../../macros/00-Level-X-Axis > ../../macros/$fname
 
 # create homez and homeall
 #

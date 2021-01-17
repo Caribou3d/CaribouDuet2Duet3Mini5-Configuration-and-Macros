@@ -175,8 +175,11 @@ do
 	cp $FILAMENTPATH/config.g $FILAMENTOUTPUT/$FILAMENTNAME/
 done
 
+echo
+echo 'creating zip file for filaments ....'
+
 # create zip file for filaments
-zip a $FILAMENTOUTPUT/filaments.zip $FILAMENTOUTPUT/*
+zip a $FILAMENTOUTPUT/filaments.zip $FILAMENTOUTPUT/* | tail -4
 
 echo
 echo '... done'
@@ -244,8 +247,8 @@ do
 	cd $SCRIPT_PATH/Configuration/sys/variants/
 	$SCRIPT_PATH/Configuration/sys/variants/$VARIANT.sh
 
-    # move 00_Level-X-Axis-xxx to output folder and rename to 00_Level-X-Axis
-	mv ../../macros/00_Level-X-Axis-$VARIANT $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/macros/00_Level-X-Axis
+    # move 00_Level-X-Axis-xxx to output folder and rename to 00-Level-X-Axis
+	mv ../../macros/00-Level-X-Axis-$VARIANT $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/macros/00-Level-X-Axis
 	
 	# move config-xxx.g to output folder and rename to config.g
 	mv ../config-$VARIANT.g $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/config.g
@@ -257,15 +260,22 @@ do
 	mv ../homeall-$VARIANT.g $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/homeall.g
 
 	# create zip file for macros and remove directory
-	zip a $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/macros.zip $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/macros/*
+	echo
+	echo 'creating zip file for macros ....'
+	zip a $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/macros.zip $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/macros/* | tail -4
 	rm -fr $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/macros
 
 	# create zip file for sys and remove directory
-	zip a $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys.zip $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/*
+	echo
+	echo 'creating zip file for sys ....'
+
+	zip a $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys.zip $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys/* | tail -4
 	rm -fr $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/sys
 
 	# create zip-file for configuration
-	zip a $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/CC$CC-$VARIANT-Build$BUILD.zip  $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/*.zip
+	echo
+	echo 'creating zip file for configuration ....'
+	zip a $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/CC$CC-$VARIANT-Build$BUILD.zip  $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT/*.zip | tail -4
 done
 
 # delete filament folders in source directory
