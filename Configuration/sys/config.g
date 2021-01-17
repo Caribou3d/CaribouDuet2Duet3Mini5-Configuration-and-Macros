@@ -6,8 +6,9 @@
 ;
 ; for #CARIBOU_VARIANT
 ;
-; CariboDuetConfiguration Release : 1.1.1-RC2
-;                         Build   : 53
+; CariboDuetConfiguration Release "1.1.1-RC2"
+;                         Build   54
+;;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet-Configuration-and-Macros

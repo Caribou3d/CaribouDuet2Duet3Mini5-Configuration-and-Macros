@@ -264,9 +264,10 @@ for v in ${VARIANTS[*]}
 do
 	VARIANT=$(basename "$v" ".sh")
 	# Find firmware version in config.g file and use it to generate the output folder
-	CC=$(grep --max-count=1 "\bCC_VERSION\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d '"' -f2|sed 's/\.//g')
+	CC=$(grep --max-count=1 "\bRelease\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d '"' -f2|sed 's/\.//g')
 	# Find build version in config.g file and use it to generate the output folder
-	BUILD=$(grep --max-count=1 "\bCC_COMMIT_NR\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d ' ' -f3)
+	BUILD=$(grep --max-count=1 "\bBuild\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d ' ' -f3)
+
 	if [ "$BUILD" == "$GIT_COMMIT_NUMBER" ] ; then
 		echo "FW_COMMIT in Configuration.h is identical to current git commit number"
 	else
