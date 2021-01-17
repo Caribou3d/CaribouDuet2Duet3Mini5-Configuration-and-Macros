@@ -1,15 +1,18 @@
 ; =========================================================================================================
 ;
-; Configuration version
-;
-; CC_VERSION "1.1.1-RC2"
-; CC_COMMIT_NR   49
-;
-;
 ; Configuration file for Duet WiFi (firmware version 3.2)
+;
 ; for 0.9° motors on xye
 ;
 ; for #CARIBOU_VARIANT
+;
+; Configuration version:
+;
+; CC_VERSION "1.1.1-RC2"
+; CC_COMMIT_NR   50
+;
+; Copyright Caribou Research & Development 2021. Licensed under GPL3.
+; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet-Configuration-and-Macros
 ;
 ; =========================================================================================================
 ; Network settings

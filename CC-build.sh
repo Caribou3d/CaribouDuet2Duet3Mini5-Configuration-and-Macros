@@ -1,4 +1,17 @@
 #!/bin/bash
+#
+# This bash script is used to generate automatically the CaribouDuet configuration files and macros
+# 
+# Supported OS: Windows 10, Linux64 bit
+#
+# Change log:
+# 12 Jan 2021, wschadow, initial version
+# 14 Jan 2021, wschadow, added generation of filament files
+# 17 Jan 2021, wschadow, simplified OUTPUT_PATHs
+#
+# Copyright Caribou Research & Development 2021. Licensed under GPL3.
+# Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet-Configuration-and-Macros
+#
 
 #### Start check if OSTYPE is supported
 OS_FOUND=$( command -v uname)
