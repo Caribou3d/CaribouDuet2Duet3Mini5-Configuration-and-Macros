@@ -8,6 +8,8 @@
 # 12 Jan 2021, wschadow, initial version
 # 14 Jan 2021, wschadow, added generation of filament files
 # 17 Jan 2021, wschadow, simplified OUTPUT_PATHs
+# 17 Jan 2021, wschadow, added generation of preheat macros
+#
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3.
 # Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet-Configuration-and-Macros
@@ -134,6 +136,62 @@ else
 	fi
 fi
 
+# =========================================================================================================
+
+echo
+echo 'creating Preheat Macros ...'
+echo
+
+PREHEATPATH=$SCRIPT_PATH/Configuration/macros/02-Preheat
+PREHEATOUTPUT=$SCRIPT_PATH/Configuration/macros/02-Preheat/processed
+
+# generate filaments
+#
+# read existing variants
+while IFS= read -r -d $'\0' f; do
+	preheatoptions[i++]="$f"
+done < <(find Configuration/macros/02-Preheat/*.h -maxdepth 1 -type f -name "*" -print0 )
+PREHEATVARIANTS=${preheatoptions[*]}
+
+# prepare output folder
+if [ ! -d "$PREHEATOUTPUT" ]; then
+	mkdir -p $PREHEATOUTPUT || exit 27
+else 	
+	rm -fr $PREHEATOUTPUT || exit 27
+	mkdir -p $PREHEATOUTPUT || exit 27
+fi
+
+i=0
+for v in ${PREHEATVARIANTS[*]}
+do
+	
+	VARIANT=$(basename "$v" ".h")
+	
+
+	# read filament definition
+	source $PREHEATPATH/$VARIANT.h
+	i=$((i+1))
+	
+	echo 'generating file for:' $FILAMENTNAME
+
+	
+	# create preheat preheat file
+	sed "
+	{s/#FILAMENT_NAME/${FILAMENTNAME}/g};
+	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g}
+	" < $PREHEATPATH/Preheat > $PREHEATOUTPUT/0$i-$FILAMENTNAME-$FILAMENT_TEMPERATURE
+
+done
+
+cp $PREHEATPATH/Cooldown $PREHEATOUTPUT
+
+# =========================================================================================================
+
+
+echo
+echo 'creating filament files ...'
+echo
+
 # generate filaments
 #
 # read existing variants
@@ -141,10 +199,6 @@ while IFS= read -r -d $'\0' f; do
 	filamentoptions[i++]="$f"
 done < <(find Configuration/filaments/*.h -maxdepth 1 -type f -name "*" -print0 )
 FILAMENTVARIANTS=${filamentoptions[*]}
-
-echo
-echo 'creating filament files ...'
-echo
 
 for v in ${FILAMENTVARIANTS[*]}
 do
@@ -188,6 +242,7 @@ do
 	cp $FILAMENTPATH/config.g $FILAMENTOUTPUT/$FILAMENTNAME/
 done
 
+
 echo
 echo 'creating zip file for filaments ....'
 
@@ -196,6 +251,10 @@ zip a $FILAMENTOUTPUT/filaments.zip $FILAMENTOUTPUT/* | tail -4
 
 echo
 echo '... done'
+
+
+# =========================================================================================================
+
 echo
 echo 'generating configurations and macros ....'
 echo
@@ -247,7 +306,10 @@ do
 	cp $FILAMENTOUTPUT/filaments.zip $VARIANTOUTPUT
 
 	# copy macros directory
-	cp -r $SCRIPT_PATH/Configuration/macros $VARIANTOUTPUT
+	mkdir $VARIANTOUTPUT/macros
+	find $SCRIPT_PATH/Configuration/macros/* -maxdepth 0 ! -name "*Preheat*" -exec cp -r -t  $VARIANTOUTPUT/macros {} \+
+ 	cp -r $SCRIPT_PATH/Configuration/macros/02-Preheat/processed $VARIANTOUTPUT/macros/02-Preheat
+
 	
 	# copy sys directory
 	mkdir -p $VARIANTOUTPUT/sys || exit 27
@@ -299,3 +361,4 @@ done
 
 # delete filament folders in source directory
 rm -fr $SCRIPT_PATH/Configuration/filaments/filaments
+rm -fr $SCRIPT_PATH/Configuration/macros/02-Preheat/processed

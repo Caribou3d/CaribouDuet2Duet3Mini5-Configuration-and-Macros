@@ -5,7 +5,7 @@
 ;
 ; =========================================================================================================
 ;
-;G31 Z0.985                                     ; Thekkiinngg sheet E3d brass nozzle
+;G31 Z1.115                                     ; Thekkiinngg sheet E3d brass nozzle
 M500 P10:31                                     ; save settings to config-overide.g - G31 P31 saves trigger height
 M290 R0 S0                                      ; set babystep to 0mm absolute
 ;

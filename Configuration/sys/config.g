@@ -9,7 +9,7 @@
 ; Configuration version:
 ;
 ; CC_VERSION "1.1.1-RC2"
-; CC_COMMIT_NR   50
+; CC_COMMIT_NR   51
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet-Configuration-and-Macros
