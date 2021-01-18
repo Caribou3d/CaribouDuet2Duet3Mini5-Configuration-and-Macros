@@ -99,9 +99,9 @@ CC=$(grep --max-count=1 "\bRelease\b" $SCRIPT_PATH/Configuration/sys/config.g | 
 BUILD=$(grep --max-count=1 "\bBuild\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d ' ' -f4)
 
 if [ "$BUILD" == "$GIT_COMMIT_NUMBER" ] ; then
-	echo "FW_COMMIT in Configuration.h is identical to current git commit number"
+	echo "FW_COMMIT in config.g is identical to current git commit number"
 else
-	echo "$(tput setaf 5)FW_COMMIT $BUILD in Config.g is DIFFERENT to current git commit number $GIT_COMMIT_NUMBER. To cancel this process press CRTL+C and update the FW_COMMIT value.$(tput sgr0)"
+	echo "$(tput setaf 5)FW_COMMIT $BUILD in config.g is DIFFERENT to current git commit number $GIT_COMMIT_NUMBER. To cancel this process press CRTL+C and update the FW_COMMIT value.$(tput sgr0)"
 	if [ -z "$ALL_VARIANTS" ]; then
 		echo
 		read -t 2 -p "Press Enter to continue..."
