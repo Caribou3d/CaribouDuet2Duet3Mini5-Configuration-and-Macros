@@ -6,8 +6,8 @@
 ;
 ; for #CARIBOU_VARIANT
 ;
-; CariboDuetConfiguration Release "1.1.1-RC2"
-;                         Build   54
+; CariboDuetConfiguration Release : "1.1.1-RC2"
+;                           Build :   55
 ;;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.

@@ -266,7 +266,7 @@ do
 	# Find firmware version in config.g file and use it to generate the output folder
 	CC=$(grep --max-count=1 "\bRelease\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d '"' -f2|sed 's/\.//g')
 	# Find build version in config.g file and use it to generate the output folder
-	BUILD=$(grep --max-count=1 "\bBuild\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d ' ' -f3)
+	BUILD=$(grep --max-count=1 "\bBuild\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d ' ' -f4)
 
 	if [ "$BUILD" == "$GIT_COMMIT_NUMBER" ] ; then
 		echo "FW_COMMIT in Configuration.h is identical to current git commit number"
@@ -285,7 +285,7 @@ do
 	OUTPUT_FOLDER="CC-build/CC$CC-Build$BUILD"
 	
 	#List some useful data
-	echo "$(tput setaf 2)$(tput setab 7) "
+	echo "$(tput setaf 2)$(tput setab 7)"
 	echo "Variant       :" $VARIANT
 	echo "Configuration :" $CC
 	echo "Build #       :" $BUILD
@@ -294,7 +294,7 @@ do
 
 
 	VARIANTOUTPUT=$SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT
-	
+
 	# prepare output folder
 	if [ ! -d "$SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT" ]; then
 		mkdir -p $VARIANTOUTPUT || exit 27
