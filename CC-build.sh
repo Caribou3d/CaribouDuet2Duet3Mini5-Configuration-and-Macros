@@ -90,11 +90,25 @@ echo "Script path :" $SCRIPT_PATH
 echo "OS          :" $OS
 echo ""
 
-# Get Commit_Hash
-GIT_COMMIT_HASH=$(git log --pretty=format:"%h" -1)
-
 # Get Commit_Number
 GIT_COMMIT_NUMBER=$(git rev-list HEAD --count)
+
+# Find firmware version in config.g file and use it to generate the output folder
+CC=$(grep --max-count=1 "\bRelease\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d '"' -f2|sed 's/\.//g')
+# Find build version in config.g file and use it to generate the output folder
+BUILD=$(grep --max-count=1 "\bBuild\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d ' ' -f4)
+
+if [ "$BUILD" == "$GIT_COMMIT_NUMBER" ] ; then
+	echo "FW_COMMIT in Configuration.h is identical to current git commit number"
+else
+	echo "$(tput setaf 5)FW_COMMIT $BUILD in Config.g is DIFFERENT to current git commit number $GIT_COMMIT_NUMBER. To cancel this process press CRTL+C and update the FW_COMMIT value.$(tput sgr0)"
+	if [ -z "$ALL_VARIANTS" ]; then
+		echo
+		read -t 2 -p "Press Enter to continue..."
+	fi
+fi
+
+echo
 
 # First argument defines which variant of the CaribouDuet configuration will be build
 if [ -z "$1" ] ; then
@@ -137,16 +151,21 @@ else
 fi
 
 # =========================================================================================================
+#
+# generate files for preheat menu
+#
+echo
+echo 'creating macros for preheat menu ...'
+echo
 
-echo
-echo 'creating Preheat Macros ...'
-echo
+# =========================================================================================================
+#
+# set output 
+#
 
 PREHEATPATH=$SCRIPT_PATH/Configuration/macros/02-Preheat
 PREHEATOUTPUT=$SCRIPT_PATH/Configuration/macros/02-Preheat/processed
 
-# generate filaments
-#
 # read existing variants
 while IFS= read -r -d $'\0' f; do
 	preheatoptions[i++]="$f"
@@ -183,17 +202,20 @@ do
 
 done
 
+echo
+echo '... done'
+
 cp $PREHEATPATH/Cooldown $PREHEATOUTPUT
 
 # =========================================================================================================
 
-
-echo
-echo 'creating filament files ...'
-echo
-
-# generate filaments
+# generate files for filaments folder
 #
+#
+echo
+echo 'creating filament macros ...'
+echo
+
 # read existing variants
 while IFS= read -r -d $'\0' f; do
 	filamentoptions[i++]="$f"
@@ -211,7 +233,7 @@ do
 	#
 
 	FILAMENTPATH=$SCRIPT_PATH/Configuration/filaments
-	FILAMENTOUTPUT=$SCRIPT_PATH/Configuration/filaments/filaments
+	FILAMENTOUTPUT=$SCRIPT_PATH/Configuration/filaments/processed
 
 	# read filament definition
 	source $FILAMENTPATH/$VARIANT.h
@@ -242,16 +264,15 @@ do
 	cp $FILAMENTPATH/config.g $FILAMENTOUTPUT/$FILAMENTNAME/
 done
 
-
 echo
-echo 'creating zip file for filaments ....'
+echo '   creating zip file for filaments ....'
 
 # create zip file for filaments
 zip a $FILAMENTOUTPUT/filaments.zip $FILAMENTOUTPUT/* | tail -4
 
 echo
+echo '   ... done'
 echo '... done'
-
 
 # =========================================================================================================
 
@@ -263,19 +284,6 @@ echo
 for v in ${VARIANTS[*]}
 do
 	VARIANT=$(basename "$v" ".sh")
-	# Find firmware version in config.g file and use it to generate the output folder
-	CC=$(grep --max-count=1 "\bRelease\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d '"' -f2|sed 's/\.//g')
-	# Find build version in config.g file and use it to generate the output folder
-	BUILD=$(grep --max-count=1 "\bBuild\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d ' ' -f4)
-
-	if [ "$BUILD" == "$GIT_COMMIT_NUMBER" ] ; then
-		echo "FW_COMMIT in Configuration.h is identical to current git commit number"
-	else
-		echo "$(tput setaf 5)FW_COMMIT $BUILD in Configuration.h is DIFFERENT to current git commit number $GIT_COMMIT_NUMBER. To cancel this process press CRTL+C and update the FW_COMMIT value.$(tput sgr0)"
-		if [ -z "$ALL_VARIANTS" ]; then
-			read -t 2 -p "Press Enter to continue..."
-		fi
-	fi
 	
 	#Prepare config files folders
 	if [ ! -d "$SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD" ]; then
@@ -309,7 +317,7 @@ do
 	# copy macros directory
 	mkdir $VARIANTOUTPUT/macros
 	find $SCRIPT_PATH/Configuration/macros/* -maxdepth 0 ! -name "*Preheat*" -exec cp -r -t  $VARIANTOUTPUT/macros {} \+
- 	cp -r $SCRIPT_PATH/Configuration/macros/02-Preheat/processed $VARIANTOUTPUT/macros/02-Preheat
+ 	cp -r $PREHEATOUTPUT $VARIANTOUTPUT/macros/02-Preheat
 
 	
 	# copy sys directory
@@ -361,5 +369,5 @@ do
 done
 
 # delete filament folders in source directory
-rm -fr $SCRIPT_PATH/Configuration/filaments/filaments
-rm -fr $SCRIPT_PATH/Configuration/macros/02-Preheat/processed
+rm -fr $FILAMENTOUTPUT
+rm -fr $PREHEATOUTPUT
