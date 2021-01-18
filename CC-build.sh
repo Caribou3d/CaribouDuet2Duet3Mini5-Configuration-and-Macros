@@ -9,6 +9,9 @@
 # 14 Jan 2021, wschadow, added generation of filament files
 # 17 Jan 2021, wschadow, simplified OUTPUT_PATHs
 # 17 Jan 2021, wschadow, added generation of preheat macros
+# 19 Jan 2021, wschadow, updated output information and version information
+#
+
 #
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -347,22 +350,33 @@ do
 
 	# create zip file for macros and remove directory
 	echo
-	echo 'creating zip file for macros ....'
+	echo '   creating zip file for macros ....'
+
 	zip a $VARIANTOUTPUT/macros.zip $VARIANTOUTPUT/macros/* | tail -4
 	rm -fr $VARIANTOUTPUT/macros
 
+	echo
+	echo '   ... done'
+
 	# create zip file for sys and remove directory
 	echo
-	echo 'creating zip file for sys ....'
+	echo '   creating zip file for sys ....'
 
 	zip a $VARIANTOUTPUT/sys.zip $VARIANTOUTPUT/sys/* | tail -4
 	rm -fr $VARIANTOUTPUT/sys
 
+	echo
+	echo '   ... done'
+
 	# create zip-file for configuration
 	echo
-	echo 'creating zip file for configuration ....'
+	echo '   creating zip file for configuration ....'
+
 	zip a $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/CC$CC-$VARIANT-Build$BUILD.zip  $VARIANTOUTPUT/*.zip | tail -4
 	
+	echo
+	echo '   ... done'
+
 	echo
 	echo '... done'
 
