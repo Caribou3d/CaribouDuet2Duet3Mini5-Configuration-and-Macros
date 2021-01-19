@@ -293,9 +293,6 @@ for v in ${VARIANTS[*]}
 do
 	VARIANT=$(basename "$v" ".sh")
 	
-
-#	OUTPUT_FOLDER="CC-build/CC$CC-Build$BUILD"
-	
 	#List some useful data
 	echo "$(tput setaf 2)$(tput setab 7)"
 	echo "Variant       :" $VARIANT
@@ -324,12 +321,13 @@ do
 	$SCRIPT_PATH/Configuration/sys/variants/$VARIANT.sh
 	# =========================================================================================================
 
-	SysOutputPath=$SCRIPT_PATH/Configuration/sys/processed
 
 	# =========================================================================================================
 	# create zip file for sys and remove processed files
 	echo
 	echo '   creating zip file for sys ....'
+
+	SysOutputPath=$SCRIPT_PATH/Configuration/sys/processed
 
 	zip a $VARIANTOUTPUT/sys.zip $SysOutputPath/* | tail -4
 	rm -fr $SysOutputPath
@@ -364,6 +362,6 @@ do
 
 done
 
-# delete filament folders in source directory
+# housekeeping: delete filament folders in source directory
 rm -fr $FILAMENTOUTPUT
 rm -fr $PREHEATOUTPUT
