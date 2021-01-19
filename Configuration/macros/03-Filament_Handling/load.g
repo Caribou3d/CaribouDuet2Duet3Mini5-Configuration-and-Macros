@@ -10,7 +10,7 @@ G1 E90 F400	           ; Feed 10mm of filament at 300mm/min
 G1 E15 F200	           ; Feed 90mm of filament at 1000mm/min
 G4 P1000	           ; Wait one second
 ;
-M98 P"0:/macros/03 Filament Handling/purge.g"
+M98 P"0:/macros/03-Filament-Handling/purge.g"
 ;
 G1 E-0.5 F200	       ; Retract 2mm of filament at 400mm/min
 M291 P"..... done" T30
