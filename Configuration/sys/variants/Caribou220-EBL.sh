@@ -1,13 +1,41 @@
 #!/bin/sh
 
-# set output
+# =========================================================================================================
+# definition for Caribou220- E3d Thermistor - BL-Touch
+# =========================================================================================================
+
+# set output for sys and macros
 #
-fullfilename=$0
-filename=$(basename "$fullfilename")
+
+SysOutputPath=../processed
+# prepare output folder
+if [ ! -d "$SysOutputPath" ]; then
+	mkdir -p $SysOutputPath || exit 27
+else 	
+	rm -fr $SysOutputPath || exit 27
+	mkdir -p $SysOutputPath || exit 27
+fi
+
+MacrosDir=../../macros
+MacroOutputPath=$MacrosDir/processed
+# prepare output folder
+if [ ! -d "$MacroOutputPath" ]; then
+	mkdir -p $MacroOutputPath || exit 27
+else 	
+	rm -fr $MacroOutputPath || exit 27
+	mkdir -p $MacroOutputPath || exit 27
+fi
+
+# =========================================================================================================
+# create sys files
+# =========================================================================================================
+
+# copy sys files to processed folder
+find .. -maxdepth 1 -type f -exec cp -t $SysOutputPath {} +
 
 # create config.g
 #
-fname="config-${filename%.*}.g"
+
 sed '
 {s/#CARIBOU_VARIANT/Caribou220- E3d Thermistor - BL-Touch/};
 {s/#CARIBOU_NAME/Caribou220-EBL/};
@@ -31,28 +59,37 @@ M557 X90:220 Y50:205 P3                                 ; define mesh grid
 {/#CARIBOU_OFFSETS/ c\
 G31 X-14.8 Y-42.7 Z0
 }
-' < ../config.g > ../$fname
-
-# create 00-Level-X-Axis
-#
-fname="00-Level-X-Axis-${filename%.*}"
-sed '
-{s/#CARIBOU_VARIANT/Caribou220- E3d Thermistor - PINDA/};
-{s/#CARIBOU_NAME/Caribou220-EP/};
-{s/#CARIBOU_ZHEIGHTLEVELING/Z205/}
-{s/#CARIBOU_ZHEIGHT/Z216.50/}
-' < ../../macros/00-Level-X-Axis > ../../macros/$fname
+' < ../config.g > $SysOutputPath/config.g
 
 # create homez and homeall
 #
-fname="homeall-${filename%.*}.g"
-sed '
-{s/#CARIBOU_VARIANT/Caribou220- E3d Thermistor - BL-Touch/};
-{s/G1 X11.5 Y4.5 F6000/G1 X147 Y136 F6000 /};
-' < ../homeall.g > ../$fname
 
-fname="homez-${filename%.*}.g"
 sed '
 {s/#CARIBOU_VARIANT/Caribou220- E3d Thermistor - BL-Touch/};
 {s/G1 X11.5 Y4.5 F6000/G1 X147 Y136 F6000 /};
-' < ../homez.g > ../$fname
+' < ../homeall.g > $SysOutputPath/homeall.g
+
+sed '
+{s/#CARIBOU_VARIANT/Caribou220- E3d Thermistor - BL-Touch/};
+{s/G1 X11.5 Y4.5 F6000/G1 X147 Y136 F6000 /};
+' < ../homez.g > $SysOutputPath/homez.g
+
+# =========================================================================================================
+# create macro files
+# =========================================================================================================
+
+# copy macros directory to processed folder (for BL-Touch except the Print-Surface Macros)
+find $MacrosDir/* -maxdepth 0  ! \( -name "*Preheat*" -o -name "*processed*" -o -name "*Print*" \) -exec cp -r -t  $MacroOutputPath {} \+
+cp -r $MacrosDir/02-Preheat/processed $MacroOutputPath/02-Preheat
+
+# create 00-Level-X-Axis
+#
+sed '
+{s/#CARIBOU_VARIANT/Caribou220- E3d Thermistor - BL-Touch/};
+{s/#CARIBOU_NAME/Caribou220-EBL/};
+{s/#CARIBOU_ZHEIGHTLEVELING/Z205/}
+{s/#CARIBOU_ZHEIGHT/Z216.50/}
+' < $MacrosDir/00-Level-X-Axis > $MacroOutputPath/00-Level-X-Axis
+
+# =========================================================================================================
+

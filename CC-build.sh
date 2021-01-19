@@ -10,6 +10,7 @@
 # 17 Jan 2021, wschadow, simplified OUTPUT_PATHs
 # 17 Jan 2021, wschadow, added generation of preheat macros
 # 19 Jan 2021, wschadow, updated output information and version information
+# 19 Jan 2021, wschadow, restructered the scripts, variant scripts now generate sys and macros, CC-build zips them
 #
 
 #
@@ -189,15 +190,13 @@ do
 	
 	VARIANT=$(basename "$v" ".h")
 	
-
 	# read filament definition
 	source $PREHEATPATH/$VARIANT.h
 	i=$((i+1))
 	
 	echo 'generating file for:' $FILAMENTNAME
 
-	
-	# create preheat preheat file
+	# create preheat files
 	sed "
 	{s/#FILAMENT_NAME/${FILAMENTNAME}/g};
 	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g}
@@ -283,31 +282,33 @@ echo
 echo 'generating configurations and macros ....'
 echo
 
+BUILDPATH=$SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD
+
+#Prepare config files folders
+if [ ! -d "$BUILDPATH" ]; then
+	mkdir -p $BUILDPATH || exit 27
+fi
 
 for v in ${VARIANTS[*]}
 do
 	VARIANT=$(basename "$v" ".sh")
 	
-	#Prepare config files folders
-	if [ ! -d "$SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD" ]; then
-		mkdir -p $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD || exit 27
-	fi
 
-	OUTPUT_FOLDER="CC-build/CC$CC-Build$BUILD"
+#	OUTPUT_FOLDER="CC-build/CC$CC-Build$BUILD"
 	
 	#List some useful data
 	echo "$(tput setaf 2)$(tput setab 7)"
 	echo "Variant       :" $VARIANT
 	echo "Configuration :" $CC
 	echo "Build #       :" $BUILD
-	echo "Config Folder :" $OUTPUT_FOLDER
+	echo "Config Folder :" "CC-build/CC$CC-Build$BUILD"
 	echo "$(tput sgr0)"
 
-
-	VARIANTOUTPUT=$SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT
+	BUILDPATH=$SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD
+	VARIANTOUTPUT=$BUILDPATH/$VARIANT
 
 	# prepare output folder
-	if [ ! -d "$SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/$VARIANT" ]; then
+	if [ ! -d "$VARIANTOUTPUT" ]; then
 		mkdir -p $VARIANTOUTPUT || exit 27
 	else 	
 		rm -fr $VARIANTOUTPUT || exit 27
@@ -316,63 +317,44 @@ do
 	
 	# copy filament.zip to build directory
 	cp $FILAMENTOUTPUT/filaments.zip $VARIANTOUTPUT
-
-	# copy macros directory
-	mkdir $VARIANTOUTPUT/macros
-	find $SCRIPT_PATH/Configuration/macros/* -maxdepth 0 ! -name "*Preheat*" -exec cp -r -t  $VARIANTOUTPUT/macros {} \+
- 	cp -r $PREHEATOUTPUT $VARIANTOUTPUT/macros/02-Preheat
-
 	
-	# copy sys directory
-	mkdir -p $VARIANTOUTPUT/sys || exit 27
-	cp  $SCRIPT_PATH/Configuration/sys/*.* $VARIANTOUTPUT/sys
-	# delete deploy.g and retract.g from target for all variants except BL-Touch versions
-	if [[ $VARIANT != *"BL"* ]]; then
-	  rm $VARIANTOUTPUT/sys/deployprobe.g
-	  rm $VARIANTOUTPUT/sys/retractprobe.g
-    fi
-	
+	# =========================================================================================================
 	# run script to generate config.g and change macros
 	cd $SCRIPT_PATH/Configuration/sys/variants/
 	$SCRIPT_PATH/Configuration/sys/variants/$VARIANT.sh
+	# =========================================================================================================
 
-    # move 00_Level-X-Axis-xxx to output folder and rename to 00-Level-X-Axis
-	mv ../../macros/00-Level-X-Axis-$VARIANT $VARIANTOUTPUT/macros/00-Level-X-Axis
-	
-	# move config-xxx.g to output folder and rename to config.g
-	mv ../config-$VARIANT.g $VARIANTOUTPUT/sys/config.g
+	SysOutputPath=$SCRIPT_PATH/Configuration/sys/processed
 
-	# move homez-xxx.g to output folder and rename to homez.g
-	mv ../homez-$VARIANT.g $VARIANTOUTPUT/sys/homez.g
-	
-	# move homeall-xxx.g to output folder and rename to homeall.g
-	mv ../homeall-$VARIANT.g $VARIANTOUTPUT/sys/homeall.g
-
-	# create zip file for macros and remove directory
-	echo
-	echo '   creating zip file for macros ....'
-
-	zip a $VARIANTOUTPUT/macros.zip $VARIANTOUTPUT/macros/* | tail -4
-	rm -fr $VARIANTOUTPUT/macros
-
-	echo
-	echo '   ... done'
-
-	# create zip file for sys and remove directory
+	# =========================================================================================================
+	# create zip file for sys and remove processed files
 	echo
 	echo '   creating zip file for sys ....'
 
-	zip a $VARIANTOUTPUT/sys.zip $VARIANTOUTPUT/sys/* | tail -4
-	rm -fr $VARIANTOUTPUT/sys
+	zip a $VARIANTOUTPUT/sys.zip $SysOutputPath/* | tail -4
+	rm -fr $SysOutputPath
+	echo
+	echo '   ... done'
+
+	# =========================================================================================================
+	# create zip file for macros an remove processed files
+	echo
+	echo '   creating zip file for macros ....'
+
+	MacroOutputPath=$SCRIPT_PATH/Configuration/macros/processed
+
+	zip a $VARIANTOUTPUT/macros.zip $MacroOutputPath/* | tail -4
+	rm -fr $MacroOutputPath
 
 	echo
 	echo '   ... done'
 
+	# =========================================================================================================
 	# create zip-file for configuration
 	echo
 	echo '   creating zip file for configuration ....'
 
-	zip a $SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD/CC$CC-$VARIANT-Build$BUILD.zip  $VARIANTOUTPUT/*.zip | tail -4
+	zip a $BUILDPATH/CC$CC-$VARIANT-Build$BUILD.zip  $VARIANTOUTPUT/*.zip | tail -4
 	
 	echo
 	echo '   ... done'
