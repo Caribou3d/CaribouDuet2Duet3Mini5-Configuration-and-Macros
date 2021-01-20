@@ -79,7 +79,7 @@ sed '
 # =========================================================================================================
 
 # copy macros directory to processed folder (for BL-Touch except the Print-Surface Macros)
-find $MacrosDir/* -maxdepth 0  ! \( -name "*Preheat*" -o -name "*processed*" -o -name "*Print*" \) -exec cp -r -t  $MacroOutputPath {} \+
+find $MacrosDir/* -maxdepth 0  ! \( -name "*Preheat*" -o -name "*processed*" -o -name "04-Print*" \) -exec cp -r -t  $MacroOutputPath {} \+
 cp -r $MacrosDir/02-Preheat/processed $MacroOutputPath/02-Preheat
 
 # create 00-Level-X-Axis
