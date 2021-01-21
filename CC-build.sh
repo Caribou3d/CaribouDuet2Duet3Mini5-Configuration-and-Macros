@@ -11,6 +11,7 @@
 # 17 Jan 2021, wschadow, added generation of preheat macros
 # 19 Jan 2021, wschadow, updated output information and version information
 # 19 Jan 2021, wschadow, restructered the scripts, variant scripts now generate sys and macros, CC-build zips them
+# 20 Jan 2021, added Nozzle_handling macros for BL-Touch Versions
 #
 
 #
@@ -156,6 +157,59 @@ fi
 
 # =========================================================================================================
 #
+# generate files for first layer calibration
+#
+echo
+echo 'creating macros for first layer calibration ...'
+echo
+
+# =========================================================================================================
+#
+# set output 
+#
+
+FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/02-First_Layer_Calibration
+FIRSTLAYEROUTPUT=$SCRIPT_PATH/Configuration/macros/02-First_Layer_Calibration/processed
+
+# read existing variants
+while IFS= read -r -d $'\0' f; do
+	FIRSTLAYERoptions[i++]="$f"
+done < <(find $FIRSTLAYERPATH/*.h -maxdepth 1 -type f -name "*" -print0 )
+FIRSTLAYERVARIANTS=${FIRSTLAYERoptions[*]}
+
+# prepare output folder
+if [ ! -d "$FIRSTLAYEROUTPUT" ]; then
+	mkdir -p $FIRSTLAYEROUTPUT || exit 27
+else 	
+	rm -fr $FIRSTLAYEROUTPUT || exit 27
+	mkdir -p $FIRSTLAYEROUTPUT || exit 27
+fi
+
+i=0
+for v in ${FIRSTLAYERVARIANTS[*]}
+do
+	
+	VARIANT=$(basename "$v" ".h")
+	
+	# read filament definition
+	source $FIRSTLAYERPATH/$VARIANT.h
+	i=$((i+1))
+	
+	echo 'generating file for:' $FILAMENTNAME
+
+	# create FIRSTLAYER files
+	sed "
+	{s/#FILAMENT_NAME/${FILAMENTNAME}/g};
+	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g}
+	" < $FIRSTLAYERPATH/Firstlayer.gcode > $FIRSTLAYEROUTPUT/0$i-$FILAMENTNAME-$FILAMENT_TEMPERATURE.g
+
+done
+
+echo
+echo '... done'
+
+# =========================================================================================================
+#
 # generate files for preheat menu
 #
 echo
@@ -167,13 +221,13 @@ echo
 # set output 
 #
 
-PREHEATPATH=$SCRIPT_PATH/Configuration/macros/02-Preheat
-PREHEATOUTPUT=$SCRIPT_PATH/Configuration/macros/02-Preheat/processed
+PREHEATPATH=$SCRIPT_PATH/Configuration/macros/03-Preheat
+PREHEATOUTPUT=$SCRIPT_PATH/Configuration/macros/03-Preheat/processed
 
 # read existing variants
 while IFS= read -r -d $'\0' f; do
 	preheatoptions[i++]="$f"
-done < <(find Configuration/macros/02-Preheat/*.h -maxdepth 1 -type f -name "*" -print0 )
+done < <(find $PREHEATPATH/*.h -maxdepth 1 -type f -name "*" -print0 )
 PREHEATVARIANTS=${preheatoptions[*]}
 
 # prepare output folder
