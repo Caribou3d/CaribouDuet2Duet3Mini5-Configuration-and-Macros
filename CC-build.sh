@@ -12,6 +12,7 @@
 # 19 Jan 2021, wschadow, updated output information and version information
 # 19 Jan 2021, wschadow, restructered the scripts, variant scripts now generate sys and macros, CC-build zips them
 # 20 Jan 2021, added Nozzle_handling macros for BL-Touch Versions
+# 22 Jan 2021, added macros for first layer calibration
 #
 
 #
