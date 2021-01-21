@@ -417,5 +417,7 @@ do
 done
 
 # housekeeping: delete filament folders in source directory
-rm -fr $FILAMENTOUTPUT
+rm -fr $FIRSTLAYEROUTPUT
 rm -fr $PREHEATOUTPUT
+rm -fr $FILAMENTOUTPUT
+
