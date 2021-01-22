@@ -2,8 +2,9 @@
 #
 # define settings for filament
 
-FILAMENTNAME=PC
-FILAMENT_TEMPERATURE=275
+FILAMENTNAME=PP
+FILAMENT_TEMPERATURE=254
+BED_TEMPERATURE=100
 
 # =========================================================================================================
 #

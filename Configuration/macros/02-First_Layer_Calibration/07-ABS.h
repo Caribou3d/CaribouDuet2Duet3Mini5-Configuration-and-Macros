@@ -2,8 +2,9 @@
 #
 # define settings for filament
 
-FILAMENTNAME=PLA
-FILAMENT_TEMPERATURE=215
+FILAMENTNAME=ABS
+FILAMENT_TEMPERATURE=255
+BED_TEMPERATURE=100
 
 # =========================================================================================================
 #

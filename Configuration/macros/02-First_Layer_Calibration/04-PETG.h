@@ -2,8 +2,9 @@
 #
 # define settings for filament
 
-FILAMENTNAME=FLEX
-FILAMENT_TEMPERATURE=240
+FILAMENTNAME=PETG
+FILAMENT_TEMPERATURE=230
+BED_TEMPERATURE=70
 
 # =========================================================================================================
 #

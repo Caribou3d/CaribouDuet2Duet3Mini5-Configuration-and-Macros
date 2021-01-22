@@ -1,33 +1,18 @@
 ; =========================================================================================================
-;
-;   Testcode for printing a meander and a rectangle at the end to adjust babysteps
-;
-; =========================================================================================================
-;
-M291 P"First layer calibration for #FILAMENT_NAME. Press OK to continue or CANCEL to abort." R"#FILAMENT_NAME at #FILAMENT_TEMPERATURE°C" S3
-;
-;====== start preheat start script ========================================================================
-;
-G90                      ; use absolute coordinates
-M83                      ; extruder relative mode
-;
-G28 W                    ; home all without mesh bed level
-G0 X60 Y-3 Z80           ; move extruder above bed keep extruder in front for cleaning and checking
-;
-M104 S160 T0             ; pre-heat extruder to 160C 
-M140 S60                 ; this will take the layer 1 temperature for bed 0
-M190 S60                 ; wait for bed temp
-;
-G29                      ; mesh bed leveling 
-G0 X0 Y-3 Z0 F3000
-;
-M104 S215                ; set extruder temperature
-M109 S215                ; wait for extruder temp
-;
-M572 D0 S0.00            ; set pressure advance
-;
-;====== end preheat start script ==========================================================================
-;
+; play sound
+G4 S1
+M300 P200 S523.25
+G4 P200
+M300 P200 S659.25
+G4 P200
+M300 P200 S739.99
+G4 P250
+M300 P285 S880.00
+G4 P450
+M300 P285 S880.00
+G4 P285
+M300 P625 S1108.73
+G4 S1
 ; =========================================================================================================
 ; start introLine
 G1 Y-3.0 F1000.0         ; go outside print area

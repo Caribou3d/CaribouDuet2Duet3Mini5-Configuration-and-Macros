@@ -2,8 +2,9 @@
 #
 # define settings for filament
 
-FILAMENTNAME=ASA
-FILAMENT_TEMPERATURE=260
+FILAMENTNAME=FLEX
+FILAMENT_TEMPERATURE=240
+BED_TEMPERATURE=50
 
 # =========================================================================================================
 #

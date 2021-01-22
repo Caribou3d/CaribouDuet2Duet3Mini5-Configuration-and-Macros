@@ -2,8 +2,9 @@
 #
 # define settings for filament
 
-FILAMENTNAME=PETG
-FILAMENT_TEMPERATURE=230
+FILAMENTNAME=HIPS
+FILAMENT_TEMPERATURE=220
+BED_TEMPERATURE=60
 
 # =========================================================================================================
 #

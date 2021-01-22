@@ -186,7 +186,7 @@ else
 	mkdir -p $FIRSTLAYEROUTPUT || exit 27
 fi
 
-i=0
+i=1
 for v in ${FIRSTLAYERVARIANTS[*]}
 do
 	
@@ -201,8 +201,15 @@ do
 	# create FIRSTLAYER files
 	sed "
 	{s/#FILAMENT_NAME/${FILAMENTNAME}/g};
-	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g}
-	" < $FIRSTLAYERPATH/Firstlayer.gcode > $FIRSTLAYEROUTPUT/0$i-$FILAMENTNAME-$FILAMENT_TEMPERATURE.g
+	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g};
+	{s/#BED_TEMPERATURE/${BED_TEMPERATURE}/g}
+	" < $FIRSTLAYERPATH/FirstLayerStart > $FIRSTLAYEROUTPUT/0$i-$FILAMENTNAME-$FILAMENT_TEMPERATURE
+
+	# copy FirstLayerCalibration.gcode to processed
+	cp $FIRSTLAYERPATH/FirstLayerCalibration.gcode $FIRSTLAYEROUTPUT
+
+	# copy *_Trigger_Height to processed
+	cp $FIRSTLAYERPATH/*Trigger_Height $FIRSTLAYEROUTPUT
 
 done
 

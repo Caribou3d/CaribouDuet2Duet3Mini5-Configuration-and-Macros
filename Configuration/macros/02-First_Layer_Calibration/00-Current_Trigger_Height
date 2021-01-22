@@ -4,6 +4,6 @@
 ;
 ; =========================================================================================================
 ;
- echo {"Current Z probe trigger height: " ^ sensors.probes[0].triggerHeight}
+M291 P{"Current Z probe trigger height: " ^ sensors.probes[0].triggerHeight } S2
 ;
 ; =========================================================================================================

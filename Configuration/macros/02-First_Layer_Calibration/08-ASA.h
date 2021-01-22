@@ -2,8 +2,9 @@
 #
 # define settings for filament
 
-FILAMENTNAME=HIPS
-FILAMENT_TEMPERATURE=220
+FILAMENTNAME=ASA
+FILAMENT_TEMPERATURE=260
+BED_TEMPERATURE=105
 
 # =========================================================================================================
 #
