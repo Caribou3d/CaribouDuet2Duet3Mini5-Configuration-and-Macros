@@ -117,5 +117,8 @@ M140 S0                  ; turn off heatbed
 M107                     ; turn off fan
 G1 X0 Y200 F7200         ; home XY axis
 M84 XY                   ; disable motors
+
+M291 P{"Enter the number for the trigger height in your sheet / nozzle macro, like: G31 Z" ^ sensors.probes[0].triggerHeight - move.axes[2].babystep } S2
+
 ; done end script
 ; =========================================================================================================
