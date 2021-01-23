@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou320- SE Thermistor - PINDA
+# definition for Caribou320- SE Thermistor - SuperPINDA
 # =========================================================================================================
 
 # set output for sys and macros
@@ -30,14 +30,14 @@ fi
 # create sys files
 # =========================================================================================================
 
-# copy sys files to processed folder (for PINDA except deployprobe and retractprobe)
+# copy sys files to processed folder (for SuperPINDA except deployprobe and retractprobe)
 find ../* -maxdepth 0  ! \( -name "*deploy*" -o -name "*retract*" -o -name "*processed*" -o -name "*variants*" \) -exec cp  -t $SysOutputPath {} +
 
 # create config.g
 #
 
 sed '
-{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - PINDA/};
+{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - SuperPINDA/};
 {s/#CARIBOU_NAME/Caribou320-EP/};
 {s/#CARIBOU_ZHEIGHT/Z316.50/};
 {/#CARIBOU_HOTEND_THERMISTOR/ c\
@@ -50,10 +50,10 @@ M307 H1 B0 S1.00                                            ; disable bang-bang 
 M143 H1 S365                                                ; set temperature limit for heater 1 to 365C
 };
 {/#CARIBOU_ZPROBE/ c\
-; PINDA2 \
+; SuperPINDA2 \
 ;\
-M558 P5 C"zprobe.in" H1.5 F1000 T12000 A3                   ; set Z probe to PINDA2\
-M308 S2 P"e1temp" A"Pinda V2" Y"thermistor" T100000 B3950   ; temperature of PINDA2\
+M558 P5 C"zprobe.in" H1.5 F1000 T12000 A3                   ; set Z probe to SuperPINDA2\
+M308 S2 P"e1temp" A"SuperPINDA V2" Y"thermistor" T100000 B3950   ; temperature of SuperPINDA2\
 M557 X23:235 Y5:186 S30.25:30                               ; define mesh grid
 };
 {/#CARIBOU_OFFSETS/ c\
@@ -65,12 +65,19 @@ G31 P1000 X23 Y5
 #
 
 sed '
-{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - PINDA/}
+{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - SuperPINDA/}
 ' < ../homeall.g > $SysOutputPath/homeall.g
 
 sed '
-{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - PINDA/}
+{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - SuperPINDA/}
 ' < ../homez.g > $SysOutputPath/homez.g
+
+sed '
+{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - SuperPINDA/}
+{/#CARIBOU_ZPROBE/ c\
+; 
+};
+' < ../start.g > $SysOutputPath/start.g
 
 # =========================================================================================================
 # create macro files
@@ -84,7 +91,7 @@ cp -r $MacrosDir/03-Preheat/processed $MacroOutputPath/03-Preheat
 # create 00-Level-X-Axis
 #
 sed '
-{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - PINDA/};
+{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - SuperPINDA/};
 {s/#CARIBOU_NAME/Caribou320-EP/};
 {s/#CARIBOU_ZHEIGHTLEVELING/Z305/}
 {s/#CARIBOU_ZHEIGHT/Z316.50/}

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou320- SE Thermistor - PINDA
+# definition for Caribou320- SE Thermistor - PINDA2
 # =========================================================================================================
 
 # set output for sys and macros
@@ -37,7 +37,7 @@ find ../* -maxdepth 0  ! \( -name "*deploy*" -o -name "*retract*" -o -name "*pro
 #
 
 sed '
-{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - PINDA/};
+{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - PINDA2/};
 {s/#CARIBOU_NAME/Caribou320-EP/};
 {s/#CARIBOU_ZHEIGHT/Z316.50/};
 {/#CARIBOU_HOTEND_THERMISTOR/ c\
@@ -65,12 +65,19 @@ G31 P1000 X23 Y5
 #
 
 sed '
-{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - PINDA/}
+{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - PINDA2/}
 ' < ../homeall.g > $SysOutputPath/homeall.g
 
 sed '
-{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - PINDA/}
+{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - PINDA2/}
 ' < ../homez.g > $SysOutputPath/homez.g
+
+sed '
+{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - PINDA2/};
+{/#CARIBOU_ZPROBE/ c\
+; 
+};
+' < ../start.g > $SysOutputPath/start.g
 
 # =========================================================================================================
 # create macro files
@@ -84,7 +91,7 @@ cp -r $MacrosDir/03-Preheat/processed $MacroOutputPath/03-Preheat
 # create 00-Level-X-Axis 
 #
 sed '
-{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - PINDA/};
+{s/#CARIBOU_VARIANT/Caribou320- SE Thermistor - PINDA2/};
 {s/#CARIBOU_NAME/Caribou320-EP/};
 {s/#CARIBOU_ZHEIGHTLEVELING/Z2305/}
 {s/#CARIBOU_ZHEIGHT/Z316.50/}

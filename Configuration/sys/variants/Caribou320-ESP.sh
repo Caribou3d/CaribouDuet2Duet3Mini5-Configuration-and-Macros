@@ -71,6 +71,13 @@ sed '
 {s/#CARIBOU_VARIANT/Caribou320- E3d Thermistor - SuperPINDA/}
 ' < ../homez.g > $SysOutputPath/homez.g
 
+sed '
+{s/#CARIBOU_VARIANT/Caribou320- E3d Thermistor - SuperPINDA/};
+{/#CARIBOU_ZPROBE/ c\
+; 
+};
+' < ../start.g > $SysOutputPath/start.g
+
 # =========================================================================================================
 # create macro files
 # =========================================================================================================

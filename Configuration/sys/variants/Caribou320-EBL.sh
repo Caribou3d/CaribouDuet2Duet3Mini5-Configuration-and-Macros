@@ -74,6 +74,14 @@ sed '
 {s/G1 X11.5 Y4.5 F6000/G1 X147 Y136 F6000 /};
 ' < ../homez.g > $SysOutputPath/homez.g
 
+sed '
+{s/#CARIBOU_VARIANT/Caribou320- E3d Thermistor - BL-Touch/};
+{/#CARIBOU_ZPROBE/ c\
+M280 P0 S160                           ; BLTouch, alarm release\
+G4 P100                                ; BLTouch, delay for the release command
+};
+' < ../start.g > $SysOutputPath/start.g
+
 # =========================================================================================================
 # create macro files
 # =========================================================================================================
