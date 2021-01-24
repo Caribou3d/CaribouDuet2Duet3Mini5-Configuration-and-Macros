@@ -11,8 +11,9 @@
 # 17 Jan 2021, wschadow, added generation of preheat macros
 # 19 Jan 2021, wschadow, updated output information and version information
 # 19 Jan 2021, wschadow, restructered the scripts, variant scripts now generate sys and macros, CC-build zips them
-# 20 Jan 2021, added Nozzle_handling macros for BL-Touch Versions
-# 22 Jan 2021, added macros for first layer calibration
+# 20 Jan 2021, wschadow, added Nozzle_handling macros for BL-Touch Versions
+# 22 Jan 2021, wschadow, added macros for first layer calibration
+# 24 Jan 2021, wschadow, added generation for filament dependant files for first layer calibration
 #
 
 #
@@ -205,10 +206,17 @@ do
 	{s/#BED_TEMPERATURE/${BED_TEMPERATURE}/g}
 	" < $FIRSTLAYERPATH/FirstLayerStart > $FIRSTLAYEROUTPUT/0$i-$FILAMENTNAME-$FILAMENT_TEMPERATURE
 
-	# copy FirstLayerCalibration.gcode to processed
-	cp $FIRSTLAYERPATH/FirstLayerCalibration.gcode $FIRSTLAYEROUTPUT
+	if [ ! -d "$FIRSTLAYEROUTPUT/gcodes" ]; then
+		mkdir -p $FIRSTLAYEROUTPUT/gcodes || exit 27
+	fi
+	
+	sed "
+	{s/#FILAMENT_NAME/${FILAMENTNAME}/g};
+	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g};
+	{s/#BED_TEMPERATURE/${BED_TEMPERATURE}/g}
+	" < $FIRSTLAYERPATH/FirstLayerCalibration.gcode > $FIRSTLAYEROUTPUT/gcodes/$FILAMENTNAME-FirstLayerCalibration.gcode
 
-	# copy *_Trigger_Height to processed
+		# copy *_Trigger_Height to processed
 	cp $FIRSTLAYERPATH/*Trigger_Height $FIRSTLAYEROUTPUT
 
 done
@@ -346,7 +354,7 @@ echo
 
 BUILDPATH=$SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD
 
-#Prepare config files folders
+# Prepare config files folders
 if [ ! -d "$BUILDPATH" ]; then
 	mkdir -p $BUILDPATH || exit 27
 fi

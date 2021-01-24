@@ -31,6 +31,8 @@ M291 P"Press OK if y axis is homed, else press CANCEL to exit." R"Homing test" S
 ;
 G90                               ; absolute positioning
 G1 X11.5 Y4.5 F6000               ; go to first probe point
+G91                               ; relative positioning
+G1 H2 Z5 F6000                    ; lift Z relative to current position
 G30                               ; home Z by probing the bed
 G1 Z0.15 F100                     ; move Z to origin
 G91                               ; relative positioning

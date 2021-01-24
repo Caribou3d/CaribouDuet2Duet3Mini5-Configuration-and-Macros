@@ -93,7 +93,7 @@ cp -r $MacrosDir/03-Preheat/processed $MacroOutputPath/03-Preheat
 sed '
 {s/#CARIBOU_VARIANT/Caribou420- SE Thermistor - PINDA2/};
 {s/#CARIBOU_NAME/Caribou420-EP/};
-{s/#CARIBOU_ZHEIGHTLEVELING/Z2405/}
+{s/#CARIBOU_ZHEIGHTLEVELING/Z405/}
 {s/#CARIBOU_ZHEIGHT/Z416.50/}
 ' < $MacrosDir/00-Level-X-Axis > $MacroOutputPath/00-Level-X-Axis
 
