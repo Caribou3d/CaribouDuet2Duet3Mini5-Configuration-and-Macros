@@ -12,11 +12,11 @@ M83                      ; extruder relative mode
 G28 W                    ; home all without mesh bed level
 G0 X60 Y-3 Z80           ; move extruder above bed keep extruder in front for cleaning and checking
 ;
-M104 S160 T0             ; pre-heat extruder to 160C 
+M104 S160 T0             ; pre-heat extruder to 160C
 M140 S#BED_TEMPERATURE                 ; this will take the layer 1 temperature for bed 0
 M190 S#BED_TEMPERATURE                 ; wait for bed temp
 ;
-G29                      ; mesh bed leveling 
+G29                      ; mesh bed leveling
 G0 X0 Y-3 Z0 F3000       ; move to home position
 ;
 M104 S#FILAMENT_TEMPERATURE                ; set extruder temperature

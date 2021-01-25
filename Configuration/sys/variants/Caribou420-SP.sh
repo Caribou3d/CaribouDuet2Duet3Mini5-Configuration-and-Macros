@@ -11,7 +11,7 @@ SysOutputPath=../processed
 # prepare output folder
 if [ ! -d "$SysOutputPath" ]; then
 	mkdir -p $SysOutputPath || exit 27
-else 	
+else
 	rm -fr $SysOutputPath || exit 27
 	mkdir -p $SysOutputPath || exit 27
 fi
@@ -21,7 +21,7 @@ MacroOutputPath=$MacrosDir/processed
 # prepare output folder
 if [ ! -d "$MacroOutputPath" ]; then
 	mkdir -p $MacroOutputPath || exit 27
-else 	
+else
 	rm -fr $MacroOutputPath || exit 27
 	mkdir -p $MacroOutputPath || exit 27
 fi
@@ -75,7 +75,7 @@ sed '
 sed '
 {s/#CARIBOU_VARIANT/Caribou420- SE Thermistor - PINDA2/};
 {/#CARIBOU_ZPROBE/ c\
-; 
+;
 };
 ' < ../start.g > $SysOutputPath/start.g
 
@@ -88,7 +88,7 @@ find $MacrosDir/* -maxdepth 0  ! \( -name "*First*" -o -name "*Preheat*" -o -nam
 cp -r $MacrosDir/02-First_Layer_Calibration/processed $MacroOutputPath/02-First_Layer_Calibration
 cp -r $MacrosDir/03-Preheat/processed $MacroOutputPath/03-Preheat
 
-# create 00-Level-X-Axis 
+# create 00-Level-X-Axis
 #
 sed '
 {s/#CARIBOU_VARIANT/Caribou420- SE Thermistor - PINDA2/};

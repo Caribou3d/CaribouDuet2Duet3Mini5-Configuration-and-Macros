@@ -6,14 +6,14 @@
 # Set arrays for script
 
 # Array of printers
-Printer_Name="CaribouDuet" 
+Printer_Name="CaribouDuet"
 
 # Array of Heights
 declare -a HeightsArray=( 220 320 420)
 # Array of Thermistors
 declare -a ThermistorsArray=(E3d SE)
 # Array of Sensors
-declare -a SensorArray=(PINDA2 SUPERPINDA BL_TOUCH) 
+declare -a SensorArray=(PINDA2 SUPERPINDA BL_TOUCH)
 # Main script
 
 if [ -z "$1" ] ; then
@@ -33,7 +33,7 @@ echo "Dest. Path: "$Destination_Path
 
 for HEIGHT in ${HeightsArray[@]}; do
 	for THERMISTOR in ${ThermistorsArray[@]}; do
-		case $THERMISTOR in 
+		case $THERMISTOR in
 				E3d)
 				THERMISTOR_SHORT='E'
 			;;

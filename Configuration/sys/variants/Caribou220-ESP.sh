@@ -11,7 +11,7 @@ SysOutputPath=../processed
 # prepare output folder
 if [ ! -d "$SysOutputPath" ]; then
 	mkdir -p $SysOutputPath || exit 27
-else 	
+else
 	rm -fr $SysOutputPath || exit 27
 	mkdir -p $SysOutputPath || exit 27
 fi
@@ -21,7 +21,7 @@ MacroOutputPath=$MacrosDir/processed
 # prepare output folder
 if [ ! -d "$MacroOutputPath" ]; then
 	mkdir -p $MacroOutputPath || exit 27
-else 	
+else
 	rm -fr $MacroOutputPath || exit 27
 	mkdir -p $MacroOutputPath || exit 27
 fi
@@ -74,7 +74,7 @@ sed '
 sed '
 {s/#CARIBOU_VARIANT/Caribou220- E3d Thermistor - SuperPINDA/};
 {/#CARIBOU_ZPROBE/ c\
-; 
+;
 };
 ' < ../start.g > $SysOutputPath/start.g
 

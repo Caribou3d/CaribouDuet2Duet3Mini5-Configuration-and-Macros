@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # This bash script is used to generate automatically the CaribouDuet configuration files and macros
-# 
+#
 # Supported OS: Windows 10, Linux64 bit
 #
 # Change log:
@@ -87,7 +87,7 @@ if ! type zip > /dev/null; then
 	fi
 fi
 
-#### Set build environment 
+#### Set build environment
 BUILD_ENV="0.1"
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
@@ -147,7 +147,7 @@ if [ -z "$1" ] ; then
 		esac
 	done
 else
-	if [ -f "$SCRIPT_PATH/Configuration/sys/variants/$1" ] ; then 
+	if [ -f "$SCRIPT_PATH/Configuration/sys/variants/$1" ] ; then
 		VARIANTS=$1
 	else
 		echo "$(tput setaf 1)$1 could not be found in Firmware/variants please choose a valid one$(tput setaf 2)"
@@ -167,7 +167,7 @@ echo
 
 # =========================================================================================================
 #
-# set output 
+# set output
 #
 
 FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/02-First_Layer_Calibration
@@ -182,7 +182,7 @@ FIRSTLAYERVARIANTS=${FIRSTLAYERoptions[*]}
 # prepare output folder
 if [ ! -d "$FIRSTLAYEROUTPUT" ]; then
 	mkdir -p $FIRSTLAYEROUTPUT || exit 27
-else 	
+else
 	rm -fr $FIRSTLAYEROUTPUT || exit 27
 	mkdir -p $FIRSTLAYEROUTPUT || exit 27
 fi
@@ -190,13 +190,13 @@ fi
 i=1
 for v in ${FIRSTLAYERVARIANTS[*]}
 do
-	
+
 	VARIANT=$(basename "$v" ".h")
-	
+
 	# read filament definition
 	source $FIRSTLAYERPATH/$VARIANT.h
 	i=$((i+1))
-	
+
 	echo 'generating file for:' $FILAMENTNAME
 
 	# create FIRSTLAYER files
@@ -209,7 +209,7 @@ do
 	if [ ! -d "$FIRSTLAYEROUTPUT/gcodes" ]; then
 		mkdir -p $FIRSTLAYEROUTPUT/gcodes || exit 27
 	fi
-	
+
 	sed "
 	{s/#FILAMENT_NAME/${FILAMENTNAME}/g};
 	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g};
@@ -234,7 +234,7 @@ echo
 
 # =========================================================================================================
 #
-# set output 
+# set output
 #
 
 PREHEATPATH=$SCRIPT_PATH/Configuration/macros/03-Preheat
@@ -249,7 +249,7 @@ PREHEATVARIANTS=${preheatoptions[*]}
 # prepare output folder
 if [ ! -d "$PREHEATOUTPUT" ]; then
 	mkdir -p $PREHEATOUTPUT || exit 27
-else 	
+else
 	rm -fr $PREHEATOUTPUT || exit 27
 	mkdir -p $PREHEATOUTPUT || exit 27
 fi
@@ -257,13 +257,13 @@ fi
 i=0
 for v in ${PREHEATVARIANTS[*]}
 do
-	
+
 	VARIANT=$(basename "$v" ".h")
-	
+
 	# read filament definition
 	source $PREHEATPATH/$VARIANT.h
 	i=$((i+1))
-	
+
 	echo 'generating file for:' $FILAMENTNAME
 
 	# create preheat files
@@ -296,12 +296,12 @@ FILAMENTVARIANTS=${filamentoptions[*]}
 
 for v in ${FILAMENTVARIANTS[*]}
 do
-	
+
 	VARIANT=$(basename "$v" ".h")
-	
+
 	# =========================================================================================================
 	#
-	# set output 
+	# set output
 	#
 
 	FILAMENTPATH=$SCRIPT_PATH/Configuration/filaments
@@ -309,13 +309,13 @@ do
 
 	# read filament definition
 	source $FILAMENTPATH/$VARIANT.h
-	
+
 	echo 'generating files for:' $FILAMENTNAME
 
 	# prepare output folder
 	if [ ! -d "$SCRIPT_PATH/filaments/$FILAMENTNAME" ]; then
 		mkdir -p $FILAMENTOUTPUT/$FILAMENTNAME || exit 27
-	else 	
+	else
 		rm -fr $FILAMENTOUTPUT/$FILAMENTNAME || exit 27
 		mkdir -p $FILAMENTOUTPUT/$FILAMENTNAME || exit 27
 	fi
@@ -362,7 +362,7 @@ fi
 for v in ${VARIANTS[*]}
 do
 	VARIANT=$(basename "$v" ".sh")
-	
+
 	#List some useful data
 	echo "$(tput setaf 2)$(tput setab 7)"
 	echo "Variant       :" $VARIANT
@@ -377,14 +377,14 @@ do
 	# prepare output folder
 	if [ ! -d "$VARIANTOUTPUT" ]; then
 		mkdir -p $VARIANTOUTPUT || exit 27
-	else 	
+	else
 		rm -fr $VARIANTOUTPUT || exit 27
 		mkdir -p $VARIANTOUTPUT || exit 27
 	fi
-	
+
 	# copy filament.zip to build directory
 	cp $FILAMENTOUTPUT/filaments.zip $VARIANTOUTPUT
-	
+
 	# =========================================================================================================
 	# run script to generate config.g and change macros
 	cd $SCRIPT_PATH/Configuration/sys/variants/
@@ -422,7 +422,7 @@ do
 	echo '   creating zip file for configuration ....'
 
 	zip a $BUILDPATH/CC$CC-$VARIANT-Build$BUILD.zip  $VARIANTOUTPUT/*.zip | tail -4
-	
+
 	echo
 	echo '   ... done'
 
