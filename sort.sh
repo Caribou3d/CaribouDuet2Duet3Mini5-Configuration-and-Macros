@@ -1,7 +1,14 @@
 #!/bin/bash
 
-##################################################################
-
+# =========================================================================================================
+#
+# sort script to sort Configuration and macro files for CaribouDuet
+#
+# sort order: height -> thermistor -> z-Probe
+#
+# usage: ./sort startath targetpath
+#
+# =========================================================================================================
 
 # Set arrays for script
 
