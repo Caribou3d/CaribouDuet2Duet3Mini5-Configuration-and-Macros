@@ -8,6 +8,10 @@
 #
 # usage: ./sort startath targetpath
 #
+#
+# Change log:
+# 12 Jan 2021, wschadow, initial version
+#
 # =========================================================================================================
 
 # Set arrays for script
