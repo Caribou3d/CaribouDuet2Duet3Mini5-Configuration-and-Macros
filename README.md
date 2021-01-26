@@ -60,4 +60,4 @@ In your preferred Unix environment follow these steps
 
 We would like to thank 3d-gussner for his effort when we started this project. The CC-build and the sorting scripts have their roots in the PF-build and sorting scripts for building the Prusa firmware which were developed by 3d-gussner.
 
-We're thankful to rkolbi for providing his scripts and documentation to us at an early stage. Hi repository can be found at https://github.com/rkolbi/RRF-machine-config-files/tree/master/Prusa%20MK3s
+We're thankful to rkolbi for providing his scripts and documentation to us at an early stage. His repository can be found at https://github.com/rkolbi/RRF-machine-config-files/tree/master/Prusa%20MK3s
