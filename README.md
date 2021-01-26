@@ -55,3 +55,9 @@ In your preferred Unix environment follow these steps
   Example in other languages
   - English `/mnt/c/Users/<your-username>/Downloads/Prusa-Firmware-MK3` will be on a German Windows`/mnt/c/Anwender/<your-username>/Downloads/Prusa-Firmware-MK3`
   - English `ln -s /c/Program\ Files/7-Zip/7z.exe zip.exe` will be on a Spanish Windows `ln -s /c/Archivos\ de\ programa/7-Zip/7z.exe zip.exe`
+
+# Acknowledgements
+
+We would like to thank 3d-gussner for his effort when we started this project. The CC-build and the sorting scripts have their roots in the PF-build and sorting scripts for building the Prusa firmware which were developed by 3d-gussner.
+
+We're thankful to rkolbi for providing his scripts and documentation to us at an early stage. Hi repository can be found at https://github.com/rkolbi/RRF-machine-config-files/tree/master/Prusa%20MK3s
