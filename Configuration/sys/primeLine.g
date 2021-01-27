@@ -10,7 +10,7 @@ M98 P"0:/sys/playsound.g"
 ; =========================================================================================================
 ;
 G90                                ; absolute positioning
-G1 X0 Y-1 Z0.6                     ; start position
+G1 X0 Y-3 Z0.6                     ; go outside print area
 G92 E0.0                           ; Reset the extrusion distance
 G1 E8                              ; Purge Bubble
 G1 X60.0 E11.0 F1000.0             ; Intro line part 1
