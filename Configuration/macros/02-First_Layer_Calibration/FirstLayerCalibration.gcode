@@ -34,8 +34,8 @@ M98 P"0:/sys/playsound.g"
 ; start introLine
 G1 Y-3.0 F1000.0         ; go outside print area
 G92 E0.0
-G1 X60.0 E5.0  F1000.0   ; intro line
-G1 X100.0 E7.0  F1000.0  ; intro line
+G1 X60.0 E5.0 F1000.0    ; intro line
+G1 X100.0 E7.0 F1000.0   ; intro line
 ; done introline
 ; =========================================================================================================
 ; start meander

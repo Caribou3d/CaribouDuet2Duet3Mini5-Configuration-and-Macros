@@ -66,10 +66,9 @@ G31 P1000 X23 Y5
 
 sed '
 {s/#CARIBOU_VARIANT/Caribou420- SE Thermistor - SuperPINDA/}
-' < ../homeall.g > $SysOutputPath/homeall.g
-
-sed '
-{s/#CARIBOU_VARIANT/Caribou420- SE Thermistor - SuperPINDA/}
+{/#CARIBOU_ZPROBE/ c\
+;
+};
 ' < ../homez.g > $SysOutputPath/homez.g
 
 sed '

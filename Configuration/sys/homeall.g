@@ -2,8 +2,6 @@
 ;
 ; Home XYZ Axis
 ;
-; for #CARIBOU_VARIANT
-;
 ; =========================================================================================================
 ;
 M98 P"homez.g"                    ; homeall is the same as homez
