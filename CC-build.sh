@@ -16,6 +16,7 @@
 # 20 Jan 2021, wschadow, added Nozzle_handling macros for BL-Touch Versions
 # 22 Jan 2021, wschadow, added macros for first layer calibration
 # 24 Jan 2021, wschadow, added generation for filament dependant files for first layer calibration
+# 30 Jan 2021, wschadow, added copying of sample gcodes
 #
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -164,18 +165,18 @@ fi
 	echo
 	echo 'creating zip file for gcodes (sample prints) ....'
 
-	GCODEPATH=$SCRIPT_PATH/Configuration/gcodes
-	GCODEOUTPUT=$GCODEPATH/processed
+	GCODESPATH=$SCRIPT_PATH/Configuration/gcodes
+	GCODESOUTPUT=$GCODESPATH/processed
 
 	# prepare output folder
-	if [ ! -d "$GCODEOUTPUT" ]; then
-		mkdir -p $GCODEOUTPUT || exit 27
+	if [ ! -d "$GCODESOUTPUT" ]; then
+		mkdir -p $GCODESOUTPUT || exit 27
 	else
-		rm -fr $GCODEOUTPUT || exit 27
-		mkdir -p $GCODEOUTPUT || exit 27
+		rm -fr $GCODESOUTPUT || exit 27
+		mkdir -p $GCODESOUTPUT || exit 27
 	fi
 	
-	zip a $GCODEOUTPUT/GCODE.zip $GCODEPATH/*.gcode | tail -4
+	zip a $GCODESOUTPUT/gcodes.zip $GCODESPATH/*.gcode | tail -4
 
 	echo
 	echo '   ... done'
@@ -444,9 +445,9 @@ do
 	# =========================================================================================================
 	# copy zip file for gcodes (sample prints)
 	echo
-	echo '   copying zip file for GCODEs (sample prints) ....'
+	echo '   copying zip file for GCODESs (sample prints) ....'
 
-	cp $GCODEOUTPUT/gcode.zip $VARIANTOUTPUT
+	cp $GCODESOUTPUT/gcodes.zip $VARIANTOUTPUT
 
 	echo
 	echo '   ... done'
@@ -467,7 +468,7 @@ do
 done
 
 # housekeeping: delete filament folders in source directory
-rm -fr $GCODEOUTPUT
+rm -fr $GCODESOUTPUT
 rm -fr $FIRSTLAYEROUTPUT
 rm -fr $PREHEATOUTPUT
 rm -fr $FILAMENTOUTPUT
