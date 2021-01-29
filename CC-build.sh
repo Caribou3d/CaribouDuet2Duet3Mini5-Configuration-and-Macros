@@ -160,6 +160,27 @@ else
 fi
 
 # =========================================================================================================
+	# create zip file for gcodes (sample prints)
+	echo
+	echo 'creating zip file for gcodes (sample prints) ....'
+
+	GCODEPATH=$SCRIPT_PATH/Configuration/gcodes
+	GCODEOUTPUT=$GCODEPATH/processed
+
+	# prepare output folder
+	if [ ! -d "$GCODEOUTPUT" ]; then
+		mkdir -p $GCODEOUTPUT || exit 27
+	else
+		rm -fr $GCODEOUTPUT || exit 27
+		mkdir -p $GCODEOUTPUT || exit 27
+	fi
+	
+	zip a $GCODEOUTPUT/GCODE.zip $GCODEPATH/*.gcode | tail -4
+
+	echo
+	echo '   ... done'
+
+# =========================================================================================================
 #
 # generate files for first layer calibration
 #
@@ -173,7 +194,7 @@ echo
 #
 
 FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/02-First_Layer_Calibration
-FIRSTLAYEROUTPUT=$SCRIPT_PATH/Configuration/macros/02-First_Layer_Calibration/processed
+FIRSTLAYEROUTPUT=$FIRSTLAYERPATH/processed
 
 # read existing variants
 while IFS= read -r -d $'\0' f; do
@@ -240,7 +261,7 @@ echo
 #
 
 PREHEATPATH=$SCRIPT_PATH/Configuration/macros/03-Preheat
-PREHEATOUTPUT=$SCRIPT_PATH/Configuration/macros/03-Preheat/processed
+PREHEATOUTPUT=$PREHEATPATH/processed
 
 # read existing variants
 while IFS= read -r -d $'\0' f; do
@@ -307,7 +328,7 @@ do
 	#
 
 	FILAMENTPATH=$SCRIPT_PATH/Configuration/filaments
-	FILAMENTOUTPUT=$SCRIPT_PATH/Configuration/filaments/processed
+	FILAMENTOUTPUT=$FILAMENTPATH/processed
 
 	# read filament definition
 	source $FILAMENTPATH/$VARIANT.h
@@ -389,8 +410,10 @@ do
 
 	# =========================================================================================================
 	# run script to generate config.g and change macros
+	
 	cd $SCRIPT_PATH/Configuration/sys/variants/
 	$SCRIPT_PATH/Configuration/sys/variants/$VARIANT.sh
+
 	# =========================================================================================================
 
 	# =========================================================================================================
@@ -419,6 +442,16 @@ do
 	echo '   ... done'
 
 	# =========================================================================================================
+	# copy zip file for gcodes (sample prints)
+	echo
+	echo '   copying zip file for GCODEs (sample prints) ....'
+
+	cp $GCODEOUTPUT/gcode.zip $VARIANTOUTPUT
+
+	echo
+	echo '   ... done'
+
+	# =========================================================================================================
 	# create zip-file for configuration
 	echo
 	echo '   creating zip file for configuration ....'
@@ -434,6 +467,7 @@ do
 done
 
 # housekeeping: delete filament folders in source directory
+rm -fr $GCODEOUTPUT
 rm -fr $FIRSTLAYEROUTPUT
 rm -fr $PREHEATOUTPUT
 rm -fr $FILAMENTOUTPUT

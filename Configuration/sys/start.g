@@ -7,7 +7,6 @@
 ;
 ; =========================================================================================================
 ;
-M122                                   ; Clear diagnostic data to cleanly capture print evolution statistics.
 T0                                     ; Ensure the tool is selected
 ; #CARIBOU_ZPROBE
 M572 D0 S0.0                           ; Clear pressure advance.
