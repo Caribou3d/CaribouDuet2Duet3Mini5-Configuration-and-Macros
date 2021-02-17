@@ -176,7 +176,13 @@ fi
 		mkdir -p $GCODESOUTPUT || exit 27
 	fi
 	
-	zip a $GCODESOUTPUT/gcodes.zip $GCODESPATH/*.gcode | tail -4
+	if [ $TARGET_OS == "windows" ]; then
+		zip a $GCODESOUTPUT/gcodes.zip $GCODESPATH/*.gcode | tail -4
+	else
+		pushd $GCODESPATH
+           zip -r $GCODESOUTPUT/gcodes.zip *.gcode | tail -4
+        popd
+	fi
 
 	echo
 	echo '   ... done'
