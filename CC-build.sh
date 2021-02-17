@@ -17,6 +17,7 @@
 # 22 Jan 2021, wschadow, added macros for first layer calibration
 # 24 Jan 2021, wschadow, added generation for filament dependant files for first layer calibration
 # 30 Jan 2021, wschadow, added copying of sample gcodes
+# 17 Feb 2021, wschadow, distinguish zip commands for different OS
 #
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -179,9 +180,9 @@ fi
 	if [ $TARGET_OS == "windows" ]; then
 		zip a $GCODESOUTPUT/gcodes.zip $GCODESPATH/*.gcode | tail -4
 	else
-		pushd $GCODESPATH
-           zip -r $GCODESOUTPUT/gcodes.zip *.gcode | tail -4
-        popd
+	   pushd $GCODESPATH
+              zip -r $GCODESOUTPUT/gcodes.zip *.gcode | tail -4
+           popd
 	fi
 
 	echo
@@ -370,7 +371,12 @@ echo
 echo '   creating zip file for filaments ....'
 
 # create zip file for filaments
-zip a $FILAMENTOUTPUT/filaments.zip $FILAMENTOUTPUT/* | tail -4
+if [ $TARGET_OS == "windows" ]; then
+   zip a $FILAMENTOUTPUT/filaments.zip $FILAMENTOUTPUT/* | tail -4
+else
+    pushd $FILAMENTOUTPUT
+   zip -r $FILAMENTOUTPUT/filaments.zip * | tail -4
+fi
 
 echo
 echo '   ... done'
@@ -430,7 +436,13 @@ do
 
 	SysOutputPath=$SCRIPT_PATH/Configuration/sys/processed
 
-	zip a $VARIANTOUTPUT/sys.zip $SysOutputPath/* | tail -4
+	if [ $TARGET_OS == "windows" ]; then
+	    zip a $VARIANTOUTPUT/sys.zip $SysOutputPath/* | tail -4
+	else
+	    pushd $SysOutputPath
+	    zip -r $VARIANTOUTPUT/sys.zip * | tail -4
+	    popd
+	fi
 	rm -fr $SysOutputPath
 	echo
 	echo '   ... done'
@@ -442,7 +454,13 @@ do
 
 	MacroOutputPath=$SCRIPT_PATH/Configuration/macros/processed
 
-	zip a $VARIANTOUTPUT/macros.zip $MacroOutputPath/* | tail -4
+	if [ $TARGET_OS == "windows" ]; then
+	    zip a $VARIANTOUTPUT/macros.zip $MacroOutputPath/* | tail -4
+	else
+	    pushd $MacroOutputPath
+	    zip -r $VARIANTOUTPUT/macros.zip * | tail -4
+	    popd
+	fi
 	rm -fr $MacroOutputPath
 
 	echo
@@ -463,8 +481,13 @@ do
 	echo
 	echo '   creating zip file for configuration ....'
 
-	zip a $BUILDPATH/CC$CC-$VARIANT-Build$BUILD.zip  $VARIANTOUTPUT/*.zip | tail -4
-
+	if [ $TARGET_OS == "windows" ]; then
+	    zip a $BUILDPATH/CC$CC-$VARIANT-Build$BUILD.zip  $VARIANTOUTPUT/*.zip | tail -4
+	else
+	    pushd $VARIANTOUTPUT
+	    zip -r $BUILDPATH/CC$CC-$VARIANT-Build$BUILD.zip  *.zip | tail -4
+	    popd
+	fi
 	echo
 	echo '   ... done'
 
