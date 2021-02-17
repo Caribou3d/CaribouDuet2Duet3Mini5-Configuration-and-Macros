@@ -66,7 +66,7 @@ G31 X-14.8 Y-42.7 Z0
 
 sed '
 {s/#CARIBOU_VARIANT/Caribou320- E3d Thermistor - BL-Touch/};
-{s/G1 X11.5 Y4.5 F6000/G1 X147 Y136 F6000 /};
+{s/G1 X11.5 Y4.5 F6000               ; go to first probe point/G1 X148.5 Y142.5 F3600            ; go to center of the bed/};
 {/#CARIBOU_ZPROBE/ c\
 M280 P0 S160                      ; BLTouch, alarm release\
 G4 P100                           ; BLTouch, delay for the release command
