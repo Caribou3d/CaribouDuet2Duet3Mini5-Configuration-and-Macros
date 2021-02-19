@@ -4,6 +4,11 @@
 # definition for Caribou320- E3d Thermistor - BL-Touch
 # =========================================================================================================
 
+CARIBOU_VARIANT="Caribou320 - E3d Thermistor - BL-Touch"
+CARIBOU_NAME="Caribou320-EBL"
+CARIBOU_ZHEIGHTLEVELING="Z305"
+CARIBOU_ZHEIGHT="Z316.50"
+
 # set output for sys and macros
 #
 
@@ -33,53 +38,61 @@ fi
 # copy sys files to processed folder
 find .. -maxdepth 1 -type f -exec cp -t $SysOutputPath {} +
 
+# create bed.g
+#
+sed "
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{s/G30 P0 X25 Y105 Z-99999/G30 P0 X10 Y105 Z-99999/};
+{s/G30 P1 X240 Y105 Z-99999 S2/G30 P1 X225 Y105 Z-99999 S2/};
+" < ../bed.g > $SysOutputPath/bed.g
+
 # create config.g
 #
 
-sed '
-{s/#CARIBOU_VARIANT/Caribou320- E3d Thermistor - BL-Touch/};
-{s/#CARIBOU_NAME/Caribou320-EBL/};
-{s/#CARIBOU_ZHEIGHT/Z316.50/};
+sed "
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{s/#CARIBOU_NAME/$CARIBOU_NAME/};
+{s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/};
 {/#CARIBOU_HOTEND_THERMISTOR/ c\
-; Hotend (Mosquito or Mosquito Magnum with E3d Thermistor) \
-;\
-M308 S1 P"e0temp" Y"thermistor" T100000 B4725 C7.060000e-8 R4700 A"Nozzle E1"  ; E3d configure sensor 0 as thermistor on pin e0temp\
-;\
-M950 H1 C"e0heat" T1                                        ; create nozzle heater output on e0heat and map it to sensor 2\
-M307 H1 B0 S1.00                                            ; disable bang-bang mode for heater  and set PWM limit\
-M143 H1 S280                                                ; set temperature limit for heater 1 to 280C
+; Hotend (Mosquito or Mosquito Magnum with E3d Thermistor) \\
+;\\
+M308 S1 P\"e0temp\" Y\"thermistor\" T100000 B4725 C7.060000e-8 R4700 A\"Nozzle E1\"  ; E3d configure sensor 0 as thermistor on pin e0temp\\
+;\\
+M950 H1 C\"e0heat\" T1                                        ; create nozzle heater output on e0heat and map it to sensor 2\\
+M307 H1 B0 S1.00                                            ; disable bang-bang mode for heater  and set PWM limit\\
+M143 H1 S280                                                ; set temperature limit for heater 1 to 280°C
 };
 {/#CARIBOU_ZPROBE/ c\
-; BL-Touch \
-;\
-M950 S0 C"exp.heater3"                                  ; sensor for BL-Touch\
-M558 P9 C"^zprobe.in" H2.5 F200 T10000                  ; for BL-Touch\
-M557 X90:220 Y50:205 P3                                 ; define mesh grid
+; BL-Touch \\
+;\\
+M950 S0 C\"exp.heater3\"                                 ; sensor for BL-Touch\\
+M558 P9 C\"^zprobe.in\" H2.5 F200 T10000                 ; for BL-Touch\\
+M557 X90:220 Y50:205 P3                                ; define mesh grid
 };
 {/#CARIBOU_OFFSETS/ c\
-G31 X-14.8 Y-42.7 Z0
+G31 X-24.3 Y-34.1
 }
-' < ../config.g > $SysOutputPath/config.g
+" < ../config.g > $SysOutputPath/config.g
 
 # create homez and homeall
 #
 
-sed '
-{s/#CARIBOU_VARIANT/Caribou320- E3d Thermistor - BL-Touch/};
+sed "
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/G1 X11.5 Y4.5 F6000               ; go to first probe point/G1 X148.5 Y142.5 F3600            ; go to center of the bed/};
 {/#CARIBOU_ZPROBE/ c\
-M280 P0 S160                      ; BLTouch, alarm release\
+M280 P0 S160                      ; BLTouch, alarm release\\
 G4 P100                           ; BLTouch, delay for the release command
 };
-' < ../homez.g > $SysOutputPath/homez.g
+" < ../homez.g > $SysOutputPath/homez.g
 
-sed '
-{s/#CARIBOU_VARIANT/Caribou320- E3d Thermistor - BL-Touch/};
+sed "
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {/#CARIBOU_ZPROBE/ c\
-M280 P0 S160                           ; BLTouch, alarm release\
+M280 P0 S160                           ; BLTouch, alarm release\\
 G4 P100                                ; BLTouch, delay for the release command
 };
-' < ../start.g > $SysOutputPath/start.g
+" < ../start.g > $SysOutputPath/start.g
 
 # =========================================================================================================
 # create macro files
@@ -92,12 +105,12 @@ cp -r $MacrosDir/03-Preheat/processed $MacroOutputPath/03-Preheat
 
 # create 00-Level-X-Axis
 #
-sed '
-{s/#CARIBOU_VARIANT/Caribou320- E3d Thermistor - BL-Touch/};
-{s/#CARIBOU_NAME/Caribou320-EBL/};
-{s/#CARIBOU_ZHEIGHTLEVELING/Z305/}
-{s/#CARIBOU_ZHEIGHT/Z316.50/}
-' < $MacrosDir/00-Level-X-Axis > $MacroOutputPath/00-Level-X-Axis
+sed "
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{s/#CARIBOU_NAME/$CARIBOU_NAME/};
+{s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/}
+{s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
+" < $MacrosDir/00-Level-X-Axis > $MacroOutputPath/00-Level-X-Axis
 
 # =========================================================================================================
 
