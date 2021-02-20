@@ -76,7 +76,13 @@ G1 Y200 Z120 F2000
 G1 X-200 Z-100 F2000
 M400
 G90
-M906 X750 Y800 Z450 E650 I30    ; set motor currents (mA) and motor idle factor in per cent
+;
+; =========================================================================================================
+;
+M906 X950 Y1000 Z450 E550 I40                          ; set motor currents (mA) and motor idle factor in per cent
+M201 X500.00 Y500.00 Z100.00 E500.00                   ; set accelerations (mm/s^2)
+M203 X9000.00 Y9000.00 Z1000.00 E3600.00               ; set maximum speeds (mm/min)
+;
 G1 X0 Y0 F2000
 G1 Z1 F2000
 ;
@@ -85,4 +91,3 @@ G1 Z1 F2000
 M98 P"0:/sys/current-sense-normal.g"   ; Ensure that motor currents and sense are set for printing
 ;
 ; =========================================================================================================
-
