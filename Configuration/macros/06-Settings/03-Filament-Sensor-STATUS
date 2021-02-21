@@ -1,0 +1,15 @@
+; =========================================================================================================
+;
+; display the status of the filament sensor
+;
+; =========================================================================================================
+;
+if sensors.filamentMonitors[0].enabled = true        ; if filament is active
+    if sensors.filamentMonitors[0].status = "ok"
+        M291 P{"Filament Sensor Status: ON, Filament: LOADED "  } S2
+    else 
+        M291 P{"Filament Sensor Status: ON, Filament: NOT LOADED "  } S2
+else
+    M291 P{"Filament Sensor Status: OFF"  } S2
+;
+; =========================================================================================================
