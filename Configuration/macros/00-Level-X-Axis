@@ -2,7 +2,7 @@
 ;
 ;   Level the X gantry by ramming at lower motor current against the Z toppers
 ;
-;   for #CARIBOU_VARIANT
+;   for Caribou320- E3d Thermistor - PINDA2
 ;
 ; =========================================================================================================
 ;
@@ -12,15 +12,16 @@ G28                          ; Home Axes
 G90                          ; Absolute positioning
 G1 X125 Y55 F6000            ; Move extruder to the middle of the X axis
 M564 S0                      ; Disable minimum and maximum axis limits
-G1 #CARIBOU_ZHEIGHTLEVELING F6000                ; Move Z axis just below top
+G1 Z305 F6000                ; Move Z axis just below top
 M913 Z40                     ; Reduce Z motor current to 30% of set current
 G91                          ; Relative positioning
 G1 H1 Z15 F300               ; Move Z axis 20mm up slowly levling the X gantry
 M913 Z100                    ; Return Z motor current to 100% of set current
 G90                          ; Absolute positioning
 M564 S1                      ; Enable minimum and maximum axis limits
-M208 X256.9 Y214 #CARIBOU_ZHEIGHT S0  ; set axis maxima
-G1 X11.5 Y4.5 F6000          ; go to first probe point
+M208 X256.9 Y214 Z316.50 S0  ; set axis maxima
+G1 X11.5 Y4.5 Z10.0 F6000    ; go to first probe point
+M400	     	             ; wait for current moves to finish
 G30                          ; Probe bed
 ;
 ; =========================================================================================================

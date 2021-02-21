@@ -4,12 +4,12 @@
 ;
 ; =========================================================================================================
 ;
-if sensors.filamentMonitors[0].enabled = true                         ; if filament sensor is active
-    if sensors.filamentMonitors[0].status = "ok"                      ; if filament is loaded
+if sensors.filamentMonitors[0].enabled = true                            ; if filament sensor is active
+    if sensors.filamentMonitors[0].status = "ok"                         ; if filament is loaded
         M291 P{"Filament Sensor Status: ON, Filament: LOADED "  } S2
-    else 
+    else                                                                 ; filament not loadad
         M291 P{"Filament Sensor Status: ON, Filament: NOT LOADED "  } S2
-else
+else                                                                     ; filament sensor not active
     M291 P{"Filament Sensor Status: OFF"  } S2
 ;
 ; =========================================================================================================

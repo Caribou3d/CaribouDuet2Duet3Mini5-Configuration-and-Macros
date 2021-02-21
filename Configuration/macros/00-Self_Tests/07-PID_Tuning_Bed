@@ -1,17 +1,16 @@
 ; =========================================================================================================
-;
 ; Test Routine for Duet WiFi
 ; Part of self check
 ;
-; PID tuning Nozzle
+; PID tuning Heated bed
 ;
 ; =========================================================================================================
 ;
-M291 P"PID tuning of nozzle" S2
+M291 P"PID tuning of heated bed" S2
 ;
-M291 P"Press OK if target for nozzle is 215°C." R"PID tuning nozzle" S3
+M291 P"Press OK if target for heated bed is 60°C." R"PID tuning heated bed" S3
 ;
-M303 H1 S215
+M303 H0 S60
 M500         ; save to config-override.g
 ;
 ; =========================================================================================================
