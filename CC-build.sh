@@ -105,9 +105,12 @@ echo ""
 GIT_COMMIT_NUMBER=$(git rev-list HEAD --count)
 
 # Find firmware version in config.g file and use it to generate the output folder
-CC=$(grep --max-count=1 "\bRelease\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d '"' -f2|sed 's/\.//g')
+CCDOT=$(grep --max-count=1 "\bRelease\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d '"' -f2)
+CC=$(echo $CCDOT | sed 's/\.//g' )
+
 # Find build version in config.g file and use it to generate the output folder
 BUILD=$(grep --max-count=1 "\bBuild\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d ' ' -f4)
+
 
 if [ "$BUILD" == "$GIT_COMMIT_NUMBER" ] ; then
 	echo "CC_COMMIT in config.g is identical to current git commit number"
@@ -452,7 +455,13 @@ do
 	echo
 	echo '   creating zip file for macros ....'
 
-	MacroOutputPath=$SCRIPT_PATH/Configuration/macros/processed
+	MacrosDir=$SCRIPT_PATH/Configuration/macros
+	MacroOutputPath=$MacrosDir/processed
+
+	sed "
+	{s/#CARIBOUDUETVERSION/$CCDOT/};
+	{s/#CARIBOUDUETBUILD/$BUILD/};
+	" < $MacrosDir/04-CaribouDuetVersion > $MacroOutputPath/04-CaribouDuetVersion
 
 	if [ $TARGET_OS == "windows" ]; then
 	    zip a $VARIANTOUTPUT/macros.zip $MacroOutputPath/* | tail -4
@@ -463,7 +472,7 @@ do
 	fi
 	rm -fr $MacroOutputPath
 
-	echo
+	echoS
 	echo '   ... done'
 
 	# =========================================================================================================
