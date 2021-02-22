@@ -26,10 +26,8 @@
 #
 # =========================================================================================================
 #
-
 #### Start check if OSTYPE is supported
 OS_FOUND=$( command -v uname)
-
 case $( "${OS_FOUND}" | tr '[:upper:]' '[:lower:]') in
   linux*)
     TARGET_OS="linux"
@@ -74,7 +72,6 @@ else
 fi
 #sleep 2
 #### End check if OSTYPE is supported
-
 # Check for zip
 if ! type zip > /dev/null; then
 	if [ $TARGET_OS == "windows" ]; then
@@ -91,28 +88,21 @@ if ! type zip > /dev/null; then
 		exit 3
 	fi
 fi
-
 #### Set build environment
 BUILD_ENV="0.1"
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
-
 # List few useful data
 echo
 echo "Script path :" $SCRIPT_PATH
 echo "OS          :" $OS
 echo ""
-
 # Get Commit_Number
 GIT_COMMIT_NUMBER=$(git rev-list HEAD --count)
-
 # Find firmware version in config.g file and use it to generate the output folder
 CCDOT=$(grep --max-count=1 "\bRelease\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d '"' -f2)
 CC=$(echo $CCDOT | sed 's/\.//g' )
-
 # Find build version in config.g file and use it to generate the output folder
 BUILD=$(grep --max-count=1 "\bBuild\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d ' ' -f4)
-
-
 if [ "$BUILD" == "$GIT_COMMIT_NUMBER" ] ; then
 	echo "CC_COMMIT in config.g is identical to current git commit number"
 else
@@ -122,9 +112,7 @@ else
 		read -t 2 -p "Press Enter to continue..."
 	fi
 fi
-
 echo
-
 # First argument defines which variant of the CaribouDuet configuration will be build
 if [ -z "$1" ] ; then
 	# Select which variant of the CaribouDuet configuration will be build, like
@@ -164,15 +152,12 @@ else
 		exit 21
 	fi
 fi
-
 # =========================================================================================================
 	# create zip file for gcodes (sample prints)
 	echo
 	echo 'creating zip file for gcodes (sample prints) ....'
-
 	GCODESPATH=$SCRIPT_PATH/Configuration/gcodes
 	GCODESOUTPUT=$GCODESPATH/processed
-
 	# prepare output folder
 	if [ ! -d "$GCODESOUTPUT" ]; then
 		mkdir -p $GCODESOUTPUT || exit 27
@@ -188,10 +173,8 @@ fi
               zip -r $GCODESOUTPUT/gcodes.zip *.gcode | tail -4
            popd
 	fi
-
 	echo
 	echo '   ... done'
-
 # =========================================================================================================
 #
 # generate files for first layer calibration
@@ -199,21 +182,17 @@ fi
 echo
 echo 'creating macros for first layer calibration ...'
 echo
-
 # =========================================================================================================
 #
 # set output
 #
-
 FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/01-First_Layer_Calibration
 FIRSTLAYEROUTPUT=$FIRSTLAYERPATH/processed
-
 # read existing variants
 while IFS= read -r -d $'\0' f; do
 	FIRSTLAYERoptions[i++]="$f"
 done < <(find $FIRSTLAYERPATH/*.h -maxdepth 1 -type f -name "*" -print0 )
 FIRSTLAYERVARIANTS=${FIRSTLAYERoptions[*]}
-
 # prepare output folder
 if [ ! -d "$FIRSTLAYEROUTPUT" ]; then
 	mkdir -p $FIRSTLAYEROUTPUT || exit 27
@@ -221,44 +200,33 @@ else
 	rm -fr $FIRSTLAYEROUTPUT || exit 27
 	mkdir -p $FIRSTLAYEROUTPUT || exit 27
 fi
-
 i=1
 for v in ${FIRSTLAYERVARIANTS[*]}
 do
-
 	VARIANT=$(basename "$v" ".h")
-
 	# read filament definition
 	source $FIRSTLAYERPATH/$VARIANT.h
 	i=$((i+1))
-
 	echo 'generating file for:' $FILAMENTNAME
-
 	# create FIRSTLAYER files
 	sed "
 	{s/#FILAMENT_NAME/${FILAMENTNAME}/g};
 	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g};
 	{s/#BED_TEMPERATURE/${BED_TEMPERATURE}/g}
 	" < $FIRSTLAYERPATH/FirstLayerStart > $FIRSTLAYEROUTPUT/0$i-$FILAMENTNAME-$FILAMENT_TEMPERATURE
-
 	if [ ! -d "$FIRSTLAYEROUTPUT/gcodes" ]; then
 		mkdir -p $FIRSTLAYEROUTPUT/gcodes || exit 27
 	fi
-
 	sed "
 	{s/#FILAMENT_NAME/${FILAMENTNAME}/g};
 	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g};
 	{s/#BED_TEMPERATURE/${BED_TEMPERATURE}/g}
 	" < $FIRSTLAYERPATH/FirstLayerCalibration.gcode > $FIRSTLAYEROUTPUT/gcodes/$FILAMENTNAME-FirstLayerCalibration.gcode
-
 		# copy *_Trigger_Height to processed
 	cp $FIRSTLAYERPATH/*Trigger_Height $FIRSTLAYEROUTPUT
-
 done
-
 echo
 echo '... done'
-
 # =========================================================================================================
 #
 # generate files for preheat menu
@@ -266,21 +234,17 @@ echo '... done'
 echo
 echo 'creating macros for preheat menu ...'
 echo
-
 # =========================================================================================================
 #
 # set output
 #
-
 PREHEATPATH=$SCRIPT_PATH/Configuration/macros/02-Preheat
 PREHEATOUTPUT=$PREHEATPATH/processed
-
 # read existing variants
 while IFS= read -r -d $'\0' f; do
 	preheatoptions[i++]="$f"
 done < <(find $PREHEATPATH/*.h -maxdepth 1 -type f -name "*" -print0 )
 PREHEATVARIANTS=${preheatoptions[*]}
-
 # prepare output folder
 if [ ! -d "$PREHEATOUTPUT" ]; then
 	mkdir -p $PREHEATOUTPUT || exit 27
@@ -288,65 +252,47 @@ else
 	rm -fr $PREHEATOUTPUT || exit 27
 	mkdir -p $PREHEATOUTPUT || exit 27
 fi
-
 i=0
 for v in ${PREHEATVARIANTS[*]}
 do
-
 	VARIANT=$(basename "$v" ".h")
-
 	# read filament definition
 	source $PREHEATPATH/$VARIANT.h
 	i=$((i+1))
-
 	echo 'generating file for:' $FILAMENTNAME
-
 	# create preheat files
 	sed "
 	{s/#FILAMENT_NAME/${FILAMENTNAME}/g};
 	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g}
 	" < $PREHEATPATH/Preheat > $PREHEATOUTPUT/0$i-$FILAMENTNAME-$FILAMENT_TEMPERATURE
-
 done
-
 echo
 echo '... done'
-
 cp $PREHEATPATH/Cooldown $PREHEATOUTPUT
-
 # =========================================================================================================
-
 # generate files for filaments folder
 #
 #
 echo
 echo 'creating filament macros ...'
 echo
-
 # read existing variants
 while IFS= read -r -d $'\0' f; do
 	filamentoptions[i++]="$f"
 done < <(find Configuration/filaments/*.h -maxdepth 1 -type f -name "*" -print0 )
 FILAMENTVARIANTS=${filamentoptions[*]}
-
 for v in ${FILAMENTVARIANTS[*]}
 do
-
 	VARIANT=$(basename "$v" ".h")
-
 	# =========================================================================================================
 	#
 	# set output
 	#
-
 	FILAMENTPATH=$SCRIPT_PATH/Configuration/filaments
 	FILAMENTOUTPUT=$FILAMENTPATH/processed
-
 	# read filament definition
 	source $FILAMENTPATH/$VARIANT.h
-
 	echo 'generating files for:' $FILAMENTNAME
-
 	# prepare output folder
 	if [ ! -d "$SCRIPT_PATH/filaments/$FILAMENTNAME" ]; then
 		mkdir -p $FILAMENTOUTPUT/$FILAMENTNAME || exit 27
@@ -354,26 +300,21 @@ do
 		rm -fr $FILAMENTOUTPUT/$FILAMENTNAME || exit 27
 		mkdir -p $FILAMENTOUTPUT/$FILAMENTNAME || exit 27
 	fi
-
 	# create load.g
 	sed "
 	{s/#FILAMENT_NAME/${FILAMENTNAME}/};
 	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g}
 	" < $FILAMENTPATH/load.g > $FILAMENTOUTPUT/$FILAMENTNAME/load.g
-
 	# create load.g
 	sed "
 	{s/#FILAMENT_NAME/${FILAMENTNAME}/};
 	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g}
 	" < $FILAMENTPATH/unload.g > $FILAMENTOUTPUT/$FILAMENTNAME/unload.g
-
 	# create config.g
 	cp $FILAMENTPATH/config.g $FILAMENTOUTPUT/$FILAMENTNAME/
 done
-
 echo
 echo '   creating zip file for filaments ....'
-
 # create zip file for filaments
 if [ $TARGET_OS == "windows" ]; then
    zip a $FILAMENTOUTPUT/filaments.zip $FILAMENTOUTPUT/* | tail -4
@@ -381,28 +322,21 @@ else
     pushd $FILAMENTOUTPUT
    zip -r $FILAMENTOUTPUT/filaments.zip * | tail -4
 fi
-
 echo
 echo '   ... done'
 echo '... done'
-
 # =========================================================================================================
-
 echo
 echo 'generating configurations and macros ....'
 echo
-
 BUILDPATH=$SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD
-
 # Prepare config files folders
 if [ ! -d "$BUILDPATH" ]; then
 	mkdir -p $BUILDPATH || exit 27
 fi
-
 for v in ${VARIANTS[*]}
 do
 	VARIANT=$(basename "$v" ".sh")
-
 	#List some useful data
 	echo "$(tput setaf 2)$(tput setab 7)"
 	echo "Variant       :" $VARIANT
@@ -410,10 +344,8 @@ do
 	echo "Build #       :" $BUILD
 	echo "Config Folder :" "CC-build/CC$CC-Build$BUILD"
 	echo "$(tput sgr0)"
-
 	BUILDPATH=$SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD
 	VARIANTOUTPUT=$BUILDPATH/$VARIANT
-
 	# prepare output folder
 	if [ ! -d "$VARIANTOUTPUT" ]; then
 		mkdir -p $VARIANTOUTPUT || exit 27
@@ -421,25 +353,19 @@ do
 		rm -fr $VARIANTOUTPUT || exit 27
 		mkdir -p $VARIANTOUTPUT || exit 27
 	fi
-
 	# copy filament.zip to build directory
 	cp $FILAMENTOUTPUT/filaments.zip $VARIANTOUTPUT
-
 	# =========================================================================================================
 	# run script to generate config.g and change macros
 	
 	cd $SCRIPT_PATH/Configuration/sys/variants/
 	$SCRIPT_PATH/Configuration/sys/variants/$VARIANT.sh
-
 	# =========================================================================================================
-
 	# =========================================================================================================
 	# create zip file for sys and remove processed files
 	echo
 	echo '   creating zip file for sys ....'
-
 	SysOutputPath=$SCRIPT_PATH/Configuration/sys/processed
-
 	if [ $TARGET_OS == "windows" ]; then
 	    zip a $VARIANTOUTPUT/sys.zip $SysOutputPath/* | tail -4
 	else
@@ -450,20 +376,16 @@ do
 	rm -fr $SysOutputPath
 	echo
 	echo '   ... done'
-
 	# =========================================================================================================
 	# create zip file for macros an remove processed files
 	echo
 	echo '   creating zip file for macros ....'
-
 	MacrosDir=$SCRIPT_PATH/Configuration/macros
 	MacroOutputPath=$MacrosDir/processed
-
 	sed "
 	{s/#CARIBOUDUETVERSION/$CCDOT/};
 	{s/#CARIBOUDUETBUILD/$BUILD/};
 	" < $MacrosDir/04-CaribouDuetVersion > $MacroOutputPath/04-CaribouDuetVersion
-
 	if [ $TARGET_OS == "windows" ]; then
 	    zip a $VARIANTOUTPUT/macros.zip $MacroOutputPath/* | tail -4
 	else
@@ -472,25 +394,19 @@ do
 	    popd
 	fi
 	rm -fr $MacroOutputPath
-
 	echoS
 	echo '   ... done'
-
 	# =========================================================================================================
 	# copy zip file for gcodes (sample prints)
 	echo
 	echo '   copying zip file for GCODESs (sample prints) ....'
-
 	cp $GCODESOUTPUT/gcodes.zip $VARIANTOUTPUT
-
 	echo
 	echo '   ... done'
-
 	# =========================================================================================================
 	# create zip-file for configuration
 	echo
 	echo '   creating zip file for configuration ....'
-
 	if [ $TARGET_OS == "windows" ]; then
 	    zip a $BUILDPATH/CC$CC-$VARIANT-Build$BUILD.zip  $VARIANTOUTPUT/*.zip | tail -4
 	else
@@ -500,15 +416,11 @@ do
 	fi
 	echo
 	echo '   ... done'
-
 	echo
 	echo '... done'
-
 done
-
 # housekeeping: delete filament folders in source directory
 rm -fr $GCODESOUTPUT
 rm -fr $FIRSTLAYEROUTPUT
 rm -fr $PREHEATOUTPUT
 rm -fr $FILAMENTOUTPUT
-

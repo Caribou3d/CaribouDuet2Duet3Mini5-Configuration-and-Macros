@@ -19,7 +19,7 @@ while iterations <=2                                       ; Perform 3 passes.
    M400                                                    ; Finish all moves, clear the buffer.
 ;
 M558 F50 A5 S-1                                            ; Slow the z-probe, perform 5 probes and yield the average.
-while move.calibration.initial.deviation >= 0.005          ; Perform additional leveling if previous deviation was over 0.003mm. 
+while move.calibration.initial.deviation >= 0.005          ; Perform additional leveling if previous deviation was over 0.003mm.
    if iterations = 5                                       ; Perform 5 addition checks, if needed.
       M300 S3000 P500                                      ; Sound alert, the required deviation could not be achieved.
       M558 F200 A1                                         ; Set normal z-probe speed.
