@@ -6,6 +6,7 @@
 ;
 M291 P"Heating up for #FILAMENT_NAME. Press OK to continue or CANCEL to abort." R"#FILAMENT_NAME at #FILAMENT_TEMPERATURE°C" S3
 ;
+T0                                            ; select tool 0
 G91                                           ; relative positioning
 G1 Z20 F6000 H2                               ; lift Z relative to current position
 G90                                           ; absolute positioning
