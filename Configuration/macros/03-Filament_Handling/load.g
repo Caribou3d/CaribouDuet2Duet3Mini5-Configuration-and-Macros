@@ -16,8 +16,4 @@ G1 E-0.5 F200	       ; Retract 0.5mm of filament at 400mm/min
 M291 P"..... done" T30
 M400                   ; Wait for the moves to finish
 ;
-M104 S0                ; turn off temperature
-M140 S0                ; turn off heatbed
-M107                   ; turn off fan
-;
 ; =========================================================================================================
