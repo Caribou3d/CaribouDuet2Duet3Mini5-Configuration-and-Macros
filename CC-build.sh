@@ -204,7 +204,7 @@ echo
 # set output
 #
 
-FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/02-First_Layer_Calibration
+FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/01-First_Layer_Calibration
 FIRSTLAYEROUTPUT=$FIRSTLAYERPATH/processed
 
 # read existing variants
@@ -271,7 +271,7 @@ echo
 # set output
 #
 
-PREHEATPATH=$SCRIPT_PATH/Configuration/macros/03-Preheat
+PREHEATPATH=$SCRIPT_PATH/Configuration/macros/02-Preheat
 PREHEATOUTPUT=$PREHEATPATH/processed
 
 # read existing variants
