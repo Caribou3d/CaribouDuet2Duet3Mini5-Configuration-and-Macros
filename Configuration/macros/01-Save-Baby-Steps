@@ -8,7 +8,6 @@
 ;
 ; Ensure M501 exists in 0:/sys/config, or manually edit the G31 Z offset, to make this change permanent.
 ;
-;
 ; =========================================================================================================
 ;
 if state.status != "processing"                                      ; Printer is not currently printing!

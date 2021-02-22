@@ -18,6 +18,7 @@
 # 24 Jan 2021, wschadow, added generation for filament dependant files for first layer calibration
 # 30 Jan 2021, wschadow, added copying of sample gcodes
 # 17 Feb 2021, wschadow, distinguish zip commands for different OS
+# 22 Def 2021, wschadow, added generation of .g file that display the version and build number
 #
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3.
