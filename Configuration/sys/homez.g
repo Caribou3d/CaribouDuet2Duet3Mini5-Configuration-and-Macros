@@ -48,7 +48,7 @@ G90                               ; absolute positioning
 ;
 G90                               ; absolute positioning
 ; #CARIBOU_ZPROBE
-G1 X11.5 Y4.5 F6000               ; go to first probe point
+#CARIBOU_MEASUREPOINT
 G30                               ; home Z by probing the bed
 G1 Z0.15 F100                     ; move Z to origin
 G91                               ; relative positioning
