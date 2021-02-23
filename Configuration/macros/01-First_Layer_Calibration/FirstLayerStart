@@ -8,6 +8,6 @@ M291 P"First layer calibration for #FILAMENT_NAME. Press OK to continue or CANCE
 ;
 ;====== print meander and square ==========================================================================
 ;
-M32 0:/macros/02-First_Layer_Calibration/gcodes/#FILAMENT_NAME-FirstLayerCalibration.gcode
+M32 0:/macros/01-First_Layer_Calibration/gcodes/#FILAMENT_NAME-FirstLayerCalibration.gcode
 ;
 ;====== end meander and square ============================================================================
