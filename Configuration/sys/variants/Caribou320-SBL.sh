@@ -61,6 +61,7 @@ sed "
 
 # replacemente SE thermistor
 sed -i "
+{/#CARIBOU_HOTEND_THERMISTOR/ c\
 ; Hotend (Mosquito or Mosquito Magnum with SE Thermistor) \\
 ;\\
 M308 S1 P\"e0temp\" Y\"thermistor\" T500000 B4723 C1.19622e-7 A\"Nozzle\"   ; SE configure sensor 0 as thermistor on pin e0temp\\
