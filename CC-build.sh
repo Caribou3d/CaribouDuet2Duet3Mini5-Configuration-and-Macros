@@ -394,7 +394,7 @@ do
 	    popd
 	fi
 	rm -fr $MacroOutputPath
-	echoS
+	echo
 	echo '   ... done'
 	# =========================================================================================================
 	# copy zip file for gcodes (sample prints)
