@@ -18,7 +18,8 @@
 # 24 Jan 2021, wschadow, added generation for filament dependant files for first layer calibration
 # 30 Jan 2021, wschadow, added copying of sample gcodes
 # 17 Feb 2021, wschadow, distinguish zip commands for different OS
-# 22 Def 2021, wschadow, added generation of .g file that display the version and build number
+# 22 Feb 2021, wschadow, added generation of .g file that display the version and build number
+# 15 Mar 2021, wschadow, updated path of macros for displaying current version
 #
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -385,7 +386,7 @@ do
 	sed "
 	{s/#CARIBOUDUETVERSION/$CCDOT/};
 	{s/#CARIBOUDUETBUILD/$BUILD/};
-	" < $MacrosDir/04-CaribouDuetVersion > $MacroOutputPath/04-CaribouDuetVersion
+	" < $MacrosDir/07-Maintenance/00-CaribouDuetVersion > $MacroOutputPath/07-Maintenance/00-CaribouDuetVersion
 	if [ $TARGET_OS == "windows" ]; then
 	    zip a $VARIANTOUTPUT/macros.zip $MacroOutputPath/* | tail -4
 	else
