@@ -9,7 +9,7 @@
 G90                      ; use absolute coordinates
 M83                      ; extruder relative mode
 ;
-G28 W                    ; home all without mesh bed level
+G28                      ; home all without mesh bed level
 G0 X60 Y-3 Z80           ; move extruder above bed keep extruder in front for cleaning and checking
 ;
 M104 S160 T0             ; pre-heat extruder to 160C

@@ -2,7 +2,7 @@
 ;
 ;   Level the X gantry by ramming at lower motor current against the Z toppers
 ;
-;   for Caribou320- E3d Thermistor - PINDA2
+;   #CARIBOU_VARIANT
 ;
 ; =========================================================================================================
 ;
