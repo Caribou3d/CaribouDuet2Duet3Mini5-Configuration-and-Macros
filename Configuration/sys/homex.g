@@ -9,7 +9,6 @@ M98 P"current-sense-homing.g"     ; Ensure the current and sensitivity is set fo
 ;
 G1 H2 X0.5 F10000                 ; energise motor to ensure they are not stalled
 M400                              ; wait for current moves to finish
-M913 X40 Y40                      ; drop motor current to 40%
 G4 P200                           ; wait 200ms
 ;
 G1 H2 Z5 F6000                    ; lift Z relative to current position
@@ -22,7 +21,6 @@ G1 H1 X-10 F3000                  ; move slowly to X axis endstop once more (sec
 G1 H2 Z-5 F6000                   ; lower Z again
 ;
 M400                              ; wait for current moves to finish
-M913 X100 Y100                    ; return X & Y motor currents to 100%
 G4 P200                           ; wait 200ms
 ;
 G90                               ; absolute positioning
