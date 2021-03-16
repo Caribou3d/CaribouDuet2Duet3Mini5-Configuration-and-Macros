@@ -6,8 +6,8 @@
 ;
 ; for #CARIBOU_VARIANT
 ;
-; CariboDuetConfiguration Release : "1.2.7"
-;                           Build :   123
+; CariboDuetConfiguration Release : "1.2.8"
+;                           Build :   126
 ;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -65,7 +65,7 @@ M564 H0                                                ; Allow unhomed movement
 ; =========================================================================================================
 ;
 M208 X-2 Y-7.5 Z0 S1                                   ; set axis minima
-M208 X256.9 Y214 #CARIBOU_ZHEIGHT S0                            ; set axis maxima
+M208 X254.6 Y214 #CARIBOU_ZHEIGHT S0                            ; set axis maxima
 ;
 ; =========================================================================================================
 ; Endstops

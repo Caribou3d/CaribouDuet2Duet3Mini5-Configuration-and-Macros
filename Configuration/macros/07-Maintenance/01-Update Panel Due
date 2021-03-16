@@ -6,7 +6,7 @@
 ;
 ; =========================================================================================================
 ;
-M291 P"Updating frimware for PanelDue. Press OK to continue or CANCEL to abort." R"Make sure you loaded PanelDueFirmware.bin to sys folder." S3
+M291 P"Updating firmware for PanelDue. Press OK to continue or CANCEL to abort." R"Make sure you loaded PanelDueFirmware.bin to sys folder." S3
 M997 S4
 ;
 ; =========================================================================================================
