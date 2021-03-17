@@ -23,7 +23,7 @@ M552 S1                                                ; enable network
 M586 P0 S1                                             ; enable HTTP
 M586 P1 S1                                             ; enable FTP
 M586 P2 S0                                             ; disable Telnet
-M575 P1 S1 B57600                                      ; Enable support for PanelDue
+M575 P1 S1 B57600                                      ; enable support for PanelDue
 ;
 ; =========================================================================================================
 ; Drives
@@ -58,7 +58,7 @@ M203 X9000.00 Y9000.00 Z1000.00 E3600.00               ; set maximum speeds (mm/
 M204 P500.0 T500.0                                     ; set print and travel accelerations (mm(s^2)
 M566 X480.00 Y480.00 Z48.00 E300.00                    ; set maximum instantaneous speed changes (mm/min)
 ;
-M564 H0                                                ; Allow unhomed movement
+M564 H0                                                ; allow unhomed movement
 ;
 ; =========================================================================================================
 ; Axis Limits
