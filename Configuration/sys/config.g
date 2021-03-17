@@ -84,13 +84,13 @@ M591 D0 P2 C"e0_stop" S1                               ; configure extruder ends
 ;
 ; =========================================================================================================
 ;
-M574 Z1 S2                                             ; Set endstops controlled by probe
+M574 Z1 S2                                             ; set endstops controlled by probe
 ;
 ; Stallguard Sensitivy
 ;
-M915 X S2 F0 H400 R0                                   ; Set X axis Sensitivity
-M915 Y S1 F0 H400 R0                                   ; Set Y axis Sensitivity
-M915 Z S0 F0 H200 R0                                   ; Set Z axis Sensitivity
+M915 X S2 F0 H400 R0                                   ; set X axis Sensitivity
+M915 Y S1 F0 H400 R0                                   ; set Y axis Sensitivity
+M915 Z S0 F0 H200 R0                                   ; set Z axis Sensitivity
 ;
 ;
 ; =========================================================================================================
