@@ -1,6 +1,6 @@
 ; =========================================================================================================
 ;
 M591 D0 P2 C"e0_stop" S1                           ; turn filament sensor off
-M291 P"Filament sensor is turned ON ..." S2        ; Display new message
+M291 P"Filament sensor is turned ON ..." S2        ; display new message
 ;
 ; =========================================================================================================

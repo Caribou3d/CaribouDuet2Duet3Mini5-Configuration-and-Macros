@@ -10,8 +10,8 @@ M291 P"PID tuning of nozzle" S2
 ;
 M291 P"Press OK if target for nozzle is 215°C." R"PID tuning nozzle" S3
 ;
-M303 H1 S215
-M500         ; save to config-override.g
+M303 H1 S215               ; start PID tuning for 215°C
+M500                       ; save to config-override.g
 ;
 ; =========================================================================================================
 

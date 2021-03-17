@@ -6,6 +6,6 @@
 ;
 M291 P"Creating initial height map. Press OK to continue or CANCEL to abort." S3
 ;
-G29 S0                            ; Probe the bed, save the height map in a file on the SD card
+G29 S0                            ; probe the bed, save the height map in a file on the SD card
 ;
 ; =========================================================================================================

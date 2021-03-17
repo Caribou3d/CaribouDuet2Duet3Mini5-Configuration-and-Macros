@@ -10,8 +10,8 @@ M291 P"PID tuning of heated bed" S2
 ;
 M291 P"Press OK if target for heated bed is 60°C." R"PID tuning heated bed" S3
 ;
-M303 H0 S60
-M500         ; save to config-override.g
+M303 H0 S60                ; start PID tuning for 60°C
+M500                       ; save to config-override.g
 ;
 ; =========================================================================================================
 
