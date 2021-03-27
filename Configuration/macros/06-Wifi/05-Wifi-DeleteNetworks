@@ -1,0 +1,20 @@
+; =========================================================================================================
+;
+; clear list of remembered network of Wifi module
+;
+; =========================================================================================================
+;
+M291 P"For Wifi access you have add a new network! Press OK to continue or CANCEL to abort." R"Clear list of remembered networks?" S3
+
+M291 R"Add Wifi network? Y/N" P"This will add a Wifi access point." S3 T10
+;
+M552 S-1                            ; disable Wifi module
+G4 S2                               ; wait 2 seconds
+M552 S0			                    ; enable Wifi module
+G4 S2  	                            ; wait 2 seconds
+M588 S"*"			                ; clear all saved wifi networls
+;
+M291 R"Wifi networks deleted." P"You must add a new Wifi network."
+;
+; =========================================================================================================
+;

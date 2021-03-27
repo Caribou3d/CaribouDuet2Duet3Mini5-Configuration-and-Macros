@@ -1,0 +1,20 @@
+; =========================================================================================================
+;
+; add network to remembered network list of Wifi module
+;
+; =========================================================================================================
+;
+M291 R"Add Wifi network? Y/N" P"This will add a Wifi access point." S3 T10
+;
+M552 S-1                            ; disable Wifi module
+G4 S2                               ; wait 2 seconds
+M552 S0			                    ; enable Wifi module
+G4 S2  	                            ; wait 2 seconds
+;M587 S"NETWORKNAME" P"PASSWORD"	; add Wifi SSID to remembered networks list
+G4 S2                               ; wait 2 seconds
+M552 S1                             ; start wifi module
+;
+M291 R"Wifi network added." P"Check console for IP address."
+;
+; =========================================================================================================
+;

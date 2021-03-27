@@ -11,7 +11,11 @@ M291 P"PID tuning of nozzle" S2
 M291 P"Press OK if target for nozzle is 215°C." R"PID tuning nozzle" S3
 ;
 M303 H1 S215               ; start PID tuning for 215°C
+;
+M291 S3 R"PID Tuning NOZZLE Complete" P"Check console for heater values. Values saved to config-Override.g"
+;
+M307 H1	                   ; report values for heater 1
 M500                       ; save to config-override.g
 ;
 ; =========================================================================================================
-
+;

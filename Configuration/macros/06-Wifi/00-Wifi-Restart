@@ -1,0 +1,15 @@
+; =========================================================================================================
+;
+; stop and restart Wifi module
+;
+; =========================================================================================================
+;
+M291 P"Press OK to continue or CANCEL to abort." R"Restart Wifi module?" S3
+;
+M552 S0			; Disable network module
+G4 S5			; wait 5 seconds
+M552 S1			; Enable network module
+;
+M291 P"Wifi module reset. Check console or DWC."
+;
+; =========================================================================================================
