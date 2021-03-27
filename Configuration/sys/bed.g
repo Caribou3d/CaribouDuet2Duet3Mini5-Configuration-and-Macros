@@ -10,11 +10,11 @@
 M561                                                   ; clear any existing bed transform
 G28                                                    ; home all axis
 ;
-M558 F50 A5 S0.005                                     ; slow z-probe, up to 5 probes until disparity is 0.003 or less - else yield average
+M558 F50 A5 S0.003                                     ; slow z-probe, up to 5 probes until disparity is 0.003 or less - else yield average
 while iterations <=2                                   ; perform 3 passes
    G30 P0 X25 Y105 Z-99999                             ; probe near a leadscrew, half way along Y axis
    G30 P1 X240 Y105 Z-99999 S2                         ; probe near a leadscrew and calibrate 2 motors
-   G1 X145 F10000                                      ; move to the center of the bed
+   G1 X125 F10000                                      ; move to the center of the bed
    G30                                                 ; probe the bed at the current xy position
    M400                                                ; finish all moves, clear the buffer
 ;
@@ -26,7 +26,7 @@ while move.calibration.initial.deviation >= 0.005      ; perform additional leve
       abort "!!! ABORTED !!! Failed to achieve < 0.005 deviation. Current deviation is " ^ move.calibration.initial.deviation ^ "mm."
       G30 P0 X25 Y105 Z-99999                          ; probe near a leadscrew, half way along Y axis
       G30 P1 X240 Y105 Z-99999 S2                      ; probe near a leadscrew and calibrate 2 motors
-   G1 X145 F10000                                      ; move the nozzle to the center of the bed
+   G1 X125 F10000                                      ; move the nozzle to the center of the bed
    G30                                                 ; probe the bed at the current XY position
    M400                                                ; finish all moves, clear the buffer
 
