@@ -29,8 +29,8 @@ while move.calibration.initial.deviation >= 0.005      ; perform additional leve
    G1 X125 F10000                                      ; move the nozzle to the center of the bed
    G30                                                 ; probe the bed at the current XY position
    M400                                                ; finish all moves, clear the buffer
-
-M558 F1000 A3 S0.01                                    ; set normal z-probe speed
+;
+#CARIBOU_ZPROBERESET
 ;
 echo "Gantry deviation of " ^ move.calibration.initial.deviation ^ "mm obtained."
 ;

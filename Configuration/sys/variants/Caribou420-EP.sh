@@ -44,6 +44,9 @@ find ../* -maxdepth 0  ! \( -name "*deploy*" -o -name "*retract*" -o -name "*pro
 
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{/#CARIBOU_ZPROBERESET/ c\
+M558 F600 T8000 A3 S0.003                              ; for PINDA2
+};
 " < ../bed.g > $SysOutputPath/bed.g
 
 #
