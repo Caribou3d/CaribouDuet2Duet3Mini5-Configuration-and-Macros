@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "1.2.11"
-;                           Build :   135
+;                           Build :   136
 ;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -47,7 +47,7 @@ M92 X200.00 Y200.00 Z400.00 E830.00                    ; set steps per mm
 ;
 ; set motor currents
 ;
-M906 X950 Y1000 Z650 E650 I40                          ; set motor currents (mA) and motor idle factor in per cent
+M906 X1100 Y1100 Z750 E650 I40                         ; set motor currents (mA) and motor idle factor in per cent
 ;
 M84 S60                                                ; Set idle timeout
 ;

@@ -47,7 +47,7 @@ sed "
 {s/G30 P0 X25 Y105 Z-99999/G30 P0 X10 Y105 Z-99999/};
 {s/G30 P1 X240 Y105 Z-99999 S2/G30 P1 X225 Y105 Z-99999 S2/};
 {/#CARIBOU_ZPROBERESET/ c\
-M558 F200 T8000 A1 S0.003                              ; for BL-Touch
+M558 F200 T8000 A1 S0.03                               ; for BL-Touch
 };
 " < ../bed.g > $SysOutputPath/bed.g
 
@@ -81,7 +81,7 @@ sed -i "
 ; BL-Touch \\
 ;\\
 M950 S0 C\"exp.heater3\"                                 ; sensor for BL-Touch\\
-M558 P9 C\"^zprobe.in\" H2.5 F200 T8000 A1 S0.003        ; for BL-Touch\\
+M558 P9 C\"^zprobe.in\" H2.5 F200 T8000 A1 S0.03         ; for BL-Touch\\
 M557 X90:220 Y50:205 P3                                ; define mesh grid
 };
 {/#CARIBOU_OFFSETS/ c\
