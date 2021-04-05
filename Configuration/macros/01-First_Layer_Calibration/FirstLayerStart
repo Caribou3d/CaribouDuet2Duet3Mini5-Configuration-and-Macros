@@ -4,7 +4,9 @@
 ;
 ; =========================================================================================================
 ;
-M291 P"First layer calibration for #FILAMENT_NAME. Press OK to continue or CANCEL to abort." R"#FILAMENT_NAME at #FILAMENT_TEMPERATURE°C" S3
+M291 P"First layer calibration for #FILAMENT_NAME. Settting probe offset to z=0.0! Press OK to continue or CANCEL to abort." R"#FILAMENT_NAME at #FILAMENT_TEMPERATURE°C" S3
+;
+G1 Z0                      ; set z-probe offset to 0
 ;
 ;====== print meander and square ==========================================================================
 ;
