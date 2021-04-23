@@ -1,10 +1,12 @@
 ; =========================================================================================================
 ;
-; set Wifimodule in idle mode
+; update Duet2 Wifi Webserver
+;
+; make sure that you have uploaded the current version of DuetWiFiServer.bin to sys
 ;
 ; =========================================================================================================
 ;
-M291 P"Press OK to continue or CANCEL to abort." R"Setting Wifi module into idle mode." S3
-M552 S0
+M291 P"Updating Duet2Wifi Webserver. Press OK to continue or CANCEL to abort." R"Make sure you loaded DuetWiFiServer.bin to sys folder." S3
+M997 S1
 ;
 ; =========================================================================================================

@@ -5,7 +5,8 @@
 ; =========================================================================================================
 ;
 G28                           ; home all axis without mesh bed level
-G0 X60 Y-3 Z80                ; move extruder above bed, keep extruder in front for cleaning and checking
+G0 X60 Y-3 Z80                ; move extruder above bed, 
+;                               keep extruder in front for cleaning and checking
 ;
 M104 S160 T0                  ; pre-heat extruder to 160°C
 M140 S[bed0_temperature]      ; this will take the layer 1 temperature for bed 0
