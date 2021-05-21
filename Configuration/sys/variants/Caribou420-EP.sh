@@ -4,10 +4,11 @@
 # definition for Caribou420- E3d Thermistor - PINDA2
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou420- E3d Thermistor - PINDA2"
+CARIBOU_VARIANT="Caribou420 Bondtech - E3d Thermistor - PINDA2"
 CARIBOU_NAME="Caribou420-EP"
 CARIBOU_ZHEIGHTLEVELING="Z405"
 CARIBOU_ZHEIGHT="Z416.50"
+CARIBOU_EESTEPS=830.00
 
 # set output for sys and macros
 #
@@ -58,6 +59,7 @@ sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/#CARIBOU_NAME/$CARIBOU_NAME/};
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/};
+{s/#CARIBOU_EESTEPS/$CARIBOU_EESTEPS/};
 " < ../config.g > $SysOutputPath/config.g
 
 # replacements for E3d thermistor

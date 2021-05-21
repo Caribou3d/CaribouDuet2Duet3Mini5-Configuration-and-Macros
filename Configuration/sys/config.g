@@ -6,7 +6,7 @@
 ;
 ; for #CARIBOU_VARIANT
 ;
-; CariboDuetConfiguration Release : "1.2.13"
+; CariboDuetConfiguration Release : "1.2.14"
 ;                           Build :   146
 ;
 ;
@@ -43,7 +43,7 @@ M671 X-36.5:293.5 Y0:0 S1.00                           ; leadscrews at left (con
 ; set Microsteps and steps / mm
 ;
 M350 X16 Y16 Z16 E16 I1                                ; configure microstepping with interpolation
-M92 X200.00 Y200.00 Z400.00 E830.00                    ; set steps per mm
+M92 X200.00 Y200.00 Z400.00 E#CARIBOU_EESTEPS                    ; set steps per mm
 ;
 ; set motor currents
 ;

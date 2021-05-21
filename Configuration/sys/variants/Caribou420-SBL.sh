@@ -4,10 +4,11 @@
 # definition for Caribou420- SE Thermistor - BL-Touch
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou420- SE Thermistor - BL-Touch"
+CARIBOU_VARIANT="Caribou420 Bondtech - SE Thermistor - BL-Touch"
 CARIBOU_NAME="Caribou420-SBL"
 CARIBOU_ZHEIGHTLEVELING="Z405"
 CARIBOU_ZHEIGHT="Z416.50"
+CARIBOU_EESTEPS=830.00
 
 # set output for sys and macros
 #
@@ -60,6 +61,7 @@ sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/#CARIBOU_NAME/$CARIBOU_NAME/};
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/};
+{s/#CARIBOU_EESTEPS/$CARIBOU_EESTEPS/};
 " < ../config.g > $SysOutputPath/config.g
 
 # replacemente SE thermistor
