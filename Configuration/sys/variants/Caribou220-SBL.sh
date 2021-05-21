@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou220- SE Thermistor - BL-Touch
+# definition for Caribou220 Bondtech - SE Thermistor - BL-Touch
 # =========================================================================================================
 
 CARIBOU_VARIANT="Caribou220 Bondtech - SE Thermistor - BL-Touch"
@@ -9,6 +9,8 @@ CARIBOU_NAME="Caribou220-SBL"
 CARIBOU_ZHEIGHTLEVELING="Z205"
 CARIBOU_ZHEIGHT="Z216.50"
 CARIBOU_EESTEPS=830.00
+CARIBOU_INITIALLOAD=90
+CARIBOU_FINALUNLOAD=95
 
 # set output for sys and macros
 #
@@ -129,6 +131,20 @@ sed "
 {s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/}
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
 " < $MacrosDir/00-Level-X-Axis > $MacroOutputPath/00-Level-X-Axis
+
+# create load.g
+#
+sed "
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g}
+" < $MacrosDir/03-Filament_Handling/load.g > $MacroOutputPath/03-Filament_Handling/load.g
+
+# create unload.g
+#
+sed "
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{s/#CARIBOU_FINALUNLOAD/$CARIBOU_FINALUNLOAD/g}
+" < $MacrosDir/03-Filament_Handling/unload.g > $MacroOutputPath/03-Filament_Handling/unload.g
 
 # =========================================================================================================
 

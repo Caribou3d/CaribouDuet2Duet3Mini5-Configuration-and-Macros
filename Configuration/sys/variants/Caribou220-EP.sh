@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou220- E3d Thermistor - PINDA2
+# definition for Caribou220 Bondtech - E3d Thermistor - PINDA2
 # =========================================================================================================
 
 CARIBOU_VARIANT="Caribou220 Bondtech - E3d Thermistor - PINDA2"
@@ -9,6 +9,8 @@ CARIBOU_NAME="Caribou220-EP"
 CARIBOU_ZHEIGHTLEVELING="Z205"
 CARIBOU_ZHEIGHT="Z216.50"
 CARIBOU_EESTEPS=830.00
+CARIBOU_INITIALLOAD=90
+CARIBOU_FINALUNLOAD=95
 
 # set output for sys and macros
 #

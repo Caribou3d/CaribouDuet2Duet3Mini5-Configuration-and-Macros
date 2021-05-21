@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou220- E3d Thermistor - PINDA2
+# definition for Caribou420 LGX - E3d Thermistor - PINDA2
 # =========================================================================================================
 
 CARIBOU_VARIANT="Caribou420 LGX - E3d Thermistor - PINDA2"
@@ -9,6 +9,8 @@ CARIBOU_NAME="Caribou420-LGX-EP"
 CARIBOU_ZHEIGHTLEVELING="Z414"
 CARIBOU_ZHEIGHT="Z425.50"
 CARIBOU_EESTEPS=410.00
+CARIBOU_INITIALLOAD=40
+CARIBOU_FINALUNLOAD=45
 
 # set output for sys and macros
 #
@@ -124,6 +126,20 @@ sed "
 {s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/}
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
 " < $MacrosDir/00-Level-X-Axis > $MacroOutputPath/00-Level-X-Axis
+
+# create load.g
+#
+sed "
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g}
+" < $MacrosDir/03-Filament_Handling/load.g > $MacroOutputPath/03-Filament_Handling/load.g
+
+# create unload.g
+#
+sed "
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{s/#CARIBOU_FINALUNLOAD/$CARIBOU_FINALUNLOAD/g}
+" < $MacrosDir/03-Filament_Handling/unload.g > $MacroOutputPath/03-Filament_Handling/unload.g
 
 # =========================================================================================================
 
