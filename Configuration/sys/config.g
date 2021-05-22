@@ -6,8 +6,8 @@
 ;
 ; for #CARIBOU_VARIANT
 ;
-; CariboDuetConfiguration Release : "1.3.0"
-;                           Build :   160
+; CariboDuetConfiguration Release : "1.3.1"
+;                           Build :   161
 ;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
