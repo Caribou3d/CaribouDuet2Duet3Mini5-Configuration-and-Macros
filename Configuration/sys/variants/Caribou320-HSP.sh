@@ -1,16 +1,16 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou320 LGX - E3d Thermistor - PINDA2
+# definition for Caribou320 Bondtech - SE HT Thermistor - SuperPINDA
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou320 LGX - E3d Thermistor - PINDA2"
-CARIBOU_NAME="Caribou320-LGX-EP"
-CARIBOU_ZHEIGHTLEVELING="Z314"
-CARIBOU_ZHEIGHT="Z325.50"
-CARIBOU_EESTEPS=410.00
-CARIBOU_INITIALLOAD=40
-CARIBOU_FINALUNLOAD=45
+CARIBOU_VARIANT="Caribou320 Bondtech - SE HT Thermistor - SuperPINDA"
+CARIBOU_NAME="Caribou320-HSP"
+CARIBOU_ZHEIGHTLEVELING="Z305"
+CARIBOU_ZHEIGHT="Z316.50"
+CARIBOU_EESTEPS=830.00
+CARIBOU_INITIALLOAD=90
+CARIBOU_FINALUNLOAD=95
 
 # set output for sys and macros
 #
@@ -38,17 +38,16 @@ fi
 # create sys files
 # =========================================================================================================
 
-# copy sys files to processed folder (for PINDA except deployprobe and retractprobe)
+# copy sys files to processed folder (for SuperPINDA except deployprobe and retractprobe)
 find ../* -maxdepth 0  ! \( -name "*deploy*" -o -name "*retract*" -o -name "*processed*" -o -name "*variants*" \) -exec cp  -t $SysOutputPath {} +
 
 #
 # create bed.g
 #
-
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {/#CARIBOU_ZPROBERESET/ c\
-M558 F600 T8000 A3 S0.03                               ; for PINDA2
+M558 F600 T8000 A3 S0.03                               ; for SuperPINDA
 };
 " < ../bed.g > $SysOutputPath/bed.g
 
@@ -64,26 +63,25 @@ sed "
 {s/#CARIBOU_EESTEPS/$CARIBOU_EESTEPS/};
 " < ../config.g > $SysOutputPath/config.g
 
-# replacements for E3d thermistor
+# replacemente SE thermistor
 sed -i "
 {/#CARIBOU_HOTEND_THERMISTOR/ c\
-; Hotend (Mosquito or Mosquito Magnum with E3d Thermistor) \\
+; Hotend (Mosquito or Mosquito Magnum with SE Thermistor) \\
 ;\\
-M308 S1 P\"e0temp\" Y\"thermistor\" T100000 B4725 C7.060000e-8 R4700 A\"Nozzle E1\"  ; E3d configure sensor 0 as thermistor on pin e0temp\\
+M308 S1 P\"e0temp\" Y\"thermistor\" T500000 B4723 C1.19622e-7 A\"Nozzle\"   ; SE configure sensor 0 as thermistor on pin e0temp\\
 ;\\
 M950 H1 C\"e0heat\" T1                                        ; create nozzle heater output on e0heat and map it to sensor 2\\
 M307 H1 B0 S1.00                                            ; disable bang-bang mode for heater  and set PWM limit\\
-M143 H1 S280                                                ; set temperature limit for heater 1 to 280°C
+M143 H1 S365                                                ; set temperature limit for heater 1 to 365°C
 };
 " $SysOutputPath/config.g
 
-# replacements for PINDA2
+# replacements for SuperPINDA
 sed -i "
 {/#CARIBOU_ZPROBE/ c\
-; PINDA2 \\
+; SuperPINDA \\
 ;\\
-M558 P5 C\"zprobe.in\" H1.5 F600 T8000 A3 S0.03               ; set z probe to PINDA2\\
-M308 S2 P\"e1temp\" A\"Pinda V2\" Y\"thermistor\" T100000 B3950   ; temperature of PINDA2\\
+M558 P5 C\"zprobe.in\" H1.5 F600 T8000 A3 S0.03               ; set z probe to SuperPINDA\\
 M557 X23:235 Y5:186 S30.25:30                               ; define mesh grid
 };
 {/#CARIBOU_OFFSETS/ c\
@@ -97,7 +95,7 @@ G31 P1000 X23 Y5
 
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/}
-{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y-3 F6000                                     ; go to first probe point
+{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y4.5 F6000               ; go to first probe point/};
 {/#CARIBOU_ZPROBE/ c\
 ;
 };" < ../homez.g > $SysOutputPath/homez.g

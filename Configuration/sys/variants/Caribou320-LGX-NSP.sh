@@ -1,16 +1,16 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou220 Bondtech - E3d Thermistor - BL-Touch
+# definition for Caribou220 LGX - E3d/SE Thermistor - SuperPINDA
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou220 Bondtech - E3d Thermistor - BL-Touch"
-CARIBOU_NAME="Caribou220-EBL"
-CARIBOU_ZHEIGHTLEVELING="Z205"
-CARIBOU_ZHEIGHT="Z216.50"
-CARIBOU_EESTEPS=830.00
-CARIBOU_INITIALLOAD=90
-CARIBOU_FINALUNLOAD=95
+CARIBOU_VARIANT="Caribou220 LGX - E3d/SE Thermistor - SuperPINDA"
+CARIBOU_NAME="Caribou220-LGX-NSP"
+CARIBOU_ZHEIGHTLEVELING="Z214"
+CARIBOU_ZHEIGHT="Z225.50"
+CARIBOU_EESTEPS=410.00
+CARIBOU_INITIALLOAD=40
+CARIBOU_FINALUNLOAD=45
 
 # set output for sys and macros
 #
@@ -38,8 +38,8 @@ fi
 # create sys files
 # =========================================================================================================
 
-# copy sys files to processed folder
-find .. -maxdepth 1 -type f -exec cp -t $SysOutputPath {} +
+# copy sys files to processed folder (for PINDA except deployprobe and retractprobe)
+find ../* -maxdepth 0  ! \( -name "*deploy*" -o -name "*retract*" -o -name "*processed*" -o -name "*variants*" \) -exec cp  -t $SysOutputPath {} +
 
 #
 # create bed.g
@@ -47,10 +47,8 @@ find .. -maxdepth 1 -type f -exec cp -t $SysOutputPath {} +
 
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/G30 P0 X25 Y105 Z-99999/G30 P0 X10 Y105 Z-99999/};
-{s/G30 P1 X240 Y105 Z-99999 S2/G30 P1 X225 Y105 Z-99999 S2/};
 {/#CARIBOU_ZPROBERESET/ c\
-M558 F200 T8000 A1 S0.03                               ; for BL-Touch
+M558 F600 T8000 A3 S0.03                               ; for SuperPINDA
 };
 " < ../bed.g > $SysOutputPath/bed.g
 
@@ -66,7 +64,7 @@ sed "
 {s/#CARIBOU_EESTEPS/$CARIBOU_EESTEPS/};
 " < ../config.g > $SysOutputPath/config.g
 
-# replacemente E3d thermistor
+# replacements for E3d thermistor
 sed -i "
 {/#CARIBOU_HOTEND_THERMISTOR/ c\
 ; Hotend (Mosquito or Mosquito Magnum with E3d Thermistor) \\
@@ -79,17 +77,16 @@ M143 H1 S280                                                ; set temperature li
 };
 " $SysOutputPath/config.g
 
-# replacements for BL-Touch
+# replacements for SuperPINDA
 sed -i "
 {/#CARIBOU_ZPROBE/ c\
-; BL-Touch \\
+; SuperPINDA \\
 ;\\
-M950 S0 C\"exp.heater3\"                                 ; sensor for BL-Touch\\
-M558 P9 C\"^zprobe.in\" H2.5 F200 T8000 A1 S0.03         ; for BL-Touch\\
-M557 X10:220 Y1:176 P7                                 ; define mesh grid
+M558 P5 C\"zprobe.in\" H1.5 F600 T8000 A3 S0.03               ; set z probe to SuperPINDA\\
+M557 X23:235 Y5:186 S30.25:30                               ; define mesh grid
 };
 {/#CARIBOU_OFFSETS/ c\
-G31 X-24.3 Y-34.1
+G31 P1000 X23 Y5
 }
 " $SysOutputPath/config.g
 
@@ -98,19 +95,16 @@ G31 X-24.3 Y-34.1
 #
 
 sed "
-{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_MEASUREPOINT/G1 X148.5 Y142.5 F3600            ; go to center of the bed/};
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/}
+{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y-3 F6000                                     ; go to first probe point
 {/#CARIBOU_ZPROBE/ c\
-M280 P0 S160                      ; BLTouch, alarm release\\
-G4 P100                           ; BLTouch, delay for the release command
-};
-" < ../homez.g > $SysOutputPath/homez.g
+;
+};" < ../homez.g > $SysOutputPath/homez.g
 
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {/#CARIBOU_ZPROBE/ c\
-M280 P0 S160                           ; BLTouch, alarm release\\
-G4 P100                                ; BLTouch, delay for the release command
+;
 };
 " < ../start.g > $SysOutputPath/start.g
 
@@ -119,7 +113,7 @@ G4 P100                                ; BLTouch, delay for the release command
 # =========================================================================================================
 
 # copy macros directory to processed folder (for BL-Touch except the Print-Surface Macros)
-find $MacrosDir/* -maxdepth 0  ! \( -name "*First*" -o -name "*Preheat*" -o -name "*processed*" -o -name "*Print*" \) -exec cp -r -t  $MacroOutputPath {} \+
+find $MacrosDir/* -maxdepth 0  ! \( -name "*First*" -o -name "*Preheat*" -o -name "*processed*" -o -name "*Nozzle*" \) -exec cp -r -t  $MacroOutputPath {} \+
 cp -r $MacrosDir/01-First_Layer_Calibration/processed $MacroOutputPath/01-First_Layer_Calibration
 cp -r $MacrosDir/02-Preheat/processed $MacroOutputPath/02-Preheat
 
@@ -147,3 +141,4 @@ sed "
 " < $MacrosDir/03-Filament_Handling/unload.g > $MacroOutputPath/03-Filament_Handling/unload.g
 
 # =========================================================================================================
+

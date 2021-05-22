@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou320 Bondtech - E3d Thermistor - BL-Touch
+# definition for Caribou420 Bondtech  - E3d/SE Thermistor - BL-Touch
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou320 Bondtech - E3d Thermistor - BL-Touch"
-CARIBOU_NAME="Caribou320-EBL"
-CARIBOU_ZHEIGHTLEVELING="Z305"
-CARIBOU_ZHEIGHT="Z316.50"
+CARIBOU_VARIANT="Caribou420 Bondtech  - E3d/SE Thermistor - BL-Touch"
+CARIBOU_NAME="Caribou420-NBL"
+CARIBOU_ZHEIGHTLEVELING="Z405"
+CARIBOU_ZHEIGHT="Z416.50"
 CARIBOU_EESTEPS=830.00
 CARIBOU_INITIALLOAD=90
 CARIBOU_FINALUNLOAD=95
@@ -147,4 +147,3 @@ sed "
 " < $MacrosDir/03-Filament_Handling/unload.g > $MacroOutputPath/03-Filament_Handling/unload.g
 
 # =========================================================================================================
-

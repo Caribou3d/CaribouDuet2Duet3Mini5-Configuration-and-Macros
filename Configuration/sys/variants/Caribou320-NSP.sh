@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou220 Bondtech - E3d Thermistor - PINDA2
+# definition for Caribou320 Bondtech - E3d/SE Thermistor - SuperPINDA
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou220 Bondtech - E3d Thermistor - PINDA2"
-CARIBOU_NAME="Caribou220-EP"
-CARIBOU_ZHEIGHTLEVELING="Z205"
-CARIBOU_ZHEIGHT="Z216.50"
+CARIBOU_VARIANT="Caribou320 Bondtech - E3d/SE Thermistor - SuperPINDA"
+CARIBOU_NAME="Caribou320-NSP"
+CARIBOU_ZHEIGHTLEVELING="Z305"
+CARIBOU_ZHEIGHT="Z316.50"
 CARIBOU_EESTEPS=830.00
 CARIBOU_INITIALLOAD=90
 CARIBOU_FINALUNLOAD=95
@@ -38,17 +38,16 @@ fi
 # create sys files
 # =========================================================================================================
 
-# copy sys files to processed folder (for PINDA except deployprobe and retractprobe)
+# copy sys files to processed folder (for SuperPINDA except deployprobe and retractprobe)
 find ../* -maxdepth 0  ! \( -name "*deploy*" -o -name "*retract*" -o -name "*processed*" -o -name "*variants*" \) -exec cp  -t $SysOutputPath {} +
 
 #
 # create bed.g
 #
-
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {/#CARIBOU_ZPROBERESET/ c\
-M558 F600 T8000 A3 S0.03                               ; for PINDA2
+M558 F600 T8000 A3 S0.03                               ; for SuperPINDA
 };
 " < ../bed.g > $SysOutputPath/bed.g
 
@@ -77,13 +76,12 @@ M143 H1 S280                                                ; set temperature li
 };
 " $SysOutputPath/config.g
 
-# replacements for PINDA2
+# replacements for SuperPINDA
 sed -i "
 {/#CARIBOU_ZPROBE/ c\
-; PINDA2 \\
+; SuperPINDA \\
 ;\\
-M558 P5 C\"zprobe.in\" H1.5 F600 T8000 A3 S0.03               ; set z probe to PINDA2\\
-M308 S2 P\"e1temp\" A\"Pinda V2\" Y\"thermistor\" T100000 B3950   ; temperature of PINDA2\\
+M558 P5 C\"zprobe.in\" H1.5 F600 T8000 A3 S0.03               ; set z probe to SuperPINDA\\
 M557 X23:235 Y5:186 S30.25:30                               ; define mesh grid
 };
 {/#CARIBOU_OFFSETS/ c\
@@ -126,6 +124,20 @@ sed "
 {s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/}
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
 " < $MacrosDir/00-Level-X-Axis > $MacroOutputPath/00-Level-X-Axis
+
+# create load.g
+#
+sed "
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g}
+" < $MacrosDir/03-Filament_Handling/load.g > $MacroOutputPath/03-Filament_Handling/load.g
+
+# create unload.g
+#
+sed "
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{s/#CARIBOU_FINALUNLOAD/$CARIBOU_FINALUNLOAD/g}
+" < $MacrosDir/03-Filament_Handling/unload.g > $MacroOutputPath/03-Filament_Handling/unload.g
 
 # =========================================================================================================
 

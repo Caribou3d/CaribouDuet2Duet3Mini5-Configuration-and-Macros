@@ -1,11 +1,11 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou220 Bondtech - E3d Thermistor - SuperPINDA
+# definition for Caribou220 Bondtech - SE Thermistor - SuperPINDA
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou220 Bondtech - E3d Thermistor - SuperPINDA"
-CARIBOU_NAME="Caribou220-ESP"
+CARIBOU_VARIANT="Caribou220 Bondtech - SE HT Thermistor - SuperPINDA"
+CARIBOU_NAME="Caribou220-HSP"
 CARIBOU_ZHEIGHTLEVELING="Z205"
 CARIBOU_ZHEIGHT="Z216.50"
 CARIBOU_EESTEPS=830.00
@@ -63,16 +63,16 @@ sed "
 {s/#CARIBOU_EESTEPS/$CARIBOU_EESTEPS/};
 " < ../config.g > $SysOutputPath/config.g
 
-# replacements for E3d thermistor
+# replacemente SE thermistor
 sed -i "
 {/#CARIBOU_HOTEND_THERMISTOR/ c\
-; Hotend (Mosquito or Mosquito Magnum with E3d Thermistor) \\
+; Hotend (Mosquito or Mosquito Magnum with SE Thermistor) \\
 ;\\
-M308 S1 P\"e0temp\" Y\"thermistor\" T100000 B4725 C7.060000e-8 R4700 A\"Nozzle E1\"  ; E3d configure sensor 0 as thermistor on pin e0temp\\
+M308 S1 P\"e0temp\" Y\"thermistor\" T500000 B4723 C1.19622e-7 A\"Nozzle\"   ; SE configure sensor 0 as thermistor on pin e0temp\\
 ;\\
 M950 H1 C\"e0heat\" T1                                        ; create nozzle heater output on e0heat and map it to sensor 2\\
 M307 H1 B0 S1.00                                            ; disable bang-bang mode for heater  and set PWM limit\\
-M143 H1 S280                                                ; set temperature limit for heater 1 to 280°C
+M143 H1 S365                                                ; set temperature limit for heater 1 to 365°C
 };
 " $SysOutputPath/config.g
 

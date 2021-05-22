@@ -1,11 +1,11 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou420 Bondtech - SE Thermistor - PINDA2
+# definition for Caribou420 Bondtech - SE HT Thermistor - PINDA2
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou420 Bondtech - SE Thermistor - PINDA2"
-CARIBOU_NAME="Caribou420-SP"
+CARIBOU_VARIANT="Caribou420 Bondtech - SE HT Thermistor - PINDA2"
+CARIBOU_NAME="Caribou420-HP"
 CARIBOU_ZHEIGHTLEVELING="Z405"
 CARIBOU_ZHEIGHT="Z416.50"
 CARIBOU_EESTEPS=830.00

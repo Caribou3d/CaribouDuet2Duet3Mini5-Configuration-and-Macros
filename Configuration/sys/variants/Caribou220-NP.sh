@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou320 Bondtech - SE Thermistor - PINDA2
+# definition for Caribou220 Bondtech - E3d/SE Thermistor - PINDA2
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou320 Bondtech - SE Thermistor - PINDA2"
-CARIBOU_NAME="Caribou320-SP"
-CARIBOU_ZHEIGHTLEVELING="Z305"
-CARIBOU_ZHEIGHT="Z316.50"
+CARIBOU_VARIANT="Caribou220 Bondtech - E3d/SE Thermistor - PINDA2"
+CARIBOU_NAME="Caribou220-NP"
+CARIBOU_ZHEIGHTLEVELING="Z205"
+CARIBOU_ZHEIGHT="Z216.50"
 CARIBOU_EESTEPS=830.00
 CARIBOU_INITIALLOAD=90
 CARIBOU_FINALUNLOAD=95
@@ -44,6 +44,7 @@ find ../* -maxdepth 0  ! \( -name "*deploy*" -o -name "*retract*" -o -name "*pro
 #
 # create bed.g
 #
+
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {/#CARIBOU_ZPROBERESET/ c\
@@ -63,16 +64,16 @@ sed "
 {s/#CARIBOU_EESTEPS/$CARIBOU_EESTEPS/};
 " < ../config.g > $SysOutputPath/config.g
 
-# replacemente SE thermistor
+# replacements for E3d thermistor
 sed -i "
 {/#CARIBOU_HOTEND_THERMISTOR/ c\
-; Hotend (Mosquito or Mosquito Magnum with SE Thermistor) \\
+; Hotend (Mosquito or Mosquito Magnum with E3d Thermistor) \\
 ;\\
-M308 S1 P\"e0temp\" Y\"thermistor\" T500000 B4723 C1.19622e-7 A\"Nozzle\"   ; SE configure sensor 0 as thermistor on pin e0temp\\
+M308 S1 P\"e0temp\" Y\"thermistor\" T100000 B4725 C7.060000e-8 R4700 A\"Nozzle E1\"  ; E3d configure sensor 0 as thermistor on pin e0temp\\
 ;\\
 M950 H1 C\"e0heat\" T1                                        ; create nozzle heater output on e0heat and map it to sensor 2\\
 M307 H1 B0 S1.00                                            ; disable bang-bang mode for heater  and set PWM limit\\
-M143 H1 S365                                                ; set temperature limit for heater 1 to 365°C
+M143 H1 S280                                                ; set temperature limit for heater 1 to 280°C
 };
 " $SysOutputPath/config.g
 
@@ -125,20 +126,6 @@ sed "
 {s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/}
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
 " < $MacrosDir/00-Level-X-Axis > $MacroOutputPath/00-Level-X-Axis
-
-# create load.g
-#
-sed "
-{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g}
-" < $MacrosDir/03-Filament_Handling/load.g > $MacroOutputPath/03-Filament_Handling/load.g
-
-# create unload.g
-#
-sed "
-{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_FINALUNLOAD/$CARIBOU_FINALUNLOAD/g}
-" < $MacrosDir/03-Filament_Handling/unload.g > $MacroOutputPath/03-Filament_Handling/unload.g
 
 # =========================================================================================================
 

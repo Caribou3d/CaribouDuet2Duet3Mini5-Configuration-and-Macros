@@ -8,8 +8,14 @@ Sorting order is height / Thermistor / Sensor
 
 ### Thermistor
 
+1. N = E3d thermistor and Slice Engineering thermistor (white cable) up to 300°C
+2. H = Slice Engineering High Temperature Thermistor (black cable)
+
+(old, before version 1.3.0)
+
 1. E = E3d thermistor
-2. S = Slice Engineering Thermistor
+2. S = Slice Engineering Thermistor (black cable)
+
 
 ### Sensor
 1. P = Pinda
