@@ -11,6 +11,7 @@
 #
 # Change log:
 # 12 Jan 2021, wschadow, initial version
+# 22 May 2021, wschadow, updated for new thermistor naming convention
 #
 # =========================================================================================================
 
@@ -22,7 +23,7 @@ Printer_Name="CaribouDuet"
 # Array of Heights
 declare -a HeightsArray=( 220 320 420)
 # Array of Thermistors
-declare -a ThermistorsArray=(E3d SE)
+declare -a ThermistorsArray=(E3d-SE SE-HT)
 # Array of Sensors
 declare -a SensorArray=(PINDA2 SUPERPINDA BL_TOUCH)
 # Main script
@@ -46,10 +47,10 @@ for HEIGHT in ${HeightsArray[@]}; do
 	for THERMISTOR in ${ThermistorsArray[@]}; do
 		case $THERMISTOR in
 				E3d)
-				THERMISTOR_SHORT='E'
+				THERMISTOR_SHORT='N'
 			;;
 				SE)
-				THERMISTOR_SHORT='S'
+				THERMISTOR_SHORT='H'
 			;;
 		esac
 		for SENSOR_TYPE in ${SensorArray[@]}; do
