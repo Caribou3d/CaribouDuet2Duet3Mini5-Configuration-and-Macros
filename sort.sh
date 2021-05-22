@@ -46,10 +46,10 @@ echo "Dest. Path: "$Destination_Path
 for HEIGHT in ${HeightsArray[@]}; do
 	for THERMISTOR in ${ThermistorsArray[@]}; do
 		case $THERMISTOR in
-				E3d)
+				E3d-SE)
 				THERMISTOR_SHORT='N'
 			;;
-				SE)
+				SE-HT)
 				THERMISTOR_SHORT='H'
 			;;
 		esac
