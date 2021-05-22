@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou420 Bondtech - E3d/SE Thermistor - SuperPINDA
+# definition for Caribou420 Bondtech - E3d or SE Thermistor - SuperPINDA
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou420 Bondtech - E3d/SE Thermistor - SuperPINDA"
+CARIBOU_VARIANT="Caribou420 Bondtech - E3d or SE Thermistor - SuperPINDA"
 CARIBOU_NAME="Caribou420-NSP"
 CARIBOU_ZHEIGHTLEVELING="Z405"
 CARIBOU_ZHEIGHT="Z416.50"
@@ -95,7 +95,7 @@ G31 P1000 X23 Y5
 
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/}
-{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y4.5 F6000               ; go to first probe point/};
+{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y4.5 F6000                                    ; go to first probe point/};
 {/#CARIBOU_ZPROBE/ c\
 ;
 };" < ../homez.g > $SysOutputPath/homez.g

@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou420 LGX - E3d/SE Thermistor - PINDA2
+# definition for Caribou420 LGX - E3d or SE Thermistor - PINDA2
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou420 LGX - E3d/SE Thermistor - PINDA2"
+CARIBOU_VARIANT="Caribou420 LGX - E3d or SE Thermistor - PINDA2"
 CARIBOU_NAME="Caribou420-LGX-NP"
 CARIBOU_ZHEIGHTLEVELING="Z414"
 CARIBOU_ZHEIGHT="Z425.50"
@@ -97,7 +97,7 @@ G31 P1000 X23 Y5
 
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/}
-{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y-3 F6000                                     ; go to first probe point
+{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y-3 F6000                                     ; go to first probe point/};
 {/#CARIBOU_ZPROBE/ c\
 ;
 };" < ../homez.g > $SysOutputPath/homez.g

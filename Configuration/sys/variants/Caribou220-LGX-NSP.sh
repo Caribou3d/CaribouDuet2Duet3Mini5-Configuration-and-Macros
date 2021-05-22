@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou220 LGX - E3d/SE Thermistor - SuperPINDA
+# definition for Caribou220 LGX - E3d or SE Thermistor - SuperPINDA
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou220 LGX - E3d/SE Thermistor - SuperPINDA"
+CARIBOU_VARIANT="Caribou220 LGX - E3d or SE Thermistor - SuperPINDA"
 CARIBOU_NAME="Caribou220-LGX-NSP"
 CARIBOU_ZHEIGHTLEVELING="Z214"
 CARIBOU_ZHEIGHT="Z225.50"
@@ -96,7 +96,7 @@ G31 P1000 X23 Y5
 
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/}
-{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y-3 F6000                                     ; go to first probe point
+{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y-3 F6000                                     ; go to first probe point/};
 {/#CARIBOU_ZPROBE/ c\
 ;
 };" < ../homez.g > $SysOutputPath/homez.g

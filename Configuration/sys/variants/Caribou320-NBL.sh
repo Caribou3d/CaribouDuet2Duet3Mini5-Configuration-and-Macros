@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou320 Bondtech - E3d/SE Thermistor - BL-Touch
+# definition for Caribou320 Bondtech - E3d or SE Thermistor - BL-Touch
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou320 Bondtech - E3d/SE Thermistor - BL-Touch"
+CARIBOU_VARIANT="Caribou320 Bondtech - E3d or SE Thermistor - BL-Touch"
 CARIBOU_NAME="Caribou320-NBL"
 CARIBOU_ZHEIGHTLEVELING="Z305"
 CARIBOU_ZHEIGHT="Z316.50"
