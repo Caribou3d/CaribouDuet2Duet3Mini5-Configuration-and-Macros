@@ -20,7 +20,7 @@
 # 17 Feb 2021, wschadow, distinguish zip commands for different OS
 # 22 Feb 2021, wschadow, added generation of .g file that display the version and build number
 # 15 Mar 2021, wschadow, updated path of macros for displaying current version
-#
+# 22 May 2021, wschadow, updated path of macros
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3.
 # Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet-Configuration-and-Macros
@@ -187,7 +187,7 @@ echo
 #
 # set output
 #
-FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/01-First_Layer_Calibration
+FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/09-First_Layer_Calibration
 FIRSTLAYEROUTPUT=$FIRSTLAYERPATH/processed
 # read existing variants
 while IFS= read -r -d $'\0' f; do
@@ -239,7 +239,7 @@ echo
 #
 # set output
 #
-PREHEATPATH=$SCRIPT_PATH/Configuration/macros/02-Preheat
+PREHEATPATH=$SCRIPT_PATH/Configuration/macros/00-Preheat
 PREHEATOUTPUT=$PREHEATPATH/processed
 # read existing variants
 while IFS= read -r -d $'\0' f; do
@@ -386,7 +386,7 @@ do
 	sed "
 	{s/#CARIBOUDUETVERSION/$CCDOT/};
 	{s/#CARIBOUDUETBUILD/$BUILD/};
-	" < $MacrosDir/07-Maintenance/00-CaribouDuetVersion > $MacroOutputPath/07-Maintenance/00-CaribouDuetVersion
+	" < $MacrosDir/05-Maintenance/00-CaribouDuetVersion > $MacroOutputPath/05-Maintenance/00-CaribouDuetVersion
 	if [ $TARGET_OS == "windows" ]; then
 	    zip a $VARIANTOUTPUT/macros.zip $MacroOutputPath/* | tail -4
 	else

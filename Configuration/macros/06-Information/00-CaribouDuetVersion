@@ -1,9 +1,9 @@
 ; =========================================================================================================
 ;
-; Call macro that displays the current trigger height
+; Call macro that displays the current config & macro version
 ;
 ; =========================================================================================================
 ;
-M98 P"0:/macros/01-First_Layer_Calibration/00-Current_Trigger_Height"
+M98 P"0:/macros/05-Maintenance/00-CaribouDuetVersion"
 ;
 ; =========================================================================================================

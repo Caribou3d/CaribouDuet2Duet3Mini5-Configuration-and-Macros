@@ -4,7 +4,7 @@
 ;
 ; =========================================================================================================
 ;
-T0		; Select tool
+T0		                            ; select tool
 ;
 while true
 	M291 P"Color correct? Press OK to purge..., press Cancel if color is correct."  S3
