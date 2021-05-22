@@ -9,7 +9,7 @@ Sorting order is height / Thermistor / Sensor
 ### Thermistor
 
 1. N = E3d thermistor and Slice Engineering thermistor (white cable) up to 300°C
-2. H = Slice Engineering High Temperature Thermistor (black cable)
+2. H = Slice Engineering High Temperature Thermistor (black cable) up to 450°C
 
 (old, before version 1.3.0)
 
