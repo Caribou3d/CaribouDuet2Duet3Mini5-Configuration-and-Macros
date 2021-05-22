@@ -6,9 +6,6 @@
 ;
 ; =========================================================================================================
 ;
-M291 P"Checking fans" S2
-;
-;
 M106 P0 S255                     ; set front fan to full speed
 ;
 M291 P"Press OK if front fan is FULL on, else press CANCEL to exit." R"FRONT fan test" S3

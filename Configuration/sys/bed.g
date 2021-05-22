@@ -10,7 +10,7 @@
 M561                                                   ; clear any existing bed transform
 G28                                                    ; home all axis
 ;
-M558 F50 A5 S0.003                                     ; slow z-probe, up to 5 probes until disparity is 0.003 or less - else yield average
+M558 F50 A5 S0.01                                      ; slow z-probe, up to 5 probes until disparity is 0.003 or less - else yield average
 while iterations <=2                                   ; perform 3 passes
    G30 P0 X25 Y105 Z-99999                             ; probe near a leadscrew, half way along Y axis
    G30 P1 X240 Y105 Z-99999 S2                         ; probe near a leadscrew and calibrate 2 motors

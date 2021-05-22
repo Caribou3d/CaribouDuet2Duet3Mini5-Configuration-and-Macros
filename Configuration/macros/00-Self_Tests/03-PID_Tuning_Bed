@@ -6,16 +6,14 @@
 ;
 ; =========================================================================================================
 ;
-M291 P"PID tuning of heated bed" S2
-;
 M291 P"Press OK if target for heated bed is 60°C." R"PID tuning heated bed" S3
+;
+G28                        ; home all axis without mesh bed level
+G0 X60 Y-3 Z80             ; move extruder above bed, 
 ;
 M303 H0 S60                ; start PID tuning for 60°C
 ;
-M291 S3 R"PID Tuning BED Complete" P"Check console for heater values. Values saved to config-Override.g"
-;
-M307 H0		               ; report values for heater 1
-M500                       ; save values to config-override.g
+M291 R"PID tuning BED started" P"When tuning is completed, enter M500 to console to save to config-Override.g!" S1
 ;
 ; =========================================================================================================
 
