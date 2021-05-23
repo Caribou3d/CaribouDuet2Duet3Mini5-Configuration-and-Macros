@@ -8,7 +8,9 @@
 ;
 M291 P"Press OK if target for heated bed is 60°C." R"PID tuning heated bed" S3
 ;
-G28                        ; home all axis without mesh bed level
+if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
+  G28                      ; home all axis without mesh bed level
+G90                        ; absolute positioning
 G0 X60 Y-3 Z80             ; move extruder above bed, 
 ;
 M303 H0 S60                ; start PID tuning for 60°C
