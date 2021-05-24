@@ -75,7 +75,6 @@ M574 X1 S3                                             ; configure sensorless en
 M574 Y1 S3                                             ; configure sensorless endstop for low end on Y
 M574 Z1 S2                                             ; configure Z-probe endstop for low end on Z
 M574 Z2 S3                                             ; configure sensorless endstop for high end on Z
-M591 D0 P2 C"e0_stop" S1                               ; configure extruder endstop (filament sensor)
 ;
 ;
 ; =========================================================================================================
@@ -147,6 +146,26 @@ M18 XYE                                                ; release / unlock X, Y, 
 M501                                                   ; use config-override (for Thermistor Parameters and other settings)
 G90                                                    ; send absolute coordinates...
 M83                                                    ; ... but relative extruder moves
+;
+; =========================================================================================================
+;  filament handling
+; =========================================================================================================
+;
+; execute macros that has the status of the filament sensor
+;
+M98 P"0:sys/FilamentsensorStatus"
+;
+; execute macros that contains the last status of the autoload function
+;
+; Runout Sensor Logic: Startup with filament    = runout sensor active   
+;                      Startup without filament = autoload active
+;
+if sensors.filamentMonitors[0].enabled = true            ; if filament sensor is active
+    M28 "0:/sys/AutoloadStatus"                          ; open file
+    M291 P"Autoload function is turned ON ..." S2        ; display new message
+    M29                                                  ; close file
+;
+; =========================================================================================================
 ;
 ; =========================================================================================================
 ;

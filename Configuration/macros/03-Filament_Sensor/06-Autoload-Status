@@ -1,0 +1,19 @@
+; =========================================================================================================
+;
+;  displays the status of the Autoload function
+;
+; =========================================================================================================
+;
+if sensors.filamentMonitors[0].enabled = true            ; if filament sensor is active
+    M291 P"Autoload function is turned ON ..." S2        ; display new message
+else
+    M291 P"Filament sensor is turned OFF ..." S2         ; display new message
+;
+; =========================================================================================================
+;
+M28 "0:/sys/AutoloadStatus"
+if sensors.filamentMonitors[0].enabled = true            ; if filament sensor is active
+    M291 P"Autoload function is turned ON ..." S2        ; display new message
+M29
+;
+; =========================================================================================================
