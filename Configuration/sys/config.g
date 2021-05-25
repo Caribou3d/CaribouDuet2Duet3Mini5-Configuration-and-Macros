@@ -155,16 +155,6 @@ M83                                                    ; ... but relative extrud
 ;
 M98 P"0:sys/FilamentsensorStatus"
 ;
-; execute macros that contains the last status of the autoload function
-;
-; Runout Sensor Logic: Startup with filament    = runout sensor active   
-;                      Startup without filament = autoload active
-;
-if sensors.filamentMonitors[0].enabled = true            ; if filament sensor is active
-    M28 "0:/sys/AutoloadStatus"                          ; open file
-    M291 P"Autoload function is turned ON ..." S2        ; display new message
-    M29                                                  ; close file
-;
 ; =========================================================================================================
 ;
 ; =========================================================================================================

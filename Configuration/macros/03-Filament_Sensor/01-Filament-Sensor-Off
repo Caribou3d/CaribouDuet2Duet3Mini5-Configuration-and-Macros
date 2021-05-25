@@ -1,16 +1,10 @@
 ; =========================================================================================================
 ;
-;    turns the filament sensor OFF and writes the status to SD card
+;    turns the filament sensor OFF
 ;
 ; =========================================================================================================
 ;
 M591 D0 P2 C"e0_stop" S0                           ; turn filament sensor OFF
 M291 P"Filament sensor is turned OFF ..." S2       ; display new message
-;
-; =========================================================================================================
-;
-M28 "/sys/FilamentSensorStatus"                    ; open file for output
-M591 D0 P2 C"e0_stop" S0                           ; turn filament sensor OFF
-M29                                                ; close file
 ;
 ; =========================================================================================================
