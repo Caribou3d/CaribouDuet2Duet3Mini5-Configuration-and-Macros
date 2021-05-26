@@ -119,6 +119,7 @@ sed "
 sed "
 {s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
 {s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
+{s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g}
 " < ../trigger2.g > $SysOutputPath/trigger2.g
 
 # =========================================================================================================
