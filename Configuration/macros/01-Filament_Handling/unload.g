@@ -15,8 +15,9 @@ M291 P"Now retracting filament..." R"Unloading Filament" T5 ; Display message
 ;
 G1 E-8 F2000           ; retract 8mm of filament at 2000mm/min
 G1 E-#CARIBOU_FINALUNLOAD F2500          ; retract #CARIBOU_FINALUNLOADmm of filament at 2500mm/min
+M98 P"0:macros/10-Functions/FilamentsensorStatus"  ; update sensor status
 M291 P"..... done" T30
-M292
+
 ;
 ; =========================================================================================================
 ;

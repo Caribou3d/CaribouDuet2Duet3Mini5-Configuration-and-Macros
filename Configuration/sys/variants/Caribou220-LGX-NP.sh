@@ -121,7 +121,7 @@ sed "
 {s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
 {s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
 {s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g}
- < ../trigger2.g > $SysOutputPath/trigger2.g
+ " < ../trigger2.g > $SysOutputPath/trigger2.g
 
 # =========================================================================================================
 # create macro files
@@ -137,7 +137,7 @@ cp -r $MacrosDir/00-Preheat/processed $MacroOutputPath/00-Preheat
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/#CARIBOU_NAME/$CARIBOU_NAME/};
-{s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/}
+{s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/};
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
 " < $MacrosDir/00-Level-X-Axis > $MacroOutputPath/00-Level-X-Axis
 
