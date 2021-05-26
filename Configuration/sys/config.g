@@ -6,8 +6,8 @@
 ;
 ; for #CARIBOU_VARIANT
 ;
-; CariboDuetConfiguration Release : "1.4.0"
-;                           Build :   162
+; CariboDuetConfiguration Release : "1.4.5"
+;                           Build :   166
 ;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -136,7 +136,7 @@ M106 P0 S0 H-1                                         ; set fan 0 value. Thermo
 M563 P0 D0 H1 F0                                       ; define tool 0
 G10 P0 X0 Y0 Z0                                        ; set tool 0 axis offsets
 G10 P0 R0 S0                                           ; set initial tool 0 active and standby temperatures to 0C
-M302 S180 R180                                         ; allow extrusion starting from 180°C and retractions already from 180°C
+M302 S#CARIBOU_MINEXTRUDETEMP R#CARIBOU_MINRETRACTTEMP                                       ; allow extrusion starting from 180°C and retractions already from 180°C
 ;
 ; =========================================================================================================
 ; other settings
@@ -153,7 +153,7 @@ M83                                                    ; ... but relative extrud
 ;
 ; execute macros that has the status of the filament sensor
 ;
-M98 P"0:sys/FilamentsensorStatus"
+M98 P"0:macros/10-Functions/FilamentsensorStatus"
 ;
 ; =========================================================================================================
 ;

@@ -11,6 +11,8 @@ CARIBOU_ZHEIGHT="Z216.50"
 CARIBOU_EESTEPS=830.00
 CARIBOU_INITIALLOAD=90
 CARIBOU_FINALUNLOAD=95
+CARIBOU_MINEXTRUDETEMP=180
+CARIBOU_MINRETRACTTEMP=180
 
 # set output for sys and macros
 #
@@ -61,6 +63,8 @@ sed "
 {s/#CARIBOU_NAME/$CARIBOU_NAME/};
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/};
 {s/#CARIBOU_EESTEPS/$CARIBOU_EESTEPS/};
+{s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
+{s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
 " < ../config.g > $SysOutputPath/config.g
 
 # replacements for E3d thermistor
@@ -106,6 +110,15 @@ sed "
 ;
 };
 " < ../start.g > $SysOutputPath/start.g
+
+#
+# create trigger2.g
+#
+
+sed "
+{s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
+{s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
+" < ../trigger2.g > $SysOutputPath/trigger2.g
 
 # =========================================================================================================
 # create macro files
