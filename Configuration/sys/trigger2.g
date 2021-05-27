@@ -25,13 +25,12 @@ G1 E#CARIBOU_INITIALLOAD F400            ; feed #CARIBOU_INITIALLOADmm of filame
 G1 E15 F200            ; feed 15mm of filament at 200mm/min
 G4 P1000               ; wait one second
 ;
-M98 P"0:/macros/01-Filament_Handling/purge.g"
+M98 P"0:/sys/00-Functions/Purge"
 ;
 G1 E-0.5 F200	       ; retract 0.5mm of filament at 400mm/min
 M291 P"..... done" T30
 M400                   ; wait for the moves to finish
 ;
 M98 P"0:/sys/00-Functions/FilamentSensorStatus"               ; GCODE Script to activtate RunOut Sensor when filament has been loaded successfully 
-M291 P"Filament loaded" R"Finished" T2                          ; display message
 ;
 ; =========================================================================================================

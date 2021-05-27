@@ -6,10 +6,16 @@
 ;
 ; =========================================================================================================
 ;
-M300 S500 P600         ; beep
 T0                     ; select tool
+;
+if heat.heaters[1].current < #CARIBOU_MINEXTRUDETEMP                                ; check temperature
+    if heat.heaters[1].current < #CARIBOU_MINRETRACTTEMP                            ; check temperature
+        M291 P"Hotend too cold. Preheat extruder first!" S2                 ; ask to preheat extruder
+        M99
+;
+M300 S500 P600         ; beep
 M291 P"Insert filament. Press ok to start feeding filament..." S2       ; Display new message
-M291 P"Feeding filament.... " S1 T25
+M291 P"Feeding filament.... " S1 T3
 ;
 G91                    ; set to Relative Positioning
 G1 E#CARIBOU_INITIALLOAD F400            ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/min

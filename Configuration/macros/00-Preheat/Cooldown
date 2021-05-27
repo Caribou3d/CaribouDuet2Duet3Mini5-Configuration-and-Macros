@@ -4,10 +4,7 @@
 ;
 ; =========================================================================================================
 ;
-M291 P"Turning heaters off ..." S2       ; Display new message
-
-M104 S-273   ; turn off temperature
-M140 S-273   ; turn off heatbed
-M107         ; turn off fan
+M98 P"0:/macros/02-Turn_Heating_Off" ; call macro to turn off heaters
+M291 P"Turned all heaters off." S1 T5       ; Display new message
 ;
 ; =========================================================================================================

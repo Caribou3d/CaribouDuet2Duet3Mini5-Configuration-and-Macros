@@ -21,7 +21,7 @@ if state.status != "processing"                                      ; printer i
       M500 P10:31                                                    ; save settings to config-overide.g - G31 P31 saves trigger height
       M290 R0 S0                                                     ; set babystep to 0mm absolute
    else
-      echo "Babystepping is not currently active, nothing to do."
+      M291 P"Babystepping has not changed, nothing to do." S1
 else
    M291 S2 P"This would be detrimental to the ongoing print. Please run this macro when the print is finished, and the bed is clear & ready for the homing sequence to be conducted." R"WARNING"
 ;

@@ -153,15 +153,18 @@ sed "
 #
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
+{s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
 {s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g}
-" < $MacrosDir/01-Filament_Handling/load.g > $MacroOutputPath/01-Filament_Handling/load.g
+" < $MacrosDir/01-Filament_Handling/Load_Filament > $MacroOutputPath/01-Filament_Handling/Load_Filament
 
 # create unload.g
 #
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
+{s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
 {s/#CARIBOU_FINALUNLOAD/$CARIBOU_FINALUNLOAD/g}
-" < $MacrosDir/01-Filament_Handling/unload.g > $MacroOutputPath/01-Filament_Handling/unload.g
+" < $MacrosDir/01-Filament_Handling/Unload_Filament > $MacroOutputPath/01-Filament_Handling/Unload_Filament
 
 # =========================================================================================================
-
