@@ -187,7 +187,7 @@ echo
 #
 # set output
 #
-FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/09-First_Layer_Calibration
+FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/06-First_Layer_Calibration
 FIRSTLAYEROUTPUT=$FIRSTLAYERPATH/processed
 # read existing variants
 while IFS= read -r -d $'\0' f; do

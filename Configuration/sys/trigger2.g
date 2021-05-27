@@ -12,10 +12,10 @@ M581 P1 T2 S-1 R0                                                ; filament sens
 T0                                                               ; activate hotend
 ;
 if heat.heaters[1].current < #CARIBOU_MINEXTRUDETEMP                                ; check temperature
-    M98 P"0:/macros/10-Functions/ActivateRunOutSensor"           ; activate RunOut Sensor to check if filament is loaded
+    M98 P"0:/sys/00-Functions/ActivateRunOutSensor"           ; activate RunOut Sensor to check if filament is loaded
     while {sensors.filamentMonitors[0].status != "noFilament"}   ; check filament status
         M291 R"Hotend too cold. Preheat extruder first!" P"Please pull out filament again!" S2 ; ask to preheat extruder
-    M98 P"0:/macros/10-Functions/FilamentSensorStatus"           ; macro to activtate RunOut Sensor when filament has been loaded successfully
+    M98 P"0:/sys/00-Functions/FilamentSensorStatus"           ; macro to activtate RunOut Sensor when filament has been loaded successfully
     M99
 ;
 M291 P"Feeding filament.... " S1 T25
@@ -31,7 +31,7 @@ G1 E-0.5 F200	       ; retract 0.5mm of filament at 400mm/min
 M291 P"..... done" T30
 M400                   ; wait for the moves to finish
 ;
-M98 P"0:/macros/10-Functions/FilamentSensorStatus"               ; GCODE Script to activtate RunOut Sensor when filament has been loaded successfully 
+M98 P"0:/sys/00-Functions/FilamentSensorStatus"               ; GCODE Script to activtate RunOut Sensor when filament has been loaded successfully 
 M291 P"Filament loaded" R"Finished" T2                          ; display message
 ;
 ; =========================================================================================================

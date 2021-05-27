@@ -6,10 +6,10 @@
 ;
 ; =========================================================================================================
 ;
-M98 P"0:/macros/10-Functions/ActivateRunOutSensor"
+M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
 if sensors.filamentMonitors[0].status == "noFilament"    ; activates autoload function when no filament loaded
     if {move.axes[1].workplaceOffsets[1] == 1}           ; if autoload is active
-        M98 P"0:/macros/10-Functions/ActivateAutoload"
+        M98 P"0:/sys/00-Functions/ActivateAutoload"
 ;
 ; =========================================================================================================
 ;

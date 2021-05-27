@@ -128,7 +128,7 @@ sed "
 
 # copy macros directory to processed folder (for BL-Touch except the Print-Surface Macros)
 find $MacrosDir/* -maxdepth 0  ! \( -name "*First*" -o -name "*Preheat*" -o -name "*processed*" -o -name "*Nozzle*" \) -exec cp -r -t  $MacroOutputPath {} \+
-cp -r $MacrosDir/09-First_Layer_Calibration/processed $MacroOutputPath/09-First_Layer_Calibration
+cp -r $MacrosDir/06-First_Layer_Calibration/processed $MacroOutputPath/06-First_Layer_Calibration
 cp -r $MacrosDir/00-Preheat/processed $MacroOutputPath/00-Preheat
 
 # create 00-Level-X-Axis
