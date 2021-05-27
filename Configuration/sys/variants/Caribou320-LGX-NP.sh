@@ -41,7 +41,8 @@ fi
 # =========================================================================================================
 
 # copy sys files to processed folder (for PINDA except deployprobe and retractprobe)
-find ../* -maxdepth 0  ! \( -name "*deploy*" -o -name "*retract*" -o -name "*processed*" -o -name "*variants*" \) -exec cp  -t $SysOutputPath {} +
+find ../* -maxdepth 0  ! \( -name "*deploy*" -o -name "*retract*" -o -name "*processed*" -o -name "*variants*" \) -exec cp  -rt $SysOutputPath {} +
+cp -r ../00-Functions $SysOutputPath
 
 #
 # create bed.g
@@ -128,8 +129,10 @@ sed "
 # =========================================================================================================
 
 # copy macros directory to processed folder (for BL-Touch except the Print-Surface Macros)
-find $MacrosDir/* -maxdepth 0  ! \( -name "*First*" -o -name "*Preheat*" -o -name "*processed*" -o -name "*Nozzle*" \) -exec cp -r -t  $MacroOutputPath {} \+
-cp -r $MacrosDir/06-First_Layer_Calibration/processed $MacroOutputPath/06-First_Layer_Calibration
+find $MacrosDir/* -maxdepth 0  ! \( -name "*Main*" -o -name "*Preheat*" -o -name "*processed*" -o -name "*Nozzle*" \) -exec cp -r -t  $MacroOutputPath {} \+
+mkdir $MacroOutputPath/04-Maintenance
+find $MacrosDir/04-Maintenance/* -maxdepth 0  ! \( -name "*First*" \) -exec cp -r -t  $MacroOutputPath/04-Maintenance {} \+
+cp -r $MacrosDir/04-Maintenance/First_Layer_Calibration/processed $MacroOutputPath/04-Maintenance/First_Layer_Calibration
 cp -r $MacrosDir/00-Preheat/processed $MacroOutputPath/00-Preheat
 
 # create 00-Level-X-Axis

@@ -1,7 +1,7 @@
 ; =========================================================================================================
 ;
 ; with this macro you can set the sensor trigger height for a certain print surface / nozzle combination
-; you have to set the correct value in line 8 and the remove the semicolon in front
+; you have to set the correct value in line 8 and the remove the semicolon (;) in front
 ;
 ; =========================================================================================================
 ;

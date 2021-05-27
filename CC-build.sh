@@ -187,7 +187,7 @@ echo
 #
 # set output
 #
-FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/06-First_Layer_Calibration
+FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/04-Maintenance/First_Layer_Calibration
 FIRSTLAYEROUTPUT=$FIRSTLAYERPATH/processed
 # read existing variants
 while IFS= read -r -d $'\0' f; do
@@ -386,7 +386,7 @@ do
 	sed "
 	{s/#CARIBOUDUETVERSION/$CCDOT/};
 	{s/#CARIBOUDUETBUILD/$BUILD/};
-	" < $MacrosDir/05-Maintenance/00-CaribouDuetVersion > $MacroOutputPath/05-Maintenance/00-CaribouDuetVersion
+	" < $MacrosDir/04-Maintenance/00-CaribouDuetVersion > $MacroOutputPath/04-Maintenance/00-CaribouDuetVersion
 	if [ $TARGET_OS == "windows" ]; then
 	    zip a $VARIANTOUTPUT/macros.zip $MacroOutputPath/* | tail -4
 	else
