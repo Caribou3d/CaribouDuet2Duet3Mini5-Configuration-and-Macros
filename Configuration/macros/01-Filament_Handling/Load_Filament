@@ -8,12 +8,12 @@
 ;
 T0                     ; select tool
 ;
-if heat.heaters[1].current < #CARIBOU_MINEXTRUDETEMP                                 ; check extrude temperature
-    if heat.heaters[1].current < #CARIBOU_MINRETRACTTEMP                             ; check retract temperature
+if heat.heaters[1].current < #CARIBOU_MINEXTRUDETEMP                                  ; check extrude temperature
+    if heat.heaters[1].current < #CARIBOU_MINRETRACTTEMP                              ; check retract temperature
          M291 P"Hotend too cold. Preheat extruder first!" S2      ; ask to preheat extruder
         M99
 ;
-if {move.axes[1].workplaceOffsets[1] == 1}                      ; if autoload is enabled
+if {move.axes[1].workplaceOffsets[1] == 1}                        ; if autoload is enabled
     M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
 ;
 M300 S500 P600         ; beep

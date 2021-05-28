@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "1.4.5"
-;                           Build :   175
+;                           Build :   176
 ;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -135,8 +135,8 @@ M106 P0 S0 H-1                                         ; set fan 0 value. Thermo
 ;
 M563 P0 D0 H1 F0                                       ; define tool 0
 G10 P0 X0 Y0 Z0                                        ; set tool 0 axis offsets
-G10 P0 R0 S0                                           ; set initial tool 0 active and standby temperatures to 0C
-M302 S#CARIBOU_MINEXTRUDETEMP R#CARIBOU_MINRETRACTTEMP                                       ; allow extrusion starting from 180°C and retractions already from 180°C
+G10 P0 S-274 R-274                                     ; turn off tool 0, set active and standby temperature to 0K
+M302 S#CARIBOU_MINEXTRUDETEMP R#CARIBOU_MINRETRACTTEMP                                         ; allow extrusion starting from 180°C and retractions already from 180°C
 ;
 ; =========================================================================================================
 ; other settings
