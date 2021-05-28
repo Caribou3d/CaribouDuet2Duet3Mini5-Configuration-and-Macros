@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "1.4.5"
-;                           Build :   174
+;                           Build :   175
 ;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -153,7 +153,7 @@ M83                                                    ; ... but relative extrud
 ;
 ; execute macros that has the status of the filament sensor
 ;
-M98 P"0:macros/10-Functions/FilamentsensorStatus"
+M98 P"0:/sys/00-Functions/FilamentsensorStatus"
 ;
 ; =========================================================================================================
 ;

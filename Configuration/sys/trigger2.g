@@ -13,7 +13,7 @@ T0                                                               ; activate hote
 ;
 if heat.heaters[1].current < 180                                 ; check temperature
     M98 P"0:/sys/00-Functions/ActivateRunOutSensor"              ; activate RunOut Sensor to check if filament is loaded
-    M291 R"Hotend too cold. Preheat extruder first!" P"Please pull out filament again!" S2 ; ask to preheat extruder
+    M291 R"Hotend too cold. Preheat extruder first!" P"Please pull out filament!" S2 ; ask to preheat extruder
     while {sensors.filamentMonitors[0].status != "noFilament"}   ; check filament status
         M291 P"Please pull out filament!" S2                     ; ask to pull out filament
     M98 P"0:/sys/00-Functions/FilamentSensorStatus"              ; macro to activtate RunOut Sensor when filament has been loaded successfully
