@@ -137,7 +137,7 @@ sed "
 find $MacrosDir/* -maxdepth 0  ! \( -name "*Main*" -o -name "*Preheat*" -o -name "*processed*" -o -name "*Print*" \) -exec cp -r -t  $MacroOutputPath {} \+
 mkdir $MacroOutputPath/04-Maintenance
 find $MacrosDir/04-Maintenance/* -maxdepth 0  ! \( -name "*First*" \) -exec cp -r -t  $MacroOutputPath/04-Maintenance {} \+
-cp -r $MacrosDir/04-Maintenance/First_Layer_Calibration/processed $MacroOutputPath/04-Maintenance/First_Layer_Calibration
+cp -r $MacrosDir/04-Maintenance/01-First_Layer_Calibration/processed $MacroOutputPath/04-Maintenance/01-First_Layer_Calibration
 cp -r $MacrosDir/00-Preheat/processed $MacroOutputPath/00-Preheat
 
 exit
@@ -148,7 +148,7 @@ sed "
 {s/#CARIBOU_NAME/$CARIBOU_NAME/};
 {s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/}
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
-" < $MacrosDir/00-Level-X-Axis > $MacroOutputPath/00-Level-X-Axis
+" < $MacrosDir/04-Maintenance/00-Self_Tests/01-Level_X-Axis > $MacroOutputPath/04-Maintenance/00-Self_Tests/01-Level_X-Axis
 
 # create load.g
 #

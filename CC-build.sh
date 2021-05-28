@@ -21,6 +21,7 @@
 # 22 Feb 2021, wschadow, added generation of .g file that display the version and build number
 # 15 Mar 2021, wschadow, updated path of macros for displaying current version
 # 22 May 2021, wschadow, updated path of macros
+# 28 May 2021, wschadow, added generation of SlicerScripts.zip
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3.
 # Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet-Configuration-and-Macros
@@ -177,6 +178,29 @@ fi
 	echo
 	echo '   ... done'
 # =========================================================================================================
+	# create zip file for SlicerScripts
+	echo
+	echo 'creating zip file for SlicerScripts ....'
+	SLICERSCRIPTPATH=$SCRIPT_PATH/Configuration/SlicerScripts
+    SLICERSCRIPTSOUTPUT=$SLICERSCRIPTPATH/processed
+	# prepare output folder
+	if [ ! -d "$SLICERSCRIPTSOUTPUT" ]; then
+		mkdir -p $SLICERSCRIPTSOUTPUT || exit 27
+	else
+		rm -fr $SLICERSCRIPTSOUTPUT || exit 27
+		mkdir -p $SLICERSCRIPTSOUTPUT || exit 27
+	fi
+	
+	if [ $TARGET_OS == "windows" ]; then
+		zip a $SLICERSCRIPTSOUTPUT/SlicerScripts.zip $SLICERSCRIPTPATH/*Script | tail -4
+	else
+	   pushd $SLICERSCRIPTPATH
+              zip -r $SLICERSCRIPTSOUTPUT/SlicerScripts.zip *Script | tail -4
+           popd
+	fi
+	echo
+	echo '   ... done'
+# =========================================================================================================
 #
 # generate files for first layer calibration
 #
@@ -187,7 +211,7 @@ echo
 #
 # set output
 #
-FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/04-Maintenance/First_Layer_Calibration
+FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/04-Maintenance/01-First_Layer_Calibration
 FIRSTLAYEROUTPUT=$FIRSTLAYERPATH/processed
 # read existing variants
 while IFS= read -r -d $'\0' f; do
@@ -404,6 +428,14 @@ do
 	cp $GCODESOUTPUT/gcodes.zip $VARIANTOUTPUT
 	echo
 	echo '   ... done'
+    # =========================================================================================================
+	# copy zip file for SlicerScripts
+	echo
+	echo '   copying zip file for SlicerScripts ....'
+	cp $SLICERSCRIPTSOUTPUT/SlicerScripts.zip $VARIANTOUTPUT
+	echo
+	echo '   ... done'
+
 	# =========================================================================================================
 	# create zip-file for configuration
 	echo
@@ -422,6 +454,7 @@ do
 done
 # housekeeping: delete filament folders in source directory
 rm -fr $GCODESOUTPUT
+rm -fr $SLICERSCRIPTSOUTPUT
 rm -fr $FIRSTLAYEROUTPUT
 rm -fr $PREHEATOUTPUT
 rm -fr $FILAMENTOUTPUT

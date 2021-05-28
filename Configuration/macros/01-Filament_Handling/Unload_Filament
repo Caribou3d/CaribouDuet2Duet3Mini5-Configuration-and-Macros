@@ -10,10 +10,10 @@ T0                     ; select tool
 ;
 if heat.heaters[1].current < #CARIBOU_MINEXTRUDETEMP                                ; check extrude temperature
     if heat.heaters[1].current < #CARIBOU_MINRETRACTTEMP                            ; check retract temperature
-         M291 P"Hotend too cold. Preheat extruder first!" S2     ; ask to preheat extruder
+        M291 P"Hotend too cold. Preheat extruder first!" S2    ; ask to preheat extruder
         M99
 ;
-M291 P"Unloading Filament..." S1 ; display message
+M291 P"Unloading Filament..." S1                                                    ; display message
 ;
 G91                    ; set to Relative Positioning
 M913 E100              ; set motor current to 100% of set current;
@@ -32,7 +32,7 @@ if {move.axes[1].workplaceOffsets[1] == 1}                         ; if autoload
 ;
 if {move.axes[0].workplaceOffsets[1] == 1}                         ; if filament sensor is active
     if {move.axes[1].workplaceOffsets[1] == 1}                     ; if autoload is active
-        M98 P"0:/sys/00-Functions/ActivateAutoload"
+        M98 P"0:/sys/00-Functions/ActivateAutoload"                ; activate autoload
 ;
 ; =========================================================================================================
 ;
