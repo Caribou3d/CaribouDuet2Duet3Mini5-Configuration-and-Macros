@@ -1,15 +1,16 @@
 ; =========================================================================================================
 ;
-;  checks for filament on startup. 
+;  checks for filament and switches status of the sensor
 ;        No filament = Run Macro "Activate_Autoload" to 
 ;        activate Autoload Feature (trigger.2g in sys folder)
 ;
 ; =========================================================================================================
 ;
-M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
-if sensors.filamentMonitors[0].status == "noFilament"    ; activates autoload function when no filament loaded
-    if {move.axes[1].workplaceOffsets[1] == 1}           ; if autoload is active
-        M98 P"0:/sys/00-Functions/ActivateAutoload"
+if {move.axes[1].workplaceOffsets[0] == 1}               ; if filament sensor is active
+    M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
+    if sensors.filamentMonitors[0].status == "noFilament"; activates autoload function when no filament loaded
+        if {move.axes[1].workplaceOffsets[1] == 1}           ; if autoload is active
+            M98 P"0:/sys/00-Functions/ActivateAutoload"
 ;
 ; =========================================================================================================
 ;

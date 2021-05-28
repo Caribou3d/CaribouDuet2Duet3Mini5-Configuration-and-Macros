@@ -4,7 +4,7 @@
 ;
 ; =========================================================================================================
 ;
-M291 P"Heating up for #FILAMENT_NAME. Press OK to continue or CANCEL to abort." R"#FILAMENT_NAME at #FILAMENT_TEMPERATURE°C" S3
+M291 P"Press OK to continue or CANCEL to abort." R"Heat up for #FILAMENT_NAME at #FILAMENT_TEMPERATURE°C" S3
 ;
 T0                                            ; select tool
 G91                                           ; relative positioning

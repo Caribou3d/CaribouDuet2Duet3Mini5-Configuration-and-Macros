@@ -28,8 +28,6 @@ G4 P1000               ; wait one second
 M98 P"0:/sys/00-Functions/Purge"
 ;
 G1 E-0.5 F200	       ; retract 0.5mm of filament at 400mm/min
-M291 P"..... done" T30
-M400                   ; wait for the moves to finish
 ;
 M98 P"0:/sys/00-Functions/FilamentSensorStatus"               ; GCODE Script to activtate RunOut Sensor when filament has been loaded successfully 
 ;

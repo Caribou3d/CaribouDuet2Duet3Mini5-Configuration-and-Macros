@@ -8,24 +8,26 @@
 ;
 T0                     ; select tool
 ;
-if heat.heaters[1].current < #CARIBOU_MINEXTRUDETEMP                                ; check temperature
-    if heat.heaters[1].current < #CARIBOU_MINRETRACTTEMP                            ; check temperature
-        M291 P"Hotend too cold. Preheat extruder first!" S2                 ; ask to preheat extruder
+if heat.heaters[1].current < #CARIBOU_MINEXTRUDETEMP                                 ; check extrude temperature
+    if heat.heaters[1].current < #CARIBOU_MINRETRACTTEMP                             ; check retract temperature
+         M291 P"Hotend too cold. Preheat extruder first!" S2      ; ask to preheat extruder
         M99
 ;
+if {move.axes[1].workplaceOffsets[1] == 1}                      ; if autoload is enabled
+    M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
+;
 M300 S500 P600         ; beep
-M291 P"Insert filament. Press ok to start feeding filament..." S2       ; Display new message
-M291 P"Feeding filament.... " S1 T3
+M291 R"Insert filament." P"Press OK to start feeding filament..." S2       ; display new message
+M291 P"Feeding filament.... " S1
 ;
 G91                    ; set to Relative Positioning
-G1 E#CARIBOU_INITIALLOAD F400            ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/min
+G1 E40 F400            ; feed 40mm of filament at 400mm/min
 G1 E15 F200            ; feed 15mm of filament at 200mm/min
-G4 P1000               ; wait one second
+M400
+M292
 ;
 M98 P"0:/sys/00-Functions/Purge"
 ;
 G1 E-0.5 F200	       ; retract 0.5mm of filament at 400mm/min
-M291 P"..... done" T30
-M400                   ; wait for the moves to finish
 ;
 ; =========================================================================================================
