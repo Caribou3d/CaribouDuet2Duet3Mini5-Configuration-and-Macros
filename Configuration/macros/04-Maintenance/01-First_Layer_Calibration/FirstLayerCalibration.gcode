@@ -128,13 +128,15 @@ G1 Y22.20 E0.010
 ; =========================================================================================================
 ; start end script
 G1 F1000.0               ; set feed rate
-G1 E-3                   ; retract 3mm
-M104 S0                  ; turn off temperature
-M140 S0                  ; turn off heatbed
+G1 E-2                   ; retract 2mm
+G10 P0 S-274 R-274       ; turn off extruder
+M140 S0 R0               ; turn off heatbed
+M140 S-274
 M107                     ; turn off fan
 G1 X0 Y200 F7200         ; home XY axis
 M84 XY                   ; disable motors
 
+M291 R{"z-Trigger Height"} P{"Current: " ^ sensors.probes[0].triggerHeight ^ ", Babysteps:" ^ move.axes[2].babystep ^ ", New: " ^ sensors.probes[0].triggerHeight - move.axes[2].babystep} S2
 M291 P{"Enter the number for the trigger height in your sheet / nozzle macro, like: G31 Z" ^ sensors.probes[0].triggerHeight - move.axes[2].babystep } S2
 
 ; done end script

@@ -20,7 +20,7 @@ M913 E100              ; set motor current to 100% of set current;
 ;
 G1 E4 F300             ; extrude 4mm of filament at 300mm/min
 G1 E-8 F3000           ; retract 8mm of filament at 3000mm/min
-G1 E-45 F3000          ; retract 45mm of filament at 3000mm/min
+G1 E#CARIBOU_FINALUNLOAD F3000          ; retract 45mm of filament at 3000mm/min
 ;
 M400
 M292
