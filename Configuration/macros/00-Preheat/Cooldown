@@ -4,7 +4,7 @@
 ;
 ; =========================================================================================================
 ;
-M98 P"0:/macros/02-Turn_Heating_Off"    ; call macro to turn off heaters
+M98 P"0:/macros/00-Turn_Heating_Off"    ; call macro to turn off heaters
 M291 P"Turned all heaters off." S1 T5   ; display new message
 ;
 ; =========================================================================================================
