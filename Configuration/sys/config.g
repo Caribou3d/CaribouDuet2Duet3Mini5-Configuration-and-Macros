@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "1.5.2"
-;                           Build :   193
+;                           Build :   194
 ;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -76,7 +76,6 @@ M574 Y1 S3                                             ; configure sensorless en
 M574 Z1 S2                                             ; configure Z-probe endstop for low end on Z
 M574 Z2 S3                                             ; configure sensorless endstop for high end on Z
 ;
-;
 ; =========================================================================================================
 ;
 ; #CARIBOU_ZPROBE
@@ -90,7 +89,6 @@ M574 Z1 S2                                             ; set endstops controlled
 M915 X S2 F0 H400 R0                                   ; set X axis Sensitivity
 M915 Y S1 F0 H400 R0                                   ; set Y axis Sensitivity
 M915 Z S0 F0 H200 R0                                   ; set Z axis Sensitivity
-;
 ;
 ; =========================================================================================================
 ; Heater & Fans

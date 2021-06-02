@@ -1,0 +1,29 @@
+; =========================================================================================================
+;
+; calibrate extruder esteps for PLA at 215°C
+;
+; =========================================================================================================
+;
+M291 P"Press OK to continue or CANCEL to abort." R"Run extruder calibration for PLA at 215°C?" S3
+;
+G28                           ; home all axis without mesh bed level
+G0 X60 Y-3 Z80                ; move extruder above bed, keep extruder in front for cleaning and checking
+;
+M291 S2 R"Heating to 215°C" P"Mark 120mm on filament from top of extruder body."
+;
+M104 S215 T0                  ; pre-heat extruder to 215°C
+M116                          ; wait for temp to 215°C
+;
+M291 S2 R"Temperature reached." P"Extruding 100mm filament at 1mm/s"
+;
+M83                           ; relative extrusion
+G1 E100 F60                   ; extrude 100mm of filament at 1mm/s
+M400                          ; wait for moves to finish
+G10 P0 S0 R0                  ; turn off hot end
+;
+M291 S2 P"Measure distance to mark and update e steps in config.g."
+M291 S2 P"new_e_steps = current_e_steps * (100 / (120 - distance_to_mark))"
+M291 S2 P"Repeat test to verify." R"Extruder calibration done."
+;
+; =========================================================================================================
+;
