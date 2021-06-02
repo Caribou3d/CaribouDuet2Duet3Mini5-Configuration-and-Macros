@@ -23,6 +23,7 @@
 # 22 May 2021, wschadow, updated path of macros
 # 28 May 2021, wschadow, added generation of SlicerScripts.zip
 # 01 Jun 2021, wschadow, included all subdirectories of SlicerScripts
+# 02 Jun 2021, wschadow, corrected zip command for SlicerScripts to include Porfiles and exclude processed folder
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3.
 # Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet-Configuration-and-Macros
@@ -193,14 +194,15 @@ fi
 	fi
 	
 	if [ $TARGET_OS == "windows" ]; then
-		zip a $SLICERSCRIPTSOUTPUT/SlicerScripts.zip $SLICERSCRIPTPATH/* | tail -4
+		zip a $SLICERSCRIPTSOUTPUT/SlicerScripts.zip $SLICERSCRIPTPATH/*Scripts $SLICERSCRIPTPATH/Profiles | tail -4
 	else
 	   pushd $SLICERSCRIPTPATH
-              zip -r $SLICERSCRIPTSOUTPUT/SlicerScripts.zip *Script | tail -4
+              zip -r $SLICERSCRIPTSOUTPUT/SlicerScripts.zip $SLICERSCRIPTPATH/*Scripts $SLICERSCRIPTPATH/Profiles | tail -4
            popd
 	fi
 	echo
 	echo '   ... done'
+#
 # =========================================================================================================
 #
 # generate files for first layer calibration
