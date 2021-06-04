@@ -421,6 +421,7 @@ do
 	    zip -r $VARIANTOUTPUT/macros.zip * | tail -4
 	    popd
 	fi
+	
 	rm -fr $MacroOutputPath
 	echo
 	echo '   ... done'
@@ -455,6 +456,7 @@ do
 	echo
 	echo '... done'
 done
+
 # housekeeping: delete filament folders in source directory
 rm -fr $GCODESOUTPUT
 rm -fr $SLICERSCRIPTSOUTPUT
