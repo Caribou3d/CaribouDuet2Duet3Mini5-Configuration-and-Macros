@@ -27,7 +27,6 @@ Sorting order is height / Thermistor / Sensor
 Example:
 
 CaribouDuet220-NSP = 220 version with E3d  or SE thermistor and PINDA2
-
 CaribouDuet320-HBLL = 320 version with SE HT thermistor and BL-Touch Left
 
 
