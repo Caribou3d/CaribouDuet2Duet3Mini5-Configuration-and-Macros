@@ -18,13 +18,17 @@ Sorting order is height / Thermistor / Sensor
 
 
 ### Sensor
-1. P = Pinda
-2. SP = SuperPinda
-3. BL = BL-Touch
+1. P = PINDA2
+2. SP = SuperPINDA
+3. BLL = BL-Touch Left installation
+4. BLR = BL-Touch Right installation
+
 
 Example:
 
- CaribouDuet320-SBL ist the 320mm version with Slice Engineering thermistor and BL-Touch
+CaribouDuet220-NSP = 220 version with E3d  or SE thermistor and PINDA2
+CaribouDuet320-HBLL = 320 version with SE HT thermistor and BL-Touch Left
+
 
 
 # Build
