@@ -26,7 +26,7 @@ G1 E15 F200            ; feed 15mm of filament at 200mm/min
 M400
 M292
 ;
-M98 P"0:/sys/00-Functions/Purge"
+M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament"
 ;
 G1 E-0.5 F200	       ; retract 0.5mm of filament at 400mm/min
 ;

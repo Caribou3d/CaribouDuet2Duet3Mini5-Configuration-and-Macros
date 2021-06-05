@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou420 Bondtech - SE HT Thermistor - BL-Touch
+# definition for Caribou320 Bondtech - SE HT Thermistor - BL-Touch Left
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou420 Bondtech - SE HT Thermistor - BL-Touch"
-CARIBOU_NAME="Caribou420-HBL"
-CARIBOU_ZHEIGHTLEVELING="Z405"
-CARIBOU_ZHEIGHT="Z416.50"
+CARIBOU_VARIANT="Caribou320 Bondtech - SE HT Thermistor - BL-Touch Left"
+CARIBOU_NAME="Caribou320-HBLL"
+CARIBOU_ZHEIGHTLEVELING="Z305"
+CARIBOU_ZHEIGHT="Z316.50"
 CARIBOU_EESTEPS=830.00
 CARIBOU_INITIALLOAD=90
 CARIBOU_FINALUNLOAD=95
@@ -87,7 +87,7 @@ M143 H1 S365                                                ; set temperature li
 # replacements for BL-Touch
 sed -i "
 {/#CARIBOU_ZPROBE/ c\
-; BL-Touch \\
+; BL-Touch Left \\
 ;\\
 M950 S0 C\"exp.heater3\"                                 ; sensor for BL-Touch\\
 M558 P9 C\"^zprobe.in\" H2.5 F200 T8000 A1 S0.03         ; for BL-Touch\\
@@ -104,10 +104,10 @@ G31 X-24.3 Y-34.1
 
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_MEASUREPOINT/G1 X148.5 Y142.5 F3600            ; go to center of the bed/};
+{s/#CARIBOU_MEASUREPOINT/G1 X148.5 Y142.5 F3600                                 ; go to center of the bed/};
 {/#CARIBOU_ZPROBE/ c\
-M280 P0 S160                      ; BLTouch, alarm release\\
-G4 P100                           ; BLTouch, delay for the release command
+M280 P0 S160                                           ; BLTouch, alarm release\\
+G4 P100                                                ; BLTouch, delay for the release command
 };
 " < ../homez.g > $SysOutputPath/homez.g
 
@@ -149,23 +149,23 @@ sed "
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
 " < $MacrosDir/04-Maintenance/00-Self_Tests/01-Level_X-Axis > $MacroOutputPath/04-Maintenance/00-Self_Tests/01-Level_X-Axis
 
-# create load.g
+# create Load_Filament
 #
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
 {s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
 {s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g}
-" < $MacrosDir/01-Filament_Handling/Load_Filament > $MacroOutputPath/01-Filament_Handling/Load_Filament
+" < $MacrosDir/01-Filament_Handling/00-Load_Filament > $MacroOutputPath/01-Filament_Handling/00-Load_Filament
 
-# create unload.g
+# create Unload_Filament
 #
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
 {s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
 {s/#CARIBOU_FINALUNLOAD/$CARIBOU_FINALUNLOAD/g}
-" < $MacrosDir/01-Filament_Handling/Unload_Filament > $MacroOutputPath/01-Filament_Handling/Unload_Filament
+" < $MacrosDir/01-Filament_Handling/01-Unload_Filament > $MacroOutputPath/01-Filament_Handling/01-Unload_Filament
 
 # create Change_Filament
 #
@@ -175,6 +175,6 @@ sed "
 {s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
 {s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g}
 {s/#CARIBOU_FINALUNLOAD/$CARIBOU_FINALUNLOAD/g}
-" < $MacrosDir/01-Filament_Handling/Change_Filament > $MacroOutputPath/01-Filament_Handling/Change_Filament
+" < $MacrosDir/01-Filament_Handling/03-Change_Filament > $MacroOutputPath/01-Filament_Handling/03-Change_Filament
 
 # =========================================================================================================

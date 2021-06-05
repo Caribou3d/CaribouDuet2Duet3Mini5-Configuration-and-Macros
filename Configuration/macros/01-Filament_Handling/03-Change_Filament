@@ -30,6 +30,11 @@ if  {move.axes[2].machinePosition < 80}                                   ; if z
 else
     G1 X200 Y0 F6000                                                      ; go to the parking position
 ;
+if heat.heaters[1].current < 180                                          ; check extrude temperature again
+    if heat.heaters[1].current < 180                                      ; check retract temperature again
+        M291 P"Hotend too cold. Preheat extruder first!" S2               ; ask to preheat extruder
+        M99
+;
 M300 S500 P600                                                            ; beep
 ;
 M291 R"Unloading Filament..." P"Press OK to start." S2                    ; display message
@@ -44,22 +49,24 @@ G1 E-#CARIBOU_FINALUNLOAD F2500                                                 
 M400                                                                      ; finish all moves, clear the buffer.
 M292
 ;
-if {move.axes[1].workplaceOffsets[1] == 1}                                ; if autoload is enabled
-    M98 P"0:/sys/00-Functions/ActivateRunOutSensor"                       ; update sensor status
-    while {sensors.filamentMonitors[0].status != "noFilament"}            ; check filament status
-        M291 P"Please pull out filament!" S2                              ; ask to pull out filament
+if {move.axes[0].workplaceOffsets[1] == 1}                                ; if filament sensor is enabled
+    if {move.axes[1].workplaceOffsets[1] == 1}                            ; if autoload is enabled
+        M98 P"0:/sys/00-Functions/ActivateRunOutSensor"                   ; update sensor status
+        while {sensors.filamentMonitors[0].status != "noFilament"}        ; check filament status
+            M291 P"Please pull out filament!" S2                          ; ask to pull out filament
 else 
     M291 P"Please pull out filament!" S2                                  ; ask to pull out filament
 ;
 M400                                                                      ; finish all moves, clear the buffer.
 ;
 M300 S500 P600                                                            ; beep
-if {move.axes[1].workplaceOffsets[1] == 1}                                ; if autoload is enabled
-    M98 P"0:/sys/00-Functions/ActivateAutoload"                           ; update sensor status
-    M291 P"Insert filament ... " S1                                       ; display new message
-    while {move.axes[2].workplaceOffsets[1] == 1}  
-        M400
-    M292
+if {move.axes[0].workplaceOffsets[1] == 1}                                ; if filament sensor is enabled
+    if {move.axes[1].workplaceOffsets[1] == 1}                            ; if autoload is enabled
+        M98 P"0:/sys/00-Functions/ActivateAutoload"                       ; update sensor status
+        M291 P"Insert filament ... " S1                                   ; display new message
+        while {move.axes[2].workplaceOffsets[1] == 1}  
+            M400
+        M292
 else
     M291 R"Insert filament." P"Press OK to start feeding filament..." S2  ; display new message
     M291 P"Feeding filament.... " S1                                      ; display new message
@@ -69,7 +76,8 @@ else
 ;
 M400                                                                      ; finish all moves, clear the buffer.
 ;
-M98 P"0:/sys/00-Functions/Purge"                                          ; need to purge?
+if !{{move.axes[0].workplaceOffsets[1] == 1} && {move.axes[1].workplaceOffsets[1] == 1}}   ; only if autoload is enabled and sensor is active purging is done through trigger
+    M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament"               ; need to purge?
 ;
 M98 P"0:/sys/00-Functions/FilamentsensorStatus"                           ; update sensor status
 ;

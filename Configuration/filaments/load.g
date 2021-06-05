@@ -15,6 +15,6 @@ M116        	                                       ; wait for the temperatures 
 ;
 M292                                                   ; close message
 ;
-M98 P"0:/macros/01-Filament_Handling/Load_Filament"    ; execute macro to load and purge filament
+M98 P"0:/macros/01-Filament_Handling/00-Load_Filament"    ; execute macro to load and purge filament
 ;
 ; =========================================================================================================

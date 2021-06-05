@@ -328,12 +328,12 @@ do
 		rm -fr $FILAMENTOUTPUT/$FILAMENTNAME || exit 27
 		mkdir -p $FILAMENTOUTPUT/$FILAMENTNAME || exit 27
 	fi
-	# create load.g
+	# create Load_Filament
 	sed "
 	{s/#FILAMENT_NAME/${FILAMENTNAME}/};
 	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g}
 	" < $FILAMENTPATH/load.g > $FILAMENTOUTPUT/$FILAMENTNAME/load.g
-	# create load.g
+	# create Load_Filament
 	sed "
 	{s/#FILAMENT_NAME/${FILAMENTNAME}/};
 	{s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g}
