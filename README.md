@@ -27,6 +27,7 @@ Sorting order is height / Thermistor / Sensor
 Example:
 
 CaribouDuet220-NSP = 220 version with E3d  or SE thermistor and PINDA2
+
 CaribouDuet320-HBLL = 320 version with SE HT thermistor and BL-Touch Left
 
 
@@ -67,6 +68,10 @@ In your preferred Unix environment follow these steps
   - English `ln -s /c/Program\ Files/7-Zip/7z.exe zip.exe` will be on a Spanish Windows `ln -s /c/Archivos\ de\ programa/7-Zip/7z.exe zip.exe`
 
 # Acknowledgements
+
+Thanks to Bernd Brinkert and Daniel Heimbeck for support and discussions on various items and issues!!
+
+Support for BL-Touch for installation on the right side was initiated by Michael Müller.
 
 We would like to thank 3d-gussner for his effort when we started this project. The CC-build and the sorting scripts have their roots in the PF-build and sorting scripts for building the Prusa firmware which were developed by 3d-gussner.
 
