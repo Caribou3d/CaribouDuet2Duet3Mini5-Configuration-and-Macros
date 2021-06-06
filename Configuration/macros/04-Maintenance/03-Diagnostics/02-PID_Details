@@ -1,13 +1,13 @@
 ; =========================================================================================================
 ;
-; calls M39 and M122 to get details of inserted SD Card
+; calls M307 to report PID tuning settings
 ;
 ; =========================================================================================================
 ;
-M291 R"SD card status report" P"This will report SD card status to console." S1
+M291 R"PID tuning report" P"This will report PID status to console." S1
 ;
-M39                        ; report SD card information
-M122 P104                  ; print how long it takes to write a file to the SD card
+M307 H0                    ; report values for heat bed
+M307 H1                    ; report values for hot end
 ;
 ; =========================================================================================================
 ;

@@ -1,14 +1,11 @@
 ; =========================================================================================================
 ;
-; stop and restart Wifi module
+; reset a temperature fault on heater/sensor. Use with caution!
 ;
 ; =========================================================================================================
 ;
-M552 S0            ; Disable network module
-G4 S5            ; wait 5 seconds
-M552 S1            ; Enable network module
+M291 R"Reset heater fault(s)" P"Use with caution! Check heater and sensors!" S2
 ;
-M291 P"Wifi module reset. Check console or DWC for more information."
+M562                     ; reset a temperature fault on heater/sensor
 ;
 ; =========================================================================================================
-;
