@@ -20,20 +20,20 @@ CARIBOU_MINRETRACTTEMP=180
 SysOutputPath=../processed
 # prepare output folder
 if [ ! -d "$SysOutputPath" ]; then
-	mkdir -p $SysOutputPath || exit 27
+    mkdir -p $SysOutputPath || exit 27
 else
-	rm -fr $SysOutputPath || exit 27
-	mkdir -p $SysOutputPath || exit 27
+    rm -fr $SysOutputPath || exit 27
+    mkdir -p $SysOutputPath || exit 27
 fi
 
 MacrosDir=../../macros
 MacroOutputPath=$MacrosDir/processed
 # prepare output folder
 if [ ! -d "$MacroOutputPath" ]; then
-	mkdir -p $MacroOutputPath || exit 27
+    mkdir -p $MacroOutputPath || exit 27
 else
-	rm -fr $MacroOutputPath || exit 27
-	mkdir -p $MacroOutputPath || exit 27
+    rm -fr $MacroOutputPath || exit 27
+    mkdir -p $MacroOutputPath || exit 27
 fi
 
 # =========================================================================================================

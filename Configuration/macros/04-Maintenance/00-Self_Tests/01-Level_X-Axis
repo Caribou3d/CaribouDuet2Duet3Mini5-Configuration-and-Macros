@@ -21,7 +21,7 @@ G90                          ; absolute positioning
 M564 S1                      ; enable minimum and maximum axis limits
 M208 X256.9 Y214 #CARIBOU_ZHEIGHT S0  ; set axis maxima
 G1 X11.5 Y4.5 Z10.0 F6000    ; go to first probe point
-M400	     	             ; wait for current moves to finish
+M400                          ; wait for current moves to finish
 G30                          ; probe bed
 ;
 ; =========================================================================================================

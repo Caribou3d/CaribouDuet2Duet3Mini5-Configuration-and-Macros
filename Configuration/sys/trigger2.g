@@ -5,7 +5,7 @@
 ; =========================================================================================================
 ;
 M300 S500 P600                                                   ; beep
-G4 P2000	                                                     ; wait two seconds
+G4 P2000                                                         ; wait two seconds
 ;
 M581 P1 T2 S-1 R0                                                ; filament sensor does not listen anymore (S-1). Autoload is disabled. 
 ;
@@ -28,7 +28,7 @@ G4 P1000               ; wait one second
 ;
 M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament"          ; need to purge?
 ;
-G1 E-0.5 F200	       ; retract 0.5mm of filament at 400mm/min
+G1 E-0.5 F200           ; retract 0.5mm of filament at 400mm/min
 ;
 M98 P"0:/sys/00-Functions/FilamentSensorStatus"                  ; activtate RunOut Sensor when filament has been loaded successfully 
 ;

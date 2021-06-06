@@ -27,11 +27,11 @@ G1 H3 Y225 F3000                  ; Move quickly to right y axis endstop and sto
 ; analyze measured value
 ;
 if move.axes[1].min > 222.5
-	M291 P{"y axis length: " ^ move.axes[1].min ^ "mm. ERROR: axis too long." } S1
+    M291 P{"y axis length: " ^ move.axes[1].min ^ "mm. ERROR: axis too long." } S1
 elif move.axes[1].min < 220.5
-	M291 P{"y axis length: " ^ move.axes[1].min ^ "mm. ERROR: axis too short." } S1
+    M291 P{"y axis length: " ^ move.axes[1].min ^ "mm. ERROR: axis too short." } S1
 else
-	M291 P{"y axis length: " ^ move.axes[1].min ^ "mm. Axis length ok." } S1
+    M291 P{"y axis length: " ^ move.axes[1].min ^ "mm. Axis length ok." } S1
 ;
 M208 Y-7.5 S1                     ; set axis minima
 M208 Y214 S0                      ; set axis maxima. Would be nice to set to the measured value, not possible with RRF3.2

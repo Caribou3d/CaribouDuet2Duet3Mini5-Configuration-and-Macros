@@ -12,8 +12,8 @@ M291 P"Checking heaters" S3
 G28                         ; home all without mesh bed level
 G0 X60 Y-3 Z80              ; move extruder above bed  keep extruder in front for cleaning and checking
 ;
-M570 H1 P120 T120			; extend the heater H1 fault timeout to 120 seconds for testing
-M570 H0 P120 T120			; same for H0
+M570 H1 P120 T120            ; extend the heater H1 fault timeout to 120 seconds for testing
+M570 H0 P120 T120            ; same for H0
 ;
 ;
 ; =========================================================================================================
