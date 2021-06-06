@@ -1,7 +1,7 @@
 ; =========================================================================================================
 ;
 ;  checks for filament and switches status of the sensor
-;        No filament = Run Macro "Activate_Autoload" to 
+;        No filament = Run Macro "Activate_Autoload" to
 ;        activate Autoload Feature (trigger.2g in sys folder)
 ;
 ; =========================================================================================================

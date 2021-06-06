@@ -2,8 +2,8 @@
 ;
 ;  turns the autoload ON (only if filament sensor is enabled) and saves status to config-overrde.g
 ;
-;  checks for filament on startup. 
-;        No filament = Run Macro "Activate_Autoload" to 
+;  checks for filament on startup.
+;        No filament = Run Macro "Activate_Autoload" to
 ;        activate Autoload Feature (trigger.2g in sys folder)
 ;
 ; =========================================================================================================

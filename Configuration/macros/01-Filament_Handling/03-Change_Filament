@@ -1,6 +1,6 @@
 ; =========================================================================================================
 ;
-; Macro to change filament (unloading / loading). 
+; Macro to change filament (unloading / loading).
 ;
 ; for #CARIBOU_VARIANT
 ;
@@ -54,7 +54,7 @@ if {move.axes[0].workplaceOffsets[1] == 1}                                ; if f
         M98 P"0:/sys/00-Functions/ActivateRunOutSensor"                   ; update sensor status
         while {sensors.filamentMonitors[0].status != "noFilament"}        ; check filament status
             M291 P"Please pull out filament!" S2                          ; ask to pull out filament
-else 
+else
     M291 P"Please pull out filament!" S2                                  ; ask to pull out filament
 ;
 M400                                                                      ; finish all moves, clear the buffer.
@@ -64,7 +64,7 @@ if {move.axes[0].workplaceOffsets[1] == 1}                                ; if f
     if {move.axes[1].workplaceOffsets[1] == 1}                            ; if autoload is enabled
         M98 P"0:/sys/00-Functions/ActivateAutoload"                       ; update sensor status
         M291 P"Insert filament ... " S1                                   ; display new message
-        while {move.axes[2].workplaceOffsets[1] == 1}  
+        while {move.axes[2].workplaceOffsets[1] == 1}
             M400
         M292
 else

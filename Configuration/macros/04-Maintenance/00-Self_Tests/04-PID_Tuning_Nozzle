@@ -11,7 +11,7 @@ M291 P"Press OK if target for nozzle is 215°C." R"PID tuning nozzle" S3
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
   G28                      ; home all axis without mesh bed level
 G90                        ; absolute positioning
-G0 X60 Y-3 Z160            ; move extruder above bed 
+G0 X60 Y-3 Z160            ; move extruder above bed
 ;
 M303 H1 S215               ; start PID tuning for 215°C
 ;

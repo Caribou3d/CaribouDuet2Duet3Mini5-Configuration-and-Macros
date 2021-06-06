@@ -216,7 +216,7 @@ M109 S210 ; wait for extruder temp
 ;
 ; =========================================================================================================
 ;
-; 
+;
 M98 P"0:/sys/primeLine.g"     ; execute primeline macro
 ;
 G92 E0.0                      ; set extruder position

@@ -169,7 +169,7 @@ fi
         rm -fr $GCODESOUTPUT || exit 27
         mkdir -p $GCODESOUTPUT || exit 27
     fi
-    
+
     if [ $TARGET_OS == "windows" ]; then
         zip a $GCODESOUTPUT/gcodes.zip $GCODESPATH/*.gcode | tail -4
     else
@@ -192,7 +192,7 @@ fi
         rm -fr $SLICERSCRIPTSOUTPUT || exit 27
         mkdir -p $SLICERSCRIPTSOUTPUT || exit 27
     fi
-    
+
     if [ $TARGET_OS == "windows" ]; then
         zip a $SLICERSCRIPTSOUTPUT/SlicerScripts.zip $SLICERSCRIPTPATH/*Scripts $SLICERSCRIPTPATH/Profiles | tail -4
     else
@@ -385,7 +385,7 @@ do
     cp $FILAMENTOUTPUT/filaments.zip $VARIANTOUTPUT
     # =========================================================================================================
     # run script to generate config.g and change macros
-    
+
     cd $SCRIPT_PATH/Configuration/sys/variants/
     $SCRIPT_PATH/Configuration/sys/variants/$VARIANT.sh
     # =========================================================================================================
@@ -421,7 +421,7 @@ do
         zip -r $VARIANTOUTPUT/macros.zip * | tail -4
         popd
     fi
-    
+
     rm -fr $MacroOutputPath
     echo
     echo '   ... done'
