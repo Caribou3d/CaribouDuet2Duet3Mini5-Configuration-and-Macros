@@ -25,7 +25,7 @@ declare -a HeightsArray=(220 320 420)
 # Array of Thermistors
 declare -a ThermistorsArray=(E3d-SE SE-HT)
 # Array of Sensors
-declare -a SensorArray=(PINDA2 SUPERPINDA BL_TOUCH)
+declare -a SensorArray=(PINDA2 SUPERPINDA BL_TOUCH_LEFT BL_TOUCH_RIGHT)
 # Main script
 
 if [ -z "$1" ] ; then
@@ -61,8 +61,11 @@ for HEIGHT in ${HeightsArray[@]}; do
                         SUPERPINDA)
                         SENSOR_SHORT='SP'
                     ;;
-                        BL_TOUCH)
-                        SENSOR_SHORT='BL'
+                        BL_TOUCH_LEFT)
+                        SENSOR_SHORT='BLL'
+                    ;;
+                        BL_TOUCH_RIGHT)
+                        SENSOR_SHORT='BLR'
                     ;;
             esac
             mkdir -p $Destination_Path/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE
@@ -71,4 +74,3 @@ for HEIGHT in ${HeightsArray[@]}; do
         done
     done
 done
-
