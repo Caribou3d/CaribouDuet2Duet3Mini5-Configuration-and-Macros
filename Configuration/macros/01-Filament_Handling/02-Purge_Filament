@@ -4,6 +4,10 @@
 ;
 ; =========================================================================================================
 ;
+if state.status == "processing"                                      ; printer is not currently printing!
+   M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
+   M99
+;
 T0                                  ; select tool
 ;
 while true

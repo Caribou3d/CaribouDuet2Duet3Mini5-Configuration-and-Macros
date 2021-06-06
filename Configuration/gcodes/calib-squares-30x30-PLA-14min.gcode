@@ -200,7 +200,8 @@ M106 S0
 ;
 ; =========================================================================================================
 ;
-G28 W                         ; home all axis without mesh bed level
+if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
+    G28                       ; home all axis without mesh bed level
 G0 X60 Y-3 Z80                ; move extruder above bed,
 ;                               keep extruder in front for cleaning and checking
 
