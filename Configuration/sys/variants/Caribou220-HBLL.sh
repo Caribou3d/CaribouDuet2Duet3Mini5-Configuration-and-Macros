@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou220 Bondtech - SE HT Thermistor - BL-Touch Left
+# definition for Caribou220 Duet2Wifi-Lan Bondtech - SE HT Thermistor - BL-Touch Left
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou220 Bondtech - SE HT Thermistor - BL-Touch Left"
+CARIBOU_VARIANT="Caribou220 Duet2Wifi-Lan Bondtech - SE HT Thermistor - BL-Touch Left"
 CARIBOU_NAME="Caribou220-HBLL"
 CARIBOU_ZHEIGHTLEVELING="Z205"
 CARIBOU_ZHEIGHT="Z216.50"
@@ -90,7 +90,7 @@ sed -i "
 ; BL-Touch Left \\
 ;\\
 M950 S0 C\"exp.heater3\"                                 ; sensor for BL-Touch\\
-M558 P9 C\"^zprobe.in\" H2.5 F200 T8000 A1 S0.03         ; for BL-Touch\\
+M558 P9 C\"zprobe.in\" H2.5 F200 T8000 A1 S0.03          ; for BL-Touch\\
 M557 X10:220 Y1:176 P7                                 ; define mesh grid
 };
 {/#CARIBOU_OFFSETS/ c\

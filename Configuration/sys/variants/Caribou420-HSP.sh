@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou420 Bondtech - SE HT Thermistor - SuperPINDA
+# definition for Caribou420 Duet2Wifi-Lan Bondtech - SE HT Thermistor - SuperPINDA
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou420 Bondtech - SE HT Thermistor - SuperPINDA"
+CARIBOU_VARIANT="Caribou420 Duet2Wifi-Lan Bondtech - SE HT Thermistor - SuperPINDA"
 CARIBOU_NAME="Caribou420-HSP"
 CARIBOU_ZHEIGHTLEVELING="Z405"
 CARIBOU_ZHEIGHT="Z416.50"

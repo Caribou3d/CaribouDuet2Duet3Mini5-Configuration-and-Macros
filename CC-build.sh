@@ -24,9 +24,10 @@
 # 28 May 2021, wschadow, added generation of SlicerScripts.zip
 # 01 Jun 2021, wschadow, included all subdirectories of SlicerScripts
 # 02 Jun 2021, wschadow, corrected zip command for SlicerScripts to include Porfiles and exclude processed folder
+# 13 Jun 2021, wschadow, changed output path to avoid collisions with Duet3Mini+ version
 #
-# Copyright Caribou Research & Development 2021. Licensed under GPL3.
-# Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet-Configuration-and-Macros
+# Copyright Caribou Research & Development 2021. Licensed under GPL3. Non-commercial use only.
+# Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
 #
 # =========================================================================================================
 #
@@ -357,7 +358,7 @@ echo '... done'
 echo
 echo 'generating configurations and macros ....'
 echo
-BUILDPATH=$SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD
+BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet2Wifi-$CC-Build$BUILD
 # Prepare config files folders
 if [ ! -d "$BUILDPATH" ]; then
     mkdir -p $BUILDPATH || exit 27
@@ -370,9 +371,9 @@ do
     echo "Variant       :" $VARIANT
     echo "Configuration :" $CC
     echo "Build #       :" $BUILD
-    echo "Config Folder :" "CC-build/CC$CC-Build$BUILD"
+    echo "Config Folder :" "CC-build/CC-Duet2Wifi-$CC-Build$BUILD"
     echo "$(tput sgr0)"
-    BUILDPATH=$SCRIPT_PATH/../CC-build/CC$CC-Build$BUILD
+    BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet2Wifi-$CC-Build$BUILD
     VARIANTOUTPUT=$BUILDPATH/$VARIANT
     # prepare output folder
     if [ ! -d "$VARIANTOUTPUT" ]; then

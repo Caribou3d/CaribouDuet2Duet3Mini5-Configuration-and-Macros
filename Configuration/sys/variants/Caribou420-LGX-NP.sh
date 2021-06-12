@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou420 LGX - E3d or SE Thermistor - PINDA2
+# definition for Caribou420 Duet2Wifi-Lan LGX - E3d or SE Thermistor - PINDA2
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou420 LGX - E3d or SE Thermistor - PINDA2"
+CARIBOU_VARIANT="Caribou420 Duet2Wifi-Lan LGX - E3d or SE Thermistor - PINDA2"
 CARIBOU_NAME="Caribou420-LGX-NP"
 CARIBOU_ZHEIGHTLEVELING="Z414"
 CARIBOU_ZHEIGHT="Z425.50"
