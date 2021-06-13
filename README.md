@@ -1,6 +1,6 @@
-# CaribouDuet-Config-and-Macros
+# CaribouDuet2Wifi-Lan-Configuration-and-Macros
 
-This repository contains the source code and the development versions of the configuration and macros running on the Original CaribouDuet line of printers.
+This repository contains the source code and the development versions of the configuration and macros running on the Original CaribouDuet2Wifi/Lan line of printers.
 
 # Naming convention
 
@@ -34,16 +34,16 @@ CaribouDuet320-HBLL = 320 version with SE HT thermistor and BL-Touch Left
 
 # Build
 
-In your preferred Unix environment follow these steps
+In your preferred Unix environment follow these steps:
 
 1. Clone this repository and checkout the correct branch for your desired release version.
-2. change into the directory `CaribouDuet-Configuration-and-Macros`
+2. change into the directory `CaribouDuet2-ConfigurationMacros`
 3. execute `./CC-build.sh`
 4. select the desired configuration or build all configurations
 5. in case you only built one version you will find a zipped output file in `../CC-build`
 6. in case you built all versions copy `./sort.sh` to `../CC-build`
-7. change to th edirectory `../CC-build`
-8. execute `./sort.sh`. Options are the start and target directory for the sorted files example `./sort.sh CC110-Build26/ CC110-Build26-sorted
+7. change to the directory `../CC-build`
+8. execute `./sort.sh`. Options are the start and target directory for the sorted files example `./sort CC-Duet2Wifi-161-Build225/ CaribouDuet2-ConfigurationMacros-1.6.1-225`
 `
 9. the script will create all required directories and sort the out that was generated buy `CC-build.sh`
 
