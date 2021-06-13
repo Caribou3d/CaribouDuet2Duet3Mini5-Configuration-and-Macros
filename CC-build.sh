@@ -374,7 +374,7 @@ do
     echo "Config Folder :" "CC-build/CC-Duet2Wifi-$CC-Build$BUILD"
     echo "$(tput sgr0)"
     BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet2Wifi-$CC-Build$BUILD
-    VARIANTOUTPUT=$BUILDPATH/$VARIANT
+    VARIANTOUTPUT=$BUILDPATH/Duet2Wifi-$VARIANT
     # prepare output folder
     if [ ! -d "$VARIANTOUTPUT" ]; then
         mkdir -p $VARIANTOUTPUT || exit 27
@@ -446,10 +446,10 @@ do
     echo
     echo '   creating zip file for configuration ....'
     if [ $TARGET_OS == "windows" ]; then
-        zip a $BUILDPATH/CC$CC-$VARIANT-Build$BUILD.zip  $VARIANTOUTPUT/*.zip | tail -4
+        zip a $BUILDPATH/CC$CC-Duet2Wifi-$VARIANT-Build$BUILD.zip  $VARIANTOUTPUT/*.zip | tail -4
     else
         pushd $VARIANTOUTPUT
-        zip -r $BUILDPATH/CC$CC-$VARIANT-Build$BUILD.zip  *.zip | tail -4
+        zip -r $BUILDPATH/CC$CC-Duet2Wifi-$VARIANT-Build$BUILD.zip  *.zip | tail -4
         popd
     fi
     echo
