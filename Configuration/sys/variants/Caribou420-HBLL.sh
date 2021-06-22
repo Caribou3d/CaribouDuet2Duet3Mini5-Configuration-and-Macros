@@ -90,7 +90,7 @@ sed -i "
 ; BL-Touch Left \\
 ;\\
 M950 S0 C\"exp.heater3\"                                 ; sensor for BL-Touch\\
-M558 P9 C\"zprobe.in\" H2.5 F200 T8000 A1 S0.03          ; for BL-Touch\\
+M558 P9 C\"^zprobe.in\" H2.5 F200 T8000 A1 S0.03         ; for BL-Touch\\
 M557 X10:220 Y1:176 P7                                 ; define mesh grid
 };
 {/#CARIBOU_OFFSETS/ c\

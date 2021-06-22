@@ -6,8 +6,8 @@
 ;
 ; for #CARIBOU_VARIANT
 ;
-; CariboDuetConfiguration Release : "1.6.1"
-;                           Build :   226
+; CariboDuetConfiguration Release : "1.6.2"
+;                           Build :   227
 ;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -140,7 +140,7 @@ M302 S#CARIBOU_MINEXTRUDETEMP R#CARIBOU_MINRETRACTTEMP                          
 ; other settings
 ; =========================================================================================================
 ;
-M18 XYE                                                ; release / unlock X, Y, and E axis
+M18 XY                                                 ; release / unlock X, Y
 M501                                                   ; use config-override (for Thermistor Parameters and other settings)
 G90                                                    ; send absolute coordinates...
 M83                                                    ; ... but relative extruder moves

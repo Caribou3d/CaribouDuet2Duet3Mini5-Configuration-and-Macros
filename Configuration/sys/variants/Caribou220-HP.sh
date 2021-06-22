@@ -86,7 +86,7 @@ sed -i "
 {/#CARIBOU_ZPROBE/ c\
 ; PINDA2 \\
 ;\\
-M558 P5 C\"zprobe.in\" H1.5 F600 T8000 A3 S0.03               ; set z probe to PINDA2\\
+M558 P5 C\"^zprobe.in\" H1.5 F600 T8000 A3 S0.03              ; set z probe to PINDA2\\
 M308 S2 P\"e1temp\" A\"Pinda V2\" Y\"thermistor\" T100000 B3950   ; temperature of PINDA2\\
 M557 X23:235 Y5:186 S30.25:30                               ; define mesh grid
 };
