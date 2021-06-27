@@ -140,7 +140,18 @@ find $MacrosDir/04-Maintenance/* -maxdepth 0  ! \( -name "*First*" \) -exec cp -
 cp -r $MacrosDir/04-Maintenance/01-First_Layer_Calibration/processed $MacroOutputPath/04-Maintenance/01-First_Layer_Calibration
 cp -r $MacrosDir/00-Preheat/processed $MacroOutputPath/00-Preheat
 
-# create 00-Level-X-Axis
+# create 00-Test_Homing
+#
+sed "
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{s/#CARIBOU_MEASUREPOINT/G1 X92.5 Y115.5 F5000             ; go to center of the bed/};
+{/#CARIBOU_ZPROBE/ c\
+M280 P0 S160                      ; BLTouch, alarm release\\
+G4 P100                           ; BLTouch, delay for the release command
+};
+" < $MacrosDir/04-Maintenance/00-Self_Tests/00-Test_Homing > $MacroOutputPath/04-Maintenance/00-Self_Tests/00-Test_Homing
+
+# create 01-Level-X-Axis
 #
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};

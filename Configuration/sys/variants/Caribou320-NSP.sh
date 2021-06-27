@@ -133,7 +133,17 @@ find $MacrosDir/04-Maintenance/* -maxdepth 0  ! \( -name "*First*" \) -exec cp -
 cp -r $MacrosDir/04-Maintenance/01-First_Layer_Calibration/processed $MacroOutputPath/04-Maintenance/01-First_Layer_Calibration
 cp -r $MacrosDir/00-Preheat/processed $MacroOutputPath/00-Preheat
 
-# create 00-Level-X-Axis
+# create 00-Test_Homing
+#
+sed "
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y4.5 F6000               ; go to first probe point/};
+{/#CARIBOU_ZPROBE/ c\
+;
+};
+" < $MacrosDir/04-Maintenance/00-Self_Tests/00-Test_Homing > $MacroOutputPath/04-Maintenance/00-Self_Tests/00-Test_Homing
+
+# create 01-Level-X-Axis
 #
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
