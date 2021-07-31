@@ -304,7 +304,7 @@ echo '... done'
 echo
 echo 'generating configurations and macros ....'
 echo
-BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet2Wifi-$CC-Build$BUILD
+BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet2WiFi-$CC-Build$BUILD
 # Prepare config files folders
 if [ ! -d "$BUILDPATH" ]; then
     mkdir -p $BUILDPATH || exit 27
@@ -317,10 +317,10 @@ do
     echo "Variant       :" $VARIANT
     echo "Configuration :" $CC
     echo "Build #       :" $BUILD
-    echo "Config Folder :" "CC-build/CC-Duet2Wifi-$CC-Build$BUILD"
+    echo "Config Folder :" "CC-build/CC-Duet2WiFi-$CC-Build$BUILD"
     echo "$(tput sgr0)"
-    BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet2Wifi-$CC-Build$BUILD
-    VARIANTOUTPUT=$BUILDPATH/Duet2Wifi-$VARIANT
+    BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet2WiFi-$CC-Build$BUILD
+    VARIANTOUTPUT=$BUILDPATH/Duet2WiFi-$VARIANT
     # prepare output folder
     if [ ! -d "$VARIANTOUTPUT" ]; then
         mkdir -p $VARIANTOUTPUT || exit 27
@@ -476,7 +476,7 @@ do
     echo
     echo '   creating zip file for configuration ....'
     # delete possibly existing output file
-    OUTPUT=$BUILDPATH/CC$CC-Duet2Wifi-$VARIANT-Build$BUILD.zip
+    OUTPUT=$BUILDPATH/CC$CC-Duet2WiFi-$VARIANT-Build$BUILD.zip
     if [ -f "$OUTPUT" ]; then
         rm -f $OUTPUT || exit 27
     fi

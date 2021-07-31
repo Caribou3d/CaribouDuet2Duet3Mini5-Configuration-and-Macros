@@ -4,7 +4,7 @@
 ;
 ; =========================================================================================================
 ;
-M291 P{"CaribouDuet2Wifi-Lan Version: #CARIBOUDUETVERSION, build: #CARIBOUDUETBUILD "  } S2
+M291 P{"CaribouDuet2WiFi-Ethernet Version: #CARIBOUDUETVERSION, build: #CARIBOUDUETBUILD "  } S2
 ;
 ; =========================================================================================================
 ;

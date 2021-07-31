@@ -1,6 +1,6 @@
 ; =========================================================================================================
 ;
-; stop and restart Wifi module
+; stop and restart WiFi module
 ;
 ; =========================================================================================================
 ;
@@ -8,7 +8,7 @@ M552 S0            ; Disable network module
 G4 S5            ; wait 5 seconds
 M552 S1            ; Enable network module
 ;
-M291 P"Wifi module reset. Check console or DWC for more information."
+M291 P"WiFi module reset. Check console or DWC for more information."
 ;
 ; =========================================================================================================
 ;

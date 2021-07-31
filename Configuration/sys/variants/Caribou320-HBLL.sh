@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou320 Duet2Wifi-Lan Bondtech - SE HT Thermistor - BL-Touch Left
+# definition for Caribou320 Duet2WiFi-Ethernet Bondtech - SE HT Thermistor - BL-Touch Left
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou320 Duet2Wifi-Lan Bondtech - SE HT Thermistor - BL-Touch Left"
+CARIBOU_VARIANT="Caribou320 Duet2WiFi-Ethernet Bondtech - SE HT Thermistor - BL-Touch Left"
 CARIBOU_NAME="Caribou320-HBLL"
 CARIBOU_ZHEIGHTLEVELING="Z305"
 CARIBOU_ZHEIGHT="Z316.50"
