@@ -486,7 +486,7 @@ do
         zip a $OUTPUT  $VARIANTOUTPUT/* | tail -4
     else
         pushd $VARIANTOUTPUT
-        zip -r $OUTPUT  *.zip | tail -4
+        zip -r $OUTPUT  * | tail -4
         popd
     fi
     echo
