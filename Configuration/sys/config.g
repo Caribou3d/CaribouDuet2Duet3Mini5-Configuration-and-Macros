@@ -1,17 +1,17 @@
 ; =========================================================================================================
 ;
-; Configuration file for Duet WiFi (firmware version 3.2)
+; Configuration file for Duet2WiFi-Ethernet (firmware version 3.3)
 ;
 ; for 0.9° motors on xye
 ;
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "1.6.4"
-;                           Build :   233
+;                           Build :   234
 ;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
-; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet-Configuration-and-Macros
+; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2Wifi-ConfigurationMacros
 ;
 ; =========================================================================================================
 ; Network settings

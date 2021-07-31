@@ -69,8 +69,8 @@ for HEIGHT in ${HeightsArray[@]}; do
                     ;;
             esac
             mkdir -p $Destination_Path/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE
-            find -L $Start_Path -name "*$HEIGHT-$THERMISTOR_SHORT$SENSOR_SHORT-Build*.zip" -type f -not -path "$Destination_Path/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE/*" -exec cp {} $Destination_Path/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
-            find -L $Start_Path -name "*$HEIGHT-LGX-$THERMISTOR_SHORT$SENSOR_SHORT-Build*.zip" -type f -not -path "$Destination_Path/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE/*" -exec cp {} $Destination_Path/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
+            find -L $Start_Path -name "*$HEIGHT-$THERMISTOR_SHORT$SENSOR_SHORT-Build*.zip" -type f -not -path "$Destination_Path/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE/*" -exec mv {} $Destination_Path/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
+            find -L $Start_Path -name "*$HEIGHT-LGX-$THERMISTOR_SHORT$SENSOR_SHORT-Build*.zip" -type f -not -path "$Destination_Path/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE/*" -exec mv {} $Destination_Path/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
         done
     done
 done

@@ -26,6 +26,7 @@
 # 02 Jun 2021, wschadow, corrected zip command for SlicerScripts to include Porfiles and exclude processed folder
 # 13 Jun 2021, wschadow, changed output path to avoid collisions with Duet3Mini+ version
 # 31 Jul 2021, wschadow, added www, and driver, full content of SD-card is generated
+# 31 Jul 2021, wschadow, when all configurations are build, the output will be sorted
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3. Non-commercial use only.
 # Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -493,6 +494,18 @@ do
     echo
     echo '... done'
 done
+
+# Sort configuration only when build ALL is selected
+if [ ! -z "$ALL_VARIANTS" ]; then
+	if [ "$ALL_VARIANTS" == "All" ]; then
+		$SCRIPT_PATH/sort.sh $BUILDPATH $BUILDPATH-sorted/
+	else
+		echo "$(tput setaf 1)ALL_VARIANTS argument is wrong!$(tput sgr0)"
+		echo "Only $(tput setaf 2)'All'$(tput sgr0) is allowed as argument!$(tput sgr0)"
+		exit 37
+	fi
+fi
+
 
 # housekeeping: delete filament folders in source directory
 rm -fr $FIRSTLAYEROUTPUT
