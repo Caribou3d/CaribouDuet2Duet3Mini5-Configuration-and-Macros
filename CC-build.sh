@@ -25,7 +25,7 @@
 # 01 Jun 2021, wschadow, included all subdirectories of SlicerScripts
 # 02 Jun 2021, wschadow, corrected zip command for SlicerScripts to include Porfiles and exclude processed folder
 # 13 Jun 2021, wschadow, changed output path to avoid collisions with Duet3Mini+ version
-# 31 Jul 2021, wschadow, 
+# 31 Jul 2021, wschadow, added www, and driver, full content of SD-card is generated
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3. Non-commercial use only.
 # Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -477,7 +477,6 @@ do
     echo '   creating zip file for configuration ....'
     # delete possibly existing output file
     OUTPUT=$BUILDPATH/CC$CC-Duet2Wifi-$VARIANT-Build$BUILD.zip
-    echo $OUTPUT
     if [ -f "$OUTPUT" ]; then
         rm -f $OUTPUT || exit 27
     fi
