@@ -134,7 +134,7 @@ sed "
 # =========================================================================================================
 
 # copy macros directory to processed folder (for BL-Touch except the Print-Surface Macros)
-find $MacrosDir/* -maxdepth 0  ! \( -name "*Main*" -o -name "*Preheat*" -o -name "*processed*" -o -name "*Print*" \) -exec cp -r -t  $MacroOutputPath {} \+
+find $MacrosDir/* -maxdepth 0  ! \( -name "*Main*" -o -name "*Preheat*" -o -name "*processed*"  \) -exec cp -r -t  $MacroOutputPath {} \+
 mkdir $MacroOutputPath/04-Maintenance
 find $MacrosDir/04-Maintenance/* -maxdepth 0  ! \( -name "*First*" \) -exec cp -r -t  $MacroOutputPath/04-Maintenance {} \+
 cp -r $MacrosDir/04-Maintenance/01-First_Layer_Calibration/processed $MacroOutputPath/04-Maintenance/01-First_Layer_Calibration
