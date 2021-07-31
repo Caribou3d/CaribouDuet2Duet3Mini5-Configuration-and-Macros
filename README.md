@@ -41,11 +41,7 @@ In your preferred Unix environment follow these steps:
 3. execute `./CC-build.sh`
 4. select the desired configuration or build all configurations
 5. in case you only built one version you will find a zipped output file in `../CC-build`
-6. in case you built all versions copy `./sort.sh` to `../CC-build`
-7. change to the directory `../CC-build`
-8. execute `./sort.sh`. Options are the start and target directory for the sorted files example `./sort CC-Duet2WiFi-161-Build225/ CaribouDuet2-ConfigurationMacros-1.6.1-225`
-`
-9. the script will create all required directories and sort the out that was generated buy `CC-build.sh`
+6. in case you built all versions output files are automatically sorted into a a "sorted" directory
 
 # Set-up
 
