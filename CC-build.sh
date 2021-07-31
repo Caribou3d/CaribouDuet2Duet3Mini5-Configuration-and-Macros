@@ -25,6 +25,7 @@
 # 01 Jun 2021, wschadow, included all subdirectories of SlicerScripts
 # 02 Jun 2021, wschadow, corrected zip command for SlicerScripts to include Porfiles and exclude processed folder
 # 13 Jun 2021, wschadow, changed output path to avoid collisions with Duet3Mini+ version
+# 31 Jul 2021, wschadow, 
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3. Non-commercial use only.
 # Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -157,52 +158,7 @@ else
         exit 21
     fi
 fi
-# =========================================================================================================
-    # create zip file for gcodes (sample prints)
-    echo
-    echo 'creating zip file for gcodes (sample prints) ....'
-    GCODESPATH=$SCRIPT_PATH/Configuration/gcodes
-    GCODESOUTPUT=$GCODESPATH/processed
-    # prepare output folder
-    if [ ! -d "$GCODESOUTPUT" ]; then
-        mkdir -p $GCODESOUTPUT || exit 27
-    else
-        rm -fr $GCODESOUTPUT || exit 27
-        mkdir -p $GCODESOUTPUT || exit 27
-    fi
 
-    if [ $TARGET_OS == "windows" ]; then
-        zip a $GCODESOUTPUT/gcodes.zip $GCODESPATH/*.gcode | tail -4
-    else
-       pushd $GCODESPATH
-              zip -r $GCODESOUTPUT/gcodes.zip *.gcode | tail -4
-           popd
-    fi
-    echo
-    echo '   ... done'
-# =========================================================================================================
-    # create zip file for SlicerScripts
-    echo
-    echo 'creating zip file for SlicerScripts ....'
-    SLICERSCRIPTPATH=$SCRIPT_PATH/Configuration/SlicerScripts
-    SLICERSCRIPTSOUTPUT=$SLICERSCRIPTPATH/processed
-    # prepare output folder
-    if [ ! -d "$SLICERSCRIPTSOUTPUT" ]; then
-        mkdir -p $SLICERSCRIPTSOUTPUT || exit 27
-    else
-        rm -fr $SLICERSCRIPTSOUTPUT || exit 27
-        mkdir -p $SLICERSCRIPTSOUTPUT || exit 27
-    fi
-
-    if [ $TARGET_OS == "windows" ]; then
-        zip a $SLICERSCRIPTSOUTPUT/SlicerScripts.zip $SLICERSCRIPTPATH/*Scripts $SLICERSCRIPTPATH/Profiles | tail -4
-    else
-       pushd $SLICERSCRIPTPATH
-              zip -r $SLICERSCRIPTSOUTPUT/SlicerScripts.zip $SLICERSCRIPTPATH/*Scripts $SLICERSCRIPTPATH/Profiles | tail -4
-           popd
-    fi
-    echo
-    echo '   ... done'
 #
 # =========================================================================================================
 #
@@ -343,16 +299,6 @@ do
     cp $FILAMENTPATH/config.g $FILAMENTOUTPUT/$FILAMENTNAME/
 done
 echo
-echo '   creating zip file for filaments ....'
-# create zip file for filaments
-if [ $TARGET_OS == "windows" ]; then
-   zip a $FILAMENTOUTPUT/filaments.zip $FILAMENTOUTPUT/* | tail -4
-else
-    pushd $FILAMENTOUTPUT
-   zip -r $FILAMENTOUTPUT/filaments.zip * | tail -4
-fi
-echo
-echo '   ... done'
 echo '... done'
 # =========================================================================================================
 echo
@@ -382,74 +328,165 @@ do
         rm -fr $VARIANTOUTPUT || exit 27
         mkdir -p $VARIANTOUTPUT || exit 27
     fi
-    # copy filament.zip to build directory
-    cp $FILAMENTOUTPUT/filaments.zip $VARIANTOUTPUT
+
     # =========================================================================================================
     # run script to generate config.g and change macros
 
+    echo
+    echo '   creating file for sys ....'
     cd $SCRIPT_PATH/Configuration/sys/variants/
     $SCRIPT_PATH/Configuration/sys/variants/$VARIANT.sh
-    # =========================================================================================================
-    # =========================================================================================================
-    # create zip file for sys and remove processed files
-    echo
-    echo '   creating zip file for sys ....'
-    SysOutputPath=$SCRIPT_PATH/Configuration/sys/processed
-    if [ $TARGET_OS == "windows" ]; then
-        zip a $VARIANTOUTPUT/sys.zip $SysOutputPath/* | tail -4
-    else
-        pushd $SysOutputPath
-        zip -r $VARIANTOUTPUT/sys.zip * | tail -4
-        popd
-    fi
-    rm -fr $SysOutputPath
-    echo
     echo '   ... done'
+ 
+    # =========================================================================================================
+    # copy files for sys and remove processed files
+    SysOutputPath=$SCRIPT_PATH/Configuration/sys/processed
+    echo
+    echo '   copying files for sys ....'
+    # prepare output folder
+    INPUT=$SysOutputPath
+    OUTPUT=$VARIANTOUTPUT/sys
+    if [ ! -d "$OUTPUT" ]; then
+        mkdir -p $OUTPUT || exit 27
+    else
+        rm -fr $OUTPUT || exit 27
+        mkdir -p $OUTPUT || exit 27
+    fi
+    cp -r $INPUT/* $OUTPUT
+    echo '   ... done'
+
+    # delete processed files
+    rm -fr $SysOutputPath
+
     # =========================================================================================================
     # create zip file for macros an remove processed files
     echo
-    echo '   creating zip file for macros ....'
+    echo '   creating files for macros ....'
     MacrosDir=$SCRIPT_PATH/Configuration/macros
     MacroOutputPath=$MacrosDir/processed
     sed "
     {s/#CARIBOUDUETVERSION/$CCDOT/};
     {s/#CARIBOUDUETBUILD/$BUILD/};
     " < $MacrosDir/04-Maintenance/00-CaribouDuetVersion > $MacroOutputPath/04-Maintenance/00-CaribouDuetVersion
-    if [ $TARGET_OS == "windows" ]; then
-        zip a $VARIANTOUTPUT/macros.zip $MacroOutputPath/* | tail -4
+    echo '   ... done'
+    # copy files for sys and remove processed files
+    echo
+    echo '   copying files for macros ....'
+    # prepare output folder
+    INPUT=$MacroOutputPath
+    OUTPUT=$VARIANTOUTPUT/macros
+    if [ ! -d "$OUTPUT" ]; then
+        mkdir -p $OUTPUT || exit 27
     else
-        pushd $MacroOutputPath
-        zip -r $VARIANTOUTPUT/macros.zip * | tail -4
-        popd
+        rm -fr $OUTPUT || exit 27
+        mkdir -p $OUTPUT || exit 27
     fi
+    cp -r $INPUT/* $OUTPUT
+    echo '   ... done'
 
+    # delete processed files
     rm -fr $MacroOutputPath
+
+    # =========================================================================================================
+    # copy filament files to build directory
     echo
+    echo '   copying filament files ....'
+    INPUT=$FILAMENTOUTPUT
+    OUTPUT=$VARIANTOUTPUT/filaments
+    # prepare output folder
+    if [ ! -d "$OUTPUT" ]; then
+        mkdir -p $OUTPUT || exit 27
+    else
+        rm -fr $OUTPUT || exit 27
+        mkdir -p $OUTPUT || exit 27
+    fi
+    cp -r $INPUT/* $OUTPUT
     echo '   ... done'
     # =========================================================================================================
-    # copy zip file for gcodes (sample prints)
+    # copy files for SlicerScripts
     echo
-    echo '   copying zip file for GCODESs (sample prints) ....'
-    cp $GCODESOUTPUT/gcodes.zip $VARIANTOUTPUT
-    echo
+    echo '   copying files for SlicerScripts ....'
+    # prepare output folder
+    INPUT=$SCRIPT_PATH/Configuration/SlicerScripts
+    OUTPUT=$VARIANTOUTPUT/SlicerScripts
+    if [ ! -d "$OUTPUT" ]; then
+        mkdir -p $OUTPUT || exit 27
+    else
+        rm -fr $OUTPUT || exit 27
+        mkdir -p $OUTPUT || exit 27
+    fi
+    cp -r $INPUT/* $OUTPUT
     echo '   ... done'
     # =========================================================================================================
-    # copy zip file for SlicerScripts
+    # copy gcode files (sample prints) to build directory
     echo
-    echo '   copying zip file for SlicerScripts ....'
-    cp $SLICERSCRIPTSOUTPUT/SlicerScripts.zip $VARIANTOUTPUT
+    echo '   copying gcodes (sample prints) ....'
+    INPUT=$SCRIPT_PATH/Configuration/gcodes
+    OUTPUT=$VARIANTOUTPUT/gcodes
+    # prepare output folder
+    if [ ! -d "$OUTPUT" ]; then
+        mkdir -p $OUTPUT || exit 27
+    else
+        rm -fr $OUTPUT || exit 27
+        mkdir -p $OUTPUT || exit 27
+    fi
+    cp -r $INPUT/* $OUTPUT
+    echo '   ... done'  
+    # =========================================================================================================
+    # copy gcode files (sample prints) to build directory
     echo
-    echo '   ... done'
+    echo '   copying DWC files ....'
+    INPUT=$SCRIPT_PATH/www
+    OUTPUT=$VARIANTOUTPUT/www
+    # prepare output folder
+    if [ ! -d "$OUTPUT" ]; then
+        mkdir -p $OUTPUT || exit 27
+    else
+        rm -fr $OUTPUT || exit 27
+        mkdir -p $OUTPUT || exit 27
+    fi
+    cp -r $INPUT/* $OUTPUT
+    echo '   ... done' 
+    # =========================================================================================================
+    # create directories for firmware and menu
+    OUTPUT=$VARIANTOUTPUT/firmware
+    # prepare output folder
+    if [ ! -d "$OUTPUT" ]; then
+        mkdir -p $OUTPUT || exit 27
+    else
+        rm -fr $OUTPUT || exit 27
+        mkdir -p $OUTPUT || exit 27
+    fi
+    OUTPUT=$VARIANTOUTPUT/menu
+    # prepare output folder
+    if [ ! -d "$OUTPUT" ]; then
+        mkdir -p $OUTPUT || exit 27
+    else
+        rm -fr $OUTPUT || exit 27
+        mkdir -p $OUTPUT || exit 27
+    fi
+    # =========================================================================================================
+    # copy drivers
+    INPUT=$SCRIPT_PATH/DuetDriver
+    OUTPUT=$VARIANTOUTPUT/
+    cp -r $INPUT/* $OUTPUT
 
     # =========================================================================================================
     # create zip-file for configuration
     echo
     echo '   creating zip file for configuration ....'
+    # delete possibly existing output file
+    OUTPUT=$BUILDPATH/CC$CC-Duet2Wifi-$VARIANT-Build$BUILD.zip
+    echo $OUTPUT
+    if [ -f "$OUTPUT" ]; then
+        rm -f $OUTPUT || exit 27
+    fi
+
     if [ $TARGET_OS == "windows" ]; then
-        zip a $BUILDPATH/CC$CC-Duet2Wifi-$VARIANT-Build$BUILD.zip  $VARIANTOUTPUT/*.zip | tail -4
+        zip a $OUTPUT  $VARIANTOUTPUT/* | tail -4
     else
         pushd $VARIANTOUTPUT
-        zip -r $BUILDPATH/CC$CC-Duet2Wifi-$VARIANT-Build$BUILD.zip  *.zip | tail -4
+        zip -r $OUTPUT  *.zip | tail -4
         popd
     fi
     echo
@@ -459,8 +496,7 @@ do
 done
 
 # housekeeping: delete filament folders in source directory
-rm -fr $GCODESOUTPUT
-rm -fr $SLICERSCRIPTSOUTPUT
 rm -fr $FIRSTLAYEROUTPUT
 rm -fr $PREHEATOUTPUT
 rm -fr $FILAMENTOUTPUT
+ 
