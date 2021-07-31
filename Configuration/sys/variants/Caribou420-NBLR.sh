@@ -104,7 +104,7 @@ G31 X31.6 Y-10.1
 
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_MEASUREPOINT/G1 X92.5 Y115.5 F5000                                  ; go to center of the bed/};
+{s/#CARIBOU_MEASUREPOINT/G1 X97.5 Y115.5 F5000                                  ; go to center of the bed/};
 {/#CARIBOU_ZPROBE/ c\
 M280 P0 S160                                           ; BLTouch, alarm release\\
 G4 P100                                                ; BLTouch, delay for the release command
@@ -144,7 +144,7 @@ cp -r $MacrosDir/00-Preheat/processed $MacroOutputPath/00-Preheat
 #
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_MEASUREPOINT/G1 X92.5 Y115.5 F5000             ; go to center of the bed/};
+{s/#CARIBOU_MEASUREPOINT/G1 X97.5 Y115.5 F5000             ; go to center of the bed/};
 {/#CARIBOU_ZPROBE/ c\
 M280 P0 S160                      ; BLTouch, alarm release\\
 G4 P100                           ; BLTouch, delay for the release command
