@@ -149,7 +149,7 @@ M83                                                    ; ... but relative extrud
 ;  filament handling
 ; =========================================================================================================
 ;
-; execute macros that has the status of the filament sensor
+; execute macros that determine the status of the filament sensor
 ;
 M98 P"0:/sys/00-Functions/FilamentsensorStatus"
 ;
