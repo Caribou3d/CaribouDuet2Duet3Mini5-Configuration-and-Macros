@@ -496,15 +496,15 @@ do
 done
 
 # Sort configuration only when build ALL is selected
-if [ ! -z "$ALL_VARIANTS" ]; then
-    if [ "$ALL_VARIANTS" == "All" ]; then
+#if [ ! -z "$ALL_VARIANTS" ]; then
+#    if [ "$ALL_VARIANTS" == "All" ]; then
         $SCRIPT_PATH/sort.sh $BUILDPATH $BUILDPATH-sorted/
-    else
-        echo "$(tput setaf 1)ALL_VARIANTS argument is wrong!$(tput sgr0)"
-        echo "Only $(tput setaf 2)'All'$(tput sgr0) is allowed as argument!$(tput sgr0)"
-        exit 37
-    fi
-fi
+#    else
+#        echo "$(tput setaf 1)ALL_VARIANTS argument is wrong!$(tput sgr0)"
+#        echo "Only $(tput setaf 2)'All'$(tput sgr0) is allowed as argument!$(tput sgr0)"
+#        exit 37
+#    fi
+#fi
 
 
 # housekeeping: delete filament folders in source directory

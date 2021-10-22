@@ -40,8 +40,13 @@ else
     Destination_Path=$2
 fi
 
-echo "Start Path: "$Start_Path
-echo "Dest. Path: "$Destination_Path
+Destination_Path_zip=$Destination_Path"zip/"
+Destination_Path_orig=$Destination_Path"orig/"
+
+
+echo "Start Path     : "$Start_Path
+echo "Dest. Path-zip : "$Destination_Path_zip
+echo "Dest. Path-orig: "$Destination_Path_orig
 
 for HEIGHT in ${HeightsArray[@]}; do
     for THERMISTOR in ${ThermistorsArray[@]}; do
@@ -68,9 +73,12 @@ for HEIGHT in ${HeightsArray[@]}; do
                         SENSOR_SHORT='BLR'
                     ;;
             esac
-            mkdir -p $Destination_Path/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE
-            find -L $Start_Path -name "*$HEIGHT-$THERMISTOR_SHORT$SENSOR_SHORT-Build*.zip" -type f -not -path "$Destination_Path/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE/*" -exec mv {} $Destination_Path/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
-            find -L $Start_Path -name "*$HEIGHT-LGX-$THERMISTOR_SHORT$SENSOR_SHORT-Build*.zip" -type f -not -path "$Destination_Path/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE/*" -exec mv {} $Destination_Path/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
+            mkdir -p $Destination_Path_zip/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE
+            find -L $Start_Path -name "*$HEIGHT-$THERMISTOR_SHORT$SENSOR_SHORT-Build*.zip" -type f -not -path "$Destination_Path_zip/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE/*" -exec mv {} $Destination_Path_zip/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
+            find -L $Start_Path -name "*$HEIGHT-LGXC-$THERMISTOR_SHORT$SENSOR_SHORT-Build*.zip" -type f -not -path "$Destination_Path_zip/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE/*" -exec mv {} $Destination_Path_zip/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
+            find -L $Start_Path -name "*$HEIGHT-LGXM-$THERMISTOR_SHORT$SENSOR_SHORT-Build*.zip" -type f -not -path "$Destination_Path_zip/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE/*" -exec mv {} $Destination_Path_zip$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
+            mkdir -p $Destination_Path_orig/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE
+            find -L $Start_Path -name "*$HEIGHT-$THERMISTOR_SHORT$SENSOR_SHORT-Build*." -type f "$Destination_Path_orig/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE/*" -exec mv {} $Destination_Path_orig/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
         done
     done
 done
