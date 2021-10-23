@@ -305,7 +305,7 @@ echo '... done'
 echo
 echo 'generating configurations and macros ....'
 echo
-BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet2WiFi-$CC-Build$BUILD
+BUILDPATH=$SCRIPT_PATH/../CB/CC-Duet2WiFi-$CC-Build$BUILD
 # Prepare config files folders
 if [ ! -d "$BUILDPATH" ]; then
     mkdir -p $BUILDPATH || exit 27
@@ -320,7 +320,6 @@ do
     echo "Build #       :" $BUILD
     echo "Config Folder :" "CC-build/CC-Duet2WiFi-$CC-Build$BUILD"
     echo "$(tput sgr0)"
-    BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet2WiFi-$CC-Build$BUILD
     VARIANTOUTPUT=$BUILDPATH/Duet2WiFi-$VARIANT
     # prepare output folder
     if [ ! -d "$VARIANTOUTPUT" ]; then

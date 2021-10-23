@@ -77,8 +77,10 @@ for HEIGHT in ${HeightsArray[@]}; do
             find -L $Start_Path -name "*$HEIGHT-$THERMISTOR_SHORT$SENSOR_SHORT-Build*.zip" -type f -not -path "$Destination_Path_zip/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE/*" -exec mv {} $Destination_Path_zip/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
             find -L $Start_Path -name "*$HEIGHT-LGXC-$THERMISTOR_SHORT$SENSOR_SHORT-Build*.zip" -type f -not -path "$Destination_Path_zip/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE/*" -exec mv {} $Destination_Path_zip/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
             find -L $Start_Path -name "*$HEIGHT-LGXM-$THERMISTOR_SHORT$SENSOR_SHORT-Build*.zip" -type f -not -path "$Destination_Path_zip/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE/*" -exec mv {} $Destination_Path_zip$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
-            mkdir -p $Destination_Path_orig/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE
-            find -L $Start_Path -name "*$HEIGHT-$THERMISTOR_SHORT$SENSOR_SHORT-Build*." -type f "$Destination_Path_orig/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE/*" -exec mv {} $Destination_Path_orig/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
+            mkdir -p -v $Destination_Path_orig/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE
+            find $Start_Path -name "*$HEIGHT-$THERMISTOR_SHORT$SENSOR_SHORT" -type d  -print -exec cp -r  {} $Destination_Path_orig/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
+            find $Start_Path -name "*$HEIGHT-LGXC-$THERMISTOR_SHORT$SENSOR_SHORT" -type d -print -exec cp -r  {} $Destination_Path_orig/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
+            find $Start_Path -name "*$HEIGHT-LGXM-$THERMISTOR_SHORT$SENSOR_SHORT" -type d -print -exec cp -r  {} $Destination_Path_orig/$Printer_Name$HEIGHT/$THERMISTOR/$SENSOR_TYPE \;
         done
     done
 done
