@@ -68,6 +68,13 @@ sed "
 {s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
 " < ../config.g > $SysOutputPath/config.g
 
+# replacements for motor currents
+sed -i "
+{/#CARIBOU_MOTOR_CURRENTS/ c\
+M906 X1250 Y1250 Z650 E900 I40                         ; set motor currents (mA) and motor idle factor in percent 
+};
+" $SysOutputPath/config.g
+
 # replacemente SE thermistor
 sed -i "
 {/#CARIBOU_HOTEND_THERMISTOR/ c\

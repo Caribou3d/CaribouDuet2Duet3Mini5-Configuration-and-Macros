@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "1.8.0"
-;                           Build :   258
+;                           Build :   263
 ;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -47,7 +47,7 @@ M92 X200.00 Y200.00 Z400.00 E#CARIBOU_EESTEPS                    ; set steps per
 ;
 ; set motor currents
 ;
-M906 X1250 Y1250 Z650 E900 I40                         ; set motor currents (mA) and motor idle factor in per cent
+; #CARIBOU_MOTOR_CURRENTS
 ;
 M84 S60                                                ; Set idle timeout
 ;
@@ -71,10 +71,10 @@ M208 X254.6 Y214 #CARIBOU_ZHEIGHT S0                            ; set axis maxim
 ; Endstops
 ; =========================================================================================================
 ;
-M574 X1 S3                                             ; configure sensorless endstop for low end on X
-M574 Y1 S3                                             ; configure sensorless endstop for low end on Y
-M574 Z1 S2                                             ; configure Z-probe endstop for low end on Z
-M574 Z2 S3                                             ; configure sensorless endstop for high end on Z
+M574 X1 S3                                             ; configure sensorless endstop for low end on x
+M574 Y1 S3                                             ; configure sensorless endstop for low end on y
+M574 Z1 S2                                             ; configure z-probe endstop for low end on z
+M574 Z2 S3                                             ; configure sensorless endstop for high end on z
 ;
 ; =========================================================================================================
 ;
@@ -140,7 +140,7 @@ M302 S#CARIBOU_MINEXTRUDETEMP R#CARIBOU_MINRETRACTTEMP                          
 ; other settings
 ; =========================================================================================================
 ;
-M18 XY                                                 ; release / unlock X, Y
+M18 XY                                                 ; release / unlock x, y
 M501                                                   ; use config-override (for Thermistor Parameters and other settings)
 G90                                                    ; send absolute coordinates...
 M83                                                    ; ... but relative extruder moves
