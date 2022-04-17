@@ -7,7 +7,6 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "1.8.0"
-;                           Build :   263
 ;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -54,7 +53,7 @@ M84 S60                                                ; Set idle timeout
 ; set speeds
 ;
 M201 X500.00 Y500.00 Z100.00 E500.00                   ; set accelerations (mm/s^2)
-M203 X9000.00 Y9000.00 Z1000.00 E3600.00               ; set maximum speeds (mm/min)
+M203 X12000.00 Y12000.00 Z1000.00 E3600.00             ; set maximum speeds (mm/min)
 M204 P500.0 T500.0                                     ; set print and travel accelerations (mm(s^2)
 M566 X480.00 Y480.00 Z48.00 E300.00                    ; set maximum instantaneous speed changes (mm/min)
 ;

@@ -1,10 +1,11 @@
-; =========================================================================================================
+; =================================================================================
+
 ;
 ; filament unload macro
 ;
 ; for #CARIBOU_VARIANT
 ;
-; =========================================================================================================
+; =================================================================================
 ;
 if state.status == "processing"                                    ; printer is not currently printing!
    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
@@ -22,7 +23,7 @@ M291 R"Unloading Filament..." P"Press OK to start." S2             ; display mes
 G91                                                                ; set to Relative Positioning
 M913 E100                                                          ; set motor current to 100% of set current;
 ;
-G1 E15 F300                                                        ; extrude 4mm of filament at 300mm/min
+G1 E15 F300                                                        ; extrude 15mm of filament at 300mm/min
 G1 E-8 F3000                                                       ; retract 8mm of filament at 3000mm/min
 G1 E-#CARIBOU_FINALUNLOAD F2500                                    ; retract #CARIBOU_FINALUNLOADmm of filament at 2500mm/min
 ;
@@ -38,5 +39,5 @@ if {move.axes[0].workplaceOffsets[1] == 1}                         ; if filament
     if {move.axes[1].workplaceOffsets[1] == 1}                     ; if autoload is active
         M98 P"0:/sys/00-Functions/ActivateAutoload"                ; activate autoload
 ;
-; =========================================================================================================
+; =================================================================================
 ;
