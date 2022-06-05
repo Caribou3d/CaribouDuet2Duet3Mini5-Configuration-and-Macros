@@ -5,7 +5,7 @@
 # =========================================================================================================
 
 CARIBOU_VARIANT="Caribou220 Duet2WiFi-Ethernet LGX Mosquito - E3d or SE Thermistor - BL-Touch Right"
-CARIBOU_NAME="Caribou220-LGXM-NBLR"
+CARIBOU_NAME="Caribou220-LGXM09-NBLR"
 CARIBOU_ZHEIGHTLEVELING="Z205"
 CARIBOU_ZHEIGHT="Z216.50"
 CARIBOU_EESTEPS=800.00

@@ -5,7 +5,7 @@
 # =========================================================================================================
 
 CARIBOU_VARIANT="Caribou220 Duet2WiFi-Ethernet LGX Mosquito - E3d or SE Thermistor - PINDA2"
-CARIBOU_NAME="Caribou220-LGXM-NP"
+CARIBOU_NAME="Caribou220-LGXM18-NP"
 CARIBOU_ZHEIGHTLEVELING="Z205"
 CARIBOU_ZHEIGHT="Z216.50"
 CARIBOU_EESTEPS=400.00

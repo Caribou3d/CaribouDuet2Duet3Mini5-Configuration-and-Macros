@@ -12,12 +12,12 @@ if state.status == "processing"                                        ; printer
 ;
 T0                                                                     ; select tool
 ;
-if heat.heaters[1].current < 180                                       ; check extrude temperature
-    if heat.heaters[1].current < 180                                   ; check retract temperature
-         M291 P"Hotend too cold. Preheat extruder first!" S2           ; ask to preheat extruder
+if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check extrude temperature
+    if heat.heaters[1].current < heat.coldRetractTemperature           ; check retract temperature
+        M291 P"Hotend too cold. Preheat extruder first!" S2           ; ask to preheat extruder
         M99
 ;
-if {move.axes[1].workplaceOffsets[1] == 1}                             ; if autoload is enabled
+if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is enabled
     M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
 ;
 M300 S500 P600                                                         ; beep
