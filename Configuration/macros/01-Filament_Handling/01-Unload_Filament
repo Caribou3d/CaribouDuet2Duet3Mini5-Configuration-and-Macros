@@ -1,5 +1,4 @@
 ; =================================================================================
-
 ;
 ; filament unload macro
 ;
@@ -11,12 +10,17 @@ if state.status == "processing"                                    ; printer is 
    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
    M99
 ;
-T0                                                                 ; select tool
-;
 if heat.heaters[1].current < heat.coldExtrudeTemperature           ; check extrude temperature
     if heat.heaters[1].current < heat.coldRetractTemperature       ; check retract temperature
         M291 P"Hotend too cold. Preheat extruder first!" S2        ; ask to preheat extruder
         M99
+;
+; disable run-out sensor if active
+;
+if {move.axes[0].workplaceOffsets[8] == 1}                         ; if filament sensor is active
+    if exists(sensors.filamentMonitors[0])                         ; in run-out mode?
+       M591 D0 P0 C"e0stop" S1                                     ; disable filament runout sensor
+       M950 J1 C"nil"                                              ; free input 1 e0 filament sensor
 ;
 M291 R"Unloading Filament..." P"Press OK to start." S2             ; display message
 ;
@@ -28,13 +32,8 @@ G1 E-18 F3000                                                      ; retract 8mm
 G1 E-#CARIBOU_FINALUNLOAD F2500                                                      ; retract 95mm of filament at 2500mm/min
 ;
 M400
-M292
 ;
-if {move.axes[0].workplaceOffsets[8] == 1}                         ; if filament sensor is active
-    if !exists(sensors.filamentMonitors[0])                        ; in run-out mode?
-        M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
-    while {sensors.filamentMonitors[0].status != "noFilament"}     ; check filament status
-        M291 P"Please pull out filament!" S2                       ; ask pull out filament
+M291 P"Please pull out filament!" S2                               ; ask to pull out filament
 ;
 if {move.axes[0].workplaceOffsets[8] == 1}                         ; if filament sensor is active
     if {move.axes[1].workplaceOffsets[8] == 1}                     ; if autoload is active

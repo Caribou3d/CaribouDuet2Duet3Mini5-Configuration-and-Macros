@@ -10,8 +10,6 @@ if state.status == "processing"                                        ; printer
    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
    M99
 ;
-T0                                                                     ; select tool
-;
 if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check extrude temperature
     if heat.heaters[1].current < heat.coldRetractTemperature           ; check retract temperature
         M291 P"Hotend too cold. Preheat extruder first!" S2            ; ask to preheat extruder
@@ -25,7 +23,7 @@ M291 R"Insert filament." P"Press OK to start feeding filament..." S2   ; display
 M291 P"Feeding filament.... " S1
 ;
 G91                                                                    ; set to Relative Positioning
-G1 E#CARIBOU_INITIALLOAD F400                                                            ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/min
+G1 E#CARIBOU_INITIALLOAD F400                                                                               ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/min
 G1 E15 F100                                                            ; feed 15mm of filament at 200mm/min
 M400
 M292

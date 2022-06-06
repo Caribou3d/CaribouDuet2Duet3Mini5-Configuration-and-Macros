@@ -19,9 +19,7 @@ if state.status == "processing"                                           ; prin
     G91                                                                   ; set relative positioning
     G1 Z5 F360                                                            ; lift z by 5mm
     M400                                                                  ; finish all moves, clear the buffer.
-;
 else
-    T0                                                                    ; select tool
     if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
         G28                                                               ; home all axis without mesh bed level
 ;
@@ -31,60 +29,71 @@ if  {move.axes[2].machinePosition < 80}                                   ; if z
 else
     G1 X200 Y0 F6000                                                      ; go to the parking position
 ;
-if heat.heaters[1].current < heat.coldExtrudeTemperature                  ; check extrude temperature again
-    if heat.heaters[1].current < heat.coldRetractTemperature              ; check retract temperature again
-        M291 P"Hotend too cold. Preheat extruder first!" S2               ; ask to preheat extruder
+M400                                                               ; finish all moves, clear the buffer
+;
+if heat.heaters[1].current < heat.coldExtrudeTemperature           ; check extrude temperature
+    if heat.heaters[1].current < heat.coldRetractTemperature       ; check retract temperature
+        M291 P"Hotend too cold. Preheat extruder first!" S2        ; ask to preheat extruder
         M99
 ;
-M300 S500 P600                                                            ; beep
+; disable run-out sensor if active
 ;
-M291 R"Unloading Filament..." P"Press OK to start." S2                    ; display message
+if {move.axes[0].workplaceOffsets[8] == 1}                         ; if filament sensor is active
+    if exists(sensors.filamentMonitors[0])                         ; in run-out mode?
+       M591 D0 P0 C"e0stop" S0                                     ; disable filament runout sensor
+       M950 J1 C"nil"                                              ; free input 1 e0 filament sensor
 ;
-G91                                                                       ; set to relative positioning
-M913 E100                                                                 ; set motor current to 100% of set current;
+M291 R"Unloading Filament..." P"Press OK to start." S2             ; display message
 ;
-G1 E15 F300                                                                ; extrude 4mm of filament at 300mm/min
-G1 E-8 F3000                                                              ; retract 8mm of filament at 3000mm/min
-G1 E-#CARIBOU_FINALUNLOAD F2500                                                             ; retract #CARIBOU_FINALUNLOADmm of filament at 2500mm/min
+M83                                                                ; set extruder to relative positioning
+M913 E100                                                          ; set motor current to 100% of set current;
 ;
-M400                                                                      ; finish all moves, clear the buffer.
-M292
+G1 E25 F300                                                        ; extrude 25mm of filament at 300mm/min
+G1 E-18 F3000                                                      ; retract 8mm of filament at 3000mm/min
+G1 E-#CARIBOU_FINALUNLOAD F2500                                                      ; retract 95mm of filament at 2500mm/min
 ;
-if {move.axes[0].workplaceOffsets[8] == 1}                                ; if filament sensor is enabled
-    if {move.axes[1].workplaceOffsets[8] == 1}                            ; if autoload is enabled
-        M98 P"0:/sys/00-Functions/ActivateRunOutSensor"                   ; update sensor status
-        while {sensors.filamentMonitors[0].status != "noFilament"}        ; check filament status
-            M291 P"Please pull out filament!" S2                          ; ask to pull out filament
-else
-    M291 P"Please pull out filament!" S2                                  ; ask to pull out filament
+M400                                                               ; finish all moves, clear the buffer
 ;
-M400                                                                      ; finish all moves, clear the buffer.
+M291 P"Please pull out filament!" S2                               ; ask pull out filament
 ;
-M300 S500 P600                                                            ; beep
-if {move.axes[0].workplaceOffsets[8] == 1}                                ; if filament sensor is enabled
-    if {move.axes[1].workplaceOffsets[8] == 1}                            ; if autoload is enabled
-        M98 P"0:/sys/00-Functions/ActivateAutoload"                       ; update sensor status
-        M291 P"Insert filament ... " S1                                   ; display new message
-        while {move.axes[2].workplaceOffsets[8] == 1}
+if {move.axes[0].workplaceOffsets[8] == 1}                         ; if filament sensor is active
+    if {move.axes[1].workplaceOffsets[8] == 1}                     ; if autoload is active
+        M98 P"0:/sys/00-Functions/ActivateAutoload"                ; activate autoload
+;
+; =================================================================================
+;
+M300 S500 P600                                                     ; beep
+if {move.axes[0].workplaceOffsets[8] == 1}                         ; if filament sensor is enabled
+    if {move.axes[1].workplaceOffsets[8] == 1}                     ; if autoload is enabled
+;        M98 P"0:/sys/00-Functions/ActivateAutoload"               ; update sensor status
+        M291 P"Insert filament ... " S1                            ; display new message
+        while {!exists(sensors.filamentMonitors[0])}
             M400
-        M292
+    else
+       M291 R"Insert filament." P"Press OK to start feeding filament..." S2  ; display new message
+       M291 P"Feeding filament.... " S1                                      ; display new message
+       G91                                                                   ; set to Relative Positioning
+       G1 E#CARIBOU_INITIALLOAD F400                                                          ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/mi
+       G1 E15 F200                                                           ; feed 15mm of filament at 200mm/min
+       M400
+       M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament" 
 else
     M291 R"Insert filament." P"Press OK to start feeding filament..." S2  ; display new message
     M291 P"Feeding filament.... " S1                                      ; display new message
     G91                                                                   ; set to Relative Positioning
-    G1 E#CARIBOU_INITIALLOAD F400                                                           ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/min
+    G1 E#CARIBOU_INITIALLOAD F400                                                          ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/mi
     G1 E15 F200                                                           ; feed 15mm of filament at 200mm/min
+    M400
+    M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament" 
 ;
-M400                                                                      ; finish all moves, clear the buffer.
+M400                                                               ; finish all moves, clear the buffer
 ;
-if !{{move.axes[0].workplaceOffsets[8] == 1} && {move.axes[1].workplaceOffsets[8] == 1}}   ; only if autoload is enabled and sensor is active purging is done through trigger
-    M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament"               ; need to purge?
+M98 P"0:/sys/00-Functions/FilamentsensorStatus"                    ; update sensor status
 ;
-M98 P"0:/sys/00-Functions/FilamentsensorStatus"                           ; update sensor status
-;
-if state.status == "paused"                                               ; printer is currently paused from printing!
-    M291 P"Press OK to resume print." S2                                  ; display message
-    M24                                                                   ; resume printing
+if state.status == "paused"                                        ; printer is currently paused from printing!
+    M291 P"Press OK to resume print." S2                           ; display message
+    M24                                                            ; resume printing
 ;
 ; =========================================================================================================
 ;
+

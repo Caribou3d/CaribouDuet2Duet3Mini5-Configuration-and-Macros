@@ -1,10 +1,19 @@
 ; =========================================================================================================
 ;
-; called when a print is paused. Moves extruder to front position.
-; If z position is below 80mm it will lift the z axis to enable a clean filament
-; change.
+; called when a filament error occurs
 ;
 ; =========================================================================================================
+;
+; printer not printing, so we change mode to autoload , if activated
+;
+if state.status != "processing"                          ; printer is not currently printing!
+    if {move.axes[0].workplaceOffsets[8] == 1}           ; if filament sensor is active
+        if {move.axes[1].workplaceOffsets[8] == 1}       ; if autoload is active
+            M98 P"0:/sys/00-Functions/ActivateAutoload"  ; activate autoload
+
+    M99
+;
+; printer ran out of filament during print and filament change is initiated
 ;
 M83                                          ; relative extruder moves
 G1 E-2 F3600                                 ; retract 2mm of filament
@@ -18,4 +27,5 @@ else
 ;
 ; =========================================================================================================
 ;
-
+M98 P"0:/macros/01-Filament_Handling/03-Change_Filament"    ; call macro to unload filament
+;

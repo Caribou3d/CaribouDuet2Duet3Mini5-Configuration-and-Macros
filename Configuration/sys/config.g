@@ -1,13 +1,13 @@
 ; =========================================================================================================
 ;
-; Configuration file for Duet2WiFi-Ethernet (firmware version 3.3)
+; Configuration file for Duet2WiFi-Ethernet (firmware version 3.4)
 ;
 ; for 0.9° motors on xy, and 0.9° or 1.8° (only LGXM) motor e
 ;
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "1.8.1"
-;                           Build :   271
+;                           Build :   272
 ;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
