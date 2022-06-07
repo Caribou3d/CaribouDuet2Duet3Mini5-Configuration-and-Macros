@@ -27,7 +27,7 @@ M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament"          ; need to purge
 ;
 G1 E-0.5 F200           ; retract 0.5mm of filament at 400mm/min
 ;
-if {move.axes[0].workplaceOffsets[8] == 1}                            ; if filament sensor is enabled
+if {move.axes[0].workplaceOffsets[8] == 1}                       ; if filament sensor is enabled
     M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
 ;
 ; =========================================================================================================

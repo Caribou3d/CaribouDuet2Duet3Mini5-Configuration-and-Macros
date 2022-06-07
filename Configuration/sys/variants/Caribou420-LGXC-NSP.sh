@@ -94,8 +94,8 @@ sed -i "
 {/#CARIBOU_ZPROBE/ c\
 ; SuperPINDA \\
 ;\\
-M558 P5 C\"^zprobe.in\" H1.5 F600 T8000 A3 S0.03              ; set z probe to SuperPINDA\\
-M557 X23:235 Y5:186 S30.25:30                               ; define mesh grid
+M558 P5 C\"^zprobe.in\" H1.5 F600 T8000 A3 S0.03         ; set z probe to SuperPINDA\\
+M557 X23:235 Y5:186 S30.25:30                          ; define mesh grid
 };
 {/#CARIBOU_OFFSETS/ c\
 G31 P1000 X23 Y5
