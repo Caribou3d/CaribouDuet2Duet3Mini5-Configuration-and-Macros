@@ -21,6 +21,8 @@ else
     if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
         G28                                                               ; home all axis without mesh bed level
 ;
+T0                                                                        ; select tool T0
+;
 G90                                                                       ; set absolute positioning
 if  {move.axes[2].machinePosition < 80}                                   ; if z position is below 80mm
     G1 X200 Y0 Z80 F6000                                                  ; go to the parking position
