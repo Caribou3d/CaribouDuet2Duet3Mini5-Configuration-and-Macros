@@ -9,6 +9,8 @@
 ;
 ; =========================================================================================================
 ;
+T0                                                                        ; select tool T0
+;
 if heat.heaters[1].current < heat.coldExtrudeTemperature                  ; check extrude temperature
     if heat.heaters[1].current < heat.coldRetractTemperature              ; check retract temperature
         M291 P"Hotend too cold. Preheat extruder first!" S2               ; ask to preheat extruder
@@ -21,7 +23,7 @@ else
     if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
         G28                                                               ; home all axis without mesh bed level
 ;
-T0                                                                        ; select tool T0
+var sensor_flag = 0                                                       ; create variable sensor_flag
 ;
 G90                                                                       ; set absolute positioning
 if  {move.axes[2].machinePosition < 80}                                   ; if z position is below 80mm
@@ -43,34 +45,37 @@ if {move.axes[0].workplaceOffsets[8] == 1}                                ; if f
        M591 D0 P0 C"e0stop" S0                                            ; disable filament runout sensor
        M950 J1 C"nil"                                                     ; free input 1 e0 filament sensor
 ;
-M291 R"Unloading Filament..." P"Press OK to start." S2                    ; display message
+M291 R"Changing Filament..." P"Press OK to start or CANCEL to abort." S3  ; display message
 ;
 M83                                                                       ; set extruder to relative positioning
 M913 E100                                                                 ; set motor current to 100% of set current;
 ;
-G1 E25 F300                                                              ; extrude 25mm of filament at 300mm/min
-G1 E-18 F3000                                                            ; retract 8mm of filament at 3000mm/min
+G1 E25 F300                                                               ; extrude 25mm of filament at 300mm/min
+G1 E-18 F3000                                                             ; retract 8mm of filament at 3000mm/min
 G1 E-#CARIBOU_FINALUNLOAD F2500                                                             ; retract 95mm of filament at 2500mm/min
 ;
-M400                                                                     ; finish all moves, clear the buffer
+M400                                                                      ; finish all moves, clear the buffer
 ;
-M291 P"Please pull out filament!" S2                                     ; ask pull out filament
+M291 P"Please pull out filament!" S2                                      ; ask pull out filament
 ;
-if {move.axes[0].workplaceOffsets[8] == 1}                               ; if filament sensor is active
-    if {move.axes[1].workplaceOffsets[8] == 1}                           ; if autoload is active
-        M98 P"0:/sys/00-Functions/ActivateAutoload"                      ; activate autoload
+if {move.axes[0].workplaceOffsets[8] == 1}                                ; if filament sensor is active
+    if {move.axes[1].workplaceOffsets[8] == 1}                            ; if autoload is active
+        M98 P"0:/sys/00-Functions/ActivateAutoload"                       ; activate autoload
 ;
 ; =================================================================================
 ;
-M300 S500 P600                                                           ; beep
-if {move.axes[0].workplaceOffsets[8] == 1}                               ; if filament sensor is enabled
-    if {move.axes[1].workplaceOffsets[8] == 1}                           ; if autoload is enabled
-        M291 P"Insert filament ... " S1                                  ; display new message
-        while {!exists(sensors.filamentMonitors[0])}
-            M400
+if {move.axes[0].workplaceOffsets[8] == 1}                                ; if filament sensor is enabled
+    if {move.axes[1].workplaceOffsets[8] == 1}                            ; if autoload is enabled
+        M291 P"Insert filament...." S1 T5                                 ; display new message
+        M300 S500 P600                                                    ; beep
+        while {var.sensor_flag = 0}
+           G4 P1000                                                       ; wait 1000 milliseconds
+		   if exists(sensors.filamentMonitors[0])                         ; if filament sensor is detected in object model
+               set var.sensor_flag = 1                                    ; set flag to 1
     else
         M291 R"Insert filament." P"Press OK to start feeding filament..." S2  ; display new message
-        M291 P"Feeding filament.... " S1                                      ; display new message
+        M300 S500 P600                                                        ; beep
+        M291 P"Feeding filament.... " S1 T15                                  ; display new message
         G91                                                                   ; set to Relative Positioning
         G1 E#CARIBOU_INITIALLOAD F400                                                           ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/mi
         G1 E15 F200                                                           ; feed 15mm of filament at 200mm/min
@@ -78,22 +83,24 @@ if {move.axes[0].workplaceOffsets[8] == 1}                               ; if fi
         M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament" 
 ;
 if {move.axes[0].workplaceOffsets[8] == 0}  
-    M291 R"Insert filament." P"Press OK to start feeding filament..." S2      ; display new message
-    M291 P"Feeding filament.... " S1                                          ; display new message
-    G91                                                                       ; set to Relative Positioning
-    G1 E#CARIBOU_INITIALLOAD F400                                                               ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/mi
-    G1 E15 F200                                                               ; feed 15mm of filament at 200mm/min
+    M291 R"Insert filament." P"Press OK to start feeding filament..." S2  ; display new message
+    M300 S500 P600                                                        ; beep
+    M291 P"Feeding filament.... " S1 T15                                  ; display new message
+    G91                                                                   ; set to Relative Positioning
+    G1 E#CARIBOU_INITIALLOAD F400                                                           ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/mi
+    G1 E15 F200                                                           ; feed 15mm of filament at 200mm/min
     M400
     M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament" 
 ;
-M400                                                                     ; finish all moves, clear the buffer
+M400                                                                      ; finish all moves, clear the buffer
 ;
-M98 P"0:/sys/00-Functions/FilamentsensorStatus"                          ; update sensor status
+G1 E-0.5 F200                                                             ; retract 0.5mm of filament at 400mm/min
 ;
-if state.status == "paused"                                              ; printer is currently paused from printing!
-    M291 P"Press OK to resume print." S2                                 ; display message
-    M24                                                                  ; resume printing
+M98 P"0:/sys/00-Functions/FilamentsensorStatus"                           ; update sensor status
+;
+if state.status == "paused"                                               ; printer is currently paused from printing!
+    M291 P"Press OK to resume print." S2                                  ; display message
+    M24                                                                   ; resume printing
 ;
 ; =========================================================================================================
 ;
-

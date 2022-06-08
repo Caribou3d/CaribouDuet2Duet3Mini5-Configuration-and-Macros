@@ -10,13 +10,18 @@ if state.status == "processing"                                        ; printer
    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
    M99
 ;
+T0                                                                     ; select tool 0
+;
 if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check extrude temperature
     if heat.heaters[1].current < heat.coldRetractTemperature           ; check retract temperature
         M291 P"Hotend too cold. Preheat extruder first!" S2            ; ask to preheat extruder
         M99
 ;
-if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is enabled
-    M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
+;
+; disable autoload function if active
+;
+M581 P1 T2 S-1 R0                                                      ; filament sensor P1 triggers Trigger2.g always (R0)  TRIGGER OFF
+M950 J1 C"nil"                                                         ; free input 1 e0 filament sensor
 ;
 M300 S500 P600                                                         ; beep
 M291 R"Insert filament." P"Press OK to start feeding filament..." S2   ; display new message
@@ -27,6 +32,9 @@ G1 E#CARIBOU_INITIALLOAD F400                                                   
 G1 E15 F100                                                            ; feed 15mm of filament at 200mm/min
 M400
 M292
+;
+if {move.axes[0].workplaceOffsets[8] == 1}                            ; if filament sensor is enabled
+    M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
 ;
 M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament"               ; purging needed?
 ;
