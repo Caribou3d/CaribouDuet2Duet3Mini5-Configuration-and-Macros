@@ -12,7 +12,7 @@ if {move.axes[0].workplaceOffsets[8] == 1}                                      
             if {move.axes[1].workplaceOffsets[8] == 1}                              ; if autoload is enabled
                 M291 R{"Filament Sensor"} P{"Status: ON, Autoload: ON, Filament: LOADED "  } S2
             else
-            M291 R{"Filament Sensor"} P{"Status: ON, Autoload: OFF, Filament: LOADED "  } S2
+                M291 R{"Filament Sensor"} P{"Status: ON, Autoload: OFF, Filament: LOADED "  } S2
         else 
             if {move.axes[1].workplaceOffsets[8] == 1}                               ; if autoload is not enabled
                 M291 R{"Filament Sensor"} P{"Status: ON, Autoload: ON, Filament: NOT LOADED "  } S2
