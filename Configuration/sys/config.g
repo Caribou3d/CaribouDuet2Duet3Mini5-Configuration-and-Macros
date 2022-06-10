@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "1.9.1"
-;                           Build :   282
+;                           Build :   283
 ;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -49,7 +49,7 @@ M92 X200.00 Y200.00 Z400.00 E#CARIBOU_EESTEPS                    ; set steps per
 ;
 ; #CARIBOU_MOTOR_CURRENTS
 ;
-M84 S60                                                ; Set idle timeout
+M84 S60                                                ; set idle timeout
 ;
 ; set speeds
 ;
@@ -86,9 +86,9 @@ M574 Z1 S2                                             ; set endstops controlled
 ;
 ; Stallguard Sensitivy
 ;
-M915 X S2 F0 H400 R0                                   ; set X axis Sensitivity
-M915 Y S1 F0 H400 R0                                   ; set Y axis Sensitivity
-M915 Z S0 F0 H200 R0                                   ; set Z axis Sensitivity
+M915 X S2 F0 H400 R0                                   ; set x axis Sensitivity
+M915 Y S1 F0 H400 R0                                   ; set y axis Sensitivity
+M915 Z S0 F0 H200 R0                                   ; set z axis Sensitivity
 ;
 ; =========================================================================================================
 ; Heater & Fans
