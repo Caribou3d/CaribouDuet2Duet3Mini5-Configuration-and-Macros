@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "1.9.1"
-;                           Build :   279
+;                           Build :   280
 ;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -17,7 +17,7 @@
 ; Network settings
 ; =========================================================================================================
 ;
-M550 P"#CARIBOU_NAME"                           ; set printer name
+M550 P"#CARIBOU_NAME"                                ; set printer name
 ;
 M552 S1                                                ; enable network
 M586 P0 S1                                             ; enable HTTP

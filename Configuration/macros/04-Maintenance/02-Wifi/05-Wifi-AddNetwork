@@ -24,7 +24,7 @@ M587 S"NETWORKNAME" P"PASSWORD"    ; add WiFi SSID to remembered networks list
 ; =========================================================================================================
 ;
 G4 S2                               ; wait 2 seconds
-M552 S1                             ; start wifi module
+M552 S1                             ; start WiFi module
 ;
 M291 R"WiFi network added." P"Check console for IP address."
 ;

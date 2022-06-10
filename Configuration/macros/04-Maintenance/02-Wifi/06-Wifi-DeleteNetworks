@@ -10,7 +10,7 @@ M552 S-1                            ; disable WiFi module
 G4 S2                               ; wait 2 seconds
 M552 S0                                ; enable WiFi module
 G4 S2                                  ; wait 2 seconds
-M588 S"*"                            ; clear all saved wifi networls
+M588 S"*"                            ; clear all saved WiFi networls
 ;
 M291 R"WiFi networks deleted." P"You must add a new WiFi network."
 ;
