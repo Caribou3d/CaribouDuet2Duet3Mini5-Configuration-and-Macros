@@ -10,6 +10,9 @@ if state.status == "processing"                                    ; printer is 
    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
    M99
 ;
+;
+T0                                                                 ; select tool
+;
 if heat.heaters[1].current < heat.coldExtrudeTemperature           ; check extrude temperature
     if heat.heaters[1].current < heat.coldRetractTemperature       ; check retract temperature
         M291 P"Hotend too cold. Preheat extruder first!" S2        ; ask to preheat extruder

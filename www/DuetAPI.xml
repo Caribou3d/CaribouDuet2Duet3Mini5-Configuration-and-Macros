@@ -3954,6 +3954,9 @@
             <summary>
             Current machine position (in mm) or null if unknown/unset
             </summary>
+            <remarks>
+            This value reflects the machine position of the move being performed or of the last one if the machine is not moving
+            </remarks>
         </member>
         <member name="P:DuetAPI.ObjectModel.Axis.Max">
             <summary>
@@ -4004,6 +4007,9 @@
             <summary>
             Current user position (in mm) or null if unknown
             </summary>
+            <remarks>
+            This value reflects the target position of the last move fed into the look-ahead buffer
+            </remarks>
         </member>
         <member name="P:DuetAPI.ObjectModel.Axis.Visible">
             <summary>
@@ -4220,6 +4226,11 @@
             EI3 (3-hump)
             </summary>
         </member>
+        <member name="F:DuetAPI.ObjectModel.InputShapingType.Custom">
+            <summary>
+            Custom
+            </summary>
+        </member>
         <member name="T:DuetAPI.ObjectModel.CoreKinematics">
             <summary>
             Information about core kinematics
@@ -4327,7 +4338,7 @@
         </member>
         <member name="P:DuetAPI.ObjectModel.Kinematics.Name">
             <summary>
-            Currently configured geometry type
+            Name of the configured kinematics
             </summary>
         </member>
         <member name="P:DuetAPI.ObjectModel.Kinematics.Segmentation">
@@ -4943,6 +4954,11 @@
             Speed of the network interface (in MBit, null if unknown, 0 if not connected)
             </summary>
         </member>
+        <member name="P:DuetAPI.ObjectModel.NetworkInterface.State">
+            <summary>
+            Network state
+            </summary>
+        </member>
         <member name="P:DuetAPI.ObjectModel.NetworkInterface.Subnet">
             <summary>
             Subnet of the network adapter
@@ -5003,9 +5019,59 @@
             SSH protocol
             </summary>
         </member>
+        <member name="T:DuetAPI.ObjectModel.NetworkState">
+            <summary>
+            Enumeration of possible network interface states
+            </summary>
+        </member>
+        <member name="F:DuetAPI.ObjectModel.NetworkState.Disabled">
+            <summary>
+            Network disabled
+            </summary>
+        </member>
+        <member name="F:DuetAPI.ObjectModel.NetworkState.Enabled">
+            <summary>
+            Network enabled but not started yet
+            </summary>
+        </member>
+        <member name="F:DuetAPI.ObjectModel.NetworkState.Starting1">
+            <summary>
+            Starting up (used by WiFi networking in standalone mode)
+            </summary>
+        </member>
+        <member name="F:DuetAPI.ObjectModel.NetworkState.Starting2">
+            <summary>
+            Starting up (used by WiFi networking in standalone mode)
+            </summary>
+        </member>
+        <member name="F:DuetAPI.ObjectModel.NetworkState.ChangingMode">
+            <summary>
+            Running and in the process of switching between modes (used by WiFi networking in standalone mode)
+            </summary>
+        </member>
+        <member name="F:DuetAPI.ObjectModel.NetworkState.EstablishingLink">
+            <summary>
+            Starting up, waiting for link
+            </summary>
+        </member>
+        <member name="F:DuetAPI.ObjectModel.NetworkState.ObtainingIP">
+            <summary>
+            Link established, waiting for DHCP
+            </summary>
+        </member>
+        <member name="F:DuetAPI.ObjectModel.NetworkState.Connected">
+            <summary>
+            Just established a connection
+            </summary>
+        </member>
+        <member name="F:DuetAPI.ObjectModel.NetworkState.Active">
+            <summary>
+            Network running
+            </summary>
+        </member>
         <member name="T:DuetAPI.ObjectModel.ObjectModel">
             <summary>
-            Representation of the full machine model as maintained by DCS
+            Representation of the Duet3D object model
             </summary>
         </member>
         <member name="P:DuetAPI.ObjectModel.ObjectModel.Boards">
@@ -5175,6 +5241,57 @@
             Serialize this instance to a UTF-8 string
             </summary>
             <returns></returns>
+        </member>
+        <member name="E:DuetAPI.ObjectModel.ObjectModel.OnDeserializationFailed">
+            <summary>
+            Static event to be called when the deserialization of a property failed.
+            If an event handler is assigned, potential JsonExceptions are suppressed and the event is called instead
+            </summary>
+        </member>
+        <member name="M:DuetAPI.ObjectModel.ObjectModel.DeserializationFailed(System.Object,System.Type,System.Text.Json.JsonElement,System.Text.Json.JsonException)">
+            <summary>
+            Internal function to be called when the deserialization of a sub-property failed
+            </summary>
+            <param name="sender">Object that caused the exception</param>
+            <param name="type">Type of the object that could not be deserialized</param>
+            <param name="jsonValue">JSON data</param>
+            <param name="e">Exception that caused the error</param>
+            <returns>True if the exception can be suppressed</returns>
+        </member>
+        <member name="T:DuetAPI.ObjectModel.DeserializationFailedEventHandler">
+            <summary>
+            Delegate of the event to be called when deserialization of a property fails
+            </summary>
+            <param name="sender">Instance of the object that tried to deserialize a value`</param>
+            <param name="e">Event arguments pointing to the property that failed to be deserialized</param>
+        </member>
+        <member name="T:DuetAPI.ObjectModel.DeserializationFailedEventArgs">
+            <summary>
+            Event arguments for the event to be called when deserialization fails
+            </summary>
+        </member>
+        <member name="M:DuetAPI.ObjectModel.DeserializationFailedEventArgs.#ctor(System.Type,System.Text.Json.JsonElement,System.Exception)">
+            <summary>
+            Constructor of this class
+            </summary>
+            <param name="type">Type that failed to be deserialized</param>
+            <param name="jsonValue">Data that failed to be deserialized</param>
+            <param name="e">Exception that caused the deserialization to fail</param>
+        </member>
+        <member name="P:DuetAPI.ObjectModel.DeserializationFailedEventArgs.TargetType">
+            <summary>
+            Type that failed to be deserialized
+            </summary>
+        </member>
+        <member name="P:DuetAPI.ObjectModel.DeserializationFailedEventArgs.JsonValue">
+            <summary>
+            Data that failed to be deserialized
+            </summary>
+        </member>
+        <member name="P:DuetAPI.ObjectModel.DeserializationFailedEventArgs.Exception">
+            <summary>
+            Exception that caused the deserialization to fail
+            </summary>
         </member>
         <member name="T:DuetAPI.ObjectModel.ObjectModelConverter">
             <summary>
@@ -6975,6 +7092,9 @@
             <summary>
             Class representing a heightmap
             </summary>
+            <remarks>
+            This class is no longer used in DSF. Also note that the heightmap format is now slightly different
+            </remarks>
         </member>
         <member name="P:DuetAPI.Utility.Heightmap.XMin">
             <summary>
