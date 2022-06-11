@@ -27,8 +27,8 @@
 # 13 Jun 2021, wschadow, changed output path to avoid collisions with Duet3Mini+ version
 # 31 Jul 2021, wschadow, added www, and driver, full content of SD-card is generated
 # 31 Jul 2021, wschadow, when all configurations are build, the output will be sorted
-# 11 Jun 2011, wschadow, added a counter
-#
+# 11 Jun 2011, wschadow, added a counter, added generation of a zip for all configurations
+##
 # Copyright Caribou Research & Development 2021. Licensed under GPL3. Non-commercial use only.
 # Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
 #
@@ -509,14 +509,42 @@ done
 # Sort configuration only when build ALL is selected
 if [ ! -z "$ALL_VARIANTS" ]; then
     if [ "$ALL_VARIANTS" == "All" ]; then
+        echo
+        echo '   sorting files ....'
+        echo
+
         $SCRIPT_PATH/sort.sh $BUILDPATH $BUILDPATH-sorted/
+
+        echo
+        echo '   ... done'
+        echo
+        echo '   creating zip file for all configurations ....'
+        echo
+
+        # delete possibly existing output file
+        OUTPUTPATH=$BUILDPATH-sorted/zip
+        cd $OUTPUTPATH
+        ZIPNAME=CaribouDuet2WiFi-Configuration-and-Macros-$CC-Build$BUILD.zip
+
+        if [ -f "$ZIPNAME" ]; then
+            rm -f $ZIPNAME || exit 27
+        fi
+        if [ $TARGET_OS == "windows" ]; then
+            zip a $ZIPNAME * | tail -4
+        else
+            zip -r $ZIPNAME * | tail -4
+        fi
+        mv $ZIPNAME ..
+    
+        echo
+        echo '   ... done'
+        echo
     else
         echo "$(tput setaf 1)ALL_VARIANTS argument is wrong!$(tput sgr0)"
         echo "Only $(tput setaf 2)'All'$(tput sgr0) is allowed as argument!$(tput sgr0)"
         exit 37
     fi
 fi
-
 
 # housekeeping: delete filament folders in source directory
 rm -fr $FIRSTLAYEROUTPUT
