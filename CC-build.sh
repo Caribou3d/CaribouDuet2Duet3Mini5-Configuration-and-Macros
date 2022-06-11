@@ -28,7 +28,7 @@
 # 31 Jul 2021, wschadow, added www, and driver, full content of SD-card is generated
 # 31 Jul 2021, wschadow, when all configurations are build, the output will be sorted
 # 11 Jun 2011, wschadow, added a counter, added generation of a zip for all configurations
-##
+#
 # Copyright Caribou Research & Development 2021. Licensed under GPL3. Non-commercial use only.
 # Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
 #

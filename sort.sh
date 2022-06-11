@@ -43,7 +43,6 @@ fi
 Destination_Path_zip=$Destination_Path"zip/"
 Destination_Path_orig=$Destination_Path"orig/"
 
-
 echo "Start Path     : "$Start_Path
 echo "Dest. Path-zip : "$Destination_Path_zip
 echo "Dest. Path-orig: "$Destination_Path_orig
