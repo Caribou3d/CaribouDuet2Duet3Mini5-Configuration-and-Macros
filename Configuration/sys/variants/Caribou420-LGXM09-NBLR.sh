@@ -86,7 +86,7 @@ sed -i "
 M308 S1 P\"e0temp\" Y\"thermistor\" T100000 B4725 C7.060000e-8 A\"Nozzle E1\"  ; E3d configure sensor 0 as thermistor on pin e0temp\\
 ;\\
 M950 H1 C\"e0heat\" T1                                   ; create nozzle heater output on e0heat and map it to sensor 1\\
-M307 H1 B0 S1.00                                       ; disable bang-bang mode for heater  and set PWM limit\\
+M307 H1 B0 S1.00                                       ; disable bang-bang mode for heater 1 and set PWM limit\\
 M143 H1 S280                                           ; set temperature limit for heater 1 to 280°C
 };
 " $SysOutputPath/config.g
