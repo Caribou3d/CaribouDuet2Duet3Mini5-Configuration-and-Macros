@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou220 Duet2WiFi-Ethernet LGX Copperhead - E3d or SE Thermistor - PINDA2
+# definition for Caribou220 Duet2-WiFi-Ethernet LGX Copperhead - E3d or SE Thermistor - PINDA2
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou220 Duet2WiFi-Ethernet LGX Copperhead - E3d or SE Thermistor - PINDA2"
+CARIBOU_VARIANT="Caribou220 Duet2-WiFi-Ethernet LGX Copperhead - E3d or SE Thermistor - PINDA2"
 CARIBOU_NAME="Caribou220-LGXC-NP"
 CARIBOU_ZHEIGHTLEVELING="Z214"
 CARIBOU_ZHEIGHT="Z225.50"

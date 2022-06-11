@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou420 Duet2WiFi-Ethernet LGX Mosquito - E3d or SE Thermistor - PINDA2
+# definition for Caribou420 Duet2-WiFi-Ethernet LGX Mosquito - E3d or SE Thermistor - PINDA2
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou420 Duet2WiFi-Ethernet LGX Mosquito - E3d or SE Thermistor - PINDA2"
+CARIBOU_VARIANT="Caribou420 Duet2-WiFi-Ethernet LGX Mosquito - E3d or SE Thermistor - PINDA2"
 CARIBOU_NAME="Caribou420-LGXM18-NP"
 CARIBOU_ZHEIGHTLEVELING="Z405"
 CARIBOU_ZHEIGHT="Z416.50"

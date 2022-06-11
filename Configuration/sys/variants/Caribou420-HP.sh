@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou420 Duet2WiFi-Ethernet Bondtech - SE HT Thermistor - PINDA2
+# definition for Caribou420 Duet2-WiFi-Ethernet Bondtech - SE HT Thermistor - PINDA2
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou420 Duet2WiFi-Ethernet Bondtech - SE HT Thermistor - PINDA2"
+CARIBOU_VARIANT="Caribou420 Duet2-WiFi-Ethernet Bondtech - SE HT Thermistor - PINDA2"
 CARIBOU_NAME="Caribou420-HP"
 CARIBOU_ZHEIGHTLEVELING="Z405"
 CARIBOU_ZHEIGHT="Z416.50"

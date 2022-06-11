@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou320 Duet2WiFi-Ethernet LGX Mosquito - E3d or SE Thermistor - BL-Touch Right
+# definition for Caribou320 Duet2-WiFi-Ethernet LGX Mosquito - E3d or SE Thermistor - BL-Touch Right
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou320 Duet2WiFi-Ethernet LGX Mosquito - E3d or SE Thermistor - BL-Touch Right"
+CARIBOU_VARIANT="Caribou320 Duet2-WiFi-Ethernet LGX Mosquito - E3d or SE Thermistor - BL-Touch Right"
 CARIBOU_NAME="Caribou320-LGXM09-NBLR"
 CARIBOU_ZHEIGHTLEVELING="Z305"
 CARIBOU_ZHEIGHT="Z316.50"

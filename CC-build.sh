@@ -313,7 +313,7 @@ if [ $TotalCount == 0 ]; then
     TotalCount=1
 fi
 
-BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet2WiFi-$CC-Build$BUILD
+BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet2-$CC-Build$BUILD
 # Prepare config files folders
 if [ ! -d "$BUILDPATH" ]; then
     mkdir -p $BUILDPATH || exit 27
@@ -330,9 +330,9 @@ do
     echo "Variant       :" $VARIANT
     echo "Configuration :" $CC
     echo "Build #       :" $BUILD
-    echo "Config Folder :" "CC-build/CC-Duet2WiFi-$CC-Build$BUILD" "$(tput sgr0)"
+    echo "Config Folder :" "CC-build/CC-Duet2-$CC-Build$BUILD" "$(tput sgr0)"
     echo 
-    VARIANTOUTPUT=$BUILDPATH/Duet2WiFi-$VARIANT
+    VARIANTOUTPUT=$BUILDPATH/Duet2-$VARIANT
     # prepare output folder
     if [ ! -d "$VARIANTOUTPUT" ]; then
         mkdir -p $VARIANTOUTPUT || exit 27
@@ -488,7 +488,7 @@ do
     echo
     echo '   creating zip file for configuration ....'
     # delete possibly existing output file
-    OUTPUT=$BUILDPATH/CC$CC-Duet2WiFi-$VARIANT-Build$BUILD.zip
+    OUTPUT=$BUILDPATH/CC$CC-Duet2-$VARIANT-Build$BUILD.zip
     if [ -f "$OUTPUT" ]; then
         rm -f $OUTPUT || exit 27
     fi
@@ -524,7 +524,7 @@ if [ ! -z "$ALL_VARIANTS" ]; then
         # delete possibly existing output file
         OUTPUTPATH=$BUILDPATH-sorted/zip
         cd $OUTPUTPATH
-        ZIPNAME=CaribouDuet2WiFi-Configuration-and-Macros-$CC-Build$BUILD.zip
+        ZIPNAME=CaribouDuet2-Configuration-and-Macros-$CC-Build$BUILD.zip
 
         if [ -f "$ZIPNAME" ]; then
             rm -f $ZIPNAME || exit 27

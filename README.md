@@ -1,6 +1,6 @@
-# CaribouDuet2WiFi-Ethernet-Configuration-and-Macros
+# CaribouDuet2-WiFi-Ethernet-Configuration-and-Macros
 
-This repository contains the source code and the development versions of the configuration and macros running on the Original CaribouDuet2WiFi-Ethernet line of printers.
+This repository contains the source code and the development versions of the configuration and macros running on the Original CaribouDuet2-WiFi-Ethernet line of printers.
 
 # Naming convention
 
