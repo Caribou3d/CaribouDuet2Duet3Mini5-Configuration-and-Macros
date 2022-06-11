@@ -27,6 +27,7 @@
 # 13 Jun 2021, wschadow, changed output path to avoid collisions with Duet3Mini+ version
 # 31 Jul 2021, wschadow, added www, and driver, full content of SD-card is generated
 # 31 Jul 2021, wschadow, when all configurations are build, the output will be sorted
+# 11 Jun 2011, wschadow, added a counter
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3. Non-commercial use only.
 # Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -305,6 +306,13 @@ echo '... done'
 echo
 echo 'generating configurations and macros ....'
 echo
+
+VariantCount=1
+TotalCount=($(wc -w <<< $VARIANTS))
+if [ $TotalCount == 0 ]; then
+    TotalCount=1
+fi
+
 BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet2WiFi-$CC-Build$BUILD
 # Prepare config files folders
 if [ ! -d "$BUILDPATH" ]; then
@@ -312,14 +320,18 @@ if [ ! -d "$BUILDPATH" ]; then
 fi
 for v in ${VARIANTS[*]}
 do
+    echo
+    echo "Variant count: " $VariantCount " / " $TotalCount
+    ((VariantCount=VariantCount+1))
+
     VARIANT=$(basename "$v" ".sh")
     #List some useful data
     echo "$(tput setaf 2)$(tput setab 7)"
     echo "Variant       :" $VARIANT
     echo "Configuration :" $CC
     echo "Build #       :" $BUILD
-    echo "Config Folder :" "CC-build/CC-Duet2WiFi-$CC-Build$BUILD"
-    echo "$(tput sgr0)"
+    echo "Config Folder :" "CC-build/CC-Duet2WiFi-$CC-Build$BUILD" "$(tput sgr0)"
+    echo 
     VARIANTOUTPUT=$BUILDPATH/Duet2WiFi-$VARIANT
     # prepare output folder
     if [ ! -d "$VARIANTOUTPUT" ]; then
