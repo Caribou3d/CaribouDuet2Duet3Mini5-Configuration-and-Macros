@@ -21,7 +21,7 @@ if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check e
 ;
 if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is enabled
     if {move.axes[1].workplaceOffsets[8] == 1}                         ; if autoload is active
-        M581 P1 T2 S-1 R0                                                      ; filament sensor P1 triggers Trigger2.g always (R0)  TRIGGER OFF
+        M581 P1 T2 S-1 R0                                                      ; filament sensor P1 triggers trigger2.g always (R0)  TRIGGER OFF
         M950 J1 C"nil"                                                         ; free input 1 e0 filament sensor
 ;
 M300 S500 P600                                                         ; beep
