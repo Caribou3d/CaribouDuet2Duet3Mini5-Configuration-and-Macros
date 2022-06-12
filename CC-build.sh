@@ -24,7 +24,7 @@
 # 28 May 2021, wschadow, added generation of SlicerScripts.zip
 # 01 Jun 2021, wschadow, included all subdirectories of SlicerScripts
 # 02 Jun 2021, wschadow, corrected zip command for SlicerScripts to include Porfiles and exclude processed folder
-# 13 Jun 2021, wschadow, changed output path to avoid collisions with Duet3Mini+ version
+# 13 Jun 2021, wschadow, changed output path to avoid collisions with Duet3Mini5+ version
 # 31 Jul 2021, wschadow, added www, and driver, full content of SD-card is generated
 # 31 Jul 2021, wschadow, when all configurations are build, the output will be sorted
 # 11 Jun 2011, wschadow, added a counter, added generation of a zip for all configurations
