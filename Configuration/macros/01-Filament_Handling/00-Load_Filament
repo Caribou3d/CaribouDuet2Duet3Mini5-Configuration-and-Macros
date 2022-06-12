@@ -21,8 +21,8 @@ if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check e
 ;
 if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is enabled
     if {move.axes[1].workplaceOffsets[8] == 1}                         ; if autoload is active
-        M581 P1 T2 S-1 R0                                                      ; filament sensor P1 triggers trigger2.g always (R0)  TRIGGER OFF
-        M950 J1 C"nil"                                                         ; free input 1 e0 filament sensor
+        M581 P1 T2 S-1 R0                                              ; filament sensor P1 triggers trigger2.g always (R0)  TRIGGER OFF
+        M950 J1 C"nil"                                                 ; free input 1 e0 filament sensor
 ;
 M300 S500 P600                                                         ; beep
 M291 R"Insert filament." P"Press OK to start feeding filament..." S2   ; display new message
@@ -34,12 +34,12 @@ G1 E15 F100                                                            ; feed 15
 M400
 M292
 ;
-if {move.axes[0].workplaceOffsets[8] == 1}                            ; if filament sensor is enabled
+if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is enabled
     M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
 ;
-M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament"               ; purging needed?
+M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament"                ; purging needed?
 ;
-G1 E-1.5 F400                                                         ; retract 1.5mm of filament at 400mm/min
+G1 E-1.5 F400                                                          ; retract 1.5mm of filament at 400mm/min
 ;
 ; =========================================================================================================
 ;
