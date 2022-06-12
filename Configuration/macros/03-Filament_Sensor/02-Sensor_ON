@@ -1,13 +1,13 @@
 ; =========================================================================================================
 ;
-;    turns the filament sensor ON and saves status to config-overrde.g
+;    turns the filament sensor ON and saves status to config-override.g
 ;
 ; =========================================================================================================
 ;
 if {move.axes[0].workplaceOffsets[8] != 1}              ; check if filament sensor is enabled in x-offset of tool 9
     M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
     G10 L2 P9 X1.00                                     ; save status into tool 9
-    M500                                                ; save status to config-overrde.g
+    M500                                                ; save status to config-override.g
 M291 P"Filament sensor is turned ON." S2                ; display new message
 ;
 ; =========================================================================================================

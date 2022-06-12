@@ -1,6 +1,6 @@
 ; =========================================================================================================
 ;
-;    turns the filament sensor OFF and saves status to config-overrde.g
+;    turns the filament sensor OFF and saves status to config-override.g
 ;
 ; =========================================================================================================
 ;
@@ -9,7 +9,7 @@ if {move.axes[0].workplaceOffsets[8] != 0}             ; check if filament senso
     M950 J1 C"nil"                                     ; free input 1 e0 filament sensor
     M591 D0 P0 C"e0_stop" S0                           ; turn filament sensor OFF
     G10 L2 P9 X0                                       ; save status into tool 9
-    M500                                               ; save status to config-overrde.g
+    M500                                               ; save status to config-override.g
 M291 P"Filament sensor is turned OFF." S2              ; display new message
 ;
 ; =========================================================================================================

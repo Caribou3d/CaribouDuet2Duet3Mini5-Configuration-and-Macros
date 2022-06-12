@@ -1,10 +1,10 @@
 ; =========================================================================================================
 ;
-;  turns the autoload ON (only if filament sensor is enabled) and saves status to config-overrde.g
+;  turns the autoload ON (only if filament sensor is enabled) and saves status to config-override.g
 ;
 ;  checks for filament on startup.
 ;        No filament = Run Macro "Activate_Autoload" to
-;        activate Autoload Feature (trigger.2g in sys folder)
+;        activate Autoload Feature (trigger2g in sys folder)
 ;
 ; =========================================================================================================
 ;
@@ -12,7 +12,7 @@ if {move.axes[0].workplaceOffsets[8] == 1}                                  ; ch
     if {move.axes[1].workplaceOffsets[8] != 1}                              ; if autoload is not enabled
         M98 P"0:/sys/00-Functions/ActivateAutoload"                         ; actiavte autoload
         G10 L2 P9 Y1                                                        ; save status into y-offset of tool 9
-        M500                                                                ; save status to config-overrde.g
+        M500                                                                ; save status to config-override.g
     M291 P"Autoload function is turned ON." S2                              ; display new message
 else
     M291 P"Filament sensor is turned OFF. Please turn sensor on first." S2  ; display new message
