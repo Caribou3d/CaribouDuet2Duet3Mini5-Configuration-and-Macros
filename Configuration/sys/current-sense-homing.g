@@ -1,6 +1,6 @@
 ; =========================================================================================================
 ;
-; Set the current and sensitivity for homing, non-printing, routines
+; set the current and sensitivity for homing, non-printing, routines
 ;
 ; =========================================================================================================
 ;

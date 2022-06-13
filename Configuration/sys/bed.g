@@ -1,6 +1,5 @@
 ; =========================================================================================================
 ;
-; bed.g
 ; called to perform automatic bed compensation via G32
 ;
 ; for #CARIBOU_VARIANT
@@ -9,7 +8,7 @@
 ;
 M561                                                                   ; clear any existing bed transform
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
-        G28                                                            ; home all axis without mesh bed level
+   G28                                                                 ; home all axis without mesh bed level
 ;
 M558 F50 A5 S0.01                                                      ; slow z-probe, up to 5 probes until disparity is 0.003 or less - else yield average
 while iterations <=2                                                   ; perform 3 passes

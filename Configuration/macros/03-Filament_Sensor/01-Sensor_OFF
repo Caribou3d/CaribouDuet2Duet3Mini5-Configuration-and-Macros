@@ -1,6 +1,6 @@
 ; =========================================================================================================
 ;
-;    turns the filament sensor OFF and saves status to config-override.g
+;  turns the filament sensor OFF and saves status to config-override.g
 ;
 ; =========================================================================================================
 ;

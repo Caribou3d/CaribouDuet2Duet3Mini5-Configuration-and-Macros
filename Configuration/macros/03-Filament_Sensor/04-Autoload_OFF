@@ -4,7 +4,7 @@
 ;
 ;  checks for filament on startup.
 ;        No filament = Run Macro "Activate_Autoload" to
-;        activate Autoload Feature (trigger2g in sys folder)
+;        activate Autoload Feature (trigger2.g in sys folder)
 ;
 ; =========================================================================================================
 ;

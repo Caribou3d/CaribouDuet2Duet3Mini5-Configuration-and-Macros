@@ -14,8 +14,8 @@ if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
 G0 X60 Y-3 Z80                                                         ; move extruder above bed keep extruder in front for cleaning and checking
 ;
 M104 S160 T0                                                           ; pre-heat extruder to 160C
-M140 S#BED_TEMPERATURE                                                              ; this will take the layer 1 temperature for bed 0
-M190 S#BED_TEMPERATURE                                                              ; wait for bed temp
+M140 S#BED_TEMPERATURE                                                               ; this will take the layer 1 temperature for bed 0
+M190 S#BED_TEMPERATURE                                                               ; wait for bed temp
 ;
 G29                                                                    ; mesh bed leveling
 G0 X0 Y-3 Z0 F3000                                                     ; move to home position
@@ -33,10 +33,10 @@ M98 P"0:/sys/playsound.g"
 ;
 ; =========================================================================================================
 ; start introLine
-G1 Y-3.0 F1000.0         ; go outside print area
+G1 Y-3.0 F1000.0                                                       ; go outside print area
 G92 E0.0
-G1 X60.0 E5.0 F1000.0    ; intro line
-G1 X100.0 E7.0 F1000.0   ; intro line
+G1 X60.0 E5.0 F1000.0                                                  ; intro line
+G1 X100.0 E7.0 F1000.0                                                 ; intro line
 ; done introline
 ; =========================================================================================================
 ; start meander
