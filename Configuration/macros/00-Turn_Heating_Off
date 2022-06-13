@@ -4,18 +4,18 @@
 ;
 ; =========================================================================================================
 ;
-if state.status == "processing"                        ; printer is not currently printing!
+if state.status == "processing"                                        ; printer is not currently printing!
    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
    M99
 ;
-M104 S-274 R-274                                       ; turn off extruder
+M104 S-274 R-274                                                       ; turn off extruder
 ;
-M140 S0 R0                                             ; set bed temperature to 0C
-M140 S-274                                             ; set bed temperature to 0K to turn it off
+M140 S0 R0                                                             ; set bed temperature to 0C
+M140 S-274                                                             ; set bed temperature to 0K to turn it off
 ;
-M106 P0 S0                                             ; set fan 0 value
+M106 P0 S0                                                             ; set fan 0 value
 ;
-M291 P"Turned all heaters off." S1 T5                  ; display new message
+M291 P"Turned all heaters off." S1 T5                                  ; display new message
 ;
 ; =========================================================================================================
 ;

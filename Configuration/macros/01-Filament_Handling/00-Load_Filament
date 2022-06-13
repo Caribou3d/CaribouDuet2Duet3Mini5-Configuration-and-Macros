@@ -32,7 +32,6 @@ G91                                                                    ; set to 
 G1 E#CARIBOU_INITIALLOAD F400                                                                               ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/min
 G1 E15 F100                                                            ; feed 15mm of filament at 200mm/min
 M400
-M292
 ;
 if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is enabled
     M98 P"0:/sys/00-Functions/ActivateRunOutSensor"

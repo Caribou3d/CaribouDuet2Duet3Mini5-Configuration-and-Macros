@@ -6,6 +6,6 @@
 ;
 M291 R"Disable cold extrusions" P"Settings back to allow exruding only while heated up." S3
 ;
-M302 P0                                                ; disable cold extrusions / retractions
+M302 P0                                                                ; disable cold extrusions / retractions
 ;
 ; =========================================================================================================

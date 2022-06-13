@@ -160,7 +160,6 @@ else
         exit 21
     fi
 fi
-
 #
 # =========================================================================================================
 #
@@ -169,6 +168,7 @@ fi
 echo
 echo 'creating macros for first layer calibration ...'
 echo
+#
 # =========================================================================================================
 #
 # set output
@@ -214,6 +214,7 @@ do
 done
 echo
 echo '... done'
+#
 # =========================================================================================================
 #
 # generate files for preheat menu
@@ -306,13 +307,13 @@ echo '... done'
 echo
 echo 'generating configurations and macros ....'
 echo
-
+#
 VariantCount=1
 TotalCount=($(wc -w <<< $VARIANTS))
 if [ $TotalCount == 0 ]; then
     TotalCount=1
 fi
-
+#
 BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet2-$CC-Build$BUILD
 # Prepare config files folders
 if [ ! -d "$BUILDPATH" ]; then
@@ -323,7 +324,7 @@ do
     echo
     echo "Variant count: " $VariantCount " / " $TotalCount
     ((VariantCount=VariantCount+1))
-
+    #
     VARIANT=$(basename "$v" ".sh")
     #List some useful data
     echo "$(tput setaf 2)$(tput setab 7)"
@@ -331,7 +332,7 @@ do
     echo "Configuration :" $CC
     echo "Build #       :" $BUILD
     echo "Config Folder :" "CC-build/CC-Duet2-$CC-Build$BUILD" "$(tput sgr0)"
-    echo 
+    echo
     VARIANTOUTPUT=$BUILDPATH/Duet2-$VARIANT
     # prepare output folder
     if [ ! -d "$VARIANTOUTPUT" ]; then
@@ -340,16 +341,13 @@ do
         rm -fr $VARIANTOUTPUT || exit 27
         mkdir -p $VARIANTOUTPUT || exit 27
     fi
-
     # =========================================================================================================
     # run script to generate config.g and change macros
-
     echo
     echo '   creating file for sys ....'
     cd $SCRIPT_PATH/Configuration/sys/variants/
     $SCRIPT_PATH/Configuration/sys/variants/$VARIANT.sh
     echo '   ... done'
- 
     # =========================================================================================================
     # copy files for sys and remove processed files
     SysOutputPath=$SCRIPT_PATH/Configuration/sys/processed
@@ -366,10 +364,9 @@ do
     fi
     cp -r $INPUT/* $OUTPUT
     echo '   ... done'
-
+    #
     # delete processed files
     rm -fr $SysOutputPath
-
     # =========================================================================================================
     # create zip file for macros an remove processed files
     echo
@@ -395,10 +392,9 @@ do
     fi
     cp -r $INPUT/* $OUTPUT
     echo '   ... done'
-
+    #
     # delete processed files
     rm -fr $MacroOutputPath
-
     # =========================================================================================================
     # copy filament files to build directory
     echo
@@ -429,6 +425,7 @@ do
     fi
     cp -r $INPUT/* $OUTPUT
     echo '   ... done'
+    #
     # =========================================================================================================
     # copy gcode files (sample prints) to build directory
     echo
@@ -443,7 +440,8 @@ do
         mkdir -p $OUTPUT || exit 27
     fi
     cp -r $INPUT/* $OUTPUT
-    echo '   ... done'  
+    echo '   ... done'
+    #
     # =========================================================================================================
     # copy gcode files (sample prints) to build directory
     echo
@@ -458,7 +456,8 @@ do
         mkdir -p $OUTPUT || exit 27
     fi
     cp -r $INPUT/* $OUTPUT
-    echo '   ... done' 
+    echo '   ... done'
+    #
     # =========================================================================================================
     # create directories for firmware and menu
     OUTPUT=$VARIANTOUTPUT/firmware
@@ -482,7 +481,7 @@ do
     INPUT=$SCRIPT_PATH/DuetDriver
     OUTPUT=$VARIANTOUTPUT/
     cp -r $INPUT/* $OUTPUT
-
+    #
     # =========================================================================================================
     # create zip-file for configuration
     echo
@@ -492,7 +491,7 @@ do
     if [ -f "$OUTPUT" ]; then
         rm -f $OUTPUT || exit 27
     fi
-
+    #
     if [ $TARGET_OS == "windows" ]; then
         zip a $OUTPUT  $VARIANTOUTPUT/* | tail -4
     else
@@ -505,8 +504,9 @@ do
     echo
     echo '... done'
 done
-
+#
 # Sort configuration only when build ALL is selected
+#
 if [ ! -z "$ALL_VARIANTS" ]; then
     if [ "$ALL_VARIANTS" == "All" ]; then
         echo
@@ -520,7 +520,7 @@ if [ ! -z "$ALL_VARIANTS" ]; then
         echo
         echo '   creating zip file for all configurations ....'
         echo
-
+        #
         # delete possibly existing output file
         OUTPUTPATH=$BUILDPATH-sorted/zip
         cd $OUTPUTPATH
@@ -535,7 +535,7 @@ if [ ! -z "$ALL_VARIANTS" ]; then
             zip -r $ZIPNAME * | tail -4
         fi
         mv $ZIPNAME ..
-    
+        #
         echo
         echo '   ... done'
         echo
@@ -545,9 +545,8 @@ if [ ! -z "$ALL_VARIANTS" ]; then
         exit 37
     fi
 fi
-
+#
 # housekeeping: delete filament folders in source directory
 rm -fr $FIRSTLAYEROUTPUT
 rm -fr $PREHEATOUTPUT
 rm -fr $FILAMENTOUTPUT
- 

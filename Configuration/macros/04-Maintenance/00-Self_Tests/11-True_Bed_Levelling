@@ -7,7 +7,7 @@
 ;
 M291 P"True Bed Levelling (G32). Press OK to continue or CANCEL to abort." S3
 ;
-G32                               ; run bed.g
+G32                                                                    ; run bed.g
 ;
 ; =========================================================================================================
 ;

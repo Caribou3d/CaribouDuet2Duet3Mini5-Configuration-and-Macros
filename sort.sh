@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#
 # =========================================================================================================
 #
 # sort script to sort Configuration and macro files for CaribouDuet
@@ -14,12 +14,12 @@
 # 22 May 2021, wschadow, updated for new thermistor naming convention
 #
 # =========================================================================================================
-
+#
 # Set arrays for script
-
+#
 # Array of printers
 Printer_Name="CaribouDuet"
-
+#
 # Array of Heights
 declare -a HeightsArray=(220 320 420)
 # Array of Thermistors
@@ -27,26 +27,26 @@ declare -a ThermistorsArray=(E3d-SE SE-HT)
 # Array of Sensors
 declare -a SensorArray=(PINDA2 SUPERPINDA BL_TOUCH_LEFT BL_TOUCH_RIGHT)
 # Main script
-
+#
 if [ -z "$1" ] ; then
     Start_Path="."
 else
     Start_Path=$1
 fi
-
+#
 if [ -z "$2" ] ; then
     Destination_Path="."
 else
     Destination_Path=$2
 fi
-
+#
 Destination_Path_zip=$Destination_Path"zip/"
 Destination_Path_orig=$Destination_Path"orig/"
-
+#
 echo "Start Path     : "$Start_Path
 echo "Dest. Path-zip : "$Destination_Path_zip
 echo "Dest. Path-orig: "$Destination_Path_orig
-
+#
 for HEIGHT in ${HeightsArray[@]}; do
     for THERMISTOR in ${ThermistorsArray[@]}; do
         case $THERMISTOR in
@@ -81,3 +81,4 @@ for HEIGHT in ${HeightsArray[@]}; do
         done
     done
 done
+#

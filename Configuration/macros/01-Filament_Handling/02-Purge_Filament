@@ -4,15 +4,15 @@
 ;
 ; =========================================================================================================
 ;
-if state.status == "processing"     ; printer is not currently printing!
+if state.status == "processing"                                        ; printer is not currently printing!
    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
    M99
 ;
 while true
     M291 R"Purging needed?" P"Press OK to purge, press Cancel if color is correct."  S3
-    G1 E30 F200                     ; extrude 30mm
-    M400                            ; finish all moves, clear the buffer
-    M300 S500 P200                  ; play beep sound
+    G1 E30 F200                                                        ; extrude 30mm
+    M400                                                               ; finish all moves, clear the buffer
+    M300 S500 P200                                                     ; play beep sound
 ;
 ; =========================================================================================================
 ;

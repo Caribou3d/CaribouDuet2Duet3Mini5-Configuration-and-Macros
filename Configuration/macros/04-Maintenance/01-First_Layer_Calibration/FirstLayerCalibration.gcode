@@ -6,24 +6,24 @@
 ;
 ;====== start preheat start script ========================================================================
 ;
-G90                      ; use absolute coordinates
-M83                      ; extruder relative mode
+G90                                                                    ; use absolute coordinates
+M83                                                                    ; extruder relative mode
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
-    G28                  ; home all axis without mesh bed level
-G0 X60 Y-3 Z80           ; move extruder above bed keep extruder in front for cleaning and checking
+    G28                                                                ; home all axis without mesh bed level
+G0 X60 Y-3 Z80                                                         ; move extruder above bed keep extruder in front for cleaning and checking
 ;
-M104 S160 T0             ; pre-heat extruder to 160C
-M140 S#BED_TEMPERATURE                 ; this will take the layer 1 temperature for bed 0
-M190 S#BED_TEMPERATURE                 ; wait for bed temp
+M104 S160 T0                                                           ; pre-heat extruder to 160C
+M140 S#BED_TEMPERATURE                                                              ; this will take the layer 1 temperature for bed 0
+M190 S#BED_TEMPERATURE                                                              ; wait for bed temp
 ;
-G29                      ; mesh bed leveling
-G0 X0 Y-3 Z0 F3000       ; move to home position
+G29                                                                    ; mesh bed leveling
+G0 X0 Y-3 Z0 F3000                                                     ; move to home position
 ;
-M104 S#FILAMENT_TEMPERATURE                ; set extruder temperature
-M109 S#FILAMENT_TEMPERATURE                ; wait for extruder temp
+M104 S#FILAMENT_TEMPERATURE                                                              ; set extruder temperature
+M109 S#FILAMENT_TEMPERATURE                                                              ; wait for extruder temp
 ;
-M572 D0 S0.00            ; set pressure advance
+M572 D0 S0.00                                                          ; set pressure advance
 ;
 ;
 ; play start tune
@@ -128,14 +128,15 @@ G1 Y22.20 E0.010
 ; done rectangle
 ; =========================================================================================================
 ; start end script
-G1 F1000.0               ; set feed rate
-G1 E-2                   ; retract 2mm
-G10 P0 S-274 R-274       ; turn off extruder
-M140 S0 R0               ; set bed temperature to 0C
-M140 S-274               ; set bed temperature to 0K to turn it off
-M107                     ; turn off fan
-G1 X0 Y200 F7200         ; home XY axis
-M84 XY                   ; disable motors
+;
+G1 F1000.0                                                             ; set feed rate
+G1 E-2                                                                 ; retract 2mm
+G10 P0 S-274 R-274                                                     ; turn off extruder
+M140 S0 R0                                                             ; set bed temperature to 0C
+M140 S-274                                                             ; set bed temperature to 0K to turn it off
+M106 T0 S0                                                             ; turn off cooling fan
+G1 X0 Y200 F7200                                                       ; home XY axis
+M84 XY                                                                 ; disable motors
 ;
 ; done end script
 ; =========================================================================================================
@@ -146,4 +147,3 @@ M291 R{"z-Trigger Height"} P{"Current: " ^ sensors.probes[0].triggerHeight ^ ", 
 M291 P{"Enter the number for the trigger height in your sheet / nozzle macro, like: G31 Z" ^ sensors.probes[0].triggerHeight - move.axes[2].babystep } S2
 ;
 ; =========================================================================================================
-

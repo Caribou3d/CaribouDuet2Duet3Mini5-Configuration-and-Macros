@@ -6,7 +6,7 @@
 ;
 M291 R"Printer Status report" P"This will report system status to console." S1
 ;
-M122                       ; report system diagnose
+M122                                                                   ; report system diagnose
 ;
 ; =========================================================================================================
 ;

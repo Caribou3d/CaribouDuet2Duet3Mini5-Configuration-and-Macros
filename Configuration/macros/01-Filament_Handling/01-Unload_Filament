@@ -6,41 +6,40 @@
 ;
 ; =========================================================================================================
 ;
-if state.status == "processing"                                    ; printer is not currently printing!
+if state.status == "processing"                                        ; printer is not currently printing!
    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
    M99
 ;
+T0                                                                     ; select tool
 ;
-T0                                                                 ; select tool
-;
-if heat.heaters[1].current < heat.coldExtrudeTemperature           ; check extrude temperature
-    if heat.heaters[1].current < heat.coldRetractTemperature       ; check retract temperature
-        M291 P"Hotend too cold. Preheat extruder first!" S2        ; ask to preheat extruder
+if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check extrude temperature
+    if heat.heaters[1].current < heat.coldRetractTemperature           ; check retract temperature
+        M291 P"Hotend too cold. Preheat extruder first!" S2            ; ask to preheat extruder
         M99
 ;
 ; disable run-out sensor if active
 ;
-if {move.axes[0].workplaceOffsets[8] == 1}                         ; if filament sensor is active
-    if exists(sensors.filamentMonitors[0])                         ; in run-out mode?
-       M591 D0 P0 C"e0stop" S1                                     ; disable filament runout sensor
-       M950 J1 C"nil"                                              ; free input 1 e0 filament sensor
+if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is active
+    if exists(sensors.filamentMonitors[0])                             ; in run-out mode?
+       M591 D0 P0 C"e0stop" S1                                         ; disable filament runout sensor
+       M950 J1 C"nil"                                                  ; free input 1 e0 filament sensor
 ;
-M291 R"Unloading Filament..." P"Press OK to start." S2             ; display message
+M291 R"Unloading Filament..." P"Press OK to start." S2                 ; display message
 ;
-G91                                                                ; set to Relative Positioning
-M913 E100                                                          ; set motor current to 100% of set current;
+G91                                                                    ; set to Relative Positioning
+M913 E100                                                              ; set motor current to 100% of set current;
 ;
-G1 E25 F300                                                        ; extrude 25mm of filament at 300mm/min
-G1 E-18 F3000                                                      ; retract 18mm of filament at 3000mm/min
-G1 E-#CARIBOU_FINALUNLOAD F2500                                    ; retract #CARIBOU_FINALUNLOADmm of filament at 2500mm/min
+G1 E25 F300                                                            ; extrude 25mm of filament at 300mm/min
+G1 E-18 F3000                                                          ; retract 18mm of filament at 3000mm/min
+G1 E-#CARIBOU_FINALUNLOAD F2500                                        ; retract #CARIBOU_FINALUNLOADmm of filament at 2500mm/min
 ;
 M400
 ;
-M291 P"Please pull out filament!" S2                               ; ask to pull out filament
+M291 P"Please pull out filament!" S2                                   ; ask to pull out filament
 ;
-if {move.axes[0].workplaceOffsets[8] == 1}                         ; if filament sensor is active
-    if {move.axes[1].workplaceOffsets[8] == 1}                     ; if autoload is active
-        M98 P"0:/sys/00-Functions/ActivateAutoload"                ; activate autoload
+if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is active
+    if {move.axes[1].workplaceOffsets[8] == 1}                         ; if autoload is active
+        M98 P"0:/sys/00-Functions/ActivateAutoload"                    ; activate autoload
 ;
 ; =========================================================================================================
 ;
