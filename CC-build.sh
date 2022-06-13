@@ -187,7 +187,7 @@ else
     rm -fr $FIRSTLAYEROUTPUT || exit 27
     mkdir -p $FIRSTLAYEROUTPUT || exit 27
 fi
-i=1
+i=0
 for v in ${FIRSTLAYERVARIANTS[*]}
 do
     VARIANT=$(basename "$v" ".h")
