@@ -50,7 +50,7 @@ cp -r ../00-Functions $SysOutputPath
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {/#CARIBOU_ZPROBERESET/ c\
-M558 F600 T8000 A3 S0.03                               ; for SuperPINDA
+M558 F600 T8000 A3 S0.03                                               ; for SuperPINDA
 };
 " < ../bed.g > $SysOutputPath/bed.g
 
@@ -71,7 +71,7 @@ sed "
 # replacements for motor currents
 sed -i "
 {/#CARIBOU_MOTOR_CURRENTS/ c\
-M906 X1250 Y1250 Z650 E650 I40                         ; set motor currents (mA) and motor idle factor in percent
+M906 X1250 Y1250 Z650 E650 I40                                         ; set motor currents (mA) and motoridle factor in percent
 };
 " $SysOutputPath/config.g
 
@@ -82,9 +82,9 @@ sed -i "
 ;\\
 M308 S1 P\"e0temp\" Y\"thermistor\" T100000 B4725 C7.060000e-8 A\"Nozzle E1\"  ; E3d configure sensor 0 as thermistor on pin e0temp\\
 ;\\
-M950 H1 C\"e0heat\" T1                                   ; create nozzle heater output on e0heat and map it to sensor 1\\
-M307 H1 B0 S1.00                                       ; disable bang-bang mode for heater 1 and set PWM limit\\
-M143 H1 S280                                           ; set temperature limit for heater 1 to 280°C
+M950 H1 C\"e0heat\" T1                                                   ; create nozzle heater output on e0heat and map it to sensor 1\\
+M307 H1 B0 S1.00                                                       ; disable bang-bang mode for heater 1 and set PWM limit\\
+M143 H1 S280                                                           ; set temperature limit for heater 1 to 280°C
 };
 " $SysOutputPath/config.g
 
@@ -93,8 +93,8 @@ sed -i "
 {/#CARIBOU_ZPROBE/ c\
 ; SuperPINDA \\
 ;\\
-M558 P5 C\"^zprobe.in\" H1.5 F600 T8000 A3 S0.03         ; set z probe to SuperPINDA\\
-M557 X23:235 Y5:186 S30.25:30                          ; define mesh grid
+M558 P5 C\"^zprobe.in\" H1.5 F600 T8000 A3 S0.03                         ; set z probe to SuperPINDA\\
+M557 X23:235 Y5:186 S30.25:30                                          ; define mesh grid
 };
 {/#CARIBOU_OFFSETS/ c\
 G31 P1000 X23 Y5
@@ -107,7 +107,7 @@ G31 P1000 X23 Y5
 
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/}
-{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y4.5 F6000                                    ; go to first probe point/};
+{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y4.5 F6000                                                    ; go to first probe point/};
 {/#CARIBOU_ZPROBE/ c\
 ;
 };" < ../homez.g > $SysOutputPath/homez.g

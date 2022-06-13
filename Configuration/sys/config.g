@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "1.9.2"
-;                           Build :   304
+;                           Build :   305
 ;
 ;
 ; Copyright Caribou Research & Development 2021. Licensed under GPL3.
@@ -17,7 +17,7 @@
 ; Network settings
 ; =========================================================================================================
 ;
-M550 P"#CARIBOU_NAME"                                                ; set printer name
+M550 P"#CARIBOU_NAME"                                         ; set printer name
 ;
 M552 S1                                                                ; enable network
 M586 P0 S1                                                             ; enable HTTP
@@ -134,7 +134,7 @@ M106 P0 S0 H-1                                                         ; set fan
 M563 P0 D0 H1 F0                                                       ; define tool 0
 G10 P0 X0 Y0 Z0                                                        ; set tool 0 axis offsets
 G10 P0 S-274 R-274                                                     ; turn off tool 0, set active and standby temperature to 0K
-M302 S#CARIBOU_MINEXTRUDETEMP R#CARIBOU_MINRETRACTTEMP                                         ; allow extrusion starting from 180°C and retractions already from 180°C
+M302 S#CARIBOU_MINEXTRUDETEMP R#CARIBOU_MINRETRACTTEMP                                                         ; allow extrusion starting from 180°C and retractions already from 180°C
 ;
 ; =========================================================================================================
 ; other settings
