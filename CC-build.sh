@@ -226,7 +226,7 @@ echo
 #
 # set output
 #
-PREHEATPATH=$SCRIPT_PATH/Configuration/macros/00-Preheat
+PREHEATPATH=$SCRIPT_PATH/Configuration/macros/00-Preheat_Extruder
 PREHEATOUTPUT=$PREHEATPATH/processed
 # read existing variants
 while IFS= read -r -d $'\0' f; do
