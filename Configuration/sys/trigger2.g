@@ -11,8 +11,8 @@ M581 P1 T2 S-1 R0                                                      ; filamen
 ;
 T0                                                                     ; activate hotend
 ;
-if heat.heaters[1].current < heat.coldExtrudeTemperature                ; check temperature
-    M98 P"0:/sys/00-Functions/ActivateRunOutSensor"                     ; activate RunOut Sensor to check if filament is loaded
+if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check temperature
+    M98 P"0:/sys/00-Functions/ActivateRunOutSensor"                    ; activate RunOut Sensor to check if filament is loaded
     M291 R"Hotend too cold. Preheat extruder first!" P"Please pull out filament!" S2 ; ask to preheat extruder
     M99
 ;

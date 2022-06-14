@@ -56,15 +56,18 @@ sed "
 M558 F400 T8000 A1 S0.03                                               ; for BL-Touch
 };
 " < ../bed.g > $SysOutputPath/bed.g
-
 #
 # create config.g
 #
-
+# determine PRINTERNAME string
+#
+((SPACELENGTH=63-${#CARIBOU_NAME}))
+PRINTERNAME=$(printf "%s%*s%s" "M550 P\"$CARIBOU_NAME\"" $SPACELENGTH '' "; set printer name")
+#
 # general replacements
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_NAME/$CARIBOU_NAME/};
+{s/#CARIBOU_NAME/$PRINTERNAME/};
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/};
 {s/#CARIBOU_EESTEPS/$CARIBOU_EESTEPS/};
 {s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
@@ -163,7 +166,6 @@ G4 P100                           ; BLTouch, delay for the release command
 #
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_NAME/$CARIBOU_NAME/};
 {s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/}
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
 " < $MacrosDir/04-Maintenance/00-Self_Tests/01-Level_X-Axis > $MacroOutputPath/04-Maintenance/00-Self_Tests/01-Level_X-Axis

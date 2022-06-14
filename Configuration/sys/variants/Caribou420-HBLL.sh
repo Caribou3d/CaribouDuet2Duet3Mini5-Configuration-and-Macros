@@ -64,7 +64,7 @@ M558 F400 T8000 A1 S0.03                                               ; for BL-
 # general replacements
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_NAME/$CARIBOU_NAME/};
+{s/#CARIBOU_NAME/$PRINTERNAME/};
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/};
 {s/#CARIBOU_EESTEPS/$CARIBOU_EESTEPS/};
 {s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
@@ -163,7 +163,6 @@ G4 P100                           ; BLTouch, delay for the release command
 #
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_NAME/$CARIBOU_NAME/};
 {s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/}
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
 " < $MacrosDir/04-Maintenance/00-Self_Tests/01-Level_X-Axis > $MacroOutputPath/04-Maintenance/00-Self_Tests/01-Level_X-Axis
