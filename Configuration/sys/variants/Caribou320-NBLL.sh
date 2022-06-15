@@ -113,7 +113,7 @@ G31 X-24.3 Y-34.1
 
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_MEASUREPOINT/G1 X148.5 Y142.5 F3600                                 ; go to center of the bed/};
+{s/#CARIBOU_MEASUREPOINT/G1 X148.5 Y142.5 F3600                                                 ; go to center of the bed/};
 {/#CARIBOU_ZPROBE/ c\
 M280 P0 S160                                                           ; BLTouch, alarm release\\
 G4 P100                                                                ; BLTouch, delay for the release command
