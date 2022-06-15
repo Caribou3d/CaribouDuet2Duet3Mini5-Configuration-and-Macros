@@ -74,7 +74,7 @@ sed "
 # replacements for motor currents
 sed -i "
 {/#CARIBOU_MOTOR_CURRENTS/ c\
-M906 X1250 Y1250 Z650 E650 I40                                         ; set motor currents (mA) and motoridle factor in percent
+M906 X1250 Y1250 Z650 E650 I40                                         ; set motor currents (mA) and motor idle factor in percent
 };
 " $SysOutputPath/config.g
 
@@ -111,7 +111,7 @@ G31 P1000 X23 Y5
 
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/}
-{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y-3 F6000                                     ; go to first probe point/};
+{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y-3 F6000                                                     ; go to first probe point/};
 {/#CARIBOU_ZPROBE/ c\
 ;
 };" < ../homez.g > $SysOutputPath/homez.g

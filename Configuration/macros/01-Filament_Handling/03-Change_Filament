@@ -50,7 +50,7 @@ M83                                                                    ; set ext
 M913 E100                                                              ; set motor current to 100% of set current;
 ;
 G1 E25 F300                                                            ; extrude 25mm of filament at 300mm/min
-G1 E-18 F3000                                                          ; retract 8mm of filament at 3000mm/min
+G1 E-18 F3000                                                          ; retract 18mm of filament at 3000mm/min
 G1 E-#CARIBOU_FINALUNLOAD F2500                                                          ; retract 95mm of filament at 2500mm/min
 ;
 M400                                                                   ; finish all moves, clear the buffer
