@@ -56,11 +56,13 @@ sed "
 M558 F400 T8000 A1 S0.03                                               ; for BL-Touch
 };
 " < ../bed.g > $SysOutputPath/bed.g
-
 #
 # create config.g
 #
-
+# determine PRINTERNAME string
+#
+PRINTERNAME=$(printf "%s%*s%s" "M550 P\"$CARIBOU_NAME\"" $((63-${#CARIBOU_NAME})) '' "; set printer name")
+#
 # general replacements
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
@@ -70,6 +72,13 @@ sed "
 {s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
 {s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
 " < ../config.g > $SysOutputPath/config.g
+
+# replacements for motor currents
+sed -i "
+{/#CARIBOU_MOTOR_CURRENTS/ c\
+M906 X1250 Y1250 Z650 E900 I40                                         ; set motor currents (mA) and motoridle factor in percent
+};
+" $SysOutputPath/config.g
 
 # replacemente SE thermistor
 sed -i "

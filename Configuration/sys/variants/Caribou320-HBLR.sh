@@ -61,8 +61,7 @@ M558 F400 T8000 A1 S0.03                                               ; for BL-
 #
 # determine PRINTERNAME string
 #
-((SPACELENGTH=63-${#CARIBOU_NAME}))
-PRINTERNAME=$(printf "%s%*s%s" "M550 P\"$CARIBOU_NAME\"" $SPACELENGTH '' "; set printer name")
+PRINTERNAME=$(printf "%s%*s%s" "M550 P\"$CARIBOU_NAME\"" $((63-${#CARIBOU_NAME})) '' "; set printer name")
 #
 # general replacements
 sed "
