@@ -31,7 +31,7 @@ M913 E100                                                              ; set mot
 ;
 G1 E25 F300                                                            ; extrude 25mm of filament at 300mm/min
 G1 E-18 F3000                                                          ; retract 18mm of filament at 3000mm/min
-G1 E-#CARIBOU_FINALUNLOAD F2500                                        ; retract #CARIBOU_FINALUNLOADmm of filament at 2500mm/min
+G1 E-#CARIBOU_FINALUNLOAD F2500                                                          ; retract #CARIBOU_FINALUNLOADmm of filament at 2500mm/min
 ;
 M400
 ;
