@@ -9,23 +9,23 @@ if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
 G0 X60 Y-3 Z80                     ; move extruder above bed,
 ;                                    keep extruder in front for cleaning and checking
 ;
-M104 S160 T0                       ; pre-heat extruder to 160°C
-M140 S{material_bed_temperature}   ; this will take the layer 1 temperature for bed 0
-M190 S{material_bed_temperature}   ; wait for bed temp
+M568 P0 S215 A2                    ; pre-heat extruder to 160°C
+M140 S{material_bed_temperature}         ; this will take the layer 1 temperature for bed 0
+M190 S{material_bed_temperature}         ; wait for bed temp
 ;
 G29                                ; mesh bed leveling using defined mesh grid
 G0 X0 Y-3 Z0.6                     ; go outside print area
 ;
-M104 S{material_print_temperature} ; set extruder temperature
-M109 S{material_print_temperature} ; wait for extruder temp
+M568 P0 S{material_print_temperature} A2 ; set extruder temperature
+M109 S{material_print_temperature}       ; wait for extruder temp
 ;
 ; =========================================================================================================
 ;
 ;
-M98 P"0:/sys/primeLine.g"         ; execute primeline macro
+M98 P"0:/sys/primeLine.g"          ; execute primeline macro
 ;
-G92 E0.0                          ; set extruder position
+G92 E0.0                           ; set extruder position
 ;
-M572 D0 S0.07                     ; set pressure advance
+M572 D0 S0.07                      ; set pressure advance
 ;
 ; =========================================================================================================

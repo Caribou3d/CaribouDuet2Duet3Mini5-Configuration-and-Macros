@@ -19,25 +19,26 @@ M570 H0 P120 T120                                                      ; same fo
 ;
 ; =========================================================================================================
 ;
-; Start heating bed to 60Â°C
+; Start heating bed to 60°C
 ;
-M291 P"Wait until bed is heated up to to 60Â°C" S3
+M291 P"Wait until bed is heated up to to 60°C" S3
 ;
 M140 S60                                                               ; set bed temperature
 M190 S60                                                               ; wait for bed temperature
 ;
-M140 S0                                                                ; turn off Bed
+M140 S0 R0                                                             ; set bed temperature to 0C
+M140 S-274                                                             ; set bed temperature to 0K to turn it off
 ;
 ; =========================================================================================================
 ;
-M291 P"Wait until nozzle is heated up to to 215Â°C" S3
+M291 P"Wait until nozzle is heated up to to 215°C" S3
 ;
 ; start heating hotend
 ;
-M104 S215                                                              ; set extruder temperature
+M568 P0 S215 A2                                                        ; set extruder temperature
 M109 S215                                                              ; wait for extruder temp
 ;
-M104 S0                                                                ; turn off extruder
+M568 P0 S0 R0 A0                                                       ; turn off extruder
 ;
 M291 P"all ok" R"HEATER test" S2
 ;

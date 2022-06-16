@@ -7,9 +7,9 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "1.9.2"
-;                           Build :   317
+;                           Build :   318
 ;
-; Copyright Caribou Research & Development 2021. Licensed under GPL3. No commercial use.
+; Copyright Caribou Research & Development 2022. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
 ;
 ; =========================================================================================================
@@ -132,7 +132,7 @@ M106 P0 S0 H-1                                                         ; set fan
 ;
 M563 P0 D0 H1 F0                                                       ; define tool 0
 G10 P0 X0 Y0 Z0                                                        ; set tool 0 axis offsets
-G10 P0 S-274 R-274                                                     ; turn off tool 0, set active and standby temperature to 0K
+M568 P0 S0 R0 A0                                                       ; turn off extruder
 M302 S#CARIBOU_MINEXTRUDETEMP R#CARIBOU_MINRETRACTTEMP                                                         ; allow extrusion starting from 180°C and retractions already from 180°C
 ;
 ; =========================================================================================================
@@ -159,6 +159,17 @@ M98 P"0:/sys/00-Functions/FilamentsensorStatus"
 ; Offsets - place off-sets for x and y here. z-offsets are handled in the print sheet macros
 ;
 ; #CARIBOU_OFFSETS
+;
+; =========================================================================================================
+;
+;
+; =========================================================================================================
+;
+; global varibales
+;
+global IdleCounter = 0
+global ExtruderTempActive_Old = 0
+global BedTempActive_Old = 0
 ;
 ; =========================================================================================================
 ;
