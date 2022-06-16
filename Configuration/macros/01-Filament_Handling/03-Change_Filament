@@ -69,7 +69,7 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
         M300 S500 P600                                                 ; beep
         while {var.sensor_flag = 0}
            G4 P1000                                                    ; wait 1000 milliseconds
-		   if exists(sensors.filamentMonitors[0])                      ; if filament sensor is detected in object model
+           if exists(sensors.filamentMonitors[0])                      ; if filament sensor is detected in object model
                set var.sensor_flag = 1                                 ; set flag to 1
     else
         M291 R"Insert filament." P"Press OK to start feeding filament..." S2  ; display new message
