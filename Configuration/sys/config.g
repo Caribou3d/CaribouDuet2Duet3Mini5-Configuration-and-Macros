@@ -7,9 +7,9 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "1.9.2"
-;                           Build :   314
+;                           Build :   315
 ;
-; Copyright Caribou Research & Development 2021. Licensed under GPL3.
+; Copyright Caribou Research & Development 2021. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
 ;
 ; =========================================================================================================
@@ -30,9 +30,9 @@ M575 P1 S1 B57600                                                      ; enable 
 ;
 M569 P0 S0 F11                                                         ; physical drive 0 goes backwards - x-axis
 M569 P1 S0 F8 Y3:2                                                     ; physical drive 1 goes backwards - y-axis
-M569 P2 S0 F10                                                         ; physical drive 2 goes backwards - z - left
+M569 P2 S0 F10                                                         ; physical drive 2 goes backwards - z-left
 M569 P3 S1 F14                                                         ; physical drive 3 goes forwards  - Extruder
-M569 P4 S0 F10                                                         ; physical drive 4 goes backwards - z right
+M569 P4 S0 F10                                                         ; physical drive 4 goes backwards - z-right
 ;
 ; Motor Configuration
 ;
