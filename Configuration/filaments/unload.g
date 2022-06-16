@@ -6,7 +6,7 @@
 ;
 M291 P"Prepare for filament un-loading. Please wait while the nozzle is being heated up. Press OK to continue or CANCEL to abort." R"Unloading #FILAMENT_NAME at #FILAMENT_TEMPERATURE°C" S3
 ;
-M291 P"Please wait while the nozzle is being heated up" R"Heating: #FILAMENT_TEMPERATURE°C" T30 ; Display message
+M291 P"Please wait while the nozzle is being heated up" R"Heating: #FILAMENT_TEMPERATURE°C" T30 ; display message
 ;
 T0                                                                     ; select tool 0
 G91                                                                    ; relative positioning
