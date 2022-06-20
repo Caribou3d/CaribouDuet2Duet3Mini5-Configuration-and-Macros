@@ -27,7 +27,8 @@
 # 13 Jun 2021, wschadow, changed output path to avoid collisions with Duet3Mini5+ version
 # 31 Jul 2021, wschadow, added www, and driver, full content of SD-card is generated
 # 31 Jul 2021, wschadow, when all configurations are build, the output will be sorted
-# 11 Jun 2011, wschadow, added a counter, added generation of a zip for all configurations
+# 11 Jun 2022, wschadow, added a counter, added generation of a zip for all configurations
+# 20 Jun 2022, wschadow, added selection of the board
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3. Non-commercial use only.
 # Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -160,9 +161,42 @@ else
         exit 21
     fi
 fi
-
-DUETBOARD=DUET3
-
+#
+# select a board
+#
+if [ -z "$2" ] ; then
+    PS3="Select a board: "
+    echo
+    echo "Which board-build do you want?"
+    select yn in "Duet2" "Duet3Mini5+" "Quit"; do
+        case $yn in
+            "Duet2")
+                DUETBOARD=DUET2
+                break
+                ;;
+            "Duet3Mini5+")
+                DUETBOARD=DUET3
+                break
+                ;;
+            "Quit")
+                echo "You chose to stop"
+                    exit
+                    ;;
+            *)
+                echo "$(tput setaf 1)This is not a valid board.$(tput sgr0)"
+                ;;
+        esac
+    done
+else
+    if [[ "$2" == "DUET2" || "$2" == "DUET3" ]] ; then
+        DUETBOARD=$2
+    else
+        echo "$(tput setaf 1)Board argument is wrong!$(tput sgr0)"
+        echo "Only $(tput setaf 2)'DUET2'$(tput sgr0) or $(tput setaf 2)'DUET3'$(tput sgr0) are allowed as board argument!"
+        exit
+    fi
+fi
+#
 #
 # =========================================================================================================
 #
@@ -225,6 +259,7 @@ echo '... done'
 echo
 echo 'creating macros for preheat menu ...'
 echo
+#
 # =========================================================================================================
 #
 # set output
@@ -260,6 +295,7 @@ done
 echo
 echo '... done'
 cp $PREHEATPATH/Cooldown $PREHEATOUTPUT
+#
 # =========================================================================================================
 # generate files for filaments folder
 #
@@ -317,7 +353,12 @@ if [ $TotalCount == 0 ]; then
     TotalCount=1
 fi
 #
-BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet2-$CC-Build$BUILD
+if [ "$DUETBOARD" = "DUET2" ]; then
+    BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet2-$CC-Build$BUILD
+else
+    BUILDPATH=$SCRIPT_PATH/../CC-build/CC-Duet3Mini5-$CC-Build$BUILD
+fi
+#
 # Prepare config files folders
 if [ ! -d "$BUILDPATH" ]; then
     mkdir -p $BUILDPATH || exit 27
@@ -334,9 +375,15 @@ do
     echo "Variant       :" $VARIANT
     echo "Configuration :" $CC
     echo "Build #       :" $BUILD
-    echo "Config Folder :" "CC-build/CC-Duet2-$CC-Build$BUILD" "$(tput sgr0)"
-    echo
-    VARIANTOUTPUT=$BUILDPATH/Duet2-$VARIANT
+    if [ "$DUETBOARD" = "DUET2" ]; then
+        echo "Config Folder :" "CC-build/CC-Duet2-$CC-Build$BUILD" "$(tput sgr0)"
+        echo
+        VARIANTOUTPUT=$BUILDPATH/Duet2-$VARIANT
+    else
+        echo "Config Folder :" "CC-build/CC-Duet3Mini5-$CC-Build$BUILD" "$(tput sgr0)"
+        echo
+        VARIANTOUTPUT=$BUILDPATH/Duet3Mini5-$VARIANT
+    fi
     # prepare output folder
     if [ ! -d "$VARIANTOUTPUT" ]; then
         mkdir -p $VARIANTOUTPUT || exit 27
@@ -349,7 +396,7 @@ do
     echo
     echo '   creating file for sys ....'
     cd $SCRIPT_PATH/Configuration/sys/variants/
-    $SCRIPT_PATH/Configuration/sys/variants/$VARIANT.sh $DUETVERSION
+    $SCRIPT_PATH/Configuration/sys/variants/$VARIANT.sh $DUETBOARD
     echo '   ... done'
     # =========================================================================================================
     # copy files for sys and remove processed files
@@ -490,7 +537,11 @@ do
     echo
     echo '   creating zip file for configuration ....'
     # delete possibly existing output file
-    OUTPUT=$BUILDPATH/CC$CC-Duet2-$VARIANT-Build$BUILD.zip
+    if [ "$DUETBOARD" = "DUET2" ]; then
+        OUTPUT=$BUILDPATH/CC$CC-Duet2-$VARIANT-Build$BUILD.zip
+    else
+        OUTPUT=$BUILDPATH/CC$CC-Duet3Mini5-$VARIANT-Build$BUILD.zip
+    fi
     if [ -f "$OUTPUT" ]; then
         rm -f $OUTPUT || exit 27
     fi
@@ -527,8 +578,11 @@ if [ ! -z "$ALL_VARIANTS" ]; then
         # delete possibly existing output file
         OUTPUTPATH=$BUILDPATH-sorted/zip
         cd $OUTPUTPATH
-        ZIPNAME=CaribouDuet2-Configuration-and-Macros-$CC-Build$BUILD.zip
-
+        if [ "$DUETBOARD" = "DUET2" ]; then
+            ZIPNAME=CaribouDuet2-Configuration-and-Macros-$CC-Build$BUILD.zip
+        else
+            ZIPNAME=CaribouDuet3Mini5-Configuration-and-Macros-$CC-Build$BUILD.zip
+        fi
         if [ -f "$ZIPNAME" ]; then
             rm -f $ZIPNAME || exit 27
         fi
