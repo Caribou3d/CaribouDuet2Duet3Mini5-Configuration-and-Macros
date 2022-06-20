@@ -21,8 +21,7 @@ if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check e
 ;
 if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is active
     if exists(sensors.filamentMonitors[0])                             ; in run-out mode?
-       M591 D0 P0 C"e0stop" S1                                         ; disable filament runout sensor
-       M950 J1 C"nil"                                                  ; free input 1 e0 filament sensor
+        M98 P"0:/sys/00-Functions/RunOutOff"                           ; turn run out sensor off
 ;
 M291 R"Unloading Filament..." P"Press OK to start." S2                 ; display message
 ;

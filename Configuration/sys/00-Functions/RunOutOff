@@ -1,0 +1,9 @@
+; =========================================================================================================
+;
+; turns the trigger of the filament off and frees the pin
+;
+; =========================================================================================================
+;
+M591 D0 P0 C"e0stop" S1                                                ; disable filament runout sensor
+M950 J1 C"nil"                                                         ; free input 1 e0 filament sensor
+;
