@@ -37,7 +37,7 @@ M569 P4 S0 F10                                                         ; physica
 ; Motor Configuration
 ;
 M584 X0 Y1 Z2:4 E3                                                     ; set drive mapping
-M671 X-36.5:293.5 Y0:0 S1.00                                           ; leadscrews at left (connected to Z) and right (connected to E1) of X axis
+M671 X-36.5:293.5 Y0:0 S1.00                                           ; leadscrews at left (connected to Z) and right (connected to E1) of x axis
 ;
 ; set Microsteps and steps / mm
 ;

@@ -59,7 +59,7 @@ G1 X0 Y0 F50000
 ; circle
 ;
 G90
-G1 H1 X125 Y20 Z25 F6000   ; Move extruder to the middle of the X axis
+G1 H1 X125 Y20 Z25 F6000   ; move extruder to the middle of the x axis
 G91
 G2 I5 J80
 G2 I5 J80

@@ -10,9 +10,9 @@ M913 X100 Y100 Z100                                                    ; set mot
 G91                                                                    ; relative positioning
 G28                                                                    ; home Axes
 G90                                                                    ; absolute positioning
-G1 X125 Y55 F6000                                                      ; move extruder to the middle of the X axis
+G1 X125 Y55 F6000                                                      ; move extruder to the middle of the x axis
 M564 S0                                                                ; disable minimum and maximum axis limits
-G1 #CARIBOU_ZHEIGHTLEVELING F6000                                                          ; Move Z axis just below top
+G1 #CARIBOU_ZHEIGHTLEVELING F6000                                                          ; move Z axis just below top
 M913 Z40                                                               ; reduce Z motor current to 30% of set current
 G91                                                                    ; relative positioning
 G1 H1 Z15 F300                                                         ; move Z axis 15mm up slowly leveling the X gantry
