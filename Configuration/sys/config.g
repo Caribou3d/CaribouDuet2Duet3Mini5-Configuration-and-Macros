@@ -1,6 +1,6 @@
 ; =========================================================================================================
 ;
-; Configuration file for Duet2-WiFi-Ethernet (firmware version 3.4)
+; Configuration file for #DUETBOARDNAME-WiFi-Ethernet (firmware version 3.4 and higher)
 ;
 ; for 0.9° motors on xy, and 0.9° or 1.8° (only LGXM) motor e
 ;
@@ -13,7 +13,7 @@
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
 ;
 ; =========================================================================================================
-; Network settings
+; network settings
 ; =========================================================================================================
 ;
 #CARIBOU_NAME
@@ -25,7 +25,7 @@ M586 P2 S0                                                             ; disable
 M575 P1 S1 B57600                                                      ; enable support for PanelDue
 ;
 ; =========================================================================================================
-; Drives
+; drives
 ; =========================================================================================================
 ;
 M569 P0 S0 F11                                                         ; physical drive 0 goes backwards - x-axis
@@ -60,14 +60,14 @@ M566 X480.00 Y480.00 Z48.00 E300.00                                    ; set max
 M564 H0                                                                ; allow unhomed movement
 ;
 ; =========================================================================================================
-; Axis Limits
+; axis limits
 ; =========================================================================================================
 ;
 M208 X-2 Y-7.5 Z0 S1                                                   ; set axis minima
 M208 X254.6 Y214 #CARIBOU_ZHEIGHT S0                                            ; set axis maxima
 ;
 ; =========================================================================================================
-; Endstops
+; endstops
 ; =========================================================================================================
 ;
 M574 X1 S3                                                             ; configure sensorless endstop for low end on x
@@ -83,11 +83,11 @@ M574 Z2 S3                                                             ; configu
 ;
 M574 Z1 S2                                                             ; set endstops controlled by probe
 ;
-; Stallguard Sensitivy
+; stallguard sensitivy
 ;
-M915 X S2 F0 H400 R0                                                   ; set x axis Sensitivity
-M915 Y S1 F0 H400 R0                                                   ; set y axis Sensitivity
-M915 Z S0 F0 H200 R0                                                   ; set z axis Sensitivity
+M915 X S2 F0 H400 R0                                                   ; set x axis sensitivity
+M915 Y S1 F0 H400 R0                                                   ; set y axis sensitivity
+M915 Z S0 F0 H200 R0                                                   ; set z axis sensitivity
 ;
 ; =========================================================================================================
 ; Heater & Fans
@@ -96,11 +96,7 @@ M915 Z S0 F0 H200 R0                                                   ; set z a
 ; heated bed
 ; =========================================================================================================
 ;
-M308 S0 P"bedtemp" Y"thermistor" T100000 B4138 R4700 A"Bed"            ; configure sensor 0 as thermistor on pin bedtemp
-M950 H0 C"bedheat" Q50 T0                                              ; create bed heater output on bedheat and map it to sensor 0
-M143 H0 S110                                                           ; set temperature limit for heater 0 to 110C
-M307 H0 B0 S1.00                                                       ; disable bang-bang mode for the bed heater and set PWM limit
-M140 H0                                                                ; map heated bed to heater 0
+; #CARIBOU_HEATBED
 ;
 ; extruder
 ; =========================================================================================================
@@ -116,15 +112,7 @@ M308 S5 P"drivers" Y"drivers" A"Driver"                                ; set vir
 ; Fans
 ; =========================================================================================================
 ;
-; extruder fan (temerature controlled)
-;
-M950 F1 C"fan1" Q500                                                   ; create fan 1 on pin fan0 and set its frequency
-M106 P1 H1 T45                                                         ; fan turns on at 45°C
-;
-; radial fan
-;
-M950 F0 C"fan0" Q160                                                   ; create fan 0 on pin fan1 and set its frequency
-M106 P0 S0 H-1                                                         ; set fan 0 value. Thermostatic control is turned off
+; #CARIBOU_FANS
 ;
 ; ========================================================================================================
 ; Tools

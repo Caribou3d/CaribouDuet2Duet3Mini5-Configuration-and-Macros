@@ -1,10 +1,19 @@
 #!/bin/sh
 
 # =========================================================================================================
-# definition for Caribou220 Duet2-WiFi-Ethernet Bondtech - SE HT Thermistor - BL-Touch Left
+# definition for Caribou220 Duet2 / Duet3Mini5+ -WiFi-Ethernet Bondtech - SE HT Thermistor - BL-Touch Left
 # =========================================================================================================
 
-CARIBOU_VARIANT="Caribou220 Duet2-WiFi-Ethernet Bondtech - SE HT Thermistor - BL-Touch Left"
+DUETBOARD=$1
+
+if [ "$DUETBOARD" = "DUET2" ]; then
+    CARIBOU_VARIANT="Caribou220 Duet2-WiFi-Ethernet Bondtech - SE HT Thermistor - BL-Touch Left"
+    DUETBOARDNAME="Duet2"
+else
+    CARIBOU_VARIANT="Caribou220 Duet3Mini5+ Bondtech - SE HT Thermistor - BL-Touch Left"
+    DUETBOARDNAME="Duet3Mini5+ "
+fi
+
 CARIBOU_NAME="Caribou220-HBLL"
 CARIBOU_ZHEIGHTLEVELING="Z205"
 CARIBOU_ZHEIGHT="Z216.50"
@@ -65,6 +74,7 @@ PRINTERNAME=$(printf "%s%*s%s" "M550 P\"$CARIBOU_NAME\"" $((63-${#CARIBOU_NAME})
 #
 # general replacements
 sed "
+{s/#DUETBOARDNAME/$DUETBOARDNAME/};
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/#CARIBOU_NAME/$PRINTERNAME/};
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/};
@@ -81,9 +91,11 @@ M906 X1250 Y1250 Z650 E900 I40                                         ; set mot
 " $SysOutputPath/config.g
 
 # replacemente SE thermistor
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
 sed -i "
 {/#CARIBOU_HOTEND_THERMISTOR/ c\
-; Hotend (Mosquito or Mosquito Magnum with SE Thermistor) \\
+; Hotend (Mosquito or Mosquito Magnum with SE Thermistor)\\
 ;\\
 M308 S1 P\"e0temp\" Y\"thermistor\" T500000 B4723 C1.19622e-7 A\"Nozzle\"    ; SE configure sensor 0 as thermistor on pin e0temp\\
 ;\\
@@ -92,6 +104,19 @@ M307 H1 B0 S1.00                                                       ; disable
 M143 H1 S365                                                           ; set temperature limit for heater 1 to 365°C
 };
 " $SysOutputPath/config.g
+else
+sed -i "
+{/#CARIBOU_HOTEND_THERMISTOR/ c\
+; Hotend (Mosquito or Mosquito Magnum with SE Thermistor) \\
+;\\
+M308 S1 P\"temp1\" Y\"thermistor\" T500000 B4723 C1.19622e-7 A\"Nozzle\"     ; SE configure sensor 0 as thermistor on pin e0temp\\
+;\\
+M950 H1 C\"out1\" T1                                                     ; create nozzle heater output on e0heat and map it to sensor 1\\
+M307 H1 B0 S1.00                                                       ; disable bang-bang mode for heater 1 and set PWM limit\\
+M143 H1 S365                                                           ; set temperature limit for heater 1 to 365°C
+};
+" $SysOutputPath/config.g
+fi
 
 # replacements for BL-Touch
 sed -i "
@@ -106,6 +131,64 @@ M557 X10:220 Y1:176 P7                                                 ; define 
 G31 X-24.3 Y-34.1
 }
 " $SysOutputPath/config.g
+
+#replacements for the heat bed
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
+sed -i "
+{/#CARIBOU_HEATBED/ c\
+M308 S0 P\"bedtemp\" Y\"thermistor\" T100000 B4138 R4700 A\"Bed\"            ; configure sensor 0 as thermistor on pin bedtemp\\
+M950 H0 C\"bedheat\" Q50 T0                                              ; create bed heater output on bedheat and map it to sensor 0\\
+M143 H0 S110                                                           ; set temperature limit for heater 0 to 110°C\\
+M307 H0 B0 S1.00                                                       ; disable bang-bang mode for the bed heater and set PWM limit\\
+M140 H0                                                                ; map heated bed to heater 0
+};
+" $SysOutputPath/config.g
+else
+# Duet 3Mini5+
+sed -i "
+{/#CARIBOU_HEATBED/ c\
+M308 S0 P\"temp0\" Y\"thermistor\" T100000 B4138 A\"Bed\"                    ; configure sensor 0 as thermistor on pin bedtemp\\
+M950 H0 C\"out0\" Q50 T0                                                 ; create bed heater output on bedheat and map it to sensor 0\\
+M143 H0 S110                                                           ; set temperature limit for heater 0 to 110°C\\
+M307 H0 B0 S1.00                                                       ; disable bang-bang mode for the bed heater and set PWM limit\\
+M140 H0                                                                ; map heated bed to heater 0
+};
+" $SysOutputPath/config.g
+fi
+
+# replacements for fans
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
+sed -i "
+{/#CARIBOU_FANS/ c\
+; extruder fan (temperature controlled) \\
+;\\
+M950 F1 C\"fan1\" Q500                                                   ; create fan 1 on pin fan0 and set its frequency\\
+M106 P1 H1 T45                                                         ; fan turns on at 45°C\\
+;\\
+; radial fan\\
+;\\
+M950 F0 C\"fan0\" Q160                                                   ; create fan 0 on pin fan1 and set its frequency\\
+M106 P0 S0 H-1                                                         ; set fan 0 value. Thermostatic control is turned off
+};
+" $SysOutputPath/config.g
+else
+# Duet 3Mini5+
+sed -i "
+{/#CARIBOU_FANS/ c\
+; extruder fan (temperature controlled)\\
+;\\
+M950 F1 C\"out5\" Q500                                                   ; create fan 1 on pin fan0 and set its frequency\\
+M106 P1 H1 T45                                                         ; set fan 2 value. Thermostatic control is turned on\\
+;\\
+; radial fan\\
+;\\
+M950 F0 C\"out6\" Q25                                                    ; create fan 0 on pin fan1 and set its frequency\\
+M106 P0 S0 H-1                                                         ; set fan 0 value. Thermostatic control is turned off
+};
+" $SysOutputPath/config.g
+fi
 
 #
 # create homez and homeall

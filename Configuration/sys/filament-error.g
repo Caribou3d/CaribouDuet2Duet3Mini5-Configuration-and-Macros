@@ -4,7 +4,7 @@
 ;
 ; =========================================================================================================
 ;
-; printer not printing, so we change mode to autoload , if activated
+; printer not printing, so we change mode to autoload, if activated
 ;
 if state.status != "processing"                                        ; printer is not currently printing!
     if {move.axes[0].workplaceOffsets[8] == 1}                         ; if filament sensor is active

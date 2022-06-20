@@ -160,6 +160,9 @@ else
         exit 21
     fi
 fi
+
+DUETBOARD=DUET3
+
 #
 # =========================================================================================================
 #
@@ -346,7 +349,7 @@ do
     echo
     echo '   creating file for sys ....'
     cd $SCRIPT_PATH/Configuration/sys/variants/
-    $SCRIPT_PATH/Configuration/sys/variants/$VARIANT.sh
+    $SCRIPT_PATH/Configuration/sys/variants/$VARIANT.sh $DUETVERSION
     echo '   ... done'
     # =========================================================================================================
     # copy files for sys and remove processed files
