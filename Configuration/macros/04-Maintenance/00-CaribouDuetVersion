@@ -4,7 +4,9 @@
 ;
 ; =========================================================================================================
 ;
-M291 P{"CaribouDuet2-WiFi-Ethernet Version: #CARIBOUDUETVERSION, build: #CARIBOUDUETBUILD "} S2
+M291 P{"CaribouConfiguration #DUETBOARDNAME, Version: #CARIBOUDUETVERSION, build: #CARIBOUDUETBUILD "} S2
+;
+M291 P{ boards[0].firmwareName ^ ", Version: " ^ boards[0].firmwareVersion  } S2
 ;
 ; =========================================================================================================
 ;

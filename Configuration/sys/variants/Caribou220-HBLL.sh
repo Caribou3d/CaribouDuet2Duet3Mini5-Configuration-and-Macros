@@ -1,19 +1,19 @@
 #!/bin/sh
-
+#
 # =========================================================================================================
 # definition for Caribou220 Duet2 / Duet3Mini5+ -WiFi-Ethernet Bondtech - SE HT Thermistor - BL-Touch Left
 # =========================================================================================================
-
+#
 DUETBOARD=$1
-
+#
 if [ "$DUETBOARD" = "DUET2" ]; then
-    CARIBOU_VARIANT="Caribou220 Duet2-WiFi-Ethernet Bondtech - SE HT Thermistor - BL-Touch Left"
+    CARIBOU_VARIANT="Caribou220 Duet2 WiFi\/Ethernet Bondtech - SE HT Thermistor - BL-Touch Left"
     DUETBOARDNAME="Duet2"
 else
-    CARIBOU_VARIANT="Caribou220 Duet3Mini5+ Bondtech - SE HT Thermistor - BL-Touch Left"
+    CARIBOU_VARIANT="Caribou220 Duet3Mini5+ WiFi\/EthernetBondtech - SE HT Thermistor - BL-Touch Left"
     DUETBOARDNAME="Duet3Mini5+ "
 fi
-
+#
 CARIBOU_NAME="Caribou220-HBLL"
 CARIBOU_ZHEIGHTLEVELING="Z205"
 CARIBOU_ZHEIGHT="Z216.50"
@@ -22,7 +22,6 @@ CARIBOU_INITIALLOAD=90
 CARIBOU_FINALUNLOAD=95
 CARIBOU_MINEXTRUDETEMP=180
 CARIBOU_MINRETRACTTEMP=180
-
 
 # set output for sys and macros
 #

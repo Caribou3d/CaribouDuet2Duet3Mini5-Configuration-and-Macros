@@ -423,7 +423,13 @@ do
     echo '   creating files for macros ....'
     MacrosDir=$SCRIPT_PATH/Configuration/macros
     MacroOutputPath=$MacrosDir/processed
+    if [ "$DUETBOARD" = "DUET2" ]; then
+       DUETBOARDNAME="Duet2"
+    else
+        DUETBOARDNAME="Duet3Mini5+ "
+    fi
     sed "
+    {s/#DUETBOARDNAME/$DUETBOARDNAME/};
     {s/#CARIBOUDUETVERSION/$CCDOT/};
     {s/#CARIBOUDUETBUILD/$BUILD/};
     " < $MacrosDir/04-Maintenance/00-CaribouDuetVersion > $MacroOutputPath/04-Maintenance/00-CaribouDuetVersion

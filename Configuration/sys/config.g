@@ -1,13 +1,13 @@
 ; =========================================================================================================
 ;
-; Configuration file for #DUETBOARDNAME-WiFi-Ethernet (firmware version 3.4 and higher)
+; Configuration file for #DUETBOARDNAME-WiFi/Ethernet (firmware version 3.4 and higher)
 ;
 ; for 0.9° motors on xy, and 0.9° or 1.8° (only LGXM) motor e
 ;
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "2.0.0"
-;                           Build :   323
+;                           Build :   324
 ;
 ; Copyright Caribou Research & Development 2022. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
