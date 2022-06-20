@@ -83,12 +83,56 @@ sed "
 {s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
 " < ../config.g > $SysOutputPath/config.g
 
+#replacements for drives
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
+sed -i "
+{/#CARIBOU_DRIVES/ c\
+M569 P0 S0 F11                                                         ; physical drive 0 goes backwards - x-axis\\
+M569 P1 S0 F8 Y3:2                                                     ; physical drive 1 goes backwards - y-axis\\
+M569 P2 S0 F10                                                         ; physical drive 2 goes backwards - z-left\\
+M569 P3 S1 F14                                                         ; physical drive 3 goes forwards  - Extruder\\
+M569 P4 S0 F10                                                         ; physical drive 4 goes backwards - z-right
+};
+" $SysOutputPath/config.g
+else
+sed -i "
+{/#CARIBOU_DRIVES/ c\
+M569 P0.0 S0 D3 V1000                                                  ; physical drive 0.0 goes backwards - z - left\\
+M569 P0.1 S0 D3 V2000                                                  ; physical drive 0.1 goes backwards - x-axis\\
+M569 P0.2 S0 D3 V2000                                                  ; physical drive 0.2 goes backwards - y-axis\\
+M569 P0.3 S0 D3 V1000                                                  ; physical drive 0.3 goes backwards - z - right\\
+M569 P0.4 D3 V1000                                                     ; physical drive 0.4 goes forwards  - extruder
+};
+" $SysOutputPath/config.g
+fi
+
 # replacements for motor currents
 sed -i "
 {/#CARIBOU_MOTOR_CURRENTS/ c\
 M906 X1250 Y1250 Z650 E900 I40                                         ; set motor currents (mA) and motor idle factor in percent
 };
 " $SysOutputPath/config.g
+
+# replacements for stallguard sensitivy
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
+sed -i "
+{/#CARIBOU_STALLGUARD/ c\
+M915 X S2 F0 H400 R0                                                   ; set x axis sensitivity\\
+M915 Y S1 F0 H400 R0                                                   ; set y axis sensitivity\\
+M915 Z S0 F0 H200 R0                                                   ; set z axis sensitivity
+};
+" $SysOutputPath/config.g
+else
+sed -i "
+{/#CARIBOU_STALLGUARD/ c\
+M915 X S1 F0 H200 R0                                                   ; set x axis sensitivity\\
+M915 Y S1 F0 H200 R0                                                   ; set y axis sensitivity\\
+M915 Z S1 F0 H200 R0                                                   ; set z axis sensitivity
+};
+" $SysOutputPath/config.g
+fi
 
 # replacemente SE thermistor
 if [ "$DUETBOARD" = "DUET2" ]; then
@@ -119,6 +163,8 @@ M143 H1 S365                                                           ; set tem
 fi
 
 # replacements for BL-Touch
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
 sed -i "
 {/#CARIBOU_ZPROBE/ c\
 ; BL-Touch Left \\
@@ -131,6 +177,21 @@ M557 X10:220 Y1:176 P7                                                 ; define 
 G31 X-24.3 Y-34.1
 }
 " $SysOutputPath/config.g
+else
+# Duet 3Mini5+
+sed -i "
+{/#CARIBOU_ZPROBE/ c\
+; BL-Touch Left \\
+;\\
+M950 S0 C\"io1.out\"                                                     ; sensor for BL-Touch\\
+M558 P9 C\"^io1.in\" H2.5 F400 T8000 A1 S0.03                            ; for BL-Touch\\
+M557 X10:220 Y1:176 P7                                                 ; define mesh grid
+};
+{/#CARIBOU_OFFSETS/ c\
+G31 X-24.3 Y-34.1
+}
+" $SysOutputPath/config.g
+fi
 
 #replacements for the heat bed
 if [ "$DUETBOARD" = "DUET2" ]; then

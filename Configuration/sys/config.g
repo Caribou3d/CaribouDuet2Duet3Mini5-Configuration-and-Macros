@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "2.0.0"
-;                           Build :   320
+;                           Build :   322
 ;
 ; Copyright Caribou Research & Development 2022. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -28,11 +28,7 @@ M575 P1 S1 B57600                                                      ; enable 
 ; drives
 ; =========================================================================================================
 ;
-M569 P0 S0 F11                                                         ; physical drive 0 goes backwards - x-axis
-M569 P1 S0 F8 Y3:2                                                     ; physical drive 1 goes backwards - y-axis
-M569 P2 S0 F10                                                         ; physical drive 2 goes backwards - z-left
-M569 P3 S1 F14                                                         ; physical drive 3 goes forwards  - Extruder
-M569 P4 S0 F10                                                         ; physical drive 4 goes backwards - z-right
+; #CARIBOU_DRIVES
 ;
 ; Motor Configuration
 ;
@@ -85,9 +81,7 @@ M574 Z1 S2                                                             ; set end
 ;
 ; stallguard sensitivy
 ;
-M915 X S2 F0 H400 R0                                                   ; set x axis sensitivity
-M915 Y S1 F0 H400 R0                                                   ; set y axis sensitivity
-M915 Z S0 F0 H200 R0                                                   ; set z axis sensitivity
+; #CARIBOU_STALLGUARD
 ;
 ; =========================================================================================================
 ; Heater & Fans
