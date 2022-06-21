@@ -7,10 +7,19 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "2.0.0"
-;                           Build :   324
+;                           Build :   326
 ;
 ; Copyright Caribou Research & Development 2022. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
+;
+;
+; =========================================================================================================
+;
+; global varibales
+;
+global IdleCounter = 0
+global ExtruderTempActive_Old = 0
+global BedTempActive_Old = 0
 ;
 ; =========================================================================================================
 ; network settings
@@ -141,17 +150,6 @@ M98 P"0:/sys/00-Functions/FilamentsensorStatus"
 ; Offsets - place off-sets for x and y here. z-offsets are handled in the print sheet macros
 ;
 ; #CARIBOU_OFFSETS
-;
-; =========================================================================================================
-;
-;
-; =========================================================================================================
-;
-; global varibales
-;
-global IdleCounter = 0
-global ExtruderTempActive_Old = 0
-global BedTempActive_Old = 0
 ;
 ; =========================================================================================================
 ;

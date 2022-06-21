@@ -5,8 +5,6 @@
 ; =========================================================================================================
 ;
 if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is active
-    if !exists(sensors.filamentMonitors[0])                            ; is the run-out mode activated?
-        M98 P"0:/sys/00-Functions/ActivateRunOutSensor"                ; activate run-out mode
     if exists(sensors.filamentMonitors[0])                             ; is the run-out mode activated?
         if {sensors.filamentMonitors[0].status = "ok"}                 ; if filament is loaded
             if {move.axes[1].workplaceOffsets[8] == 1}                 ; if autoload is enabled
@@ -14,17 +12,16 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
             else
                 M291 R{"Filament Sensor"} P{"Status: ON, Autoload: OFF, Filament: LOADED "  } S2
         else
-            if {move.axes[1].workplaceOffsets[8] == 1}                 ; if autoload is not enabled
+            if {move.axes[1].workplaceOffsets[8] == 1}                 ; if autoload is enabled
                 M291 R{"Filament Sensor"} P{"Status: ON, Autoload: ON, Filament: NOT LOADED "  } S2
+                M98 P"0:/sys/00-Functions/ActivateAutoload"
             else
                 M291 R{"Filament Sensor"} P{" Status: ON, Autoload: OFF, Filament: NOT LOADED "  } S2
-            M98 P"0:/sys/00-Functions/ActivateAutoload"
-    else                                                               ; filament not loadad
+    else
         if {move.axes[1].workplaceOffsets[8] == 1}                     ; if autoload is not enabled
             M291 R{"Filament Sensor"} P{"Status: ON, Autoload: ON, Filament: NOT LOADED "  } S2
         else
             M291 R{"Filament Sensor"} P{" Status: ON, Autoload: OFF, Filament: NOT LOADED "  } S2
-        M98 P"0:/sys/00-Functions/ActivateAutoload"
 else                                                                   ; filament sensor not active
     M291 P{"Filament Sensor Status: OFF"  } S2
 ;

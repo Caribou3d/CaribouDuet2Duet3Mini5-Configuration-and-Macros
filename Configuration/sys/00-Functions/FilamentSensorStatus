@@ -1,17 +1,28 @@
 ; =========================================================================================================
 ;
 ;  checks for filament and switches status of the sensor
-;        No filament = Run Macro "Activate_Autoload" to
-;        activate Autoload Feature (trigger2g in sys folder)
+;        no filament = run macro "ActivateAutoload" (if autoload is active)
+;           filament = run macro "ActivateRunOutSensor"
 ;
 ; =========================================================================================================
 ;
-if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is enabled
-    if !exists(sensors.filamentMonitors[0])                            ; in run-out mode?
-        M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
-    if !exists(sensors.filamentMonitors[0])                            ; in run-out mode?
-        if {move.axes[1].workplaceOffsets[8] == 1}                     ; if autoload is active
-            M98 P"0:/sys/00-Functions/ActivateAutoload"
+if {move.axes[0].workplaceOffsets[8] == 1}                             ; is filament sensor is enabled?
+    if exists(sensors.filamentMonitors[0])                             ; is the sensor active?
+        if {sensors.filamentMonitors[0].status = "ok"}                 ; is filament loaded?
+            M99                                                        ; sensor active & filament loaded -> exit
+        else
+           if {move.axes[1].workplaceOffsets[8] == 1}                  ; is autoload active?
+               M98 P"0:/sys/00-Functions/ActivateAutoload"
+    else
+        if !exists(sensors.gpIn[1])                                    ; is the pin free?
+            M950 J1 C"e0stop"                                          ; input 1 e0 filament sensor
+        if (sensors.gpIn[1].value = 1)                                 ; no filament
+           if {move.axes[1].workplaceOffsets[8] == 1}                  ; is autoload active?
+               M950 J1 C"nil"                                          ; free input 1 e0 filament sensor
+               M98 P"0:/sys/00-Functions/ActivateAutoload"
+        else                                                           ; filament is loaded
+           M950 J1 C"nil"                                              ; free input 1 e0 filament sensor
+           M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
 ;
 ; =========================================================================================================
 ;
