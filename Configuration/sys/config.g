@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "2.0.0"
-;                           Build :   326
+;                           Build :   327
 ;
 ; Copyright Caribou Research & Development 2022. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -15,7 +15,7 @@
 ;
 ; =========================================================================================================
 ;
-; global varibales
+; global variables
 ;
 global IdleCounter = 0
 global ExtruderTempActive_Old = 0
