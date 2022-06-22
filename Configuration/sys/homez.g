@@ -13,7 +13,7 @@ G1 H2 X0.5 F10000                                                      ; energis
 M400                                                                   ; wait for current moves to finish
 G4 P200                                                                ; wait 200ms
 ;
-G1 H2 Z5 F6000                                                         ; lift Z relative to current position
+G1 H2 Z5 F6000                                                         ; lift z relative to current position
 M400                                                                   ; wait for current moves to finish
 ;
 ; =========================================================================================================

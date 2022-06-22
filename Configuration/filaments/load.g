@@ -10,7 +10,7 @@ M291 P"Please wait while the nozzle is being heated up" R"Heating: #FILAMENT_TEM
 ;
 T0                                                                     ; select tool 0
 G91                                                                    ; relative positioning
-G1 Z20 F6000 H2                                                        ; lift Z relative to current position
+G1 Z20 F6000 H2                                                        ; lift z relative to current position
 M568 P0 S#FILAMENT_TEMPERATURE A2                                                        ; set current tool temperature to filament #FILAMENT_TEMPERATURE°C
 M116                                                                   ; wait for the temperatures to be reached
 ;

@@ -1,11 +1,14 @@
 ; =========================================================================================================
 ;
+; test routine for Duet2 and Duet3Mini5+ WiFi/Ethernet
+; part of self check
+;
 ; macro to measure the real length of the y axis
 ;
 ; =========================================================================================================
 ;
-M208 Y0 S1                                                             ; set axis minima
-M208 Y225 S0                                                           ; set axis minima
+M208 Y0 S1                                                             ; set axis minimum
+M208 Y225 S0                                                           ; set axis minimum
 ;
 G91                                                                    ; relative positioning
 M98 P"current-sense-homing.g"                                          ; Ensure the current and sensitivity is set for homing routines.
@@ -24,17 +27,12 @@ G1 H1 Y-10 F3000                                                       ; move sl
 ;
 G1 H3 Y225 F3000                                                       ; move quickly to right y axis endstop and stop there (first pass)
 ;
-; analyze measured value
+; save measured value
 ;
-if move.axes[1].min > 222.5
-    M291 P{"y axis length: " ^ move.axes[1].min ^ "mm. ERROR: axis too long." } S1
-elif move.axes[1].min < 220.5
-    M291 P{"y axis length: " ^ move.axes[1].min ^ "mm. ERROR: axis too short." } S1
-else
-    M291 P{"y axis length: " ^ move.axes[1].min ^ "mm. Axis length ok." } S1
+var Length = move.axes[1].min
 ;
-M208 Y-7.5 S1                                                          ; set axis minima
-M208 Y214 S0                                                           ; set axis maxima. Would be nice to set to the measured value, not possible with RRF3.2
+M208 Y-7.5 S1                                                          ; set axis minimum
+M208 Y{var.Length} S0                                                  ; set axis maximum
 ;
 ; because of the changed offsets we have to home again
 ;
@@ -46,6 +44,15 @@ G1 H2 Z-5 F6000                                                        ; lower z
 G90                                                                    ; absolute positioning
 ;
 M98 P"current-sense-normal.g"                                          ; Ensure the current and sensitivity is set for normal routines.
+;
+; analyze measured value
+;
+if var.Length > 222.5
+    M291 P{"y axis length: " ^ var.Length ^ "mm. ERROR: axis too long." } S1
+elif var.Length < 220.5
+    M291 P{"y axis length: " ^ var.Length ^ "mm. ERROR: axis too short." } S1
+else
+    M291 P{"y axis length: " ^ var.Length ^ "mm. Axis length ok." } S1
 ;
 ; =========================================================================================================
 ;

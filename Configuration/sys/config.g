@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "2.0.0"
-;                           Build :   337
+;                           Build :   338
 ;
 ; Copyright Caribou Research & Development 2022. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -66,8 +66,8 @@ M564 H0                                                                ; allow u
 ; axes limits
 ; =========================================================================================================
 ;
-M208 X-2 Y-7.5 Z0 S1                                                   ; set axis minima
-M208 X254.6 Y214 #CARIBOU_ZHEIGHT S0                                            ; set axis maxima
+M208 X-2 Y-7.5 Z0 S1                                                   ; set axes minimum
+M208 X254.6 Y214 #CARIBOU_ZHEIGHT S0                                            ; set axes maximum
 ;
 ; =========================================================================================================
 ; endstops

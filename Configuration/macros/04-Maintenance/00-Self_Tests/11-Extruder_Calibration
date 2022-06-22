@@ -1,5 +1,8 @@
 ; =========================================================================================================
 ;
+; test routine for Duet2 and Duet3Mini5+ WiFi/Ethernet
+; part of self check
+;
 ; calibrate extruder esteps for PLA at 215°C
 ;
 ; =========================================================================================================
@@ -7,7 +10,7 @@
 M291 P"Press OK to continue or CANCEL to abort." R"Run extruder calibration for PLA at 215°C?" S3
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
-  G28                                                                  ; home all axis without mesh bed level
+  G28                                                                  ; home all axes without mesh bed level
 G90                                                                    ; absolute positioning
 G0 X60 Y-3 Z80                                                         ; move extruder above bed, keep extruder in front for cleaning and checking
 ;

@@ -8,7 +8,7 @@ M291 P"Press OK to continue or CANCEL to abort." R"Heat up for #FILAMENT_NAME at
 ;
 T0                                                                     ; select tool
 G91                                                                    ; relative positioning
-G1 Z20 F6000 H2                                                        ; lift Z relative to current position
+G1 Z20 F6000 H2                                                        ; lift z relative to current position
 G90                                                                    ; absolute positioning
 M568 P0 S#FILAMENT_TEMPERATURE A2                                                        ; set current tool temperature to filament #FILAMENT_TEMPERATURE°C
 ;

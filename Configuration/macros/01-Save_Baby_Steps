@@ -25,7 +25,7 @@ if state.status != "processing"                                        ; printer
       M291 R{"z-Trigger Height"} P{"Current: " ^ sensors.probes[0].triggerHeight ^ ", Babysteps:" ^ move.axes[2].babystep ^ ", New: " ^ sensors.probes[0].triggerHeight - move.axes[2].babystep} S2
       M291 P{"Press OK to continue or CANCEL to abort."} R{"Setting z-probe offset to " ^ sensors.probes[0].triggerHeight - move.axes[2].babystep ^ "?"}  S3
       M400                                                             ; finish all current moves / clear the buffer
-      G31 Z{sensors.probes[0].triggerHeight - move.axes[2].babystep}   ; set G31 Z offset to corrected
+      G31 Z{sensors.probes[0].triggerHeight - move.axes[2].babystep}   ; set G31 z offset to corrected
       M500 P10:31                                                      ; save settings to config-overide.g - G31 P31 saves trigger height
       M290 R0 S0                                                       ; set babystep to 0mm absolute
       G28
