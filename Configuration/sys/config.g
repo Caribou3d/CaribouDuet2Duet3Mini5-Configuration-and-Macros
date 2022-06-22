@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "2.0.0"
-;                           Build :   327
+;                           Build :   328
 ;
 ; Copyright Caribou Research & Development 2022. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -17,9 +17,9 @@
 ;
 ; global variables
 ;
-global IdleCounter = 0
-global ExtruderTempActive_Old = 0
-global BedTempActive_Old = 0
+global IdleCounter = 0                                                 ; counts idle time
+global ExtruderTempActive_Old = 0                                      ; stores extruder temperature for idle check
+global BedTempActive_Old = 0                                           ; stores bed temperature for idle check
 ;
 ; =========================================================================================================
 ; network settings
@@ -39,23 +39,21 @@ M575 P1 S1 B57600                                                      ; enable 
 ;
 ; #CARIBOU_DRIVES
 ;
-; Motor Configuration
-;
-M584 X0 Y1 Z2:4 E3                                                     ; set drive mapping
-M671 X-36.5:293.5 Y0:0 S1.00                                           ; leadscrews at left (connected to Z) and right (connected to E1) of x axis
-;
-; set Microsteps and steps / mm
+; set microsteps and steps / mm
+; =========================================================================================================
 ;
 M350 X16 Y16 Z16 E16 I1                                                ; configure microstepping with interpolation
 M92 X200.00 Y200.00 Z400.00 E#CARIBOU_EESTEPS                                    ; set steps per mm
 ;
 ; set motor currents
+; =========================================================================================================
 ;
 ; #CARIBOU_MOTOR_CURRENTS
 ;
 M84 S60                                                                ; set idle timeout
 ;
 ; set speeds
+; =========================================================================================================
 ;
 M201 X500.00 Y500.00 Z100.00 E500.00                                   ; set accelerations (mm/s^2)
 M203 X12000.00 Y12000.00 Z1000.00 E3600.00                             ; set maximum speeds (mm/min)
@@ -93,7 +91,7 @@ M574 Z1 S2                                                             ; set end
 ; #CARIBOU_STALLGUARD
 ;
 ; =========================================================================================================
-; Heater & Fans
+; heaters, fans, thermistors
 ; =========================================================================================================
 ;
 ; heated bed
@@ -106,19 +104,19 @@ M574 Z1 S2                                                             ; set end
 ;
 ; #CARIBOU_HOTEND_THERMISTOR
 ;
+; display MCU and drivers temperature
 ; =========================================================================================================
 ;
 M308 S4 P"mcu-temp" Y"mcu-temp" A"MCU"                                 ; set virtual heater for MCU
 M308 S5 P"drivers" Y"drivers" A"Driver"                                ; set virtual heater for stepper drivers
 ;
-; =========================================================================================================
-; Fans
+; fans
 ; =========================================================================================================
 ;
 ; #CARIBOU_FANS
 ;
 ; ========================================================================================================
-; Tools
+; tools
 ; =========================================================================================================
 ;
 M563 P0 D0 H1 F0                                                       ; define tool 0
@@ -136,7 +134,7 @@ G90                                                                    ; send ab
 M83                                                                    ; ... but relative extruder moves
 ;
 ; =========================================================================================================
-;  filament handling
+; filament handling
 ; =========================================================================================================
 ;
 ; execute macros that determine the status of the filament sensor
@@ -145,9 +143,7 @@ M98 P"0:/sys/00-Functions/FilamentsensorStatus"
 ;
 ; =========================================================================================================
 ;
-; =========================================================================================================
-;
-; Offsets - place off-sets for x and y here. z-offsets are handled in the print sheet macros
+; offsets - place off-sets for x and y here. z-offsets are handled in the print sheet macros
 ;
 ; #CARIBOU_OFFSETS
 ;

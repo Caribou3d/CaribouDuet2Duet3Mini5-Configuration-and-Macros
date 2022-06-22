@@ -10,7 +10,7 @@ if [ "$DUETBOARD" = "DUET2" ]; then
     CARIBOU_VARIANT="Caribou220 Duet2 WiFi\/Ethernet Bondtech - SE HT Thermistor - BL-Touch Left"
     DUETBOARDNAME="Duet2"
 else
-    CARIBOU_VARIANT="Caribou220 Duet3Mini5+ WiFi\/EthernetBondtech - SE HT Thermistor - BL-Touch Left"
+    CARIBOU_VARIANT="Caribou220 Duet3Mini5+ WiFi\/Ethernet Bondtech - SE HT Thermistor - BL-Touch Left"
     DUETBOARDNAME="Duet3Mini5+ "
 fi
 #
@@ -55,7 +55,6 @@ cp -r ../00-Functions $SysOutputPath
 #
 # create bed.g
 #
-
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/G30 P0 X25 Y105 Z-99999/G30 P0 X10 Y105 Z-99999/};
@@ -72,6 +71,7 @@ M558 F400 T8000 A1 S0.03                                               ; for BL-
 PRINTERNAME=$(printf "%s%*s%s" "M550 P\"$CARIBOU_NAME\"" $((63-${#CARIBOU_NAME})) '' "; set printer name")
 #
 # general replacements
+#
 sed "
 {s/#DUETBOARDNAME/$DUETBOARDNAME/};
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
@@ -87,21 +87,31 @@ if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
 {/#CARIBOU_DRIVES/ c\
-M569 P0 S0 F11                                                         ; physical drive 0 goes backwards - x-axis\\
-M569 P1 S0 F8 Y3:2                                                     ; physical drive 1 goes backwards - y-axis\\
-M569 P2 S0 F10                                                         ; physical drive 2 goes backwards - z-left\\
-M569 P3 S1 F14                                                         ; physical drive 3 goes forwards  - Extruder\\
-M569 P4 S0 F10                                                         ; physical drive 4 goes backwards - z-right
+M569 P0 S0 F11                                                         ; physical drive 0 goes backwards - x axis\\
+M569 P1 S0 F8 Y3:2                                                     ; physical drive 1 goes backwards - y axis\\
+M569 P2 S0 F10                                                         ; physical drive 2 goes backwards - z axis left\\
+M569 P3 S1 F14                                                         ; physical drive 3 goes forwards  - extruder\\
+M569 P4 S0 F10                                                         ; physical drive 4 goes backwards - z axis right\\
+;\\
+; motor configuration\\
+;\\
+M584 X0 Y1 Z2:4 E3                                                     ; set drive mapping\\
+M671 X-36.5:293.5 Y0:0 S1.00                                           ; leadscrews at left (connected to Z/drive 2) and right (connected to E1/drive 4) of x axis
 };
 " $SysOutputPath/config.g
 else
 sed -i "
 {/#CARIBOU_DRIVES/ c\
-M569 P0.0 S0 D3 V1000                                                  ; physical drive 0.0 goes backwards - z - left\\
-M569 P0.1 S0 D3 V2000                                                  ; physical drive 0.1 goes backwards - x-axis\\
-M569 P0.2 S0 D3 V2000                                                  ; physical drive 0.2 goes backwards - y-axis\\
-M569 P0.3 S0 D3 V1000                                                  ; physical drive 0.3 goes backwards - z - right\\
-M569 P0.4 D3 V1000                                                     ; physical drive 0.4 goes forwards  - extruder
+M569 P0.0 S0 D3 V1000                                                  ; physical drive 0.0 goes backwards - z axis left\\
+M569 P0.1 S0 D3 V2000                                                  ; physical drive 0.1 goes backwards - x axis\\
+M569 P0.2 S0 D3 V2000                                                  ; physical drive 0.2 goes backwards - y axis\\
+M569 P0.3 S0 D3 V1000                                                  ; physical drive 0.3 goes backwards - z axis right\\
+M569 P0.4 D3 V1000                                                     ; physical drive 0.4 goes forwards  - extruder\\
+;\\
+; motor configuration\\
+;\\
+M584 X0.1 Y0.2 Z0.0:0.3 E0.4                                           ; set drive mapping\\
+M671 X-36.5:293.5 Y0:0 S1.00                                           ; leadscrews at left (connected to drive 0) and right (connected to drive 3) of x axis
 };
 " $SysOutputPath/config.g
 fi
@@ -138,7 +148,7 @@ if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
 {/#CARIBOU_HOTEND_THERMISTOR/ c\
-; Hotend (Mosquito or Mosquito Magnum with SE Thermistor)\\
+; hotend (Mosquito or Mosquito Magnum with SE Thermistor)\\
 ;\\
 M308 S1 P\"e0temp\" Y\"thermistor\" T500000 B4723 C1.19622e-7 A\"Nozzle\"    ; SE configure sensor 0 as thermistor on pin e0temp\\
 ;\\
@@ -150,7 +160,35 @@ M143 H1 S365                                                           ; set tem
 else
 sed -i "
 {/#CARIBOU_HOTEND_THERMISTOR/ c\
-; Hotend (Mosquito or Mosquito Magnum with SE Thermistor) \\
+; hotend (Mosquito or Mosquito Magnum with SE Thermistor)\\
+;\\
+M308 S1 P\"temp1\" Y\"thermistor\" T500000 B4723 C1.19622e-7 A\"Nozzle\"     ; SE configure sensor 0 as thermistor on pin e0temp\\
+;\\
+M950 H1 C\"out1\" T1                                                     ; create nozzle heater output on e0heat and map it to sensor 1\\
+M307 H1 B0 S1.00                                                       ; disable bang-bang mode for heater 1 and set PWM limit\\
+M143 H1 S365                                                           ; set temperature limit for heater 1 to 365°C
+};
+" $SysOutputPath/config.g
+fi
+
+# replacemente SE thermistor
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
+sed -i "
+{/#CARIBOU_HOTEND_THERMISTOR/ c\
+; hotend (Mosquito or Mosquito Magnum with SE Thermistor)\\
+;\\
+M308 S1 P\"e0temp\" Y\"thermistor\" T500000 B4723 C1.19622e-7 A\"Nozzle\"    ; SE configure sensor 0 as thermistor on pin e0temp\\
+;\\
+M950 H1 C\"e0heat\" T1                                                   ; create nozzle heater output on e0heat and map it to sensor 1\\
+M307 H1 B0 S1.00                                                       ; disable bang-bang mode for heater 1 and set PWM limit\\
+M143 H1 S365                                                           ; set temperature limit for heater 1 to 365°C
+};
+" $SysOutputPath/config.g
+else
+sed -i "
+{/#CARIBOU_HOTEND_THERMISTOR/ c\
+; hotend (Mosquito or Mosquito Magnum with SE Thermistor)\\
 ;\\
 M308 S1 P\"temp1\" Y\"thermistor\" T500000 B4723 C1.19622e-7 A\"Nozzle\"     ; SE configure sensor 0 as thermistor on pin e0temp\\
 ;\\
@@ -166,7 +204,7 @@ if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
 {/#CARIBOU_ZPROBE/ c\
-; BL-Touch Left \\
+; BL-Touch Left\\
 ;\\
 M950 S0 C\"exp.heater3\"                                                 ; sensor for BL-Touch\\
 M558 P9 C\"^zprobe.in\" H2.5 F400 T8000 A1 S0.03                         ; for BL-Touch\\
@@ -180,7 +218,7 @@ else
 # Duet 3Mini5+
 sed -i "
 {/#CARIBOU_ZPROBE/ c\
-; BL-Touch Left \\
+; BL-Touch Left\\
 ;\\
 M950 S0 C\"io1.out\"                                                     ; sensor for BL-Touch\\
 M558 P9 C\"^io1.in\" H2.5 F400 T8000 A1 S0.03                            ; for BL-Touch\\
@@ -222,15 +260,15 @@ if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
 {/#CARIBOU_FANS/ c\
-; extruder fan (temperature controlled) \\
-;\\
-M950 F1 C\"fan1\" Q500                                                   ; create fan 1 on pin fan0 and set its frequency\\
-M106 P1 H1 T45                                                         ; fan turns on at 45°C\\
-;\\
 ; radial fan\\
 ;\\
 M950 F0 C\"fan0\" Q160                                                   ; create fan 0 on pin fan1 and set its frequency\\
-M106 P0 S0 H-1                                                         ; set fan 0 value. Thermostatic control is turned off
+M106 P0 S0 H-1                                                         ; set fan 0 value. Thermostatic control is turned off\\
+;\\
+; extruder fan (temperature controlled)\\
+;\\
+M950 F1 C\"fan1\" Q500                                                   ; create fan 1 on pin fan0 and set its frequency\\
+M106 P1 H1 T45                                                         ; fan turns on at 45°C
 };
 " $SysOutputPath/config.g
 else

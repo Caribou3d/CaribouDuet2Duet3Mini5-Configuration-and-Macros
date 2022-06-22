@@ -1,10 +1,19 @@
 #!/bin/sh
-
+#
 # =========================================================================================================
-# definition for Caribou320 Duet2-WiFi-Ethernet LGX Mosquito - E3d or SE Thermistor - BL-Touch Right
+# definition for Caribou220 Duet2 / Duet3Mini5+ -WiFi-Ethernet Bondtech - SE HT Thermistor - BL-Touch Left
 # =========================================================================================================
-
-CARIBOU_VARIANT="Caribou320 Duet2-WiFi-Ethernet LGX Mosquito - E3d or SE Thermistor - BL-Touch Right"
+#
+DUETBOARD=$1
+#
+if [ "$DUETBOARD" = "DUET2" ]; then
+    CARIBOU_VARIANT="Caribou320 Duet2 WiFi\/Ethernet LGX Mosquito - E3d or SE Thermistor - BL-Touch Right"
+    DUETBOARDNAME="Duet2"
+else
+    CARIBOU_VARIANT="Caribou320 Duet3Mini5+ WiFi\/Ethernet LGX Mosquito - E3d or SE Thermistor - BL-Touch Right"
+    DUETBOARDNAME="Duet3Mini5+ "
+fi
+#
 CARIBOU_NAME="Caribou320-LGXM18-NBLR"
 CARIBOU_ZHEIGHTLEVELING="Z305"
 CARIBOU_ZHEIGHT="Z316.50"
@@ -43,11 +52,9 @@ fi
 # copy sys files to processed folder
 find .. -maxdepth 1 -type f -exec cp -rt $SysOutputPath {} +
 cp -r ../00-Functions $SysOutputPath
-
 #
 # create bed.g
 #
-
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/G30 P0 X25 Y105 Z-99999    /G30 P0 X35 Y115.5 Z-99999  /};
@@ -64,7 +71,9 @@ M558 F400 T8000 A1 S0.03                                               ; for BL-
 PRINTERNAME=$(printf "%s%*s%s" "M550 P\"$CARIBOU_NAME\"" $((63-${#CARIBOU_NAME})) '' "; set printer name")
 #
 # general replacements
+#
 sed "
+{s/#DUETBOARDNAME/$DUETBOARDNAME/};
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/#CARIBOU_NAME/$PRINTERNAME/};
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/};
@@ -73,6 +82,40 @@ sed "
 {s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
 " < ../config.g > $SysOutputPath/config.g
 
+#replacements for drives
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
+sed -i "
+{/#CARIBOU_DRIVES/ c\
+M569 P0 S0 F11                                                         ; physical drive 0 goes backwards - x axis\\
+M569 P1 S0 F8 Y3:2                                                     ; physical drive 1 goes backwards - y axis\\
+M569 P2 S0 F10                                                         ; physical drive 2 goes backwards - z axis left\\
+M569 P3 S1 F14                                                         ; physical drive 3 goes forwards  - extruder\\
+M569 P4 S0 F10                                                         ; physical drive 4 goes backwards - z axis right\\
+;\\
+; motor configuration\\
+;\\
+M584 X0 Y1 Z2:4 E3                                                     ; set drive mapping\\
+M671 X-36.5:293.5 Y0:0 S1.00                                           ; leadscrews at left (connected to Z/drive 2) and right (connected to E1/drive 4) of x axis
+};
+" $SysOutputPath/config.g
+else
+sed -i "
+{/#CARIBOU_DRIVES/ c\
+M569 P0.0 S0 D3 V1000                                                  ; physical drive 0.0 goes backwards - z axis left\\
+M569 P0.1 S0 D3 V2000                                                  ; physical drive 0.1 goes backwards - x axis\\
+M569 P0.2 S0 D3 V2000                                                  ; physical drive 0.2 goes backwards - y axis\\
+M569 P0.3 S0 D3 V1000                                                  ; physical drive 0.3 goes backwards - z axis right\\
+M569 P0.4 D3 V1000                                                     ; physical drive 0.4 goes forwards  - extruder\\
+;\\
+; motor configuration\\
+;\\
+M584 X0.1 Y0.2 Z0.0:0.3 E0.4                                           ; set drive mapping\\
+M671 X-36.5:293.5 Y0:0 S1.00                                           ; leadscrews at left (connected to drive 0) and right (connected to drive 3) of x axis
+};
+" $SysOutputPath/config.g
+fi
+
 # replacements for motor currents
 sed -i "
 {/#CARIBOU_MOTOR_CURRENTS/ c\
@@ -80,12 +123,32 @@ M906 X1250 Y1250 Z650 E650 I40                                         ; set mot
 };
 " $SysOutputPath/config.g
 
+# replacements for stallguard sensitivy
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
+sed -i "
+{/#CARIBOU_STALLGUARD/ c\
+M915 X S2 F0 H400 R0                                                   ; set x axis sensitivity\\
+M915 Y S1 F0 H400 R0                                                   ; set y axis sensitivity\\
+M915 Z S0 F0 H200 R0                                                   ; set z axis sensitivity
+};
+" $SysOutputPath/config.g
+else
+sed -i "
+{/#CARIBOU_STALLGUARD/ c\
+M915 X S1 F0 H200 R0                                                   ; set x axis sensitivity\\
+M915 Y S1 F0 H200 R0                                                   ; set y axis sensitivity\\
+M915 Z S1 F0 H200 R0                                                   ; set z axis sensitivity
+};
+" $SysOutputPath/config.g
+fi
+
 # replacemente E3d thermistor
 sed -i "
 {/#CARIBOU_HOTEND_THERMISTOR/ c\
-; Hotend (Mosquito or Mosquito Magnum with E3d Thermistor) \\
+; hotend (Mosquito or Mosquito Magnum with E3d Thermistor)\\
 ;\\
-M308 S1 P\"e0temp\" Y\"thermistor\" T100000 B4725 C7.060000e-8 A\"Nozzle E1\"  ; E3d configure sensor 0 as thermistor on pin e0temp\\
+M308 S1 P\"e0temp\" Y\"thermistor\" T100000 B4725 C7.060000e-8 A\"Nozzle E1\"; E3d configure sensor 0 as thermistor on pin e0temp\\
 ;\\
 M950 H1 C\"e0heat\" T1                                                   ; create nozzle heater output on e0heat and map it to sensor 1\\
 M307 H1 B0 S1.00                                                       ; disable bang-bang mode for heater 1 and set PWM limit\\
@@ -96,7 +159,7 @@ M143 H1 S280                                                           ; set tem
 # replacements for BL-Touch
 sed -i "
 {/#CARIBOU_ZPROBE/ c\
-; BL-Touch Right \\
+; BL-Touch Right\\
 ;\\
 M950 S0 C\"exp.heater3\"                                                 ; sensor for BL-Touch\\
 M558 P9 C\"^zprobe.in\" H2.5 F400 T8000 A1 S0.03                         ; for BL-Touch\\
@@ -106,6 +169,63 @@ M557 X30:230 Y0:200 P7                                                 ; define 
 G31 X31.6 Y-10.1
 }
 " $SysOutputPath/config.g
+#replacements for the heat bed
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
+sed -i "
+{/#CARIBOU_HEATBED/ c\
+M308 S0 P\"bedtemp\" Y\"thermistor\" T100000 B4138 R4700 A\"Bed\"            ; configure sensor 0 as thermistor on pin bedtemp\\
+M950 H0 C\"bedheat\" Q50 T0                                              ; create bed heater output on bedheat and map it to sensor 0\\
+M143 H0 S110                                                           ; set temperature limit for heater 0 to 110°C\\
+M307 H0 B0 S1.00                                                       ; disable bang-bang mode for the bed heater and set PWM limit\\
+M140 H0                                                                ; map heated bed to heater 0
+};
+" $SysOutputPath/config.g
+else
+# Duet 3Mini5+
+sed -i "
+{/#CARIBOU_HEATBED/ c\
+M308 S0 P\"temp0\" Y\"thermistor\" T100000 B4138 A\"Bed\"                    ; configure sensor 0 as thermistor on pin bedtemp\\
+M950 H0 C\"out0\" Q50 T0                                                 ; create bed heater output on bedheat and map it to sensor 0\\
+M143 H0 S110                                                           ; set temperature limit for heater 0 to 110°C\\
+M307 H0 B0 S1.00                                                       ; disable bang-bang mode for the bed heater and set PWM limit\\
+M140 H0                                                                ; map heated bed to heater 0
+};
+" $SysOutputPath/config.g
+fi
+
+# replacements for fans
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
+sed -i "
+{/#CARIBOU_FANS/ c\
+; radial fan\\
+;\\
+M950 F0 C\"fan0\" Q160                                                   ; create fan 0 on pin fan1 and set its frequency\\
+M106 P0 S0 H-1                                                         ; set fan 0 value. Thermostatic control is turned off\\
+;\\
+; extruder fan (temperature controlled)\\
+;\\
+M950 F1 C\"fan1\" Q500                                                   ; create fan 1 on pin fan0 and set its frequency\\
+M106 P1 H1 T45                                                         ; fan turns on at 45°C
+};
+" $SysOutputPath/config.g
+else
+# Duet 3Mini5+
+sed -i "
+{/#CARIBOU_FANS/ c\
+; extruder fan (temperature controlled)\\
+;\\
+M950 F1 C\"out5\" Q500                                                   ; create fan 1 on pin fan0 and set its frequency\\
+M106 P1 H1 T45                                                         ; set fan 2 value. Thermostatic control is turned on\\
+;\\
+; radial fan\\
+;\\
+M950 F0 C\"out6\" Q25                                                    ; create fan 0 on pin fan1 and set its frequency\\
+M106 P0 S0 H-1                                                         ; set fan 0 value. Thermostatic control is turned off
+};
+" $SysOutputPath/config.g
+fi
 
 #
 # create homez and homeall
