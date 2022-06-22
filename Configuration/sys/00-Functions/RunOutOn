@@ -1,11 +1,10 @@
 ; =========================================================================================================
 ;
-; turns the trigger of the filament OFF and frees the pin
+; turns the trigger of the filament ON
 ;
 ; =========================================================================================================
 ;
-M581 P1 T2 S-1 R0                                                      ; filament sensor P1 triggers trigger2.g always (R0)  TRIGGER OFF
-M950 J1 C"nil"                                                         ; free input 1 e0 filament sensor
+M591 D0 P2 C"e0stop" S1                                                ; filament runout sensor
 ;
 ; =========================================================================================================
 ;

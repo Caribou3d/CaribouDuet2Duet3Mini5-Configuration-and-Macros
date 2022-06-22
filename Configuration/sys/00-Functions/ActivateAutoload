@@ -4,11 +4,8 @@
 ;
 ; =========================================================================================================
 ;
-if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is active
-    if exists(sensors.filamentMonitors[0])                             ; in run-out mode?
-        M98 P"0:/sys/00-Functions/RunOutOff"                           ; turn run out sensor off
-    M950 J1 C"e0stop"                                                  ; input 1 e0 filament sensor
-    M581 P1 T2 S0 R0                                                   ; filament sensor P1 triggers trigger2.g always (R0)
+M98 P"0:/sys/00-Functions/RunOutOff"                                   ; turn run out sensor OFF
+M98 P"0:/sys/00-Functions/TriggerOn"                                   ; turn trigger ON
 ;
 ; =========================================================================================================
 ;

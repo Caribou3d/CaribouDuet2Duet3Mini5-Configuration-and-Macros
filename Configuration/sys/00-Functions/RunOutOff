@@ -1,9 +1,13 @@
 ; =========================================================================================================
 ;
-; turns the trigger of the filament off and frees the pin
+; turns the trigger of the filament OFF and frees the pin
 ;
 ; =========================================================================================================
 ;
-M591 D0 P0 C"e0stop" S1                                                ; disable filament runout sensor
-M950 J1 C"nil"                                                         ; free input 1 e0 filament sensor
+if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is active
+    if exists(sensors.filamentMonitors[0])                             ; in run-out mode?
+        M591 D0 P0 C"e0stop" S1                                        ; disable filament runout sensor
+        M950 J1 C"nil"                                                 ; free input 1 e0 filament sensor
+;
+; =========================================================================================================
 ;
