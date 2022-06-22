@@ -102,6 +102,36 @@ M950 J1 C\"io2.in\"                                                      ; input
 " $SysOutputPath/00-Functions/TriggerOn
 fi
 #
+# create current-sense-homing.g
+#
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
+sed "
+{/#CARIBOU_SENSE_HOMING/ c\
+M915 X S2 F0 H400 R0                                                   ; set the x axis sensitivity\\
+M915 Y S2 F0 H400 R0                                                   ; set the y axis sensitivity\\
+M913 X40 Y40 Z60                                                       ; set the x, y, and z drivers current percentage for non-print moves, per config.g
+};
+" < ../current-sense-homing.g > $SysOutputPath/current-sense-homing.g
+else
+sed "
+{/#CARIBOU_SENSE_HOMING/ c\
+M569 P0.1 V10                                                          ; reduce V to ensure stealthChop is enabled for x\\
+M569 P0.2 V10                                                          ; reduce V to ensure stealthChop is enabled for y\\
+M913 X30 Y30                                                           ; drop motor current to 30%\\
+G4 P100                                                                ; wait 100ms\\
+;\\
+; tune drivers\\
+;\\
+G91                                                                    ; relative positioning\\
+G1 H2 X0.2 Y0.2 F3000                                                  ; power up motors to ensure they are not stalled\\
+G4 P100                                                                ; wait 100ms\\
+M400                                                                   ; wait for current moves to finish\\
+G1 H2 X-0.2 Y-0.2 F3000                                                ; go back to the original position
+};
+" < ../current-sense-homing.g > $SysOutputPath/current-sense-homing.g
+fi
+#
 # create bed.g
 #
 sed "
