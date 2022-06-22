@@ -52,6 +52,21 @@ fi
 # copy sys files to processed folder
 find .. -maxdepth 1 -type f -exec cp -rt $SysOutputPath {} +
 cp -r ../00-Functions $SysOutputPath
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
+sed -i "
+{/#CARIBOU_DISABLE_FILAMENT_SENSOR/ c\
+        M591 D0 P0 C\"e0stop\" S1                                        ; disable filament runout sensor
+};
+" $SysOutputPath/00-Functions/RunOutOff
+else
+sed -i "
+{/#CARIBOU_DISABLE_FILAMENT_SENSOR/ c\
+       M591 D0 P0 C"io2.in" S0                                         ; disable filament runout sensor
+};
+" $SysOutputPath/RunOutOff
+fi
+
 #
 # create bed.g
 #
