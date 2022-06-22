@@ -1,5 +1,7 @@
 #!/bin/sh
 #
+my_dir="$(dirname "$0")"
+#
 # =========================================================================================================
 # definition for Caribou220 Duet2 / Duet3Mini5+ -WiFi-Ethernet Bondtech - SE HT Thermistor - BL-Touch Left
 # =========================================================================================================
@@ -52,21 +54,53 @@ fi
 # copy sys files to processed folder
 find .. -maxdepth 1 -type f -exec cp -rt $SysOutputPath {} +
 cp -r ../00-Functions $SysOutputPath
+#
+# replacements in functions
+#
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
+sed -i "
+{/#CARIBOU_ENABLE_FILAMENT_SENSOR/ c\
+M591 D0 P2 C\"e0stop\" S1                                                ; filament runout sensor
+};
+" $SysOutputPath/00-Functions/RunOutOn
+else
+sed -i "
+{/#CARIBOU_ENABLE_FILAMENT_SENSOR/ c\
+M591 D0 P2 C\"io2.in\" S1                                                ; filament runout sensor
+};
+" $SysOutputPath/00-Functions/RunOutOn
+fi
+
 if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
 {/#CARIBOU_DISABLE_FILAMENT_SENSOR/ c\
-        M591 D0 P0 C\"e0stop\" S1                                        ; disable filament runout sensor
+\        M591 D0 P0 C\"e0stop\" S1                                        ; disable filament runout sensor
 };
 " $SysOutputPath/00-Functions/RunOutOff
 else
 sed -i "
 {/#CARIBOU_DISABLE_FILAMENT_SENSOR/ c\
-       M591 D0 P0 C"io2.in" S0                                         ; disable filament runout sensor
+\        M591 D0 P0 C\"io2.in\" S0                                        ; disable filament runout sensor
 };
-" $SysOutputPath/RunOutOff
+" $SysOutputPath/00-Functions/RunOutOff
 fi
 
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
+sed -i "
+{/#CARIBOU_TRIGGER/ c\
+M950 J1 C\"e0stop\"                                                      ; input 1 e0 filament sensor
+};
+" $SysOutputPath/00-Functions/TriggerOn
+else
+sed -i "
+{/#CARIBOU_TRIGGER/ c\
+M950 J1 C\"io2.in\"                                                      ; input 1 e0 filament sensor
+};
+" $SysOutputPath/00-Functions/TriggerOn
+fi
 #
 # create bed.g
 #
@@ -97,7 +131,7 @@ sed "
 {s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
 " < ../config.g > $SysOutputPath/config.g
 
-#replacements for drives
+# replacements for drives
 if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
@@ -245,7 +279,7 @@ G31 X-24.3 Y-34.1
 " $SysOutputPath/config.g
 fi
 
-#replacements for the heat bed
+# replacements for the heat bed
 if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
