@@ -1,7 +1,7 @@
 ; =========================================================================================================
 ;
-; Test Routine for Duet WiFi
-; Part of self check
+; test routine for Duet2 and Duet3Mini5+ WiFi/Ethernet
+; part of self check
 ;
 ; PID tuning Heated bed
 ;
