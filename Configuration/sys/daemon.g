@@ -23,6 +23,8 @@ if !(state.status == "processing")
 ;
 if (global.IdleCounter >= 90)                                          ; turn heating off after 15min
     M291 P{"Idle time: " ^ global.IdleCounter / 6 ^ " min."} S1 T5     ; display approx. idle time
+    echo {"Idle time: " ^ global.IdleCounter / 6 ^ " min."}
+    echo "Turning heaters off"
     G4 S5                                                              ; wait 5 seconds
     M98 P"0:/macros/00-Turn_Heating_Off"                               ; call macro to turn heating off
 ;
