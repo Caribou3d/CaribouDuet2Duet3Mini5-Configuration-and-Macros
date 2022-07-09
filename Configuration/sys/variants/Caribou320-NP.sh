@@ -378,7 +378,7 @@ cp -r $MacrosDir/00-Preheat_Extruder/processed $MacroOutputPath/00-Preheat_Extru
 #
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y4.5 F6000               ; go to first probe point/};
+{s/#CARIBOU_MEASUREPOINT/G1 X11.5 Y4.5 F6000                                                    ; go to first probe point/};
 {/#CARIBOU_ZPROBE/ c\
 ;
 };
