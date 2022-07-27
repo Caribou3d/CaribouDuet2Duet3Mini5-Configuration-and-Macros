@@ -7,16 +7,29 @@
 ;
 ; =========================================================================================================
 ;
-M291 P"Press OK if target for nozzle is 215°C." R"PID tuning nozzle" S3
+var target_temperature = 215                                            ; target temperature in °C
+;
+; =========================================================================================================
+;
+M291 P"PID tuning for the extruder will take approx. 5 min." R"PID tuning extruder" S3
+M291 P{"Press OK if target for the extruder is " ^ var.target_temperature ^ "°C."} R"PID tuning extruder" S3
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
   G28                                                                  ; home all axes without mesh bed level
 G90                                                                    ; absolute positioning
-G0 X60 Y-3 Z160                                                        ; move extruder above bed
+G0 X60 Y-3 Z80                                                         ; move extruder above bed
 ;
-M303 H1 S215                                                           ; start PID tuning for 215°C
+M303 H1 S{var.target_temperature}                                      ; start PID tuning for target temperature
 ;
-M291 R"PID tuning NOZZLE started" P"When tuning is completed, enter M500 to console to save to config-Override.g!" S1
+while heat.heaters[1].state = "tuning"                                 ; while the tuning
+  M291 P"Running ..." R"PID tuning extruder" S1                        ; display message
+  G4 S10                                                               ; wait 10 seconds
+;
+M500 P31                                                               ; save to config-override.g
+;
+M568 P0 S0 R0 A0                                                       ; turn off extruder
+;
+M291 P"Completed. PID values have been saved." R"PID tuning extruder" S2
 ;
 ; =========================================================================================================
 ;
