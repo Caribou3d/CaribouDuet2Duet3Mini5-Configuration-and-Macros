@@ -27,12 +27,10 @@ G1 H1 Y-10 F3000                                                       ; move sl
 ;
 G1 H3 Y225 F3000                                                       ; move quickly to right y axis endstop and stop there (first pass)
 ;
-; save measured value
-;
-var Length = move.axes[1].min
+; revert to original value
 ;
 M208 Y-7.5 S1                                                          ; set axis minimum
-M208 Y{var.Length} S0                                                  ; set axis maximum
+M208 Y214 S0                                                           ; set axis maximum
 ;
 ; because of the changed offsets we have to home again
 ;
