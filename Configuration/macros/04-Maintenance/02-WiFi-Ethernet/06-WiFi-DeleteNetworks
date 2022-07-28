@@ -4,6 +4,10 @@
 ;
 ; =========================================================================================================
 ;
+if {network.interfaces[0].type = "ethernet"}
+    M291 P"This is an Ethernet board. No networks can be deleted." S2
+    M99
+;
 M291 P"Delete all remembered networks? Press OK to continue or CANCEL to abort." R"Clear list of remembered networks?" S3
 ;
 M552 S-1                                                               ; disable WiFi module

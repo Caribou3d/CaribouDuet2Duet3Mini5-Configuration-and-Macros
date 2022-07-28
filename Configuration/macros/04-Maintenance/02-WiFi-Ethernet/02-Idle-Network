@@ -1,10 +1,10 @@
 ; =========================================================================================================
 ;
-; set WiFi module into idle mode
+; set network module into idle mode
 ;
 ; =========================================================================================================
 ;
-M291 P"Access to DWC will be stopped! Press OK to continue or CANCEL to abort." R"Set WiFi module into idle mode?" S3
+M291 P"Access to DWC will be stopped! Press OK to continue or CANCEL to abort." R"Set Network module into idle mode?" S3
 ;
 M552 S0
 ;

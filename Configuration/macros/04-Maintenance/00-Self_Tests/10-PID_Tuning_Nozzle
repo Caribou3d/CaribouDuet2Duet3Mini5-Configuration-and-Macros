@@ -15,25 +15,25 @@ M291 P"PID tuning for the extruder will take approx. 5 min." R"PID tuning extrud
 M291 P{"Press OK if target for the extruder is " ^ var.target_temperature ^ "°C."} R"PID tuning extruder" S3
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
-  G28                                                                  ; home all axes without mesh bed level
+    G28                                                                ; home all axes without mesh bed level
 G90                                                                    ; absolute positioning
 G0 X60 Y-3 Z80                                                         ; move extruder above bed
 ;
 if heat.heaters[1].current > 40                                        ; check if bed is cooled down
-  M568 P0 S0 R0 A0                                                     ; turn off extruder
-  M106 P0 S1                                                           ; turn on part cooling fan
-  M106 P1 H1 T0                                                        ; turn on extruder fan
-  while heat.heaters[1].current > 40                                   ; while waiting to cool down
-      M291 P"Cooling down the extruder 40°C ..." R"PID tuning extruder" S1 ; display message
-      G4 S10                                                           ; wait 10 seconds
-  M106 P0 S0                                                           ; turn off part cooling fan
-  M106 P1 H1 T45                                                       ; extruder fan turns on at 45°C
+    M568 P0 S0 R0 A0                                                   ; turn off extruder
+    M106 P0 S1                                                         ; turn on part cooling fan
+    M106 P1 H1 T0                                                      ; turn on extruder fan
+    while heat.heaters[1].current > 40                                 ; while waiting to cool down
+        M291 P"Cooling down the extruder 40°C ..." R"PID tuning extruder" S1 ; display message
+        G4 S10                                                         ; wait 10 seconds
+    M106 P0 S0                                                         ; turn off part cooling fan
+    M106 P1 H1 T45                                                     ; extruder fan turns on at 45°C
 ;
 M303 H1 S{var.target_temperature}                                      ; start PID tuning for target temperature
 ;
 while heat.heaters[1].state = "tuning"                                 ; while the tuning
-  M291 P"Running ..." R"PID tuning extruder" S1                        ; display message
-  G4 S10                                                               ; wait 10 seconds
+    M291 P"Running ..." R"PID tuning extruder" S1                      ; display message
+    G4 S10                                                             ; wait 10 seconds
 ;
 M500 P31                                                               ; save to config-override.g
 ;

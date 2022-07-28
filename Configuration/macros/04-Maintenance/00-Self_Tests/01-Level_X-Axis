@@ -8,8 +8,8 @@
 ; =========================================================================================================
 ;
 M913 X100 Y100 Z100                                                    ; set motor currents to 100%
-G91                                                                    ; relative positioning
-G28                                                                    ; home Axes
+if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
+  G28                                                                  ; home all axes without mesh bed level
 G90                                                                    ; absolute positioning
 G1 X125 Y55 F6000                                                      ; move extruder to the middle of the x axis
 M564 S0                                                                ; disable minimum and maximum axes limits

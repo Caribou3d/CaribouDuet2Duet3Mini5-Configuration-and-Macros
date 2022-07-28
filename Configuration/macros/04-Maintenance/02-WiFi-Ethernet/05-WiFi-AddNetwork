@@ -8,6 +8,10 @@
 ;
 ; =========================================================================================================
 ;
+if {network.interfaces[0].type = "ethernet"}
+    M291 P"This is an Ethernet board. No networks can be saved." S2
+    M99
+;
 M291 R"Add WiFi network? Y/N" P"This will add a WiFi access point." S3 T10
 ;
 M552 S-1                                                               ; disable WiFi module
