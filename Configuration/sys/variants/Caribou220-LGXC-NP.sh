@@ -388,9 +388,17 @@ sed "
 #
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/};
+{s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/}
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
 " < $MacrosDir/04-Maintenance/00-Self_Tests/01-Level_X-Axis > $MacroOutputPath/04-Maintenance/00-Self_Tests/01-Level_X-Axis
+
+# create 02-Measure_Axes-Length
+#
+sed "
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/}
+{s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
+" < $MacrosDir/04-Maintenance/00-Self_Tests/02-Measure_Axes-Length > $MacroOutputPath/04-Maintenance/00-Self_Tests/02-Measure_Axes-Length
 
 # create Load_Filament
 #
