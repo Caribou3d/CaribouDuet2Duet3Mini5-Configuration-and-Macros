@@ -6,5 +6,7 @@
 ;
 M84 XY                                                                 ; stop the idle hold on x and y axis
 ;
+M291 P"Turned x and y motor off." S1 T5                                ; display new message
+;
 ; =========================================================================================================
 ;
