@@ -36,3 +36,22 @@ if (global.IdleCounter >= var.idle_time)                               ; turn he
 ;
 ; =========================================================================================================
 ;
+;  take care of babysteps
+;
+if state.status = "processing"                                         ; printer is currently printing!
+    set global.OldStateStatus = 1
+;
+; save babysteps after print
+;
+if (!(state.status == "processing"))
+    if (!(state.status == "pausing") && !(state.status == "paused"))
+        if (!(state.status == "resuming") && global.OldStateStatus = 1) ; print just finished
+            if move.axes[2].babystep !=0                                ; if no babysteps are currently adjusted - exit routine
+                G31 Z{sensors.probes[0].triggerHeight - move.axes[2].babystep}
+                M500 P10:31                                             ; save settings to config-overide.g
+                M290 R0 S0                                              ; set babystep to 0mm absolute
+                set global.OldStateStatus = 0
+                echo "babysteps saved"
+;
+; =========================================================================================================
+;
