@@ -6,8 +6,8 @@
 ;
 ; for #CARIBOU_VARIANT
 ;
-; CariboDuetConfiguration Release : "2.0.0"
-;                           Build :   355
+; CariboDuetConfiguration Release : "2.0.0-RC1"
+;                           Build :   356
 ;
 ; Copyright Caribou Research & Development 2022. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -20,6 +20,7 @@
 global IdleCounter = 0                                                 ; counts idle time
 global ExtruderTempActive_Old = 0                                      ; stores extruder temperature for idle check
 global BedTempActive_Old = 0                                           ; stores bed temperature for idle check
+global.OldStateStatus = 0                                              ; stores teh satus processing = 1
 ;
 ; general settings
 ;
