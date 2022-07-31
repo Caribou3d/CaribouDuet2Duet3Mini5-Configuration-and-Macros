@@ -1,6 +1,6 @@
-# CaribouDuet2-WiFi-Ethernet-Configuration-and-Macros
+# CaribouDuet2Duet3Mini5+-Configuration-and-Macros
 
-This repository contains the source code and the development versions of the configuration and macros running on the Original CaribouDuet2-WiFi-Ethernet line of printers.
+This repository contains the source code and the development versions of the configuration and macros running on the Original CaribouDuet2-WiFi-Ethernet and Duet3Mini3+ WiFi-Ethernet line of printers.
 
 # Naming convention
 
@@ -26,10 +26,11 @@ Sorting order is height / Thermistor / Sensor
 
 Example:
 
-CaribouDuet220-NSP = 220 version with E3d  or SE thermistor and PINDA2
+Duet2-Caribou220-NSP = 220 version with E3d or SE thermistor and SuperPINDA with Duet2 board
 
-CaribouDuet320-HBLL = 320 version with SE HT thermistor and BL-Touch Left
+Duet2-Caribou320-HBLL = 320 version with SE HT thermistor and BL-Touch Left with Duet 2 board
 
+Duet3Mini5-Caribou420-LGXM18-NP = 420 version with E3d or SE thermistor, LGX Mosquito extruder with 1.8° motor and Duet3Mini5+ board
 
 
 # Build
