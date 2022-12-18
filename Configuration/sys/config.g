@@ -6,8 +6,8 @@
 ;
 ; for #CARIBOU_VARIANT
 ;
-; CariboDuetConfiguration Release : "2.0.0-RC2"
-;                           Build :   360
+; CariboDuetConfiguration Release : "2.0.0"
+;                           Build :   361
 ;
 ; Copyright Caribou Research & Development 2022. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -61,9 +61,9 @@ M84 S60                                                                ; set idl
 ; set speeds
 ; =========================================================================================================
 ;
-M201 X500.00 Y500.00 Z100.00 E500.00                                   ; set accelerations (mm/s^2)
-M203 X12000.00 Y12000.00 Z1000.00 E3600.00                             ; set maximum speeds (mm/min)
-M204 P500.0 T500.0                                                     ; set print and travel accelerations (mm(s^2)
+M201 X3000.00 Y3000.00 Z100.00 E500.00                                 ; set accelerations (mm/s^2)
+M203 X18000.00 Y18000.00 Z1000.00 E3600.00                             ; set maximum speeds (mm/min)
+M204 P500.0 T500.0                                                     ; set print and travel accelerations (mm/s^2)
 M566 X480.00 Y480.00 Z48.00 E300.00                                    ; set maximum instantaneous speed changes (mm/min)
 ;
 M564 H0                                                                ; allow unhomed movement
