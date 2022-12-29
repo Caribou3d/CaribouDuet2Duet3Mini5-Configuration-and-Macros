@@ -6,8 +6,8 @@
 ;
 ; for #CARIBOU_VARIANT
 ;
-; CariboDuetConfiguration Release : "2.0.0"
-;                           Build :   361
+; CariboDuetConfiguration Release : "2.0.1"
+;                           Build :   362
 ;
 ; Copyright Caribou Research & Development 2022. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -82,7 +82,6 @@ M208 X254.6 Y214 #CARIBOU_ZHEIGHT S0                                            
 M574 X1 S3                                                             ; configure sensorless endstop for low end on x
 M574 Y1 S3                                                             ; configure sensorless endstop for low end on y
 M574 Z1 S2                                                             ; configure z-probe endstop for low end on z
-M574 Z2 S3                                                             ; configure sensorless endstop for high end on z
 ;
 ; =========================================================================================================
 ;

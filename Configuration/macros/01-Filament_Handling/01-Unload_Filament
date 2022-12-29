@@ -25,7 +25,7 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
 ;
 M291 R"Unloading Filament..." P"Press OK to start." S2                 ; display message
 ;
-G91                                                                    ; set to Relative Positioning
+M83                                                                    ; set extruder to relative positioning
 M913 E100                                                              ; set motor current to 100% of set current;
 ;
 G1 E25 F300                                                            ; extrude 25mm of filament at 300mm/min
