@@ -408,7 +408,7 @@ G4 P100                           ; BLTouch, delay for the release command
 #
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/}
+{s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/};
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
 " < $MacrosDir/04-Maintenance/00-Self_Tests/01-Level_X-Axis > $MacroOutputPath/04-Maintenance/00-Self_Tests/01-Level_X-Axis
 
@@ -416,7 +416,7 @@ sed "
 #
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/}
+{s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/};
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
 " < $MacrosDir/04-Maintenance/00-Self_Tests/02-Measure_Axes-Length > $MacroOutputPath/04-Maintenance/00-Self_Tests/02-Measure_Axes-Length
 
@@ -444,8 +444,9 @@ sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
 {s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
-{s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g}
+{s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g};
 {s/#CARIBOU_FINALUNLOAD/$CARIBOU_FINALUNLOAD/g}
+" < $MacrosDir/01-Filament_Handling/03-Change_Filament > $MacroOutputPath/01-Filament_Handling/03-Change_Filament
 " < $MacrosDir/01-Filament_Handling/03-Change_Filament > $MacroOutputPath/01-Filament_Handling/03-Change_Filament
 
 # =========================================================================================================
