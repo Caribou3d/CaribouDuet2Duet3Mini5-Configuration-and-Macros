@@ -3173,6 +3173,28 @@
             Inches
             </summary>
         </member>
+        <member name="T:DuetAPI.ObjectModel.DistanceUnitConverter">
+            <summary>
+            Class used to convert distance units to and from JSON
+            </summary>
+        </member>
+        <member name="M:DuetAPI.ObjectModel.DistanceUnitConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Read a distance units from a JSON reader
+            </summary>
+            <param name="reader">JSON reader</param>
+            <param name="typeToConvert">Target type</param>
+            <param name="options">JSON options</param>
+            <returns>Distance unit value</returns>
+        </member>
+        <member name="M:DuetAPI.ObjectModel.DistanceUnitConverter.Write(System.Text.Json.Utf8JsonWriter,DuetAPI.ObjectModel.DistanceUnit,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Write a distance units to a JSON writer
+            </summary>
+            <param name="writer">JSON writer</param>
+            <param name="value">Distance unit value</param>
+            <param name="options">JSON options</param>
+        </member>
         <member name="T:DuetAPI.ObjectModel.InputChannel">
             <summary>
             Information about a G/M/T-code channel
@@ -5376,6 +5398,11 @@
         <member name="P:DuetAPI.ObjectModel.PluginManifest.Homepage">
             <summary>
             Link to the plugin homepage or source code repository
+            </summary>
+        </member>
+        <member name="P:DuetAPI.ObjectModel.PluginManifest.Tags">
+            <summary>
+            List of general tags for search
             </summary>
         </member>
         <member name="P:DuetAPI.ObjectModel.PluginManifest.DwcVersion">
