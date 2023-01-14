@@ -7,6 +7,16 @@
 ;
 ; =========================================================================================================
 ;
+M291 P"Checking fans" S3
+;
+if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
+  G28                                                                  ; home all axes without mesh bed level
+G1 X60 Y110 Z80 F4000                                                  ; move extruders towards center of the bed
+;
+M400                                                                   ; wait for current moves to finish
+;
+; =========================================================================================================
+;
 M106 P0 S255                                                           ; set front fan to full speed
 ;
 M291 P"Press OK if front fan is FULL on, else press CANCEL to exit." R"FRONT fan test" S3

@@ -11,7 +11,7 @@ M291 P"Checking heaters" S3
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
   G28                                                                  ; home all axes without mesh bed level
-G0 X60 Y-3 Z80                                                         ; move extruder above bed  keep extruder in front for cleaning and checking
+G0 X60 Y110 Z80                                                        ; move extruder above bed  keep extruder in front for cleaning and checking
 ;
 M570 H1 P120 T120                                                      ; extend the heater H1 fault timeout to 120 seconds for testing
 M570 H0 P120 T120                                                      ; same for H0
