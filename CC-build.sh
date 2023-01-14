@@ -29,6 +29,8 @@
 # 31 Jul 2021, wschadow, when all configurations are build, the output will be sorted
 # 11 Jun 2022, wschadow, added a counter, added generation of a zip for all configurations
 # 20 Jun 2022, wschadow, added selection of the board
+# 12 Jan 2021, wschadow, updated generation of temperature files, added info on build no
+
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3. Non-commercial use only.
 # Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -113,7 +115,7 @@ CC=$(echo $CCDOT | sed 's/\.//g' )
 # Find build version in config.g file and use it to generate the output folder
 BUILD=$(grep --max-count=1 "\bBuild\b" $SCRIPT_PATH/Configuration/sys/config.g | sed -e's/  */ /g'|cut -d ' ' -f4)
 if [ "$BUILD" == "$GIT_COMMIT_NUMBER" ] ; then
-    echo "CC_COMMIT in config.g is identical to current git commit number"
+    echo "CC_COMMIT in config.g is identical to current git commit number: $BUILD"
 else
     echo "$(tput setaf 5)CC_COMMIT $BUILD in config.g is DIFFERENT to current git commit number $GIT_COMMIT_NUMBER. To cancel this process press CRTL+C and update the FW_COMMIT value.$(tput sgr0)"
     if [ -z "$ALL_VARIANTS" ]; then
@@ -289,7 +291,8 @@ do
     # create preheat files
     sed "
     {s/#FILAMENT_NAME/${FILAMENTNAME}/g};
-    {s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g}
+    {s/#FILAMENT_TEMPERATURE_ACTIVE/${FILAMENT_TEMPERATURE_ACTIVE}/g}
+    {s/#FILAMENT_TEMPERATURE_STANDBY/${FILAMENT_TEMPERATURE_STANDBY}/g}
     " < $PREHEATPATH/Preheat > $PREHEATOUTPUT/0$i-$FILAMENTNAME-$FILAMENT_TEMPERATURE
 done
 echo
@@ -330,12 +333,14 @@ do
     # create Load_Filament
     sed "
     {s/#FILAMENT_NAME/${FILAMENTNAME}/};
-    {s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g}
+    {s/#FILAMENT_TEMPERATURE_ACTIVE/${FILAMENT_TEMPERATURE_ACTIVE}/g}
+    {s/#FILAMENT_TEMPERATURE_STANDBY/${FILAMENT_TEMPERATURE_STANDBY}/g}
     " < $FILAMENTPATH/load.g > $FILAMENTOUTPUT/$FILAMENTNAME/load.g
     # create Load_Filament
     sed "
     {s/#FILAMENT_NAME/${FILAMENTNAME}/};
-    {s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g}
+    {s/#FILAMENT_TEMPERATURE_ACTIVE/${FILAMENT_TEMPERATURE_ACTIVE}/g}
+    {s/#FILAMENT_TEMPERATURE_STANDBY/${FILAMENT_TEMPERATURE_STANDBY}/g}
     " < $FILAMENTPATH/unload.g > $FILAMENTOUTPUT/$FILAMENTNAME/unload.g
     # create config.g
     cp $FILAMENTPATH/config.g $FILAMENTOUTPUT/$FILAMENTNAME/
