@@ -280,6 +280,8 @@ M143 H1 S365                                                           ; set tem
 fi
 
 # replacements for BL-Touch
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
 sed -i "
 {/#CARIBOU_ZPROBE/ c\
 ; BL-Touch Left\\
@@ -292,6 +294,22 @@ M557 X10:220 Y1:176 P7                                                 ; define 
 G31 X-24.3 Y-34.1
 }
 " $SysOutputPath/config.g
+else
+# Duet 3Mini5+
+sed -i "
+{/#CARIBOU_ZPROBE/ c\
+; BL-Touch Leftt\\
+;\\
+M950 S0 C\"io1.out\"                                                     ; sensor for BL-Touch\\
+M558 P9 C\"^io1.in\" H2.5 F400 T8000 A1 S0.03                            ; for BL-Touch\\
+M557 X10:220 Y1:176 P7                                                 ; define mesh grid
+};
+{/#CARIBOU_OFFSETS/ c\
+G31 X-24.3 Y-34.1
+}
+" $SysOutputPath/config.g
+fi
+
 # replacements for the heat bed
 if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
