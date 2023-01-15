@@ -7,10 +7,15 @@
 ;
 ; =========================================================================================================
 ;
+if {state.status != "idle"}                                            ; printer is not currently printing!
+    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
+    M99
+;
+; =========================================================================================================
+;
 ;  measure x axis
 ;
 ; =========================================================================================================
-
 ;
 M208 X0 S1                                                             ; set axis minimum
 M208 X260 S0                                                           ; set axis maximum
