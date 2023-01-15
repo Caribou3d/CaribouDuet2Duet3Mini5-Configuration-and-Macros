@@ -21,6 +21,7 @@ global IdleCounter = 0                                                 ; counts 
 global ExtruderTempActive_Old = 0                                      ; stores extruder temperature for idle check
 global BedTempActive_Old = 0                                           ; stores bed temperature for idle check
 global OldStateStatus = 0                                              ; stores the status of the printer, processing = 1
+global purge = 0                                                       ; stores status to purge when autoloading
 ;
 ; general settings
 ;
