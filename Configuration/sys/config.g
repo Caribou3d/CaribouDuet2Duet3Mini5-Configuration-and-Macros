@@ -7,11 +7,10 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "2.0.1"
-;                           Build :   378
+;                           Build :   379
 ;
-; Copyright Caribou Research & Development 2022. Licensed under GPL3. No commercial use.
+; Copyright Caribou Research & Development 2023. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
-;
 ;
 ; =========================================================================================================
 ;
@@ -25,8 +24,8 @@ global purge = 0                                                       ; stores 
 ;
 ; general settings
 ;
-M111 S0 					                                           ; debugging off
-G21 					                                               ; work in millimetres
+M111 S0    				                                               ; debugging off
+G21    				                                                   ; work in millimetres
 ;
 ; =========================================================================================================
 ; network settings
