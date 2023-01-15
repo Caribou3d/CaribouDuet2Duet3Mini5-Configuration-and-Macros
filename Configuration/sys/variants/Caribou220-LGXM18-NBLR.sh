@@ -279,7 +279,8 @@ G31 X31.6 Y-10.1
 " $SysOutputPath/config.g
 fi
 
-# replacements for the heat bedif [ "$DUETBOARD" = "DUET2" ]; then
+    # replacements for the heat bed
+if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
 {/#CARIBOU_HEATBED/ c\
