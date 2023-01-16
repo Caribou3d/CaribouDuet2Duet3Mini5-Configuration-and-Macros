@@ -16,7 +16,7 @@ if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check t
     M291 R"Hotend too cold. Preheat extruder first!" P"Please pull out filament!" S2 ; ask to preheat extruder
     M99
 ;
-M291 P"Feeding filament.... " S1 T15                                   ; display message
+M291 P"Feeding filament ..." S1 T15                                    ; display message
 ;
 G91                                                                    ; set to Relative Positioning
 G1 E#CARIBOU_INITIALLOAD F400                                                            ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/min

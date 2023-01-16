@@ -45,7 +45,7 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
        M591 D0 P0 C"e0stop" S0                                         ; disable filament runout sensor
        M950 J1 C"nil"                                                  ; free input 1 e0 filament sensor
 ;
-M291 R"Changing Filament..." P"Press OK to start or CANCEL to abort." S3  ; display message
+M291 R"Changing Filament ..." P"Press OK to start or CANCEL to abort." S3  ; display message
 ;
 M83                                                                    ; set extruder to relative positioning
 M913 E100                                                              ; set motor current to 100% of set current;
@@ -66,16 +66,16 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
 ;
 if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is enabled
     if {move.axes[1].workplaceOffsets[8] == 1}                         ; if autoload is enabled
-        M291 P"Insert filament...." S1 T5                              ; display new message
+        M291 P"Insert filament ..." S1 T5                              ; display new message
         M300 S500 P600                                                 ; beep
         while {var.sensor_flag = 0}
            G4 P1000                                                    ; wait 1000 milliseconds
            if exists(sensors.filamentMonitors[0])                      ; if filament sensor is detected in object model
                set var.sensor_flag = 1                                 ; set flag to 1
     else
-        M291 R"Insert filament." P"Press OK to start feeding filament..." S2  ; display new message
+        M291 R"Insert filament." P"Press OK to start feeding filament ..." S2  ; display new message
         M300 S500 P600                                                 ; beep
-        M291 P"Feeding filament.... " S1 T15                           ; display new message
+        M291 P"Feeding filament ..." S1 T15                           ; display new message
         M83                                                            ; set extruder to relative positioning
         G1 E#CARIBOU_INITIALLOAD F400                                                    ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/mi
         G1 E15 F200                                                    ; feed 15mm of filament at 200mm/min
@@ -83,9 +83,9 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
         M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament"
 ;
 if {move.axes[0].workplaceOffsets[8] == 0}
-    M291 R"Insert filament." P"Press OK to start feeding filament..." S2  ; display new message
+    M291 R"Insert filament." P"Press OK to start feeding filament ..." S2  ; display new message
     M300 S500 P600                                                     ; beep
-    M291 P"Feeding filament.... " S1 T15                               ; display new message
+    M291 P"Feeding filament ..." S1 T15                               ; display new message
     M83                                                                ; set extruder to relative positioning
     G1 E#CARIBOU_INITIALLOAD F400                                                        ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/mi
     G1 E15 F200                                                        ; feed 15mm of filament at 200mm/min
