@@ -27,9 +27,9 @@ var sensor_flag = 0                                                    ; create 
 ;
 G90                                                                    ; set absolute positioning
 if  {move.axes[2].machinePosition < 80}                                ; if z position is below 80mm
-    G1 X125 Y0 Z80 F6000                                               ; go to the parking position
+    G1 X125 Y-7 Z80 F6000                                              ; go to the parking position
 else
-    G1 X125 Y0 F6000                                                   ; go to the parking position
+    G1 X125 Y-7 F6000                                                  ; go to the parking position
 ;
 M400                                                                   ; finish all moves, clear the buffer
 ;
@@ -75,7 +75,7 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
     else
         M291 R"Insert filament." P"Press OK to start feeding filament ..." S2  ; display new message
         M300 S500 P600                                                 ; beep
-        M291 P"Feeding filament ..." S1 T15                           ; display new message
+        M291 P"Feeding filament ..." S1 T15                            ; display new message
         M83                                                            ; set extruder to relative positioning
         G1 E#CARIBOU_INITIALLOAD F400                                                    ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/mi
         G1 E15 F200                                                    ; feed 15mm of filament at 200mm/min
@@ -85,7 +85,7 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
 if {move.axes[0].workplaceOffsets[8] == 0}
     M291 R"Insert filament." P"Press OK to start feeding filament ..." S2  ; display new message
     M300 S500 P600                                                     ; beep
-    M291 P"Feeding filament ..." S1 T15                               ; display new message
+    M291 P"Feeding filament ..." S1 T15                                ; display new message
     M83                                                                ; set extruder to relative positioning
     G1 E#CARIBOU_INITIALLOAD F400                                                        ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/mi
     G1 E15 F200                                                        ; feed 15mm of filament at 200mm/min

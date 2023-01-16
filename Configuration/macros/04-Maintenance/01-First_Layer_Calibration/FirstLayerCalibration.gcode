@@ -1,7 +1,7 @@
 ; =========================================================================================================
 ;
 ; Filament: #FILAMENT_NAME
-; Hotend  : #FILAMENT_TEMPERATURE°C
+; Hotend  : #FILAMENT_TEMPERATURE_ACTIVE°C
 ; Bed     : #BED_TEMPERATURE°C
 ;
 ;====== start preheat start script ========================================================================
