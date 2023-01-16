@@ -37,7 +37,7 @@ if heat.heaters[0].current > 40                                        ; check i
 M303 H0 S{var.target_temperature}                                      ; start PID tuning for target temperature
 ;
 while heat.heaters[0].state = "tuning"                                 ; while the tuning
-    M291 P"Running ..." R"PID tuning heated bed" S1                    ; display message
+    M291 P"Running ..." R"PID tuning heated bed." S1                    ; display message
     G4 S10                                                             ; wait 10 seconds
 ;
 M500 P31                                                               ; save to config-override.g
@@ -45,7 +45,7 @@ M500 P31                                                               ; save to
 M140 S0 R0                                                             ; set bed temperature to 0C
 M140 S-274                                                             ; set bed temperature to 0K to turn it off
 ;
-M291 P"Completed. PID values have been saved." R"PID tuning heated bed" S2
+M291 P"Completed. PID values have been saved." R"PID tuning heated bed." S2
 ;
 ; =========================================================================================================
 ;
