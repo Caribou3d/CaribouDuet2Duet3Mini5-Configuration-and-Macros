@@ -38,7 +38,7 @@ if heat.heaters[1].current > 40                                        ; check i
 M303 H1 S{var.target_temperature}                                      ; start PID tuning for target temperature
 ;
 while heat.heaters[1].state = "tuning"                                 ; while the tuning
-    M291 P"Running ..." R"PID tuning extruder." S1                      ; display message
+    M291 P"Running ..." R"PID tuning extruder." S1                     ; display message
     G4 S10                                                             ; wait 10 seconds
 ;
 M500 P31                                                               ; save to config-override.g

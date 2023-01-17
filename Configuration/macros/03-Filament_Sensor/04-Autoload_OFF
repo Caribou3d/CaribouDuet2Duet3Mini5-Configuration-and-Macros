@@ -16,7 +16,7 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; check i
         M500                                                           ; save status to config-override.g
         M291 P"Autoload function is turned OFF." S2                    ; display new message
     else
-        M291 P"Autoload function is turned OFF already." S2                    ; display new message
+        M291 P"Autoload function is turned OFF already." S2            ; display new message
 else
     M291 P"Filament sensor is turned OFF. Please turn sensor on first." S2  ; display new message
 ;
