@@ -4,10 +4,10 @@
 ;
 ; =========================================================================================================
 ;
+M581 P1 T2 S-1 R0                                                      ; filament sensor does not listen anymore (S-1). Autoload is disabled.
+;
 M300 S500 P600                                                         ; beep
 G4 P2000                                                               ; wait two seconds
-;
-M581 P1 T2 S-1 R0                                                      ; filament sensor does not listen anymore (S-1). Autoload is disabled.
 ;
 T0                                                                     ; activate hotend
 ;

@@ -7,6 +7,9 @@
 ; printer not printing, so we change mode to autoload, if activated
 ;
 if state.status != "processing"                                        ; printer is not currently printing!
+    M300 S500 P600                                                     ; beep
+    G4 P2000                                                           ; wait two seconds
+    M291 P"Filament removed ..." S1 T15                                ; display message
     if {move.axes[0].workplaceOffsets[8] == 1}                         ; if filament sensor is active
         if {move.axes[1].workplaceOffsets[8] == 1}                     ; if autoload is active
             M98 P"0:/sys/00-Functions/ActivateAutoload"                ; activate autoload
@@ -16,9 +19,11 @@ if state.status != "processing"                                        ; printer
 ;
 M83                                                                    ; relative extruder moves
 G1 E-1 F3600                                                           ; retract 1mm of filament
-G91                                                                    ; relative positioning
-G1 Z5 F360                                                             ; lift z by 5mm
-G90                                                                    ; set absolute positioning
+M83                                                                    ; relative extruder moves
+G1 E-1 F3600                                                           ; retract 2mm of filament
+;
+set global.zLiftDistance = 5                                           ; set distance to lift
+M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z
 ;
 ; =========================================================================================================
 ;

@@ -22,6 +22,7 @@ global BedTempActive_Old = 0                                           ; stores 
 global OldStateStatus = 0                                              ; stores the status of the printer, processing = 1
 global purge = 0                                                       ; stores status to purge when autoloading
 global zLiftDistance = 0                                               ; stores distance for lifting z axis
+global waitForExtruderTemperature = false                              ; beeps when pre-heat temperature is reached
 ;
 ; general settings
 ;

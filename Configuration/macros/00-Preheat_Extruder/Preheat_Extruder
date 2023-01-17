@@ -15,5 +15,7 @@ M98 P"0:/sys/00-Functions/zLift"                                       ; call ma
 ;
 M568 P0 S#FILAMENT_TEMPERATURE_ACTIVE R#FILAMENT_TEMPERATURE_STANDBY A2                                                   ; set current tool temperature to filament #FILAMENT_TEMPERATURE_ACTIVE°C
 ;
+set global.waitForExtruderTemperature = true                           ; daemon beeps when temperature is reached
+;
 ; =========================================================================================================
 ;

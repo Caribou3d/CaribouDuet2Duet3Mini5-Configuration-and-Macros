@@ -55,3 +55,10 @@ if (!(state.status == "processing"))
 ;
 ; =========================================================================================================
 ;
+if (global.waitForExtruderTemperature == true)                          ; if pre-heating
+    if (heat.heaters[1].current >= heat.heaters[1].active)
+        M300 S500 P600                                                  ; beep when temperature is reached
+        set global.waitForExtruderTemperature = false
+;
+; =========================================================================================================
+;

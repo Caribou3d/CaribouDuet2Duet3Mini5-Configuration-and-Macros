@@ -99,6 +99,15 @@ M950 J1 C\"io2.in\"                                                      ; input
 };
 " $SysOutputPath/00-Functions/TriggerOn
 fi
+
+# create ChangeFilament
+#
+sed -i "
+{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
+{s/#CARIBOU_FINALUNLOAD/$CARIBOU_FINALUNLOAD/g};
+{s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g}
+" $SysOutputPath/00-Functions/ChangeFilament
+
 #
 # create current-sense-homing.g
 #
