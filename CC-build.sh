@@ -30,7 +30,7 @@
 # 11 Jun 2022, wschadow, added a counter, added generation of a zip for all configurations
 # 20 Jun 2022, wschadow, added selection of the board
 # 12 Jan 2021, wschadow, updated generation of temperature files, added info on build no
-
+# 17 Jan 2021, wschadow, updated generation of temperature files
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3. Non-commercial use only.
 # Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -237,15 +237,17 @@ do
     # create FIRSTLAYER files
     sed "
     {s/#FILAMENT_NAME/${FILAMENTNAME}/g};
-    {s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g};
+    {s/#FILAMENT_TEMPERATURE_ACTIVE/${FILAMENT_TEMPERATURE_ACTIVE}/g}
+    {s/#FILAMENT_TEMPERATURE_STANDBY/${FILAMENT_TEMPERATURE_STANDBY}/g}
     {s/#BED_TEMPERATURE/${BED_TEMPERATURE}/g}
-    " < $FIRSTLAYERPATH/FirstLayerStart > $FIRSTLAYEROUTPUT/0$i-$FILAMENTNAME-$FILAMENT_TEMPERATURE
+    " < $FIRSTLAYERPATH/FirstLayerStart > $FIRSTLAYEROUTPUT/0$i-$FILAMENTNAME-#FILAMENT_TEMPERATURE_ACTIVE
     if [ ! -d "$FIRSTLAYEROUTPUT/gcodes" ]; then
         mkdir -p $FIRSTLAYEROUTPUT/gcodes || exit 27
     fi
     sed "
     {s/#FILAMENT_NAME/${FILAMENTNAME}/g};
-    {s/#FILAMENT_TEMPERATURE/${FILAMENT_TEMPERATURE}/g};
+    {s/#FILAMENT_TEMPERATURE_ACTIVE/${FILAMENT_TEMPERATURE_ACTIVE}/g}
+    {s/#FILAMENT_TEMPERATURE_STANDBY/${FILAMENT_TEMPERATURE_STANDBY}/g}
     {s/#BED_TEMPERATURE/${BED_TEMPERATURE}/g}
     " < $FIRSTLAYERPATH/FirstLayerCalibration.gcode > $FIRSTLAYEROUTPUT/gcodes/$FILAMENTNAME-FirstLayerCalibration.gcode
         # copy *_Trigger_Height to processed
@@ -287,17 +289,22 @@ do
     # read filament definition
     source $PREHEATPATH/$VARIANT.h
     i=$((i+1))
+    if [ $i -lt 10 ]; then
+        number=0$i
+    else
+        number=$i
+    fi
     echo 'generating file for:' $FILAMENTNAME
     # create preheat files
     sed "
     {s/#FILAMENT_NAME/${FILAMENTNAME}/g};
     {s/#FILAMENT_TEMPERATURE_ACTIVE/${FILAMENT_TEMPERATURE_ACTIVE}/g}
     {s/#FILAMENT_TEMPERATURE_STANDBY/${FILAMENT_TEMPERATURE_STANDBY}/g}
-    " < $PREHEATPATH/Preheat > $PREHEATOUTPUT/0$i-$FILAMENTNAME-$FILAMENT_TEMPERATURE
+    " < $PREHEATPATH/Preheat_Extruder > $PREHEATOUTPUT/$number-$FILAMENTNAME-$FILAMENT_TEMPERATURE_ACTIVE
 done
 echo
 echo '... done'
-cp $PREHEATPATH/Cooldown $PREHEATOUTPUT
+cp $PREHEATPATH/*Cooldown* $PREHEATOUTPUT
 #
 # =========================================================================================================
 # generate files for filaments folder
