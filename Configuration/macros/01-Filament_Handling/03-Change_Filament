@@ -64,6 +64,8 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
 ;
 ; =========================================================================================================
 ;
+set global.purge = -1                                                  ; disable purge in trigger2.g
+;
 if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is enabled
     if {move.axes[1].workplaceOffsets[8] == 1}                         ; if autoload is enabled
         M291 P"Insert filament ..." S1 T5                              ; display new message
@@ -81,6 +83,8 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
         G1 E15 F200                                                    ; feed 15mm of filament at 200mm/min
         M400
         M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament"
+;
+set global.purge = 0                                                   ; enable purge in trigger2.g
 ;
 if {move.axes[0].workplaceOffsets[8] == 0}
     M291 R"Insert filament." P"Press OK to start feeding filament ..." S2  ; display new message

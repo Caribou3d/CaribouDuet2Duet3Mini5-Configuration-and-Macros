@@ -58,10 +58,10 @@ M98 P"current-sense-normal.g"                                          ; ensure 
 ;
 ; analyze measured value
 ;
-if var.length > 256.8
+if (var.length - (move.axes[0].max - move.axes[0].min)) > 1
     M291 P{"x axis length: " ^ var.length ^ " mm. ERROR: axis too long." } S2
     M99
-elif var.length < 254.8
+elif (var.length - (move.axes[0].max - move.axes[0].min)) < -1
     M291 P{"x axis length: " ^ var.length ^ " mm. ERROR: axis too short." } S2
     M99
 else
@@ -114,10 +114,10 @@ M98 P"current-sense-normal.g"                                          ; ensure 
 ;
 ; analyze measured value
 ;
-if var.length > 222.5
+if (var.length - (move.axes[1].max - move.axes[1].min)) > 1
     M291 P{"y axis length: " ^ var.length ^ " mm. ERROR: axis too long." } S2
     M99
-elif var.length < 220.5
+elif (var.length - (move.axes[1].max - move.axes[1].min)) < -1
     M291 P{"y axis length: " ^ var.length ^ " mm. ERROR: axis too short." } S2
     M99
 else
@@ -157,10 +157,10 @@ M400                                                                   ; wait fo
 ;
 ; analyze measured value
 ;
-if var.length -1 > move.axes[2].max
+if (var.length - (move.axes[2].max - move.axes[2].min)) > 1.5
     M291 P{"z axis length: " ^ var.length ^ " mm. ERROR: axis too long." } S2
     M99
-elif var.length + 1 < move.axes[2].max
+elif (var.length - (move.axes[2].max - move.axes[2].min)) < -1.5
     M291 P{"z axis length: " ^ var.length ^ " mm. ERROR: axis too short." } S2
     M99
 else

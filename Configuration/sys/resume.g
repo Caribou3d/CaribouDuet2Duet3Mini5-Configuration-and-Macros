@@ -4,7 +4,6 @@
 ;
 ; =========================================================================================================
 ;
-M98 P"0:/sys/00-Functions/FindToolSelected"                            ; find selected tool
 ;
 if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check temperature
     M98 P"0:/sys/00-Functions/ActivateRunOutSensor"                    ; activate RunOut Sensor to check if filament is loaded
