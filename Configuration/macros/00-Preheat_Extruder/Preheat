@@ -7,9 +7,12 @@
 M291 P"Press OK to continue or CANCEL to abort." R"Heat up for #FILAMENT_NAME at #FILAMENT_TEMPERATURE_ACTIVE°C?" S3
 ;
 T0                                                                     ; select tool
+;
 G91                                                                    ; relative positioning
-G1 Z20 F6000 H2                                                        ; lift z relative to current position
-G90                                                                    ; absolute positioning
+;
+set global.zLiftDistance = 15                                          ; set distance to lift
+M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z
+;
 M568 P0 S#FILAMENT_TEMPERATURE_ACTIVE R#FILAMENT_TEMPERATURE_STANDBY A2                                                   ; set current tool temperature to filament #FILAMENT_TEMPERATURE_ACTIVE°C
 ;
 ; =========================================================================================================

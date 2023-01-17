@@ -1,0 +1,20 @@
+; =========================================================================================================
+;
+; lifts the zaxis in a more controlled way. If homes and possible z is lifted by zLiftDistance.
+; Otherwise z ist liftes and vurrent is reduced to avoid issues at the high end.
+;
+; =========================================================================================================
+;
+if move.axes[2].homed
+    if {move.axes[2].machinePosition < (move.axes[2].max -20)}         ; if the z position is below 20mm below max z
+    G1 Z{global.zLiftDistance}                                         ; lift z axis by 15mm
+else
+    M913 Z40                                                           ; reduce z motor current to 30% of set current
+    G1 Z{global.zLiftDistance} F300                                    ; move z axis 15mm up slowly leveling the X gantry
+    M913 Z100                                                          ; return z motor current to 100% of set current
+;
+G90                                                                    ; absolute positioning
+M400                                                                   ; wait for moves to finish
+;
+; =========================================================================================================
+;

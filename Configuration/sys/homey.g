@@ -11,8 +11,8 @@ G1 H2 Y0.5 F10000                                                      ; energis
 M400                                                                   ; wait for current moves to finish
 G4 P200                                                                ; wait 200ms
 ;
-G1 H2 Z5 F6000                                                         ; lift z relative to current position
-M400                                                                   ; wait for current moves to finish
+set global.zLiftDistance = 5                                           ; set distance to lift
+M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z
 ;
 G1 H1 Y5 F1000                                                         ; move slowly away
 G1 H1 Y-225 F3000                                                      ; move quickly to y axis endstop and stop there (first pass)
