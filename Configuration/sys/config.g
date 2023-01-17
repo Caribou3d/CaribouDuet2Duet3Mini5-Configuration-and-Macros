@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "2.0.1"
-;                           Build :   390
+;                           Build :   391
 ;
 ; Copyright Caribou Research & Development 2023. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -22,7 +22,6 @@ global BedTempActive_Old = 0                                           ; stores 
 global OldStateStatus = 0                                              ; stores the status of the printer, processing = 1
 global purge = 0                                                       ; stores status to purge when autoloading
 global zLiftDistance = 0                                               ; stores distance for lifting z axis
-
 ;
 ; general settings
 ;

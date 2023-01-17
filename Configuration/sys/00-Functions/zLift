@@ -1,7 +1,8 @@
 ; =========================================================================================================
 ;
-; lifts the zaxis in a more controlled way. If homes and possible z is lifted by zLiftDistance.
-; Otherwise z ist liftes and vurrent is reduced to avoid issues at the high end.
+; lifts the z axis in a more controlled way. If homed and possible, the z axis is lifted
+; by zLiftDistance mm. Otherwise z ist liftes and current is reduced to avoid issues at
+; the high end.
 ;
 ; =========================================================================================================
 ;
