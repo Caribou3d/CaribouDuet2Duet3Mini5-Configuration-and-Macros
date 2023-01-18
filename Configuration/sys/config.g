@@ -24,6 +24,7 @@ global purge = 0                                                       ; stores 
 global zLiftDistance = 0                                               ; stores distance for lifting z axis
 global waitForExtruderTemperature = false                              ; beeps when pre-heat temperature is reached
 global waitForBedTemperature = false                                   ; beeps when pre-heat temperature is reached
+global AskToChange = 1                                                 ; ask if filament should be changed?
 ;
 ; general settings
 ;

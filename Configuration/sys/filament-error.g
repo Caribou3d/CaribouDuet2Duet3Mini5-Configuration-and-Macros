@@ -17,15 +17,15 @@ if state.status != "processing"                                        ; printer
 ;
 ; printer ran out of filament during print and filament change is initiated
 ;
-M83                                                                    ; relative extruder moves
-G1 E-2 F3600                                                           ; retract 1mm of filament
-;
-set global.zLiftDistance = 5                                           ; set distance to lift
-M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z
+M25                                                                    ; pause printing
+M400                                                                   ; finish all moves, clear the buffer.
 ;
 ; =========================================================================================================
-;
-M98 P"0:/macros/02-Filament_Handling/03-Change_Filament"               ; call macro to unload filament
-;
+set global.AskToChange = 0                                             ; don't ask if filament should be changed
+M98 P"0:/sys/00-Functions/ChangeFilament"                              ; call load filament macro
+set global.AskToChange = 1                                             ; ask if filament should be changed
 ; =========================================================================================================
+;
+M291 P"Press OK to resume print." S2                                   ; display message
+M24                                                                    ; resume printing
 ;

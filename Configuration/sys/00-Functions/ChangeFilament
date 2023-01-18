@@ -21,7 +21,8 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
        M591 D0 P0 C"e0stop" S0                                         ; disable filament runout sensor
        M950 J1 C"nil"                                                  ; free input 1 e0 filament sensor
 ;
-M291 R"Changing Filament ..." P"Press OK to start or CANCEL to abort." S3  ; display message
+if {global.AskToChange == 1}                                           ; do not ask if filament ran out
+    M291 R"Changing Filament ..." P"Press OK to start or CANCEL to abort." S3  ; display message
 ;
 T0                                                                     ; select tool 0
 M83                                                                    ; set extruder to relative positioning
