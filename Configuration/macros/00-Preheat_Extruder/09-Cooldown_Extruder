@@ -11,6 +11,8 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
 ;
 ; =========================================================================================================
 ;
+set global.waitForExtruderTemperature = false                          ; set waiting to false
+;
 M568 P0 S0 R0 A0                                                       ; turn off extruder
 ;
 M106 P0 S0                                                             ; set fan 0 value

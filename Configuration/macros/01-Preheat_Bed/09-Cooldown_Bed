@@ -11,6 +11,8 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
 ;
 ; =========================================================================================================
 ;
+set global.waitForBedTemperature = false                               ; set waiting to false
+;
 M140 S0 R0                                                             ; set bed temperature to 0C
 M140 S-274                                                             ; set bed temperature to 0K to turn it off
 ;
