@@ -12,8 +12,6 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
 ;
 ; =========================================================================================================
 ;
-T0                                                                     ; select tool 0
-;
 if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check extrude temperature
     if heat.heaters[1].current < heat.coldRetractTemperature           ; check retract temperature
         M291 P"Hotend too cold. Preheat extruder first!" S2            ; ask to preheat extruder
@@ -37,7 +35,9 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
     if exists(sensors.filamentMonitors[0])                             ; in run-out mode?
         M98 P"0:/sys/00-Functions/RunOutOff"                           ; turn run out sensor off
 ;
-M291 R"Unloading Filament ..." P"Press OK to start." S2                 ; display message
+T0                                                                     ; select tool 0
+;
+M291 R"Unloading Filament ..." P"Press OK to start." S2                ; display message
 ;
 M83                                                                    ; set extruder to relative positioning
 M913 E100                                                              ; set motor current to 100% of set current;

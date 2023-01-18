@@ -12,8 +12,6 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
 ;
 ; =========================================================================================================
 ;
-T0                                                                     ; select tool 0
-;
 if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check extrude temperature
     if heat.heaters[1].current < heat.coldRetractTemperature           ; check retract temperature
         M291 P"Hotend too cold. Preheat extruder first!" S2            ; ask to preheat extruder
@@ -36,6 +34,8 @@ M400                                                                   ; finish 
 if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is enabled
     if {move.axes[1].workplaceOffsets[8] == 1}                         ; if autoload is active
         M98 P"0:/sys/00-Functions/TriggerOff"                          ; turn trigger off
+;
+T0                                                                     ; select tool 0
 ;
 M300 S500 P600                                                         ; beep
 M291 R"Insert filament." P"Press OK to start feeding filament ..." S2   ; display new message
