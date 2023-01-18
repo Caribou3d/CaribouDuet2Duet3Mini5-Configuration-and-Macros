@@ -8,6 +8,8 @@ if state.status == "processing"                                        ; printer
    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
    M99
 ;
+; =========================================================================================================
+;
 T0                                                                     ; select tool 0
 ;
 if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check extrude temperature
@@ -17,7 +19,7 @@ if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check e
 ;
 while true
     M291 R"Purging needed?" P"Press OK to purge, press Cancel if color is correct."  S3
-    G1 E30 F600                                                        ; extrude 30mm
+    G1 E30 F300                                                        ; extrude 30mm
     M400                                                               ; finish all moves, clear the buffer
     M300 S500 P200                                                     ; play beep sound
 ;

@@ -29,8 +29,9 @@
 # 31 Jul 2021, wschadow, when all configurations are build, the output will be sorted
 # 11 Jun 2022, wschadow, added a counter, added generation of a zip for all configurations
 # 20 Jun 2022, wschadow, added selection of the board
-# 12 Jan 2021, wschadow, updated generation of temperature files, added info on build no
-# 17 Jan 2021, wschadow, updated generation of temperature files
+# 12 Jan 2023, wschadow, updated generation of temperature files, added info on build no
+# 17 Jan 2023, wschadow, updated generation of temperature files
+# 18 Jan 2023, wschadow, added generation of files for preheating bed
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3. Non-commercial use only.
 # Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -212,7 +213,7 @@ echo
 #
 # set output
 #
-FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/04-Maintenance/01-First_Layer_Calibration
+FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/05-Maintenance/01-First_Layer_Calibration
 FIRSTLAYEROUTPUT=$FIRSTLAYERPATH/processed
 # read existing variants
 while IFS= read -r -d $'\0' f; do
@@ -258,10 +259,10 @@ echo '... done'
 #
 # =========================================================================================================
 #
-# generate files for preheat menu
+# generate files for preheat extruder menu
 #
 echo
-echo 'creating macros for preheat menu ...'
+echo 'creating macros for preheat extruder menu ...'
 echo
 #
 # =========================================================================================================
@@ -269,18 +270,18 @@ echo
 # set output
 #
 PREHEATPATH=$SCRIPT_PATH/Configuration/macros/00-Preheat_Extruder
-PREHEATOUTPUT=$PREHEATPATH/processed
+PREHEATOUTPUTEXTRUDER=$PREHEATPATH/processed
 # read existing variants
 while IFS= read -r -d $'\0' f; do
     preheatoptions[i++]="$f"
 done < <(find $PREHEATPATH/*.h -maxdepth 1 -type f -name "*" -print0 )
 PREHEATVARIANTS=${preheatoptions[*]}
 # prepare output folder
-if [ ! -d "$PREHEATOUTPUT" ]; then
-    mkdir -p $PREHEATOUTPUT || exit 27
+if [ ! -d "$PREHEATOUTPUTEXTRUDER" ]; then
+    mkdir -p $PREHEATOUTPUTEXTRUDER || exit 27
 else
-    rm -fr $PREHEATOUTPUT || exit 27
-    mkdir -p $PREHEATOUTPUT || exit 27
+    rm -fr $PREHEATOUTPUTEXTRUDER || exit 27
+    mkdir -p $PREHEATOUTPUTEXTRUDER || exit 27
 fi
 i=0
 for v in ${PREHEATVARIANTS[*]}
@@ -300,13 +301,63 @@ do
     {s/#FILAMENT_NAME/${FILAMENTNAME}/g};
     {s/#FILAMENT_TEMPERATURE_ACTIVE/${FILAMENT_TEMPERATURE_ACTIVE}/g}
     {s/#FILAMENT_TEMPERATURE_STANDBY/${FILAMENT_TEMPERATURE_STANDBY}/g}
-    " < $PREHEATPATH/Preheat_Extruder > $PREHEATOUTPUT/$number-$FILAMENTNAME-$FILAMENT_TEMPERATURE_ACTIVE
+    " < $PREHEATPATH/Preheat_Extruder > $PREHEATOUTPUTEXTRUDER/$number-$FILAMENTNAME-$FILAMENT_TEMPERATURE_ACTIVE
 done
 echo
 echo '... done'
-cp $PREHEATPATH/*Cooldown* $PREHEATOUTPUT
+cp $PREHEATPATH/*Cooldown* $PREHEATOUTPUTEXTRUDER
 #
 # =========================================================================================================
+#
+# generate files for preheat bed menu
+#
+echo
+echo 'creating macros for preheat bed menu ...'
+echo
+#
+# =========================================================================================================
+#
+# set output
+#
+PREHEATPATH=$SCRIPT_PATH/Configuration/macros/01-Preheat_Bed
+PREHEATOUTPUTBED=$PREHEATPATH/processed
+# read existing variants
+while IFS= read -r -d $'\0' f; do
+    preheatoptions[i++]="$f"
+done < <(find $PREHEATPATH/*.h -maxdepth 1 -type f -name "*" -print0 )
+PREHEATVARIANTS=${preheatoptions[*]}
+# prepare output folder
+if [ ! -d "$PREHEATOUTPUTBED" ]; then
+    mkdir -p $PREHEATOUTPUTBED || exit 27
+else
+    rm -fr $PREHEATOUTPUTBED || exit 27
+    mkdir -p $PREHEATOUTPUTBED || exit 27
+fi
+i=0
+for v in ${PREHEATVARIANTS[*]}
+do
+    VARIANT=$(basename "$v" ".h")
+    # read filament definition
+    source $PREHEATPATH/$VARIANT.h
+    i=$((i+1))
+    if [ $i -lt 10 ]; then
+        number=0$i
+    else
+        number=$i
+    fi
+    echo 'generating file for:' $FILAMENTNAME
+    # create preheat files
+    sed "
+    {s/#FILAMENT_NAME/${FILAMENTNAME}/g};
+    {s/#BED_TEMPERATURE/${BED_TEMPERATURE}/g}
+    " < $PREHEATPATH/Preheat_Bed > $PREHEATOUTPUTBED/$number-$FILAMENTNAME-$BED_TEMPERATURE
+done
+echo
+echo '... done'
+cp $PREHEATPATH/*Cooldown* $PREHEATOUTPUTBED
+#
+# =========================================================================================================
+
 # generate files for filaments folder
 #
 #
@@ -444,7 +495,7 @@ do
     {s/#DUETBOARDNAME/$DUETBOARDNAME/};
     {s/#CARIBOUDUETVERSION/$CCDOT/};
     {s/#CARIBOUDUETBUILD/$BUILD/};
-    " < $MacrosDir/04-Maintenance/00-CaribouDuetVersion > $MacroOutputPath/04-Maintenance/00-CaribouDuetVersion
+    " < $MacrosDir/05-Maintenance/00-CaribouDuetVersion > $MacroOutputPath/05-Maintenance/00-CaribouDuetVersion
     echo '   ... done'
     # copy files for sys and remove processed files
     echo
@@ -623,5 +674,6 @@ fi
 #
 # housekeeping: delete filament folders in source directory
 rm -fr $FIRSTLAYEROUTPUT
-rm -fr $PREHEATOUTPUT
+rm -fr $PREHEATOUTPUTEXTRUDER
+rm -fr $PREHEATOUTPUTBED
 rm -fr $FILAMENTOUTPUT

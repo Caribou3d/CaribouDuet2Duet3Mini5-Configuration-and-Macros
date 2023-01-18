@@ -5,6 +5,12 @@
 ;
 ; =========================================================================================================
 ;
+if {state.status == "processing"} || {state.status == "paused"}        ; printer is not currently printing!
+    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
+    M99
+;
+; =========================================================================================================
+;
 ;G31 Z0.99                                                              ; BuildTak sheet and SE vanadium nozzle
 M500 P10:31                                                             ; save settings to config-overide.g - G31 P31 saves trigger height
 M290 R0 S0                                                              ; set babystep to 0mm absolute

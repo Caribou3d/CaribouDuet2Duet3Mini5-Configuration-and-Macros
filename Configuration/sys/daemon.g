@@ -57,8 +57,17 @@ if (!(state.status == "processing"))
 ;
 if (global.waitForExtruderTemperature == true)                          ; if pre-heating
     if (heat.heaters[1].current >= heat.heaters[1].active)
-        M300 S500 P600                                                  ; beep when temperature is reached
+        M291 P"Extruder temperature reached." S1 T10                    ; display new message
+        M300 S500 P1000                                                 ; beep when temperature is reached
         set global.waitForExtruderTemperature = false
+;
+; =========================================================================================================
+;
+if (global.waitForBedTemperature == true)                              ; if pre-heating
+    if (heat.heaters[0].current >= heat.heaters[0].active)
+        M291 P"Bed temperature reached." S1 T10                        ; display new message
+        M300 S500 P1000                                                ; beep when temperature is reached
+        set global.waitForBedTemperature = false
 ;
 ; =========================================================================================================
 ;

@@ -27,7 +27,7 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
     M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
 ;
 if {global.purge != -1}                                                ; only purge when filament was autoloaded
-    M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament"            ; need to purge?
+    M98 P"0:/macros/02-Filament_Handling/02-Purge_Filament"            ; need to purge?
 ;
 ; =========================================================================================================
 ;

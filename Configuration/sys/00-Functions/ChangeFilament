@@ -67,7 +67,7 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
            if exists(sensors.filamentMonitors[0])                      ; if filament sensor is detected in object model
                set var.sensor_flag = 1                                 ; set flag to 1
         M400                                                           ; wait for current moves to finish
-        M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament"
+        M98 P"0:/macros/02-Filament_Handling/02-Purge_Filament"
         M292
         M400                                                          ; wait for current moves to finish
 ;
@@ -81,7 +81,7 @@ if {move.axes[0].workplaceOffsets[8] == 0}
     G1 E#CARIBOU_INITIALLOAD F400                                                        ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/mi
     G1 E15 F200                                                        ; feed 15mm of filament at 200mm/min
     M400
-    M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament"
+    M98 P"0:/macros/02-Filament_Handling/02-Purge_Filament"
 ;
 M400                                                                   ; finish all moves, clear the buffer
 ;

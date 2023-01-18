@@ -1,0 +1,21 @@
+; =========================================================================================================
+;
+; turn off extruder heater and part cooling fan
+;
+; =========================================================================================================
+;
+;
+if {state.status == "processing"} || {state.status == "paused"}        ; printer is not currently printing!
+    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
+    M99
+;
+; =========================================================================================================
+;
+M568 P0 S0 R0 A0                                                       ; turn off extruder
+;
+M106 P0 S0                                                             ; set fan 0 value
+;
+M291 P"Turned extruder heater off." S1 T5                              ; display new message
+;
+; =========================================================================================================
+;

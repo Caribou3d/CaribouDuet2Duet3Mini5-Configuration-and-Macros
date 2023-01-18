@@ -1,10 +1,10 @@
 ; =========================================================================================================
 ;
-;  Preheat for #FILAMENT_NAME at #FILAMENT_TEMPERATURE_ACTIVE°C
+;  Preheat extruder for #FILAMENT_NAME at #FILAMENT_TEMPERATURE_ACTIVE°C
 ;
 ; =========================================================================================================
 ;
-M291 P"Press OK to continue or CANCEL to abort." R"Heat up for #FILAMENT_NAME at #FILAMENT_TEMPERATURE_ACTIVE°C?" S3
+M291 P"Press OK to continue or CANCEL to abort." R"Heat up extruder for #FILAMENT_NAME at #FILAMENT_TEMPERATURE_ACTIVE°C?" S3
 ;
 T0                                                                     ; select tool
 ;
@@ -13,7 +13,7 @@ G91                                                                    ; relativ
 set global.zLiftDistance = 15                                          ; set distance to lift
 M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z
 ;
-M568 P0 S#FILAMENT_TEMPERATURE_ACTIVE R#FILAMENT_TEMPERATURE_STANDBY A2                                                   ; set current tool temperature to filament #FILAMENT_TEMPERATURE_ACTIVE°C
+M568 P0 S#FILAMENT_TEMPERATURE_ACTIVE R#FILAMENT_TEMPERATURE_STANDBY A2                                                   ; set current tool temperature to filament #FILAMENT_NAME at #FILAMENT_TEMPERATURE_ACTIVE°C
 ;
 set global.waitForExtruderTemperature = true                           ; daemon beeps when temperature is reached
 ;

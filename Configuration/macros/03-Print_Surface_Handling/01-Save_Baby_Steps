@@ -8,7 +8,7 @@
 ;
 ; If this is for a specific nozzle / sheet combination it is recommended to save the
 ; value like G31 0.234, where 0.234 repesents the display number into the nozzle / sheet
-; config files under 0:/macros/02-Print_Surface_Handling or 0:/macros/02-Nozzle_Handling
+; config files under 0:/macros/03-Print_Surface_Handling or 0:/macros/02-Nozzle_Handling
 ; (depending on what z-probe you are using). Whenever this combination chnages execute
 ; the corresponding macros for the combination.
 

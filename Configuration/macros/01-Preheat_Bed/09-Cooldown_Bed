@@ -1,0 +1,20 @@
+; =========================================================================================================
+;
+; turn off bed
+;
+; =========================================================================================================
+;
+;
+if {state.status == "processing"} || {state.status == "paused"}        ; printer is not currently printing!
+    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
+    M99
+;
+; =========================================================================================================
+;
+M140 S0 R0                                                             ; set bed temperature to 0C
+M140 S-274                                                             ; set bed temperature to 0K to turn it off
+;
+M291 P"Turned bed off." S1 T5                                          ; display new message
+;
+; =========================================================================================================
+;

@@ -374,12 +374,13 @@ sed "
 # =========================================================================================================
 
 # copy macros directory to processed folder
-find $MacrosDir/* -maxdepth 0  ! \( -name "*Main*" -o -name "05-BL-Touch" -o -name "*Preheat*" -o -name "*processed*"  \) -exec cp -r -t  $MacroOutputPath {} \+
+find $MacrosDir/* -maxdepth 0  ! \( -name "*Main*" -o -name "06-BL-Touch" -o -name "*Preheat*" -o -name "*processed*"  \) -exec cp -r -t  $MacroOutputPath {} \+
 
-mkdir $MacroOutputPath/04-Maintenance
-find $MacrosDir/04-Maintenance/* -maxdepth 0  ! \( -name "*First*" \) -exec cp -r -t  $MacroOutputPath/04-Maintenance {} \+
-cp -r $MacrosDir/04-Maintenance/01-First_Layer_Calibration/processed $MacroOutputPath/04-Maintenance/01-First_Layer_Calibration
+mkdir $MacroOutputPath/05-Maintenance
+find $MacrosDir/05-Maintenance/* -maxdepth 0  ! \( -name "*First*" \) -exec cp -r -t  $MacroOutputPath/05-Maintenance {} \+
+cp -r $MacrosDir/05-Maintenance/01-First_Layer_Calibration/processed $MacroOutputPath/05-Maintenance/01-First_Layer_Calibration
 cp -r $MacrosDir/00-Preheat_Extruder/processed $MacroOutputPath/00-Preheat_Extruder
+cp -r $MacrosDir/01-Preheat_Bed/processed $MacroOutputPath/01-Preheat_Bed
 
 # create 00-Test_Homing
 #
@@ -389,7 +390,7 @@ sed "
 {/#CARIBOU_ZPROBE/ c\
 ;
 };
-" < $MacrosDir/04-Maintenance/00-Self_Tests/00-Test_Homing > $MacroOutputPath/04-Maintenance/00-Self_Tests/00-Test_Homing
+" < $MacrosDir/05-Maintenance/00-Self_Tests/00-Test_Homing > $MacroOutputPath/05-Maintenance/00-Self_Tests/00-Test_Homing
 
 # create 01-Level-X-Axis
 #
@@ -397,7 +398,7 @@ sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/};
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
-" < $MacrosDir/04-Maintenance/00-Self_Tests/01-Level_X-Axis > $MacroOutputPath/04-Maintenance/00-Self_Tests/01-Level_X-Axis
+" < $MacrosDir/05-Maintenance/00-Self_Tests/01-Level_X-Axis > $MacroOutputPath/05-Maintenance/00-Self_Tests/01-Level_X-Axis
 
 # create 02-Measure_Axes-Length
 #
@@ -405,7 +406,7 @@ sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/};
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
-" < $MacrosDir/04-Maintenance/00-Self_Tests/02-Measure_Axes-Length > $MacroOutputPath/04-Maintenance/00-Self_Tests/02-Measure_Axes-Length
+" < $MacrosDir/05-Maintenance/00-Self_Tests/02-Measure_Axes-Length > $MacroOutputPath/05-Maintenance/00-Self_Tests/02-Measure_Axes-Length
 
 # create Load_Filament
 #
@@ -414,7 +415,7 @@ sed "
 {s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
 {s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
 {s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g}
-" < $MacrosDir/01-Filament_Handling/00-Load_Filament > $MacroOutputPath/01-Filament_Handling/00-Load_Filament
+" < $MacrosDir/02-Filament_Handling/00-Load_Filament > $MacroOutputPath/02-Filament_Handling/00-Load_Filament
 
 # create Unload_Filament
 #
@@ -423,7 +424,7 @@ sed "
 {s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
 {s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
 {s/#CARIBOU_FINALUNLOAD/$CARIBOU_FINALUNLOAD/g}
-" < $MacrosDir/01-Filament_Handling/01-Unload_Filament > $MacroOutputPath/01-Filament_Handling/01-Unload_Filament
+" < $MacrosDir/02-Filament_Handling/01-Unload_Filament > $MacroOutputPath/02-Filament_Handling/01-Unload_Filament
 
 # create Change_Filament
 #
@@ -433,6 +434,6 @@ sed "
 {s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
 {s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g};
 {s/#CARIBOU_FINALUNLOAD/$CARIBOU_FINALUNLOAD/g}
-" < $MacrosDir/01-Filament_Handling/03-Change_Filament > $MacroOutputPath/01-Filament_Handling/03-Change_Filament
+" < $MacrosDir/02-Filament_Handling/03-Change_Filament > $MacroOutputPath/02-Filament_Handling/03-Change_Filament
 
 # =========================================================================================================
