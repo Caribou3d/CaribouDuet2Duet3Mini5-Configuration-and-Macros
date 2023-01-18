@@ -13,6 +13,9 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
 ;
 ; =========================================================================================================
 ;
+;
+M291 P"Press OK to continue or CANCEL to abort." R"Test motors" S3
+;
 G28 W
 G0 X60 Y-3 Z80
 ;

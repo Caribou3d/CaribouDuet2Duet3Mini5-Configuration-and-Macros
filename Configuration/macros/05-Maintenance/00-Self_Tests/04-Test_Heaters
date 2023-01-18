@@ -13,7 +13,7 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
 ;
 ; =========================================================================================================
 ;
-M291 P"Checking heaters" S3
+M291 P"Press OK to continue or CANCEL to abort." R"Heater check (bed and extruder)" S3
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
   G28                                                                  ; home all axes without mesh bed level
@@ -34,11 +34,14 @@ M190 S60                                                               ; wait fo
 M140 S0 R0                                                             ; set bed temperature to 0C
 M140 S-274                                                             ; set bed temperature to 0K to turn it off
 ;
+M300 S500 P1000                                                        ; beep
+G4 P2000                                                               ; wait two seconds
+;
 M291 P"all ok" R"Test bed." S2
 ;
 ; =========================================================================================================
 ;
-M291 P"Wait until nozzle is heated up to to 215°C ..." S3
+M291 P"Wait until extruder is heated up to to 215°C ..." S3
 ;
 ; start heating hotend
 ;
@@ -46,6 +49,11 @@ M568 P0 S215 A2                                                        ; set ext
 M109 S215                                                              ; wait for extruder temp
 ;
 M568 P0 S0 R0 A0                                                       ; turn off extruder
+;
+M300 S500 P1000                                                        ; beep
+G4 P2000                                                               ; wait two seconds
+;
+M291 P"all ok" R"Test Extruder." S2
 ;
 M291 P"all ok" R"Heater test." S2
 ;

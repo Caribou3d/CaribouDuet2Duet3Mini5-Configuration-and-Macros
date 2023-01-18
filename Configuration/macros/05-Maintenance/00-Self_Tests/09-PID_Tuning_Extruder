@@ -45,6 +45,9 @@ M500 P31                                                               ; save to
 ;
 M568 P0 S0 R0 A0                                                       ; turn off extruder
 ;
+M300 S500 P1000                                                        ; beep
+G4 P2000                                                               ; wait two seconds
+;
 M291 P"Completed. PID values have been saved." R"PID tuning extruder." S2
 ;
 ; =========================================================================================================

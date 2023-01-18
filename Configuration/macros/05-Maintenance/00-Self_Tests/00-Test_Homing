@@ -13,13 +13,15 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
     M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
     M99
 ;
+M291 P"Press OK to continue or CANCEL to abort." R"Test homing (xyz)" S3
+;
 ; =========================================================================================================
 ; home X Axis
 ; =========================================================================================================
 ;
 M98 P"0:/sys/homex.g"
 M400
-M291 P"Press OK if x axis is homed (left side), else press CANCEL to exit." R"Homing test" S3
+M291 P"Press OK if x axis is homed (left side), else press CANCEL to exit." R"Test homing" S3
 ;
 ; =========================================================================================================
 ; Home Y Axis
@@ -27,7 +29,7 @@ M291 P"Press OK if x axis is homed (left side), else press CANCEL to exit." R"Ho
 ;
 M98 P"0:/sys/homey.g"
 M400                                                                   ; wait for current moves to finish
-M291 P"Press OK if y axis is homed (bed in the back) , else press CANCEL to exit." R"Homing test" S3
+M291 P"Press OK if y axis is homed (bed in the back) , else press CANCEL to exit." R"Test homing" S3
 ;
 ; =========================================================================================================
 ; home z axis
@@ -46,7 +48,7 @@ G90                                                                    ; absolut
 M400                                                                   ; wait for current moves to finish
 ;
 M400
-M291 P"Press OK if z axis is homed, else press CANCEL to exit." R"Homing test" S3
+M291 P"Press OK if z axis is homed, else press CANCEL to exit." R"Test homing" S3
 ;
 ; =========================================================================================================
 ;

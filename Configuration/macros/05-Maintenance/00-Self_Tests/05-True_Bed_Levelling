@@ -11,7 +11,7 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
 ;
 ; =========================================================================================================
 ;
-M291 P"True Bed Levelling (G32). Press OK to continue or CANCEL to abort." S3
+M291 P"Press OK to continue or CANCEL to abort." R"True Bed Levelling (G32)" S3
 ;
 G32                                                                    ; run bed.g
 ;

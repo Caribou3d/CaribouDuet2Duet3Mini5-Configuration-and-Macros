@@ -43,7 +43,7 @@ var length = move.axes[0].min
 ; revert to original value
 ;
 M208 X-2 S1                                                            ; set axis minimum
-M208 X254.6 S0                                                         ; set axis maximum
+M208 X254 S0                                                           ; set axis maximum
 ;
 ; because of the changed offsets we have to home again
 ;

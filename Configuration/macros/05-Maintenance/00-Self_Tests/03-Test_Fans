@@ -13,10 +13,10 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
 ;
 ; =========================================================================================================
 ;
-M291 P"Checking fans" S3
+M291 P"Press OK to continue or CANCEL to abort." R"Fan check" S3
 ;
-if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
-  G28                                                                  ; home all axes without mesh bed level
+if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
+    G28                                                                ; home all axes without mesh bed level
 G1 X60 Y110 Z80 F4000                                                  ; move extruders towards center of the bed
 ;
 M400                                                                   ; wait for current moves to finish
