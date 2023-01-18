@@ -6,8 +6,9 @@
 ;
 ; =========================================================================================================
 ;
-M83                                                                    ; relative extruder moves
-G1 E-1 F3600                                                           ; retract 1mm of filament
+if heat.heaters[1].current > heat.coldExtrudeTemperature               ; check extrude temperature
+    M83                                                                ; relative extruder moves
+    G1 E-2 F3600                                                       ; retract 1mm of filament
 ;
 set global.zLiftDistance = 5                                           ; set distance to lift
 M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z
