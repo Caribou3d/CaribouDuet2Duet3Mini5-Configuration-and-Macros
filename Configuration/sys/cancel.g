@@ -15,7 +15,7 @@ G91                                                                    ; relativ
 if {move.axes[2].machinePosition < (move.axes[2].max -20)}             ; if the z position is below 20mm below max z
     G1 Z15                                                             ; lift z axis by 15mm
 G90                                                                    ; absolute positioning
-G1 X{move.axes[0].min} Y{move.axes[1].min} } F7200                     ; park xy axes
+G1 X{move.axes[0].min} Y{move.axes[1].max-5} } F6000                   ; park x axis, move bed to front
 M84 XY                                                                 ; disable motors
 ;
 ; =========================================================================================================
