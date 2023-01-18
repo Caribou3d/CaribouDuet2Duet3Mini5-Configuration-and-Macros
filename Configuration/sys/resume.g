@@ -10,7 +10,7 @@ G1 R1 X0 Y0                                                            ; go back
 M83                                                                    ; relative extruder moves
 if heat.heaters[1].current > heat.coldExtrudeTemperature               ; check extrude temperature
     M83                                                                ; relative extruder moves
-    G1 E-2 F3600                                                       ; retract 1mm of filament
+    G1 E2 F3600                                                        ; retract 1mm of filament
 M121                                                                   ; recover the last state pushed onto the stack
 ;
 ; =========================================================================================================
