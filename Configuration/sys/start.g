@@ -7,6 +7,15 @@
 ;
 ; =========================================================================================================
 ;
+if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is active
+    if exists(sensors.filamentMonitors[0])                             ; is the run-out mode activated?
+        if {sensors.filamentMonitors[0].status != "ok"}                ; if filament is loaded
+            M300 S500 P2000                                            ; beep
+            M291 R{"No Filament!"} P{"Please load filament first!"  } S2
+    else
+        M300 S500 P2000                                            ; beep
+        M291 R{"No Filament!"} P{"Please load filament first!"  } S2
+;
 T0                                                                     ; ensure the tool is selected
 ; #CARIBOU_ZPROBE
 M98 P"0:/sys/current-sense-normal.g"                                   ; ensure that motor currents and sense are set for printing
