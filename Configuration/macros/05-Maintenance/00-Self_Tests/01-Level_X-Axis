@@ -11,7 +11,6 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
     M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
     M99
 ;
-;
 M291 P"Press OK to continue or CANCEL to abort." R"Level x axis" S3
 ;
 ; =========================================================================================================
