@@ -202,20 +202,19 @@ M106 S0
 ;
  if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
     G28                       ; home all axis without mesh bed level
-G0 X60 Y-3 Z80                ; move extruder above bed,
+G0 X125 Y-3 Z80               ; move extruder above bed,
 ;                               keep extruder in front for cleaning and checking
-M104 S160 T0                  ; pre-heat extruder to 160?C
-M140 S55      ; this will take the layer 1 temperature for bed 0
-M190 S55      ; wait for bed temp
+M568 P0 S210 R160 A1          ; set extruder temperatures
+M140 S55                      ; this will take the layer 1 temperature for bed 0
+M190 S55                      ; wait for bed temp
 ;
 G29                           ; mesh bed leveling using defined mesh grid
 G0 X0 Y-3 Z0.6                ; go outside print area
 ;
-M104 S210 ; set extruder temperature
-M109 S210 ; wait for extruder temp
+M568 P0 A2                    ; set extruder heater active
+M116 P0                       ; wait for extruder temperature
 ;
 ; =========================================================================================================
-;
 ;
 M98 P"0:/sys/primeLine.g"     ; execute primeline macro
 ;
