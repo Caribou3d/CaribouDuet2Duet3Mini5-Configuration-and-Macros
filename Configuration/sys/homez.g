@@ -7,7 +7,7 @@
 ; =========================================================================================================
 ;
 G91                                                                    ; relative positioning
-M98 P"current-sense-homing.g"                                          ; ensure the current and sensitivity is set for homing routines.
+M98 P"00-Functions/current-sense-homing"                               ; ensure the current and sensitivity is set for homing routines.
 ;
 G1 H2 X0.5 F10000                                                      ; energise motors to ensure they are not stalled
 M400                                                                   ; wait for current moves to finish
@@ -59,7 +59,7 @@ M400                                                                   ; wait fo
 ;
 G90                                                                    ; absolute positioning
 ;
-M98 P"current-sense-normal.g"                                          ; ensure the current and sensitivity is set for normal routines.
+M98 P"00-Functions/current-sense-normal"                               ; ensure the current and sensitivity is set for normal routines.
 ;
 ; =========================================================================================================
 ;

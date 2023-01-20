@@ -1,12 +1,18 @@
 ; =========================================================================================================
 ;
 ; set the current and sensitivity for normal routines
+; set the acceleration and jerk  for normal routines
 ;
 ; =========================================================================================================
 ;
 M913 X100 Y100 Z100                                                    ; set the x, y, and z drivers to 100% of their normal current per config.g.
 M915 X S3 F0 H200 R0                                                   ; set the x axis sensitivity.
 M915 Y S3 F0 H200 R0                                                   ; set the y axis sensitivity.
+;
+; =========================================================================================================
+;
+M566 X{global.x_jerk} Y{global.y_jerk}                                 ; set maximum instantaneous speed changes (mm/min)
+M201 X{global.x_accel} Y{global.y_accel}                               ; set accelerations (mm/s^2)
 ;
 ; =========================================================================================================
 ;

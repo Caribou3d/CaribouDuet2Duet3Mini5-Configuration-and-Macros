@@ -1,0 +1,22 @@
+; =========================================================================================================
+;
+; set the current and sensitivity for homing, non-printing, routines
+; set the acceleration and jerk for homing, non-printing, routines
+
+; =========================================================================================================
+;
+; #CARIBOU_SENSE_HOMING
+;
+; =========================================================================================================
+;
+set global.x_accel = move.axes[0].acceleration                         ; save accelerations (mm/s^2)
+set global.x_jerk = move.axes[0].jerk                                  ; save maximum instantaneous speed changes (mm/min)
+;
+set global.y_accel = move.axes[1].acceleration                         ; save accelerations (mm/s^2)
+set global.y_jerk = move.axes[1].jerk                                  ; save maximum instantaneous speed changes (mm/min)
+;
+M566 X50.00 Y50.00                                                     ; set maximum instantaneous speed changes (mm/min)
+M201 X500.00 Y500.00                                                   ; set accelerations (mm/s^2)
+;
+; =========================================================================================================
+;

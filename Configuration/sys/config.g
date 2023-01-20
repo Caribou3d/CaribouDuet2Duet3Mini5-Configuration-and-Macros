@@ -6,8 +6,8 @@
 ;
 ; for #CARIBOU_VARIANT
 ;
-; CariboDuetConfiguration Release : "2.2.0"
-;                           Build :   412
+; CariboDuetConfiguration Release : "2.1.1"
+;                           Build :   417
 ;
 ; Copyright Caribou Research & Development 2023. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -25,6 +25,12 @@ global zLiftDistance = 0                                               ; stores 
 global waitForExtruderTemperature = false                              ; beeps when pre-heat temperature is reached
 global waitForBedTemperature = false                                   ; beeps when pre-heat temperature is reached
 global AskToChange = 1                                                 ; ask if filament should be changed?
+global x_accel = 0                                                     ; stores x accelerations (mm/s^2)
+global x_jerk = 0                                                      ; stores x maximum instantaneous speed changes (mm/min)
+global y_accel = 0                                                     ; stores y accelerations (mm/s^2)
+global y_jerk = 0                                                      ; maximum y instantaneous speed changes (mm/min)
+
+
 ;
 ; general settings
 ;
@@ -77,7 +83,7 @@ M564 H0                                                                ; allow u
 ; =========================================================================================================
 ;
 M208 X-2 Y-7.5 Z0 S1                                                   ; set axes minimum
-M208 X254 Y214 #CARIBOU_ZHEIGHT S0                                              ; set axes maximum
+M208 X253.5 Y214 #CARIBOU_ZHEIGHT S0                                            ; set axes maximum
 ;
 ; =========================================================================================================
 ; endstops
