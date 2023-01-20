@@ -1,7 +1,7 @@
 ; =========================================================================================================
 ;
 ; Filament: #FILAMENT_NAME
-; Hotend  : #FILAMENT_TEMPERATURE_ACTIVE°C, #FILAMENT_TEMPERATURE_STANDBY
+; Hotend  : #FILAMENT_TEMPERATURE_ACTIVE°C, #FILAMENT_TEMPERATURE_STANDBY°C
 ; Bed     : #BED_TEMPERATURE°C
 ;
 ;====== start preheat start script ========================================================================
@@ -11,20 +11,20 @@ M83                                                                    ; extrude
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
     G28                                                                ; home all axis without mesh bed level
-G0 X60 Y-3 Z80                                                         ; move extruder above bed keep extruder in front for cleaning and checking
+G0 X125 Y-3 Z80                                                        ; move extruder above bed keep extruder in front for cleaning and checking
 ;
-M104 S160 T0                                                           ; pre-heat extruder to 160C
-M140 S#BED_TEMPERATURE                                                               ; this will take the layer 1 temperature for bed 0
+M568 P0 S#FILAMENT_TEMPERATURE_ACTIVE R#FILAMENT_TEMPERATURE_STANDBY A1                                                   ; set current tool temperature to #FILAMENT_TEMPERATURE_ACTIVE°C, #FILAMENT_TEMPERATURE_STANDBY°C
+;
+M140 S#BED_TEMPERATURE                                                               ; set temperature for bed
 M190 S#BED_TEMPERATURE                                                               ; wait for bed temp
 ;
 G29                                                                    ; mesh bed leveling
 G0 X0 Y-3 Z0 F3000                                                     ; move to home position
 ;
-M104 S#FILAMENT_TEMPERATURE_ACTIVE                                                       ; set extruder temperature
-M109 S#FILAMENT_TEMPERATURE_ACTIVE                                                       ; wait for extruder temp
-;
+M568 P0 A2                                                             ; wait for extruder temperature
+M116 P0                                                                ; wait for heater temperature
+;;
 M572 D0 S0.00                                                          ; set pressure advance
-;
 ;
 ; play start tune
 M98 P"0:/sys/playsound.g"
