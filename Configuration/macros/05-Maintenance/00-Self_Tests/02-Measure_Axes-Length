@@ -73,7 +73,6 @@ else
     M291 P{"Measured x axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.x_length ^"mm."} R{"x-axis length ok." } S2
     set var.x_ok = true
 ;
-
 ; =========================================================================================================
 ;
 ;  measure y axis
@@ -86,7 +85,6 @@ var y_length = var.y_max - var.y_min
 ;
 M208 Y0 S1                                                             ; set axis minimum
 M208 Y225 S0                                                           ; set axis minimum
-
 ;
 G91                                                                    ; relative positioning
 ;
@@ -188,7 +186,7 @@ else
 if (var.x_ok && var.y_ok && var.z_ok)
     M291 R{"All axes have the correct length."} P{"Measure Axes length"} S2
 else
-    M291 R{"ERROR: Some axes have incorrect length."} P{"Measure Axes length"} S2
+    M291 R{"ERROR: Axes have incorrect length."} P{"Measure Axes length"} S2
 ;
 ; =========================================================================================================
 ;
