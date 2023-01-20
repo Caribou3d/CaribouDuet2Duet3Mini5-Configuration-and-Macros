@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "2.1.1"
-;                           Build :   418
+;                           Build :   423
 ;
 ; Copyright Caribou Research & Development 2023. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -74,6 +74,12 @@ M203 X18000.00 Y18000.00 Z1000.00 E3600.00                             ; set max
 M204 P500.0 T500.0                                                     ; set print and travel accelerations (mm/s^2)
 M566 X480.00 Y480.00 Z48.00 E300.00                                    ; set maximum instantaneous speed changes (mm/min)
 ;
+set global.x_accel = move.axes[0].acceleration                         ; save accelerations (mm/s^2)
+set global.x_jerk = move.axes[0].jerk                                  ; save maximum instantaneous speed changes (mm/min)
+;
+set global.y_accel = move.axes[1].acceleration                         ; save accelerations (mm/s^2)
+set global.y_jerk = move.axes[1].jerk                                  ; save maximum instantaneous speed changes (mm/min)
+;
 M564 H0                                                                ; allow unhomed movement
 ;
 ; =========================================================================================================
@@ -81,7 +87,7 @@ M564 H0                                                                ; allow u
 ; =========================================================================================================
 ;
 M208 X-2 Y-7.5 Z0 S1                                                   ; set axes minimum
-M208 X253.5 Y214 #CARIBOU_ZHEIGHT S0                                            ; set axes maximum
+M208 X253.5 Y215 #CARIBOU_ZHEIGHT S0                                            ; set axes maximum
 ;
 ; =========================================================================================================
 ; endstops

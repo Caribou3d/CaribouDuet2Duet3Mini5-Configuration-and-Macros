@@ -18,7 +18,7 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
 ;
 T0                                                                     ; ensure the tool is selected
 ; #CARIBOU_ZPROBE
-M98 P"0:/sys/current-sense-normal.g"                                   ; ensure that motor currents and sense are set for printing
+M98 P"0:/sys/00-Functions/current-sense-normal"                        ; ensure the current and sensitivity is set for normal routines.
 ;
 M572 D0 S0.0                                                           ; clear pressure advance.
 M220 S100                                                              ; set speed factor back to 100% in case it was changed
