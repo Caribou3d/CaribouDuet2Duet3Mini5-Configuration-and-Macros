@@ -18,7 +18,7 @@ M291 P"Press OK to continue or CANCEL to abort." R"Run extruder calibration for 
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
   G28                                                                  ; home all axes without mesh bed level
 G90                                                                    ; absolute positioning
-G0 X60 Y-3 Z80                                                         ; move extruder above bed, keep extruder in front for cleaning and checking
+G0 X125 Y-7 Z80                                                        ; move extruder above bed, keep extruder in front for cleaning and checking
 ;
 T0                                                                     ; select tool 0
 M568 P0 S215 A2                                                        ; pre-heat extruder to 215°C

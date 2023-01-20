@@ -23,7 +23,7 @@ M291 P{"Press OK if target for the extruder is " ^ var.target_temperature ^ "°C
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
     G28                                                                ; home all axes without mesh bed level
 G90                                                                    ; absolute positioning
-G0 X60 Y-3 Z80                                                         ; move extruder above bed
+G0 X125 Y-7 Z80                                                        ; move extruder above bed
 ;
 if heat.heaters[1].current > 40                                        ; check if bed is cooled down
     M568 P0 S0 R0 A0                                                   ; turn off extruder

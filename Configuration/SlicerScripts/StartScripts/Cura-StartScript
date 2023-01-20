@@ -6,7 +6,7 @@
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
     G28                            ; home all axes without mesh bed level
-G0 X60 Y-3 Z80                     ; move extruder above bed,
+G0 X125 Y-7 Z80                    ; move extruder above bed,
 ;                                    keep extruder in front for cleaning and checking
 ;
 M568 P0 S160 A2                    ; pre-heat extruder to 160°C

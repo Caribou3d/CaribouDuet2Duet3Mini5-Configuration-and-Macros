@@ -17,7 +17,7 @@ M291 P"Press OK to continue or CANCEL to abort." R"Fan check" S3
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
     G28                                                                ; home all axes without mesh bed level
-G1 X60 Y110 Z80 F4000                                                  ; move extruders towards center of the bed
+G0 X125 Y-7 Z80                                                        ; move extruder above bed
 ;
 M400                                                                   ; wait for current moves to finish
 ;

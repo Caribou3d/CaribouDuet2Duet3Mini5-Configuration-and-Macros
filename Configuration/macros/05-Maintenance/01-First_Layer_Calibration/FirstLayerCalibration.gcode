@@ -11,7 +11,7 @@ M83                                                                    ; extrude
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
     G28                                                                ; home all axis without mesh bed level
-G0 X125 Y-3 Z80                                                        ; move extruder above bed keep extruder in front for cleaning and checking
+G0 X125 Y-7 Z80                                                        ; move extruder above bed keep extruder in front for cleaning and checking
 ;
 M568 P0 S#FILAMENT_TEMPERATURE_ACTIVE R#FILAMENT_TEMPERATURE_STANDBY A1                                                   ; set current tool temperature to #FILAMENT_TEMPERATURE_ACTIVE°C, #FILAMENT_TEMPERATURE_STANDBY°C
 ;

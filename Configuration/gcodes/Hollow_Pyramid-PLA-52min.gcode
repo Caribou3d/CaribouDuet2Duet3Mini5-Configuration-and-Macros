@@ -139,7 +139,7 @@
 ;   baudRateOverride,115200
 ;   overridePrinterModels,0
 ;   printerModelsOverride
-;   startingGcode,; =========================================================================================================,;,; start script for S3d for CaribouDuet,;,; =========================================================================================================,;,G28 W                         ; home all axis without mesh bed level,G0 X60 Y-3 Z80                ; move extruder above bed, keep extruder in front for cleaning and checking,;,M104 S160 T0                  ; pre-heat extruder to 160?C,M140 S[bed0_temperature]      ; this will take the layer 1 temperature for bed 0,M190 S[bed0_temperature]      ; wait for bed temp,;,G29                           ; mesh bed leveling using defined mesh grid,G0 X0 Y-3 Z0.6                ; go outside print area,;,M104 S[extruder0_temperature] ; set extruder temperature,M109 S[extruder0_temperature] ; wait for extruder temp,;,; =========================================================================================================,;,; ,M98 P"0:/sys/primeLine.g"     ; execute primeline macro,;,G92 E0.0                      ; set extruder position,;,M572 D0 S0.07                 ; set pressure advance,;,; =========================================================================================================,
+;   startingGcode,; =========================================================================================================,;,; start script for S3d for CaribouDuet,;,; =========================================================================================================,;,G28 W                         ; home all axis without mesh bed level,G0 X125 Y-7 Z80               ; move extruder above bed, keep extruder in front for cleaning and checking,;,M104 S160 T0                  ; pre-heat extruder to 160?C,M140 S[bed0_temperature]      ; this will take the layer 1 temperature for bed 0,M190 S[bed0_temperature]      ; wait for bed temp,;,G29                           ; mesh bed leveling using defined mesh grid,G0 X0 Y-3 Z0.6                ; go outside print area,;,M104 S[extruder0_temperature] ; set extruder temperature,M109 S[extruder0_temperature] ; wait for extruder temp,;,; =========================================================================================================,;,; ,M98 P"0:/sys/primeLine.g"     ; execute primeline macro,;,G92 E0.0                      ; set extruder position,;,M572 D0 S0.07                 ; set pressure advance,;,; =========================================================================================================,
 ;   layerChangeGcode,G1 [current_Z_position] F10000;
 ;   retractionGcode,
 ;   toolChangeGcode,
@@ -202,7 +202,7 @@ M106 S0
 ;
  if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
     G28                       ; home all axis without mesh bed level
-G0 X125 Y-3 Z80               ; move extruder above bed,
+G0 X125 Y-7 Z80               ; move extruder above bed,
 ;                               keep extruder in front for cleaning and checking
 M568 P0 S210 R160 A1          ; set extruder temperatures
 M140 S55                      ; this will take the layer 1 temperature for bed 0

@@ -6,7 +6,7 @@
 ;
 T0                               ; select tool 0
 ;
-G0 X60 Y-3 Z80                   ; move extruder above bed, keep extruder in front for cleaning and checking
+G0 X125 Y-7 Z80                  ; move extruder above bed, keep extruder in front for cleaning and checking
 ;
 M568 P0 S160 A2                  ; pre-heat extruder to 160°C
 M140 S[first_layer_bed_temperature]    ; this will take the layer 1 temperature for bed 0
