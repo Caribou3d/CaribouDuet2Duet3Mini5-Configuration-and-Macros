@@ -22,7 +22,7 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
        M950 J1 C"nil"                                                  ; free input 1 e0 filament sensor
 ;
 if {global.AskToChange == 1}                                           ; do not ask if filament ran out
-    M291 R"Changing Filament ..." P"Press OK to start or CANCEL to abort." S3  ; display message
+    M291 R"Change filament ..." P"Press OK to start or CANCEL to abort." S3  ; display message
 ;
 T0                                                                     ; select tool 0
 M83                                                                    ; set extruder to relative positioning
