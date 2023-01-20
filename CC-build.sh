@@ -2,7 +2,8 @@
 #
 # =========================================================================================================
 #
-# This bash script is used to generate automatically the CaribouDuet configuration files and macros
+# This bash script is used to generate the CaribouDuet configuration and macro files
+# for the Duet2WiFi and Duet3Mini5+ boards automatically
 #
 # Supported OS: Windows 10, Linux64 bit
 #
@@ -135,6 +136,7 @@ rm -fr $PREHEATOUTPUTEXTRUDER
 rm -fr $PREHEATOUTPUTBED
 rm -fr $FILAMENTOUTPUT
 echo ' ... done'
+echo
 
 # clean-up working directory only
 
@@ -158,10 +160,10 @@ BUILD=$(grep --max-count=1 "\bBuild\b" $SCRIPT_PATH/Configuration/sys/config.g |
 if [ "$BUILD" == "$GIT_COMMIT_NUMBER" ] ; then
     echo "CC_COMMIT in config.g is identical to current git commit number: $BUILD"
 else
-    echo "$(tput setaf 5)CC_COMMIT $BUILD in config.g is DIFFERENT to current git commit number $GIT_COMMIT_NUMBER. To cancel this process press CRTL+C and update the FW_COMMIT value.$(tput sgr0)"
+    echo "$(tput setaf 5)CC_COMMIT $BUILD in config.g is DIFFERENT to current git commit number $GIT_COMMIT_NUMBER. To cancel this process press CRTL+C and update the CC_COMMIT value.$(tput sgr0)"
     if [ -z "$ALL_VARIANTS" ]; then
         echo
-        read -t 2 -p "Press Enter to continue..."
+        read -t 5 -p "Press Enter to continue..."
     fi
 fi
 echo
