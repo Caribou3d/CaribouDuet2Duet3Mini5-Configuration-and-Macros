@@ -42,13 +42,19 @@ M291 R"Unloading Filament ..." P"Press OK to start." S2                ; display
 M83                                                                    ; set extruder to relative positioning
 M913 E100                                                              ; set motor current to 100% of set current;
 ;
+M291 P"Purging filament ... " S1 T5                                    ; display new message
+;
 G1 E25 F300                                                            ; extrude 25mm of filament at 300mm/min
+M400                                                                   ; wait for current moves to finish
+;
+M291 P"Unloading filament ... " S1 T10                                 ; display new message
+;
 G1 E-18 F3000                                                          ; retract 18mm of filament at 3000mm/min
-G1 E-#CARIBOU_FINALUNLOAD F1500                                                          ; retract #CARIBOU_FINALUNLOADmm of filament at 2500mm/min
+G1 E-#CARIBOU_FINALUNLOAD F1500                                                          ; retract 95mm of filament at 2500mm/min
 ;
-M400
+M400                                                                   ; finish all moves, clear the buffer
 ;
-M291 P"Please pull out filament!" S2                                   ; ask to pull out filament
+M291 P"Please pull out filament!" S2                                   ; ask pull out filament
 ;
 if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is active
     if {move.axes[1].workplaceOffsets[8] == 1}                         ; if autoload is active
