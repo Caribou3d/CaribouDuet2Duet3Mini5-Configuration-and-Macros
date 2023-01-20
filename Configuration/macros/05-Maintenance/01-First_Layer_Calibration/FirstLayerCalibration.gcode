@@ -21,7 +21,7 @@ G29                                                                    ; mesh be
 G0 X0 Y-3 Z0 F3000                                                     ; move to home position
 ;
 M104 S#FILAMENT_TEMPERATURE_ACTIVE                                                       ; set extruder temperature
-M109 S#FILAMENT_TEMPERATURE                                                              ; wait for extruder temp
+M109 S#FILAMENT_TEMPERATURE_ACTIVE                                                       ; wait for extruder temp
 ;
 M572 D0 S0.00                                                          ; set pressure advance
 ;
