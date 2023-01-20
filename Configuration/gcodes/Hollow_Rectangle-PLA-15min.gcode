@@ -1845,20 +1845,29 @@ G1 E-0.4000 F1500
 ; layer end
 ; =========================================================================================================
 ;
-; generic end script all slicers for CaribouDuet
+; generic end script for all slicers for CaribouDuet
 ;
 ; =========================================================================================================
 ;
-G1 F1000.0               ; set feed rate
-G1 E-2                   ; retract 2mm
-G10 P0 S-274 R-274       ; turn off extruder
-M140 S0 R0               ; set bed temperature to 0C
-M140 S-274               ; set bed temperature to 0K to turn it off
-M107                     ; turn off fan
-G1 X0 Y200 F7200         ; home XY axis
-M84 XY                   ; disable motors
+G1 F1000.0                ; set feed rate
+G1 E-2                    ; retract 2mm
+;
+M568 P0 S0 R0 A0          ; turn off tool 0
+;
+M140 S0 R0                ; set bed temperature to 0C
+M140 S-274                ; set bed temperature to 0K to turn it off
+;
+M106 T0 S0                ; turn off cooling fan 0
+;
+G91                       ; relative positioning
+if {move.axes[2].machinePosition < (move.axes[2].machinePosition -20)} ; if the z position is below 20mm below max z
+    G1 Z15                ; lift z axis by 15mm
+G90                       ; absolute positioning
+G1 X{move.axes[0].min} Y{move.axes[1].max-5} } F7200 ; park x axis. move bed to front
+M84 XY                    ; disable motors
 ;
 ; =========================================================================================================
+;
 ; Build Summary
 ;   Build time: 0 hours 15 minutes
 ;   Filament length: 596.4 mm (0.60 m)
