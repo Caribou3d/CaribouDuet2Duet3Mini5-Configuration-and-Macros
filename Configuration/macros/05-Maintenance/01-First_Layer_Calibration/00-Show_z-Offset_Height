@@ -1,0 +1,13 @@
+; =========================================================================================================
+;
+; this macro displays the current offset / trigger height, babysteps, and the
+; new offset / trigger height
+;
+; =========================================================================================================
+;
+M291 R{"z-Offset height"} P{"Current: " ^ sensors.probes[0].triggerHeight ^ ", Babysteps: " ^ move.axes[2].babystep ^ ", New: " ^ sensors.probes[0].triggerHeight - move.axes[2].babystep} S2
+;
+;M291 P{"Enter the number for the z-offset in your sheet / nozzle macro, like: G31 Z" ^ sensors.probes[0].triggerHeight - move.axes[2].babystep } S2
+;
+; =========================================================================================================
+;
