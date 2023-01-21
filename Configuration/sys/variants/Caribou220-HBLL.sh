@@ -430,8 +430,7 @@ cp -r $MacrosDir/05-Maintenance/01-First_Layer_Calibration/processed $MacroOutpu
 cp -r $MacrosDir/00-Preheat_Extruder/processed $MacroOutputPath/00-Preheat_Extruder
 cp -r $MacrosDir/01-Preheat_Bed/processed $MacroOutputPath/01-Preheat_Bed
 rm -f $MacroOutputPath/05-Maintenance/00-Self_Tests/11-z-Offset_Calibration
-echo $MacroOutputPath/05-Maintenance/00-Self_Tests/11-z-Offset_Calibration
-exit
+
 # create 00-Test_Homing
 #
 sed "
