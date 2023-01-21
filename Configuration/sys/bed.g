@@ -10,6 +10,9 @@ M561                                                                   ; clear a
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
    G28                                                                 ; home all axes without mesh bed level
 ;
+G90
+G0 X2 Y100 Z1                                                          ; move to measure point
+;
 M558 F50 A5 S0.01                                                      ; slow z-probe, up to 5 probes until disparity is 0.003 or less - else yield average
 while iterations <=2                                                   ; perform 3 passes
    G30 P0 X25 Y105 Z-99999                                             ; probe near a leadscrew, half way along the y axis
