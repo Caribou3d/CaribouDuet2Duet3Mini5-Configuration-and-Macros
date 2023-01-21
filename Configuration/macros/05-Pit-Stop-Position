@@ -1,6 +1,7 @@
 ; =========================================================================================================
 ;
-; move extruder to the pit stop / maintenace position
+; move extruder to the pit stop / maintenace position. Activates tool, leaves heater
+; status unchanged.
 ;
 ; =========================================================================================================
 ;
@@ -15,8 +16,20 @@ if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
 G90                                                                    ; absolute positioning
 G0 X125 Y-7 Z160                                                       ; move extruder above bed, keep extruder in front for cleaning and checking
 ;
-T0                                                                     ; select tool 0
-;
 M400                                                                   ; finish all moves, clear the buffer
 ;
+var status = 0
+;
+if heat.heaters[1].state = "off"
+    set var.status = 0
+elif heat.heaters[1].state = "active"
+    set var.status = 2
+elif heat.heaters[1].state = "standby"
+    set var.status = 1
+;
+T0                                                                     ; select tool 0
+;
+M568 P0 A{var.status}                                                  ; set heater status
+;
 ; =========================================================================================================
+;
