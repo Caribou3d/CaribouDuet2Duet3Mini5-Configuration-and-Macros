@@ -7,7 +7,7 @@
 ; =========================================================================================================
 ;
 G91                                                                    ; relative positioning
-M98 P"0:/sys/00-Functions/current-sense-homing"                        ; ensure the current and sensitivity is set for homing routines.
+M98 P"0:/sys/00-Functions/CurrentSenseHoming"                          ; ensure the current and sensitivity is set for homing routines.
 ;
 set global.zLiftDistance = 5                                           ; set distance to lift
 M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z
@@ -65,7 +65,7 @@ M400                                                                   ; wait fo
 ;
 G90                                                                    ; absolute positioning
 ;
-M98 P"0:/sys/00-Functions/current-sense-normal"                        ; ensure the current and sensitivity is set for normal routines.
+M98 P"0:/sys/00-Functions/CurrentSenseNormal"                          ; ensure the current and sensitivity is set for normal routines.
 ;
 ; =========================================================================================================
 ;

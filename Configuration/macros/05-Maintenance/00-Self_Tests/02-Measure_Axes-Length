@@ -32,7 +32,7 @@ M208 X260 S0                                                           ; set axi
 ;
 G91                                                                    ; relative positioning
 ;
-M98 P"0:/sys/00-Functions/current-sense-homing"                        ; ensure the current and sensitivity is set for homing routines
+M98 P"0:/sys/00-Functions/CurrentSenseHoming"                          ; ensure the current and sensitivity is set for homing routines
 ;
 set global.zLiftDistance = 5                                           ; set distance to lift
 M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z
@@ -59,7 +59,7 @@ G1 H1 X-260 F3000                                                      ; move qu
 G1 H2 X5 F1000                                                         ; go back a few mm
 G1 H1 X-10 F3000                                                       ; move slowly to x axis endstop once more (second pass)
 ;
-M98 P"0:/sys/00-Functions/current-sense-normal"                        ; ensure the current and sensitivity is set for normal routines.
+M98 P"0:/sys/00-Functions/CurrentSenseNormal"                          ; ensure the current and sensitivity is set for normal routines.
 ;
 ; analyze measured value
 ;
@@ -114,7 +114,7 @@ G1 H1 Y-10 F3000                                                       ; move sl
 ;
 ; analyze measured value
 ;
-M98 P"0:/sys/00-Functions/current-sense-normal"                        ; ensure the current and sensitivity is set for normal routines.
+M98 P"0:/sys/00-Functions/CurrentSenseNormal"                          ; ensure the current and sensitivity is set for normal routines.
 if (var.measured_length - var.y_length) > 1
     M291 P{"Measured y axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.y_length ^"mm."} R{"ERROR: y-axis too long." } S3
     set var.y_ok = false
@@ -167,7 +167,7 @@ G30                                                                    ; probe b
 G1 X11.5 Y4.5 Z10.0 F6000                                              ; go to first probe point
 M400                                                                   ; wait for current moves to finish
 ;
-M98 P"0:/sys/00-Functions/current-sense-normal"                        ; ensure the current and sensitivity is set for normal routines
+M98 P"0:/sys/00-Functions/CurrentSenseNormal"                          ; ensure the current and sensitivity is set for normal routines
 ;
 ; analyze measured value
 ;
