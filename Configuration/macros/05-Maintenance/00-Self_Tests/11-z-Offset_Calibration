@@ -30,8 +30,6 @@ M564 H1 S0                                                             ; ignore 
 ;
 M291 S2 R"Setting the z-offset height" P"Place a sheet of paper under the nozzle and CAREFULLY lower the extruder until slight friction can be noticed." Z1 ;
 ;
-M300 S500 P500                                                         ; beep when offset is set
-;
 M291 R{"z-offset"} P{"Current: " ^ sensors.probes[0].triggerHeight ^ ", z-height:" ^ move.axes[2].machinePosition ^ ", New: " ^ sensors.probes[0].triggerHeight - move.axes[2].machinePosition} S2
 ;
 M564 H0 S1                                                             ; limit movement within axis boundaries, allow movemonet of unhomed axes
