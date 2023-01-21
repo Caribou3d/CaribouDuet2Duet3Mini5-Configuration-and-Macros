@@ -64,10 +64,10 @@ M98 P"0:/sys/00-Functions/current-sense-normal"                        ; ensure 
 ; analyze measured value
 ;
 if (var.measured_length - var.x_length) > 1
-    M291 P{"Measured x axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.x_length ^"mm."} R{"ERROR: x-axis too long." } S2
+    M291 P{"Measured x axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.x_length ^"mm."} R{"ERROR: x-axis too long." } S3
     set var.x_ok = false
 elif (var.measured_length - var.x_length) < -1
-    M291 P{"Measured x axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.x_length ^"mm."} R{"ERROR: x-axis too short." } S2
+    M291 P{"Measured x axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.x_length ^"mm."} R{"ERROR: x-axis too short." } S3
     set var.x_ok = false
 else
     M291 P{"Measured x axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.x_length ^"mm."} R{"x-axis length ok." } S2
@@ -116,10 +116,10 @@ G1 H1 Y-10 F3000                                                       ; move sl
 ;
 M98 P"0:/sys/00-Functions/current-sense-normal"                        ; ensure the current and sensitivity is set for normal routines.
 if (var.measured_length - var.y_length) > 1
-    M291 P{"Measured y axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.y_length ^"mm."} R{"ERROR: y-axis too long." } S2
+    M291 P{"Measured y axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.y_length ^"mm."} R{"ERROR: y-axis too long." } S3
     set var.y_ok = false
 elif (var.measured_length - var.y_length) < -1
-    M291 P{"Measured y axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.y_length ^"mm."} R{"ERROR: y-axis too short." } S2
+    M291 P{"Measured y axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.y_length ^"mm."} R{"ERROR: y-axis too short." } S3
     set var.y_ok = false
 else
     M291 P{"Measured y axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.y_length ^"mm."} R{"y-axis length ok." } S2
@@ -172,10 +172,10 @@ M98 P"0:/sys/00-Functions/current-sense-normal"                        ; ensure 
 ; analyze measured value
 ;
 if (var.measured_length - var.z_length) > 1
-    M291 P{"Measured z axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.z_length ^"mm."} R{"ERROR: z-axis too long." } S2
+    M291 P{"Measured z axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.z_length ^"mm."} R{"ERROR: z-axis too long." } S3
     set var.z_ok = false
 elif (var.measured_length - var.z_length) < -1
-    M291 P{"Measured z axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.z_length ^"mm."} R{"ERROR: z-axis too short." } S2
+    M291 P{"Measured z axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.z_length ^"mm."} R{"ERROR: z-axis too short." } S3
     set var.z_ok = false
 else
     M291 P{"Measured z axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.z_length ^"mm."} R{"z-axis length ok." } S2
