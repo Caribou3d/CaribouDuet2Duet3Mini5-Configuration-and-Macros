@@ -9,7 +9,7 @@
 ;
 var bed_temperature = 60                                               ; set bed_temperature
 ;
-M291 S3 R"Setting the z-offset height" P"Press OK to continue, or CANCEL to abort"
+M291 S3 R"Setting the z-offset height" P"Press OK to continue, or CANCEL to abort."
 ;
 M140 S{var.bed_temperature}                                            ; set bed temperature to filament 60°C
 ;
@@ -18,20 +18,17 @@ G29 S2                                                                 ; cancel 
 M290 R0 S0                                                             ; cancel baby stepping
 G90                                                                    ; absolute positioning
 ;
-set global.zLiftDistance = 15                                          ; set distance to lift
-M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z
+G1 Z10 F2000                                                           ; lift z axis
+M400                                                                   ; wait for moves to finish
 ;
 while (heat.heaters[0].current < heat.heaters[0].active)
     M291 P"Heating bed to 60°C ..." S1 T10                             ; display new message
     G4 S10                                                             ; wait 10 seconds
 ;
-G1 Z10 F2000                                                           ; lift z axis
-M400                                                                   ; wait for moves to finish
-;
 M300 S500 P1000                                                        ; beep when temperature is reached
 M564 H1 S0                                                             ; ignore axis limits
 ;
-M291 S2 R"Test z-offset" P"Place a paper sheet under the nozzle and lower the extruder until slight friction can be noticed" Z1 ;
+M291 S2 R"Setting the z-offset height" P"Place a sheet of paper under the nozzle and CAREFULLY lower the extruder until slight friction can be noticed." Z1 ;
 ;
 M300 S500 P500                                                         ; beep when offset is set
 ;
