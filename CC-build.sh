@@ -290,7 +290,7 @@ do
     {s/#BED_TEMPERATURE/${BED_TEMPERATURE}/g}
     " < $FIRSTLAYERPATH/FirstLayerCalibration.gcode > $FIRSTLAYEROUTPUT/gcodes/$FILAMENTNAME-FirstLayerCalibration.gcode
         # copy *_Trigger_Height to processed
-    cp $FIRSTLAYERPATH/*Trigger_Height $FIRSTLAYEROUTPUT
+    cp $FIRSTLAYERPATH/*Offset_Height $FIRSTLAYEROUTPUT
 done
 echo
 echo '... done'
