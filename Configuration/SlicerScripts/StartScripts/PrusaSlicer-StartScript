@@ -6,6 +6,7 @@
 ;
 T0                               ; select tool 0
 ;
+G90                              ; absolute positioning
 G0 X125 Y-7 Z80                  ; move extruder above bed, keep extruder in front for cleaning and checking
 ;
 M568 P0 S160 A2                  ; pre-heat extruder to 160°C
