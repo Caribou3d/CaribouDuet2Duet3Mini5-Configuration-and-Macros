@@ -6,8 +6,6 @@
 ;
 M291 P"Press OK to continue or CANCEL to abort." R"Heat up bed for #FILAMENT_NAME at #BED_TEMPERATURE°C?" S3
 ;
-G91                                                                    ; relative positioning
-;
 set global.zLiftDistance = 15                                          ; set distance to lift
 M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z
 ;

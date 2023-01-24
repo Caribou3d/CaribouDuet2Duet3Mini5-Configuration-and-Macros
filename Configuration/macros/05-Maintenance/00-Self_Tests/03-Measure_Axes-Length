@@ -50,8 +50,8 @@ var measured_length = move.axes[0].min
 ;
 ; revert to original value
 ;
-M208 X{var.x_min} S1                                            ; set axis minimum
-M208 X{var.x_max} S0                                            ; set axis maximum
+M208 X{var.x_min} S1                                                   ; set axis minimum
+M208 X{var.x_max} S0                                                   ; set axis maximum
 ;
 ; because of the changed offsets we have to home again
 ;
