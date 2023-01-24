@@ -351,9 +351,9 @@ echo
 # =========================================================================================================
 # read existing variants
 while IFS= read -r -d $'\0' f; do
-    preheatoptions[i++]="$f"
+    preheatbedoptions[i++]="$f"
 done < <(find $PREHEATPATHBED/*.h -maxdepth 1 -type f -name "*" -print0 )
-PREHEATVARIANTS=${preheatoptions[*]}
+PREHEATVARIANTS=${preheatbedoptions[*]}
 # prepare output folder
 if [ ! -d "$PREHEATOUTPUTBED" ]; then
     mkdir -p $PREHEATOUTPUTBED || exit 27
