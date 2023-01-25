@@ -429,7 +429,7 @@ cp -r $MacrosDir/00-Preheat_Extruder/processed $MacroOutputPath/00-Preheat_Extru
 cp -r $MacrosDir/01-Preheat_Bed/processed $MacroOutputPath/01-Preheat_Bed
 rm -f $MacroOutputPath/05-Maintenance/00-Self_Tests/11-z-Offset_Calibration
 
-# create 00-Test_Homing
+# create 01-Test_Homing
 #
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
@@ -438,7 +438,7 @@ sed "
 M280 P0 S160                      ; BLTouch, alarm release\\
 G4 P100                           ; BLTouch, delay for the release command
 };
-" < $MacrosDir/05-Maintenance/00-Self_Tests/00-Test_Homing > $MacroOutputPath/05-Maintenance/00-Self_Tests/00-Test_Homing
+" < $MacrosDir/05-Maintenance/00-Self_Tests/01-Test_Homing > $MacroOutputPath/05-Maintenance/00-Self_Tests/01-Test_Homing
 
 # create 01-Level-X-Axis
 #
@@ -446,15 +446,15 @@ sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/};
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
-" < $MacrosDir/05-Maintenance/00-Self_Tests/01-Level_X-Axis > $MacroOutputPath/05-Maintenance/00-Self_Tests/01-Level_X-Axis
+" < $MacrosDir/05-Maintenance/00-Self_Tests/02-Level_X-Axis > $MacroOutputPath/05-Maintenance/00-Self_Tests/02-Level_X-Axis
 
-# create 02-Measure_Axes-Length
+# create 03-Measure_Axes-Length
 #
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/#CARIBOU_ZHEIGHTLEVELING/$CARIBOU_ZHEIGHTLEVELING/};
 {s/#CARIBOU_ZHEIGHT/$CARIBOU_ZHEIGHT/}
-" < $MacrosDir/05-Maintenance/00-Self_Tests/02-Measure_Axes-Length > $MacroOutputPath/05-Maintenance/00-Self_Tests/02-Measure_Axes-Length
+" < $MacrosDir/05-Maintenance/00-Self_Tests/03-Measure_Axes-Length > $MacroOutputPath/05-Maintenance/00-Self_Tests/03-Measure_Axes-Length
 
 # create Load_Filament
 #
