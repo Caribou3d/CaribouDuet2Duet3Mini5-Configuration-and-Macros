@@ -1,0 +1,17 @@
+; =========================================================================================================
+;
+; end script (not all slicers support usage of variables)
+;
+; =========================================================================================================
+;
+T-1 P0                                                                 ; deselect tools
+;
+G91                                                                    ; relative positioning
+if {move.axes[2].machinePosition < (move.axes[2].max -20)}             ; if the z position is below 20mm below max z
+    G1 Z15                                                             ; lift z axis by 15mm
+G90                                                                    ; absolute positioning
+G1 X{move.axes[0].min} U{move.axes[3].max} Y{move.axes[1].max} F4000   ; park xuy axes
+M84 XUY                                                                ; disable xuy motors
+;
+; =========================================================================================================
+;
