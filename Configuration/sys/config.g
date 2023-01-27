@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "2.2.0"
-;                           Build :   471
+;                           Build :   472
 ;
 ; Copyright Caribou Research & Development 2023. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -32,8 +32,8 @@ global y_jerk = 0                                                      ; maximum
 ;
 ; general settings
 ;
-M111 S0                                                                   ; debugging off
-G21                                                                       ; work in millimetres
+M111 S0                                                                ; debugging off
+G21                                                                    ; work in millimetres
 ;
 ; =========================================================================================================
 ; network settings

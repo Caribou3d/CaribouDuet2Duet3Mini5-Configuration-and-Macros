@@ -25,7 +25,6 @@ CARIBOU_MINRETRACTTEMP=180
 
 # set output for sys and macros
 #
-
 SysOutputPath=../processed
 # prepare output folder
 if [ ! -d "$SysOutputPath" ]; then
@@ -50,9 +49,10 @@ fi
 # =========================================================================================================
 
 # copy sys files to processed folder
+#
 find .. -maxdepth 1 -type f -exec cp -rt $SysOutputPath {} +
 cp -r ../00-Functions $SysOutputPath
-#
+
 # replacements in functions
 #
 if [ "$DUETBOARD" = "DUET2" ]; then
@@ -108,9 +108,7 @@ sed -i "
 {s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g}
 " $SysOutputPath/00-Functions/ChangeFilament
 
-#
 # create CurrentSenseHoming
-
 #
 if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
@@ -139,7 +137,7 @@ G1 H2 X-0.2 Y-0.2 F3000                                                ; go back
 };
 " < ../00-Functions/CurrentSenseHoming > $SysOutputPath/00-Functions/CurrentSenseHoming
 fi
-#
+
 # create bed.g
 #
 sed "
@@ -156,7 +154,7 @@ M558 F400 T8000 A1 S0.03                                               ; for BL-
 # determine PRINTERNAME string
 #
 PRINTERNAME=$(printf "%s%*s%s" "M550 P\"$CARIBOU_NAME\"" $((63-${#CARIBOU_NAME})) '' "; set printer name")
-#
+
 # general replacements
 #
 sed "
@@ -170,6 +168,7 @@ sed "
 " < ../config.g > $SysOutputPath/config.g
 
 # replacements for drives
+#
 if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
@@ -204,6 +203,7 @@ M671 X-36.5:293.5 Y0:0 S1.00                                           ; leadscr
 fi
 
 # replacements for motor currents
+#
 sed -i "
 {/#CARIBOU_MOTOR_CURRENTS/ c\
 M906 X1250 Y1250 Z650 E900 I40                                         ; set motor currents (mA) and motor idle factor in percent
@@ -211,6 +211,7 @@ M906 X1250 Y1250 Z650 E900 I40                                         ; set mot
 " $SysOutputPath/config.g
 
 # replacements for stallguard sensitivy
+#
 if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
@@ -231,6 +232,7 @@ M915 Z S1 F0 H200 R0                                                   ; set z a
 fi
 
 # replacemente SE thermistor
+#
 if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
@@ -259,6 +261,7 @@ M143 H1 S365                                                           ; set tem
 fi
 
 # replacements for BL-Touch
+#
 if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
@@ -290,12 +293,14 @@ G31 X-24.3 Y-34.1
 fi
 
 # replacements for motor currents
+#
 sed -i "
 {/#CARIBOU_MOTOR_CURRENTS/ c\
 M906 X1250 Y1250 Z650 E900 I40                                         ; set motor currents (mA) and motor idle factor in percent
 };
 " $SysOutputPath/config.g
 # replacements for BL-Touch
+#
 if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
@@ -327,6 +332,7 @@ G31 X-24.3 Y-34.1
 fi
 
 # replacements for the heat bed
+#
 if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
@@ -352,6 +358,7 @@ M140 H0                                                                ; map hea
 fi
 
 # replacements for fans
+#
 if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
@@ -384,10 +391,8 @@ M106 P0 S0 H-1                                                         ; set fan
 " $SysOutputPath/config.g
 fi
 
+# create homez.g
 #
-# create homez and homeall
-#
-
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {s/#CARIBOU_MEASUREPOINT/G1 X148.5 Y142.5 F3600                                                 ; go to center of the bed/};
@@ -397,6 +402,8 @@ G4 P100                                                                ; BLTouch
 };
 " < ../homez.g > $SysOutputPath/homez.g
 
+# create start.g
+#
 sed "
 {s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
 {/#CARIBOU_ZPROBE/ c\
@@ -405,10 +412,8 @@ G4 P100                                                                ; BLTouch
 };
 " < ../start.g > $SysOutputPath/start.g
 
-#
 # create trigger2.g
 #
-
 sed "
 {s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
 {s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
@@ -420,6 +425,7 @@ sed "
 # =========================================================================================================
 
 # copy macros directory to processed folder
+#
 find $MacrosDir/* -maxdepth 0  ! \( -name "*Main*" -o -name "*Preheat*" -o -name "*processed*"  \) -exec cp -r -t  $MacroOutputPath {} \+
 
 mkdir $MacroOutputPath/05-Maintenance
