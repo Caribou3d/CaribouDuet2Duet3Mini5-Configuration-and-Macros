@@ -13,7 +13,7 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
 ;
 ; =========================================================================================================
 ;
-M291 P"Press OK to continue or CANCEL to abort." R"Heater check (bed and extruder)" S3
+M291 P"Press OK to continue or CANCEL to abort." R"Heater test (bed and extruder)" S3
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
   G28                                                                  ; home all axes without mesh bed level
