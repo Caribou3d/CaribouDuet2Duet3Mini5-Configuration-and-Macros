@@ -8,15 +8,12 @@
 ;
 ; =========================================================================================================
 ;
-if {move.axes[0].workplaceOffsets[8] == 1}                             ; check if filament sensor is enabled in x-offset of tool 9
-    if {move.axes[1].workplaceOffsets[8] != 0}                         ; if autoload is not disabled
-        if !exists(sensors.filamentMonitors[0])                        ; in run-out mode?
-            M98 P"0:/sys/00-Functions/ActivateRunOutSensor"            ; activate run out sensor
-        G10 L2 P9 Y0                                                   ; save status into y-offset of tool 9
-        M500                                                           ; save status to config-override.g
-        M291 P"Autoload function is turned OFF." S2                    ; display new message
-    else
-        M291 P"Autoload function is turned OFF already." S2            ; display new message
+if {move.axes[0].workplaceOffsets[8] == 1}                         ; check if filament sensor is enabled in x-offset of tool 9
+    G10 L2 P9 Y0                                                   ; save status into y-offset of tool 9
+    M500                                                           ; save status to config-override.g
+    if !exists(sensors.filamentMonitors[0])                        ; in run-out mode?
+        M98 P"0:/sys/00-Functions/ActivateRunOutSensor"            ; activate run out sensor
+    M291 P"Autoload function is turned OFF." S2                    ; display new message
 else
     M291 P"Filament sensor is turned OFF. Please turn sensor on first." S2  ; display new message
 ;
