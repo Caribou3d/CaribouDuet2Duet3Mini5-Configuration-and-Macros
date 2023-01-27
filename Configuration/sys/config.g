@@ -32,8 +32,8 @@ global y_jerk = 0                                                      ; maximum
 ;
 ; general settings
 ;
-M111 S0    				                                               ; debugging off
-G21    				                                                   ; work in millimetres
+M111 S0                                                                   ; debugging off
+G21                                                                       ; work in millimetres
 ;
 ; =========================================================================================================
 ; network settings
