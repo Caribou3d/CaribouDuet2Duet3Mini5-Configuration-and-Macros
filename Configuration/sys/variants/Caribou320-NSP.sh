@@ -59,6 +59,36 @@ cp -r ../00-Functions $SysOutputPath
 if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
+{/#CARIBOU_TRIGGER/ c\
+\            M950 J0 C\"e0stop\"                                          ; input 0 filament sensor
+};
+" $SysOutputPath/00-Functions/FilamentSensorStatus
+else
+sed -i "
+{/#CARIBOU_TRIGGER/ c\
+\            M950 J0 C\"io2.in\"                                          ; input 0 filament sensor
+};
+" $SysOutputPath/00-Functions/FilamentSensorStatus
+fi
+
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
+sed -i "
+{/#CARIBOU_DISABLE_FILAMENT_SENSOR/ c\
+\        M591 D0 P0 C\"e0stop\" S1                                        ; disable filament runout sensor
+};
+" $SysOutputPath/00-Functions/RunOutOff
+else
+sed -i "
+{/#CARIBOU_DISABLE_FILAMENT_SENSOR/ c\
+\       M591 D0 P0 C\"io2.in\" S0                                         ; disable filament runout sensor
+};
+" $SysOutputPath/00-Functions/RunOutOff
+fi
+
+if [ "$DUETBOARD" = "DUET2" ]; then
+# Duet 2
+sed -i "
 {/#CARIBOU_ENABLE_FILAMENT_SENSOR/ c\
 M591 D0 P2 C\"e0stop\" S1                                                ; filament runout sensor
 };
@@ -74,29 +104,14 @@ fi
 if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
-{/#CARIBOU_DISABLE_FILAMENT_SENSOR/ c\
-\        M591 D0 P0 C\"e0stop\" S1                                        ; disable filament runout sensor
-};
-" $SysOutputPath/00-Functions/RunOutOff
-else
-sed -i "
-{/#CARIBOU_DISABLE_FILAMENT_SENSOR/ c\
-\        M591 D0 P0 C\"io2.in\" S0                                        ; disable filament runout sensor
-};
-" $SysOutputPath/00-Functions/RunOutOff
-fi
-
-if [ "$DUETBOARD" = "DUET2" ]; then
-# Duet 2
-sed -i "
 {/#CARIBOU_TRIGGER/ c\
-M950 J0 C\"e0stop\"                                                      ; input 1 e0 filament sensor
+M950 J0 C\"e0stop\"                                                      ; input 0 filament sensor
 };
 " $SysOutputPath/00-Functions/TriggerOn
 else
 sed -i "
 {/#CARIBOU_TRIGGER/ c\
-M950 J1 C\"io2.in\"                                                      ; input 1 e0 filament sensor
+M950 J0 C\"io2.in\"                                                      ; input 0 filament sensor
 };
 " $SysOutputPath/00-Functions/TriggerOn
 fi
