@@ -395,13 +395,14 @@ sed "
 
 # copy macros directory to processed folder
 #
-find $MacrosDir/* -maxdepth 0  ! \( -name "*Main*" -o -name "06-BL-Touch" -o -name "*Preheat*" -o -name "*processed*"  \) -exec cp -r -t  $MacroOutputPath {} \+
+find $MacrosDir/* -maxdepth 0  ! \( -name "*Main*" -o -name "06-BL-Touch" -o -name "07-Fun" -o -name "*Preheat*" -o -name "*processed*"  \) -exec cp -r -t  $MacroOutputPath {} \+
 
 mkdir $MacroOutputPath/05-Maintenance
 find $MacrosDir/05-Maintenance/* -maxdepth 0  ! \( -name "*First*" \) -exec cp -r -t  $MacroOutputPath/05-Maintenance {} \+
 cp -r $MacrosDir/05-Maintenance/01-First_Layer_Calibration/processed $MacroOutputPath/05-Maintenance/01-First_Layer_Calibration
 cp -r $MacrosDir/00-Preheat_Extruder/processed $MacroOutputPath/00-Preheat_Extruder
 cp -r $MacrosDir/01-Preheat_Bed/processed $MacroOutputPath/01-Preheat_Bed
+cp -r $MacrosDir/07-Fun $MacroOutputPath/06-Fun
 
 # create 00-Test_Homing
 #
