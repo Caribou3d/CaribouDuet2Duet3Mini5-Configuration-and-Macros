@@ -20,6 +20,8 @@ if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
 G90                                                                    ; absolute positioning
 G0 X125 Y-7 Z80                                                        ; move extruder above bed
 ;
+M400                                                                   ; finish all moves, clear the buffer
+;
 if heat.heaters[1].current > 100                                       ; check if bed is cooled down
     M568 P0 S0 R0 A0                                                   ; turn off extruder
     M106 P0 S1                                                         ; turn on part cooling fan
