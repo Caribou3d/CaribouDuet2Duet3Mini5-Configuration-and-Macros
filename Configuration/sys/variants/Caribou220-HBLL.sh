@@ -91,7 +91,7 @@ if [ "$DUETBOARD" = "DUET2" ]; then
 # Duet 2
 sed -i "
 {/#CARIBOU_TRIGGER/ c\
-M950 J1 C\"e0stop\"                                                      ; input 1 e0 filament sensor
+M950 J0 C\"e0stop\"                                                      ; input 1 e0 filament sensor
 };
 " $SysOutputPath/00-Functions/TriggerOn
 else
