@@ -12,7 +12,7 @@
 ;
 ; variables
 ;
-M291 R"Estimating Pi ... " P"Press OK to start ..." S2                 ; display new message
+M291 R"Estimate Pi. That takes a moment ... " P"Press OK to start ..." S2 ; display new message
 ;
 var maxdarts = 1000                                                    ; number of darts to be thrown. You
 var radius   = 1000                                                    ; radius of the circle = half the length of the square
