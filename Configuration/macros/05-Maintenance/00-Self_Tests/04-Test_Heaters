@@ -8,7 +8,7 @@
 ; =========================================================================================================
 ;
 if {state.status == "processing"} || {state.status == "paused"}        ; printer is not currently printing!
-    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
+    M291 P"Cannot run during an ongoing print. Please run this macro when the printer is not printing!" R"WARNING!" S2
     M99
 ;
 ; =========================================================================================================
@@ -37,7 +37,7 @@ M140 S-274                                                             ; set bed
 M300 S500 P1000                                                        ; beep
 G4 P2000                                                               ; wait two seconds
 ;
-M291 P"all ok" R"Test bed." S2
+M291 P"all ok." R"Test bed" S2
 ;
 ; =========================================================================================================
 ;
@@ -53,9 +53,9 @@ M568 P0 S0 R0 A0                                                       ; turn of
 M300 S500 P1000                                                        ; beep
 G4 P2000                                                               ; wait two seconds
 ;
-M291 P"all ok" R"Test Extruder." S2
+M291 P"all ok." R"Test extruder" S2
 ;
-M291 P"all ok" R"Heater test." S2
+M291 P"all ok." R"Heater test" S2
 ;
 ; =========================================================================================================
 ;

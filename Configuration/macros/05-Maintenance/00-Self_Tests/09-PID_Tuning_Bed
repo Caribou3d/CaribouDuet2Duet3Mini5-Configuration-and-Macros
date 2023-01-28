@@ -10,7 +10,7 @@
 ; =========================================================================================================
 ;
 if {state.status == "processing"} || {state.status == "paused"}        ; printer is not currently printing!
-    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
+    M291 P"Cannot run during an ongoing print. Please run this macro when the printer is not printing!" R"WARNING!" S2
     M99
 ;
 ; =========================================================================================================
@@ -37,7 +37,7 @@ if heat.heaters[0].current > 40                                        ; check i
 M303 H0 S{var.target_temperature}                                      ; start PID tuning for target temperature
 ;
 while heat.heaters[0].state = "tuning"                                 ; while the tuning
-    M291 P"Running ..." R"PID tuning heated bed." S1                   ; display message
+    M291 P"Running ..." R"PID tuning heated bed" S1                    ; display message
     G4 S10                                                             ; wait 10 seconds
 ;
 M500 P31                                                               ; save to config-override.g
@@ -48,7 +48,7 @@ M140 S-274                                                             ; set bed
 M300 S500 P1000                                                        ; beep
 G4 P2000                                                               ; wait two seconds
 ;
-M291 P"Completed. PID values have been saved." R"PID tuning heated bed." S2
+M291 P"Completed. PID values have been saved." R"PID tuning heated bed" S2
 ;
 ; =========================================================================================================
 ;

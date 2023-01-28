@@ -8,7 +8,7 @@
 ; =========================================================================================================
 ;
 if {state.status == "processing"} || {state.status == "paused"}        ; printer is not currently printing!
-    M291 S2 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!"
+    M291 P"Cannot run during an ongoing print. Please run this macro when the printer is not printing!" R"WARNING!" S2
     M99
 ;
 M291 P"Press OK to continue or CANCEL to abort." R"Measure axis length (xyz)" S3
@@ -184,9 +184,9 @@ else
 ; =========================================================================================================
 ;
 if (var.x_ok && var.y_ok && var.z_ok)
-    M291 R{"All axes have the correct length."} P{"Measure Axes length"} S2
+    M291 R{"All axes have the correct length."} P{"Measure axes length"} S2
 else
-    M291 R{"ERROR: Axes have incorrect length."} P{"Measure Axes length"} S2
+    M291 R{"ERROR: Axes have incorrect length."} P{"Measure axes length"} S2
 ;
 ; =========================================================================================================
 ;
