@@ -24,6 +24,8 @@ var radiussquare = var.radius * var.radius                             ; square 
 ;
 ; do the Monte-Carlo simulation
 ;
+M291 P"Running ..." S1                                                 ; display message
+
 while var.darts < var.maxdarts                                         ; throw maxdarts darts
     set var.darts = var.darts +1                                       ; count darts
     set var.xpos  = random(var.radius)                                 ; generate random x position
