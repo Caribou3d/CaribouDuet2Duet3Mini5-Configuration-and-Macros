@@ -9,23 +9,7 @@ if {move.axes[0].workplaceOffsets[8] != 1}                             ; check i
     M500                                                               ; save status to config-override.g
     M98 P"0:/sys/00-Functions/FilamentSensorStatus"                    ; update sensor status
 ;
-if exists(sensors.filamentMonitors[0])                                 ; is the run-out mode activated?
-    if {sensors.filamentMonitors[0].status = "ok"}                     ; if filament is loaded
-        if {move.axes[1].workplaceOffsets[8] == 1}                     ; if autoload is enabled
-            M291 R{"Filament Sensor"} P{"Status: ON, Autoload: ON, Filament: LOADED "  } S2
-        else
-            M291 R{"Filament Sensor"} P{"Status: ON, Autoload: OFF, Filament: LOADED "  } S2
-    else
-        if {move.axes[1].workplaceOffsets[8] == 1}                     ; if autoload is enabled
-            M291 R{"Filament Sensor"} P{"Status: ON, Autoload: ON, Filament: NOT LOADED "  } S2
-        else
-            M291 R{"Filament Sensor"} P{" Status: ON, Autoload: OFF, Filament: NOT LOADED "  } S2
-else
-    if {move.axes[1].workplaceOffsets[8] == 1}                         ; if autoload is not enabled
-        M291 R{"Filament Sensor"} P{"Status: ON, Autoload: ON, Filament: NOT LOADED "  } S2
-    else
-        M291 R{"Filament Sensor"} P{" Status: ON, Autoload: OFF, Filament: NOT LOADED "  } S2
-
+M98 P"0:/macros/04-Filament_Sensor/00-Sensor_STATUS"
 ;
 ; =========================================================================================================
 ;

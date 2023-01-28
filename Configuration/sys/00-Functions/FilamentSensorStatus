@@ -14,14 +14,14 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; is fila
            if {move.axes[1].workplaceOffsets[8] == 1}                  ; is autoload active?
                M98 P"0:/sys/00-Functions/ActivateAutoload"
     else
-        if !exists(sensors.gpIn[1])                                    ; is the pin free?
-            M950 J1 C"e0stop"                                          ; input 1 e0 filament sensor
-        if (sensors.gpIn[1].value = 1)                                 ; no filament
+        if !exists(sensors.gpIn[0])                                    ; is the pin free?
+; #CARIBOU_TRIGGER
+        if (sensors.gpIn[0].value = 1)                                 ; no filament
            if {move.axes[1].workplaceOffsets[8] == 1}                  ; is autoload active?
-               M950 J1 C"nil"                                          ; free input 1 e0 filament sensor
+               M950 J0 C"nil"                                          ; free input 1 e0 filament sensor
                M98 P"0:/sys/00-Functions/ActivateAutoload"
         else                                                           ; filament is loaded
-           M950 J1 C"nil"                                              ; free input 1 e0 filament sensor
+           M950 J0 C"nil"                                              ; free input 1 e0 filament sensor
            M98 P"0:/sys/00-Functions/ActivateRunOutSensor"
 ;
 ; =========================================================================================================

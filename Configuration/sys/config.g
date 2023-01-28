@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "2.2.0"
-;                           Build :   477
+;                           Build :   482
 ;
 ; Copyright Caribou Research & Development 2023. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -29,6 +29,8 @@ global x_accel = 0                                                     ; stores 
 global x_jerk = 0                                                      ; stores x maximum instantaneous speed changes (mm/min)
 global y_accel = 0                                                     ; stores y accelerations (mm/s^2)
 global y_jerk = 0                                                      ; maximum y instantaneous speed changes (mm/min)
+global filamentErrorIgnore = 0                                         ; enable / disable execution of filament-error.g
+global filamentTriggerIgnore = 0                                       ; enable / disable execution of trigger2.g
 ;
 ; general settings
 ;
