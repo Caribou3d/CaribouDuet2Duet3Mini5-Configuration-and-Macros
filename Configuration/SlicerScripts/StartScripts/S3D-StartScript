@@ -7,7 +7,7 @@
 G90                       ; absolute positioning
 G1 X125 Y-7 Z80 F4000     ; move extruder above bed,
 ;
-M568 P0 S160 A2           ; pre-heat extruder to 160°C
+M568 P0 S160 A2           ; pre-heat extruder to 160C
 M140 S[bed0_temperature]      ; this will take the layer 1 temperature for bed 0
 M190 S[bed0_temperature]      ; wait for bed temp
 ;
