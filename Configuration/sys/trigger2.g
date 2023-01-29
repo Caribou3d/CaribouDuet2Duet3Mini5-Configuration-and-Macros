@@ -20,11 +20,11 @@ if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check t
     set global.filamentErrorIgnore = 0
     M99
 ;
-T0                                                                    ; activate hotend
+T0                                                                     ; activate hotend
 ;
 M291 P"Feeding filament ..." S1 T15                                    ; display message
 ;
-G91                                                                   ; set to Relative Positioning
+G91                                                                    ; set to Relative Positioning
 G1 E#CARIBOU_INITIALLOAD F400                                                            ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/min
 G1 E15 F200                                                            ; feed 15mm of filament at 200mm/min
 G4 P1000                                                               ; wait one second

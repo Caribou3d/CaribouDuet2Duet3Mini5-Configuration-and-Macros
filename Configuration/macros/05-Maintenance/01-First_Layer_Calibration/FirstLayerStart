@@ -4,7 +4,7 @@
 ;
 ; =========================================================================================================
 ;
-M291 R{"First layer calibration for #FILAMENT_NAME at #FILAMENT_TEMPERATURE_ACTIVE°C."} P{"Press OK to continue or CANCEL to abort."}  S3
+M291 R{"First layer calibration for #FILAMENT_NAME at #FILAMENT_TEMPERATURE_ACTIVE°C"} P{"Press OK to continue or CANCEL to abort."}  S3
 ;
 ;====== print meander and square ==========================================================================
 ;

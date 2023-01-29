@@ -4,7 +4,7 @@
 ;
 ; =========================================================================================================
 ;
-M98 P"00-Functions/CurrentSenseNormal"                               ; ensure the drivers current and sensitivity is set for normal routines
+M98 P"00-Functions/CurrentSenseNormal"                                 ; ensure the drivers current and sensitivity is set for normal routines
 if heat.heaters[1].current > heat.coldExtrudeTemperature               ; check extrude temperature
     M83                                                                ; relative extruder moves
     G1 E5 F600                                                         ; extrude 5mm of filament (now being able to pull that away)

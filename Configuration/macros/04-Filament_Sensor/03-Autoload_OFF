@@ -8,7 +8,7 @@
 ;
 ; =========================================================================================================
 ;
-if {move.axes[0].workplaceOffsets[8] != 1}                         ; check if filament sensor is enabled in x-offset of tool 9
+if {move.axes[0].workplaceOffsets[8] != 1}                     ; check if filament sensor is enabled in x-offset of tool 9
     M291 P"Filament sensor is turned OFF. Please turn sensor on first." S2  ; display new message
     M99
 ;
