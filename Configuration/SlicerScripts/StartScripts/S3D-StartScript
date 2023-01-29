@@ -15,7 +15,7 @@ G29                       ; mesh bed leveling using defined mesh grid
 G1 X0 Y-3 Z0.6 F4000      ; go outside print area
 ;
 M568 P0 S[extruder0_temperature] A2 ; set extruder temperature
-M109 S[extruder0_temperature]       ; wait for extruder temp
+M116 P0                   ; wait for extruder temp
 ;
 ; =========================================================================================================
 ;
