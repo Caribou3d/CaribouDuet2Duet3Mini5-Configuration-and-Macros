@@ -74,3 +74,13 @@ Support for BL-Touch for installation on the right side was initiated by Michael
 We would like to thank 3d-gussner for his effort when we started this project. The CC-build and the sorting scripts have their roots in the PF-build and sorting scripts for building the Prusa firmware which were developed by 3d-gussner.
 
 We're thankful to rkolbi for providing his scripts and documentation to us at an early stage. His repository can be found at https://github.com/rkolbi/RRF-machine-config-files/tree/master/Prusa%20MK3s
+
+# STLs
+
+We provide some gcodes for first testing the printer. These gcode are sliced from the models:
+
+- Owl: by cushwa https://www.thingiverse.com/thing:18218/files
+- Calibration squares: by makeryo https://www.thingiverse.com/thing:1776031
+- HollowCube by pekcitron https://www.thingiverse.com/thing:3405991
+- HollowPyramid by SpierceTech https://www.thingiverse.com/thing:8757
+- Infinity Cube by mjdargen https://www.thingiverse.com/thing:4997903
