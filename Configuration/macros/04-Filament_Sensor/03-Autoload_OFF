@@ -14,11 +14,11 @@ if {move.axes[0].workplaceOffsets[8] != 1}                     ; check if filame
 ;
 G10 L2 P9 Y0                                                   ; save status into y-offset of tool 9
 M500                                                           ; save status to config-override.g
+;
 if !exists(sensors.filamentMonitors[0])                        ; in run-out mode?
     set global.filamentErrorIgnore = 1
     M98 P"0:/sys/00-Functions/ActivateRunOutSensor"            ; activate run out sensor
     set global.filamentErrorIgnore = 0
-;
 ;
 M98 P"0:/macros/04-Filament_Sensor/00-Sensor_STATUS"
 ;
