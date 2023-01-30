@@ -16,12 +16,14 @@ G4 P2000                                                               ; wait tw
 if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check temperature
     M98 P"0:/sys/00-Functions/ActivateRunOutSensor"                    ; activate RunOut Sensor to check if filament is loaded
     set global.filamentErrorIgnore = 1
+    M292 P1                                                            ; cancel previous operation
     M291 R"Hotend too cold. Preheat extruder first!" P"Please pull out filament!" S2 ; ask to preheat extruder
     set global.filamentErrorIgnore = 0
     M99
 ;
 T0                                                                     ; activate hotend
 ;
+M292 P1                                                                ; cancel previous operation
 M291 P"Feeding filament ..." S1 T15                                    ; display message
 ;
 G91                                                                    ; set to Relative Positioning

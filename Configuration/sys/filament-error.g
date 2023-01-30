@@ -8,6 +8,7 @@
 ;
 if state.status != "processing"                                        ; printer is not currently printing!
     if (global.filamentErrorIgnore != 1)                               ; leave when deactivated
+        M292 P1                                                        ; cancel previous operation
         M300 S500 P600                                                 ; beep
         G4 P2000                                                       ; wait two seconds
         M291 P"Filament removed ..." S1 T15                            ; display message
