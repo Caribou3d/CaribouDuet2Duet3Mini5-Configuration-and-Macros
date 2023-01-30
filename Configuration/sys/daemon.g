@@ -28,7 +28,6 @@ if !(state.status == "processing")
         set global.IdleCounter = global.IdleCounter +1                 ; when idle increase counter
 ;
 if (global.IdleCounter >= var.idle_time)                               ; turn heating off after 15min
-    M291 P{"Idle time: " ^ global.IdleCounter / 6 ^ " min."} S1 T5     ; display approx. idle time
     echo {"Idle time: " ^ global.IdleCounter / 6 ^ " min."}
     echo "Turning heaters off"
     G4 S5                                                              ; wait 5 seconds
