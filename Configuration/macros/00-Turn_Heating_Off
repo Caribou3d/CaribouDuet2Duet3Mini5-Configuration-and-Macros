@@ -21,7 +21,7 @@ M140 S-274                                                             ; set bed
 ;
 M106 P0 S0                                                             ; set fan 0 value
 ;
-M291 P"Turned all heaters off." S1 T5                                  ; display new message
+echo "Turned all heaters off."                                         ; display new message
 ;
 ; =========================================================================================================
 ;
