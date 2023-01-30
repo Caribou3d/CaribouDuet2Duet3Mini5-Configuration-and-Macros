@@ -28,7 +28,7 @@ if !(state.status == "processing")
         set global.IdleCounter = global.IdleCounter +1                 ; when idle increase counter
 ;
 if (global.IdleCounter >= var.idle_time)                               ; turn heating off after 15min
-    M300 S500 P600                                                     ; beep
+    M300 S500 P2000                                                    ; beep
     echo {"Idle time: " ^ global.IdleCounter / 6 ^ " min."}
     echo "Turning heaters off ..."
     M98 P"0:/macros/00-Turn_Heating_Off"                               ; call macro to turn heating off
@@ -45,19 +45,19 @@ if state.status = "processing"                                         ; printer
 if (!(state.status == "processing"))
     if (!(state.status == "pausing") && !(state.status == "paused"))
         if (!(state.status == "resuming") && global.OldStateStatus = 1) ; print just finished
-            if move.axes[2].babystep !=0                                ; if no babysteps are currently adjusted - exit routine
+            if move.axes[2].babystep !=0                               ; if no babysteps are currently adjusted - exit routine
                 G31 Z{sensors.probes[0].triggerHeight - move.axes[2].babystep}
-                M500 P10:31                                             ; save settings to config-overide.g
-                M290 R0 S0                                              ; set babystep to 0mm absolute
+                M500 P10:31                                            ; save settings to config-overide.g
+                M290 R0 S0                                             ; set babystep to 0mm absolute
                 set global.OldStateStatus = 0
                 echo "babysteps saved"
 ;
 ; =========================================================================================================
 ;
-if (global.waitForExtruderTemperature == true)                          ; if pre-heating
+if (global.waitForExtruderTemperature == true)                         ; if pre-heating
     if (heat.heaters[1].current >= heat.heaters[1].active)
-        echo "Extruder temperature reached."                            ; display new message
-        M300 S500 P1000                                                 ; beep when temperature is reached
+        echo "Extruder temperature reached."                           ; display new message
+        M300 S500 P1000                                                ; beep when temperature is reached
         set global.waitForExtruderTemperature = false
 ;
 ; =========================================================================================================
