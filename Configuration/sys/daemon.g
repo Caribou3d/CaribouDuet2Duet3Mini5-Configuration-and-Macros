@@ -28,9 +28,9 @@ if !(state.status == "processing")
         set global.IdleCounter = global.IdleCounter +1                 ; when idle increase counter
 ;
 if (global.IdleCounter >= var.idle_time)                               ; turn heating off after 15min
+    M300 S500 P600                                                     ; beep
     echo {"Idle time: " ^ global.IdleCounter / 6 ^ " min."}
-    echo "Turning heaters off"
-    G4 S5                                                              ; wait 5 seconds
+    echo "Turning heaters off ..."
     M98 P"0:/macros/00-Turn_Heating_Off"                               ; call macro to turn heating off
 ;
 ; =========================================================================================================
