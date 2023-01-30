@@ -4,10 +4,8 @@
 ;
 ; =========================================================================================================
 ;
-M98 P"0:/sys/00-Functions/TriggerOff"                                  ; turn trigger off
-set global.filamentErrorIgnore = 1
-M98 P"0:/sys/00-Functions/RunOutOn"                                    ; turn trigger ON
-set global.filamentErrorIgnore = 0
+M98 P"0:/sys/00-Functions/TriggerOff"                                  ; turn trigger OFF
+M98 P"0:/sys/00-Functions/RunOutOn"                                    ; turn run out sensor ON
 ;
 ; =========================================================================================================
 ;
