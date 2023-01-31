@@ -17,6 +17,7 @@ if {move.axes[2].machinePosition < (move.axes[2].max -20)}             ; if the 
 G90                                                                    ; absolute positioning
 G1 X{move.axes[0].min} Y{move.axes[1].max-5} } F6000                   ; park x axis, move bed to front
 M84 XY                                                                 ; disable motors
+T-1 P0                                                                 ; deselct tool
 ;
 ; =========================================================================================================
 ;
