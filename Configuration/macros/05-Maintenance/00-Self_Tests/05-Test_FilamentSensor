@@ -3,7 +3,7 @@
 ; test routine for Duet2 and Duet3Mini5+ WiFi/Ethernet
 ; part of self tests
 ;
-; PID tuning nozzle
+; check filament sensor
 ;
 ; =========================================================================================================
 ;
@@ -22,15 +22,14 @@ G0 X125 Y-7 Z80                                                        ; move ex
 ;
 M400                                                                   ; finish all moves, clear the buffer
 ;
+M568 P0 S0 R0 A0                                                       ; turn off extruder
+;
 if heat.heaters[1].current > 100                                       ; check if bed is cooled down
-    M568 P0 S0 R0 A0                                                   ; turn off extruder
     M106 P0 S1                                                         ; turn on part cooling fan
-    M106 P1 H1 T0                                                      ; turn on extruder fan
     while heat.heaters[1].current > 100                                ; while waiting to cool down
-        M291 P"Cooling down the extruder ..." R"PID tuning extruder." S1 ; display message
+        M291 P"Cooling down the extruder ..." R"Filament sensor test" S1 ; display message
         G4 S10                                                         ; wait 10 seconds
     M106 P0 S0                                                         ; turn off part cooling fan
-    M106 P1 H1 T45                                                     ; extruder fan turns on at 45°C
 ;
 if {move.axes[0].workplaceOffsets[8] != 1} || (move.axes[1].workplaceOffsets[8] != 1)  ; check if filament sensor is not enabled in x-offset of tool 9
     if {move.axes[0].workplaceOffsets[8] != 1}
@@ -44,7 +43,7 @@ if {move.axes[0].workplaceOffsets[8] != 1} || (move.axes[1].workplaceOffsets[8] 
     M98 P"0:/sys/00-Functions/FilamentSensorStatus"                    ; update sensor status
 ;
 set global.filamentErrorIgnore = 1
-while exists(sensors.filamentMonitors[0])               ; if filament loaded already
+while exists(sensors.filamentMonitors[0])                              ; if filament loaded already
     M291 P"Filament loaded. Please remove filament ..." S2
 ;
 set global.filamentTriggerIgnore = 1

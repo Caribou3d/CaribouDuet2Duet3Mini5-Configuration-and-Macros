@@ -7,7 +7,7 @@
 M581 P0 T2 S-1 R0                                                      ; filament sensor does not listen anymore (S-1). Autoload is disabled.
 ;
 if (global.filamentTriggerIgnore == 1)
-    M98 P"0:/sys/00-Functions/ActivateRunOutSensor"                    ; activate RunOut Sensor to check if filament is loaded
+    M98 P"0:/sys/00-Functions/ActivateRunOutSensor"                    ; activate RunOutSensor 0 to check if filament is loaded
     M99
 ;
 M300 S500 P600                                                         ; beep
