@@ -12,7 +12,7 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
 ; =========================================================================================================
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
-  G28                                                                  ; home all axes without mesh bed level
+    G28                                                                ; home all axes without mesh bed level
 G90                                                                    ; absolute positioning
 G0 X125 Y-7 Z160                                                       ; move extruder above bed, keep extruder in front for cleaning and checking
 ;
