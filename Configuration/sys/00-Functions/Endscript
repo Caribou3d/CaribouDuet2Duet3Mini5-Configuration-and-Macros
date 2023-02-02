@@ -4,8 +4,6 @@
 ;
 ; =========================================================================================================
 ;
-T-1 P0                                                                 ; deselect tool
-;
 G91                                                                    ; relative positioning
 if {move.axes[2].machinePosition < (move.axes[2].max -20)}             ; if the z position is below 20mm below max z
     G1 Z15                                                             ; lift z axis by 15mm

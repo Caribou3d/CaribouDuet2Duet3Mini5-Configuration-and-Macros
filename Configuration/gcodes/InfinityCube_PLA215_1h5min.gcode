@@ -181,7 +181,7 @@
 ; AAAAAB
 ; thumbnail_QOI end
 ;
-; 
+;
 
 ; external perimeters extrusion width = 0.45mm
 ; perimeters extrusion width = 0.45mm
@@ -80491,6 +80491,8 @@ M106 S0
 G1 F1000.0                ; set feed rate
 G1 E-2                    ; retract 2mm
 ;
+T-1                       ; deselect tool
+;
 M568 P0 S0 R0 A0          ; turn off tool 0
 ;
 M140 S0 R0                ; set bed temperature to 0C
@@ -80517,12 +80519,12 @@ M73 P100 R0
 ; avoid_crossing_not_first_layer = 1
 ; avoid_crossing_perimeters = 0
 ; avoid_crossing_perimeters_max_detour = 0
-; bed_custom_model = 
-; bed_custom_texture = 
+; bed_custom_model =
+; bed_custom_texture =
 ; bed_shape = 0x0,250x0,250x210,0x210
 ; bed_temperature = 55
 ; before_layer_gcode = ;BEFORE_LAYER_CHANGE\nG92 E0.0\n;[layer_z]\n\n
-; between_objects_gcode = 
+; between_objects_gcode =
 ; bottom_fill_pattern = monotonic
 ; bottom_solid_layers = 4
 ; bottom_solid_min_thickness = 0.5
@@ -80581,7 +80583,7 @@ M73 P100 R0
 ; external_infill_margin = 150%
 ; external_perimeter_acceleration = 0
 ; external_perimeter_cut_corners = 0%
-; external_perimeter_extrusion_spacing = 
+; external_perimeter_extrusion_spacing =
 ; external_perimeter_extrusion_width = 0.45
 ; external_perimeter_fan_speed = -1
 ; external_perimeter_overlap = 100%
@@ -80602,7 +80604,7 @@ M73 P100 R0
 ; extruder_temperature_offset = 0
 ; extrusion_axis = E
 ; extrusion_multiplier = 0.88
-; extrusion_spacing = 
+; extrusion_spacing =
 ; extrusion_width = 0.45
 ; fan_always_on = 1
 ; fan_below_layer_time = 100
@@ -80610,7 +80612,7 @@ M73 P100 R0
 ; fan_percentage = 0
 ; fan_speedup_overhangs = 1
 ; fan_speedup_time = 0
-; feature_gcode = 
+; feature_gcode =
 ; filament_colour = #FF8000
 ; filament_cooling_final_speed = 3.4
 ; filament_cooling_initial_speed = 2.2
@@ -80661,7 +80663,7 @@ M73 P100 R0
 ; first_layer_acceleration = 0
 ; first_layer_acceleration_over_raft = 0
 ; first_layer_bed_temperature = 55
-; first_layer_extrusion_spacing = 
+; first_layer_extrusion_spacing =
 ; first_layer_extrusion_width = 0.42
 ; first_layer_flow_ratio = 100%
 ; first_layer_height = 0.2
@@ -80714,7 +80716,7 @@ M73 P100 R0
 ; infill_dense_algo = autoenlarged
 ; infill_every_layers = 1
 ; infill_extruder = 1
-; infill_extrusion_spacing = 
+; infill_extrusion_spacing =
 ; infill_extrusion_width = 0.45
 ; infill_first = 0
 ; infill_only_where_needed = 0
@@ -80762,8 +80764,8 @@ M73 P100 R0
 ; milling_extra_size = 150%
 ; milling_post_process = 0
 ; milling_speed = 30
-; milling_toolchange_end_gcode = 
-; milling_toolchange_start_gcode = 
+; milling_toolchange_end_gcode =
+; milling_toolchange_start_gcode =
 ; min_bead_width = 85%
 ; min_fan_speed = 70
 ; min_feature_size = 0.1
@@ -80775,7 +80777,7 @@ M73 P100 R0
 ; mmu_segmented_region_max_width = 0
 ; model_precision = 0.0001
 ; no_perimeter_unsupported_algo = none
-; notes = 
+; notes =
 ; nozzle_diameter = 0.4
 ; only_one_perimeter_first_layer = 0
 ; only_one_perimeter_top = 1
@@ -80795,7 +80797,7 @@ M73 P100 R0
 ; perimeter_acceleration = 0
 ; perimeter_bonding = 0%
 ; perimeter_extruder = 1
-; perimeter_extrusion_spacing = 
+; perimeter_extrusion_spacing =
 ; perimeter_extrusion_width = 0.45
 ; perimeter_generator = classic
 ; perimeter_loop = 0
@@ -80804,21 +80806,21 @@ M73 P100 R0
 ; perimeter_round_corners = 0
 ; perimeter_speed = 80
 ; perimeters = 3
-; physical_printer_settings_id = 
-; post_process = 
-; print_custom_variables = 
+; physical_printer_settings_id =
+; post_process =
+; print_custom_variables =
 ; print_extrusion_multiplier = 100%
 ; print_retract_length = -1
 ; print_retract_lift = -1
 ; print_settings_id = 0.20mm CARIBOU PARTS @Caribou - Copy
 ; print_temperature = 0
-; printer_custom_variables = 
+; printer_custom_variables =
 ; printer_model = Caribou_Duet_220
 ; printer_notes = Don't remove the following keywords! These keywords are used in the "compatible printer" condition of the print and filament profiles to link the particular print and filament profiles to this printer profile.\nPRINTER_VENDOR_CARIBOU3D\nPRINTER_MODEL_DUET\n
 ; printer_settings_id = CaribouDuet 220 - Copy
 ; printer_technology = FFF
 ; printer_variant = 0.4
-; printer_vendor = 
+; printer_vendor =
 ; raft_contact_distance = 0.1
 ; raft_expansion = 1.5
 ; raft_first_layer_density = 90%
@@ -80867,7 +80869,7 @@ M73 P100 R0
 ; solid_infill_below_area = 0
 ; solid_infill_every_layers = 0
 ; solid_infill_extruder = 1
-; solid_infill_extrusion_spacing = 
+; solid_infill_extrusion_spacing =
 ; solid_infill_extrusion_width = 0.45
 ; solid_infill_overlap = 100%
 ; solid_infill_speed = 64
@@ -80912,7 +80914,7 @@ M73 P100 R0
 ; support_material_with_sheath = 0
 ; support_material_xy_spacing = 50%
 ; temperature = 210
-; template_custom_gcode = 
+; template_custom_gcode =
 ; thin_perimeters = 100%
 ; thin_perimeters_all = 20%
 ; thin_walls = 1
@@ -80933,10 +80935,10 @@ M73 P100 R0
 ; time_start_gcode = 20
 ; time_toolchange = 30
 ; tool_name = ""
-; toolchange_gcode = 
+; toolchange_gcode =
 ; top_fan_speed = -1
 ; top_fill_pattern = monotonic
-; top_infill_extrusion_spacing = 
+; top_infill_extrusion_spacing =
 ; top_infill_extrusion_width = 0.4
 ; top_solid_infill_acceleration = 0
 ; top_solid_infill_speed = 40
