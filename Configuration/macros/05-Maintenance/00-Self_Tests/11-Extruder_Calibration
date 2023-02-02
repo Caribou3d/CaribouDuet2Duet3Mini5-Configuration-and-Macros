@@ -16,7 +16,7 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
 M291 P"Press OK to continue or CANCEL to abort." R"Run extruder calibration for PLA at 215°C?" S3
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
-  G28                                                                  ; home all axes without mesh bed level
+    G28                                                                ; home all axes without mesh bed level
 G90                                                                    ; absolute positioning
 G0 X125 Y-7 Z80                                                        ; move extruder above bed, keep extruder in front for cleaning and checking
 ;
