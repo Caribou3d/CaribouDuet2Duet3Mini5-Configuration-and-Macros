@@ -9,7 +9,7 @@ M291 P"Press OK to continue or CANCEL to abort." R"Heat up bed for #FILAMENT_NAM
 set global.zLiftDistance = 15                                          ; set distance to lift
 M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z
 ;
-M140 S#BED_TEMPERATURE                                                               ; set bed temperature to filament #BED_TEMPERATURE°C
+M140 S#BED_TEMPERATURE_STR                                                              ; set bed temperature to filament #BED_TEMPERATURE°C
 ;
 set global.waitForBedTemperature = true                                ; daemon beeps when temperature is reached
 ;

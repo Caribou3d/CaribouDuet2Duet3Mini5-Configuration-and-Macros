@@ -375,13 +375,21 @@ do
     fi
     echo 'generating file for:' $FILAMENTNAME
     # create preheat files
+    n=`echo $BED_TEMPERATURE | awk '{print length}'`
+    if [ $n -lt 3 ]; then
+        BED_TEMPERATURE_STR=$BED_TEMPERATURE" "
+    else
+        BED_TEMPERATURE_STR=$BED_TEMPERATURE
+    fi
     sed "
     {s/#FILAMENT_NAME/${FILAMENTNAME}/g};
+    {s/#BED_TEMPERATURE_STR/${BED_TEMPERATURE_STR}/g}
     {s/#BED_TEMPERATURE/${BED_TEMPERATURE}/g}
     " < $PREHEATPATHBED/Preheat_Bed > $PREHEATOUTPUTBED/$number-$FILAMENTNAME-$BED_TEMPERATURE
 done
 echo
 echo '... done'
+
 cp $PREHEATPATHBED/*Cooldown* $PREHEATOUTPUTBED
 #
 # =========================================================================================================
