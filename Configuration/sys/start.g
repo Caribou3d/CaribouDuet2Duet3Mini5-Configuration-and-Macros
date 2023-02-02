@@ -11,11 +11,11 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
     if exists(sensors.filamentMonitors[0])                             ; is the run-out mode activated?
         if {sensors.filamentMonitors[0].status != "ok"}                ; if filament is not loaded
             M300 S500 P1000                                            ; beep
-            M291 R{"No Filament!"} P{"Please load filament first!"  } S2
+            M291 R{"No Filament!"} P{"Please load filament first!"} S2
             abort "ERROR: No Filament!"
     else
         M300 S500 P1000                                                ; beep
-        M291 R{"No Filament!"} P{"Please load filament first!"  } S2
+        M291 R{"No Filament!"} P{"Please load filament first!"} S2
         abort "ERROR: No Filament!"
 ;
 ; =========================================================================================================

@@ -6,7 +6,7 @@
 ;
 M291 P{"CaribouConfiguration #DUETBOARDNAME, Version: #CARIBOUDUETVERSION, build: #CARIBOUDUETBUILD "} S2
 ;
-M291 P{ boards[0].firmwareName ^ ", Version: " ^ boards[0].firmwareVersion  } S2
+M291 P{ boards[0].firmwareName ^ ", Version: " ^ boards[0].firmwareVersion} S2
 ;
 if {network.interfaces[0].type = "wifi"}
     M291 P{"Duet WiFi Server Version: " ^ network.interfaces[0].firmwareVersion } S2

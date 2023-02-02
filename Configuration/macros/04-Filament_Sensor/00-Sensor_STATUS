@@ -8,33 +8,33 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
     if exists(sensors.filamentMonitors[0])                             ; does the filament sensor exist?
         if {sensors.filamentMonitors[0].status = "ok"}                 ; if filament is loaded
             if {move.axes[1].workplaceOffsets[8] == 1}                 ; if autoload is enabled
-                M291 R{"Filament Sensor"} P{"Status: ON, Autoload: ON, Filament: LOADED "  } S2
+                M291 R{"Filament Sensor"} P{"Status: ON, Autoload: ON, Filament: LOADED "} S2
             else
-                M291 R{"Filament Sensor"} P{"Status: ON, Autoload: OFF, Filament: LOADED "  } S2
+                M291 R{"Filament Sensor"} P{"Status: ON, Autoload: OFF, Filament: LOADED "} S2
         else
             if {move.axes[1].workplaceOffsets[8] == 1}                 ; if autoload is enabled
-                M291 R{"Filament Sensor"} P{"Status: ON, Autoload: ON, Filament: NOT LOADED "  } S2
+                M291 R{"Filament Sensor"} P{"Status: ON, Autoload: ON, Filament: NOT LOADED "} S2
             else
-                M291 R{"Filament Sensor"} P{" Status: ON, Autoload: OFF, Filament: NOT LOADED "  } S2
+                M291 R{"Filament Sensor"} P{" Status: ON, Autoload: OFF, Filament: NOT LOADED "} S2
     else
         if !exists(sensors.gpIn[0])                                    ; is the pin free?
             if {move.axes[1].workplaceOffsets[8] == 1}                 ; if autoload is not enabled
-                M291 R{"Filament Sensor Error"} P{"Status: ON, Autoload: ON, Filament: unknown"  } S2
+                M291 R{"Filament Sensor Error"} P{"Status: ON, Autoload: ON, Filament: unknown"} S2
             else
-                M291 R{"Filament Sensor Error"} P{" Status: ON, Autoload: OFF, Filament: unknown"  } S2
+                M291 R{"Filament Sensor Error"} P{" Status: ON, Autoload: OFF, Filament: unknown"} S2
         else
             if (sensors.gpIn[0].value = 1)                             ; no filament
                 if {move.axes[1].workplaceOffsets[8] == 1}             ; if autoload is not enabled
-                    M291 R{"Filament Sensor"} P{"Status: ON, Autoload: ON, Filament: NOT LOADED "  } S2
+                    M291 R{"Filament Sensor"} P{"Status: ON, Autoload: ON, Filament: NOT LOADED "} S2
                 else
-                    M291 R{"Filament Sensor"} P{" Status: ON, Autoload: OFF, Filament: NOT LOADED "  } S2
+                    M291 R{"Filament Sensor"} P{" Status: ON, Autoload: OFF, Filament: NOT LOADED "} S2
             else
                 if {move.axes[1].workplaceOffsets[8] == 1}             ; if autoload is not enabled
-                    M291 R{"Filament Sensor"} P{"Status: ON, Autoload: ON, Filament: LOADED "  } S2
+                    M291 R{"Filament Sensor"} P{"Status: ON, Autoload: ON, Filament: LOADED "} S2
                 else
-                    M291 R{"Filament Sensor"} P{" Status: ON, Autoload: OFF, Filament: LOADED "  } S2
+                    M291 R{"Filament Sensor"} P{" Status: ON, Autoload: OFF, Filament: LOADED "} S2
 else                                                                   ; filament sensor not active
-    M291 P{"Filament Sensor Status: OFF"  } S2
+    M291 P{"Filament Sensor Status: OFF"} S2
 ;
 ; =========================================================================================================
 ;
