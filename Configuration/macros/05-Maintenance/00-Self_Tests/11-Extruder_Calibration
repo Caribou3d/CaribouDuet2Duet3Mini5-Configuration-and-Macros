@@ -23,19 +23,19 @@ G0 X125 Y-7 Z80                                                        ; move ex
 T0                                                                     ; select tool 0
 M568 P0 S215 A2                                                        ; pre-heat extruder to 215°C
 ;
-M291 S2 R"Heating to 215°C" P"Mark 120mm on filament from top of extruder body."
+M291 P"Mark 120mm on filament from top of extruder body." R"Heating to 215°C" S2
 ;
 M116                                                                   ; wait for temp to 215°C
 ;
-M291 S2 R"Temperature reached. Extruding 100mm filament at 1mm/s" P"Press OK to start."
+M291 P"Press OK to start." R"Temperature reached. Extruding 100mm filament at 1mm/s" S2
 ;
 M83                                                                    ; relative extrusion
 G1 E100 F60                                                            ; extrude 100mm of filament at 1mm/s
 M400                                                                   ; wait for moves to finish
 M568 P0 S0 R0 A0                                                       ; turn off extruder
 ;
-M291 S2 R"Measure distance to mark and update e steps in config.g." P{"new_e_steps = " ^ move.extruders[0].stepsPerMm ^ " * (100 / (120 - distance_to_mark_in_mm))"}
-M291 S2 P"Repeat test to verify." R"Extruder calibration done."
+M291 P{"new_e_steps = " ^ move.extruders[0].stepsPerMm ^ " * (100 / (120 - distance_to_mark_in_mm))"} R"Measure distance to mark and update e steps in config.g." S2
+M291 P"Repeat test to verify." R"Extruder calibration done." S2
 ;
 ; =========================================================================================================
 ;

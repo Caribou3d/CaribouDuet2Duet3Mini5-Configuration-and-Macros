@@ -35,7 +35,7 @@ while (heat.heaters[0].current < heat.heaters[0].active)
 M300 S500 P1000                                                        ; beep when temperature is reached
 M564 H1 S0                                                             ; ignore axis limits
 ;
-M291 S2 R"Setting the z-offset height" P"Place a sheet of paper under the nozzle and CAREFULLY lower the extruder until slight friction can be noticed." Z1 ;
+M291 P"Place a sheet of paper under the nozzle and CAREFULLY lower the extruder until slight friction can be noticed." R"Setting the z-offset height" S2 Z1 ;
 ;
 M291 R{"z-offset"} P{"Current: " ^ sensors.probes[0].triggerHeight ^ ", z-height:" ^ move.axes[2].machinePosition ^ ", New: " ^ sensors.probes[0].triggerHeight - move.axes[2].machinePosition} S2
 ;

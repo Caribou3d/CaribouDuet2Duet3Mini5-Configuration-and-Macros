@@ -32,7 +32,7 @@ if state.status != "processing"                                        ; printer
    else
       M291 P"Babysteps are 0.000. z-trigger height will not be changed." S1
 else
-   M291 S2 P"z-Trigger height cannot be changed during an ongoing print. Please run this macro when the print is finished, and the bed is clear and ready!" R"WARNING!"
+   M291 P"z-Trigger height cannot be changed during an ongoing print. Please run this macro when the print is finished, and the bed is clear and ready!" R"WARNING!" S2
 ;
 ; =========================================================================================================
 ;
