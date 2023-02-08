@@ -83,6 +83,8 @@ var y_min = move.axes[1].min
 var y_max = move.axes[1].max
 var y_length = var.y_max - var.y_min
 ;
+M98 P"0:/sys/00-Functions/CurrentSenseHoming"                          ; ensure the current and sensitivity is set for homing routines
+;
 M208 Y0 S1                                                             ; set axis minimum
 M208 Y225 S0                                                           ; set axis minimum
 ;
@@ -115,6 +117,7 @@ G1 H1 Y-10 F3000                                                       ; move sl
 ; analyze measured value
 ;
 M98 P"0:/sys/00-Functions/CurrentSenseNormal"                          ; ensure the current and sensitivity is set for normal routines.
+;
 if (var.measured_length - var.y_length) > 1
     M291 P{"Measured y axis length: " ^ var.measured_length ^ " mm, set length: " ^ var.y_length ^"mm."} R{"ERROR: y-axis too long." } S3
     set var.y_ok = false
@@ -166,8 +169,6 @@ M208 Z{var.z_max} S0                                                   ; set axi
 G30                                                                    ; probe bed
 G1 X11.5 Y4.5 Z10.0 F6000                                              ; go to first probe point
 M400                                                                   ; wait for current moves to finish
-;
-M98 P"0:/sys/00-Functions/CurrentSenseNormal"                          ; ensure the current and sensitivity is set for normal routines
 ;
 ; analyze measured value
 ;
