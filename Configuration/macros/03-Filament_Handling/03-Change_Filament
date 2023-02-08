@@ -1,0 +1,39 @@
+; =========================================================================================================
+;
+; Macro to change filament (unloading / loading).
+;
+; for #CARIBOU_VARIANT
+;
+; Assumption is that users has chosen the correct temperature!
+;
+; =========================================================================================================
+;
+if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check extrude temperature
+    if heat.heaters[1].current < heat.coldRetractTemperature           ; check retract temperature
+        M291 P"Hotend too cold. Preheat extruder first!" S2            ; ask to preheat extruder
+        M99
+;
+if state.status == "processing"                                        ; printer is currently printing!
+    M25                                                                ; pause printing
+    M400                                                               ; finish all moves, clear the buffer.
+else
+    if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
+        set global.zLiftDistance = 15                                  ; set distance to lift
+        M98 P"0:/sys/00-Functions/zLift"                               ; call macro to lift z
+    else
+        G90                                                            ; set absolute positioning
+        if  {move.axes[2].machinePosition < 80}                        ; if z position is below 80mm
+            G0 X125 Y-7 Z80 F6000                                      ; go to the parking position
+        else
+            G0 X125 Y-7 F6000                                          ; go to the parking position
+;
+M400                                                                   ; finish all moves, clear the buffer
+;
+M98 P"0:/sys/00-Functions/ChangeFilament"                              ; call load filament macro
+;
+if state.status == "paused"                                            ; printer is currently paused from printing!
+    M291 P"Press OK to resume print." S2                               ; display message
+    M24                                                                ; resume printing
+;
+; =========================================================================================================
+;

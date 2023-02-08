@@ -8,7 +8,7 @@ M291 R{"First layer calibration for #FILAMENT_NAME at #FILAMENT_TEMPERATURE_ACTI
 ;
 ;====== print meander and square ==========================================================================
 ;
-M32 0:/macros/05-Maintenance/01-First_Layer_Calibration/gcodes/#FILAMENT_NAME-FirstLayerCalibration.gcode
+M32 0:/macros/06-Maintenance/01-First_Layer_Calibration/gcodes/#FILAMENT_NAME-FirstLayerCalibration.gcode
 ;
 ;====== end meander and square ============================================================================
 ;

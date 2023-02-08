@@ -8,7 +8,7 @@ M291 P"Press OK to continue or CANCEL to abort." R"Heat up extruder for #FILAMEN
 ;
 T0                                                                     ; select tool
 ;
-set global.zLiftDistance = 15                                          ; set distance to lift
+set global.zLiftDistance = 5                                           ; set distance to lift
 M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z
 ;
 M568 P0 S#FILAMENT_TEMPERATURE_ACTIVE R#FILAMENT_TEMPERATURE_STANDBY A2                                                   ; set current tool temperature to filament #FILAMENT_NAME at #FILAMENT_TEMPERATURE_ACTIVE°C

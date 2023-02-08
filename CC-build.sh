@@ -116,15 +116,16 @@ echo ""
 
 # set output paths
 #
-FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/05-Maintenance/01-First_Layer_Calibration
+FIRSTLAYERPATH=$SCRIPT_PATH/Configuration/macros/06-Maintenance/01-First_Layer_Calibration
 FIRSTLAYEROUTPUT=$FIRSTLAYERPATH/processed
-PREHEATPATHEXTRUDER=$SCRIPT_PATH/Configuration/macros/00-Preheat_Extruder
-PREHEATOUTPUTEXTRUDER=$PREHEATPATHEXTRUDER/processed
-PREHEATPATHBED=$SCRIPT_PATH/Configuration/macros/01-Preheat_Bed
-PREHEATOUTPUTBED=$PREHEATPATHBED/processed
+PREHEATEXTRUDERPATH=$SCRIPT_PATH/Configuration/macros/00-Preheat_Extruder
+PREHEATEXTRUDEROUTPUT=$PREHEATEXTRUDERPATH/processed
+PREHEATBEDPATH=$SCRIPT_PATH/Configuration/macros/01-Preheat_Bed
+PREHEATBEDOUTPUT=$PREHEATBEDPATH/processed
+PREHEATBOTHPATH=$SCRIPT_PATH/Configuration/macros/02-Preheat_Both
+PREHEATBOTHOUTPUT=$PREHEATBOTHPATH/processed
 FILAMENTPATH=$SCRIPT_PATH/Configuration/filaments
 FILAMENTOUTPUT=$FILAMENTPATH/processed
-
 #
 # =========================================================================================================
 
@@ -132,8 +133,9 @@ FILAMENTOUTPUT=$FILAMENTPATH/processed
 
 echo ' cleaning working directory ... '
 rm -fr $FIRSTLAYEROUTPUT
-rm -fr $PREHEATOUTPUTEXTRUDER
-rm -fr $PREHEATOUTPUTBED
+rm -fr $PREHEATEXTRUDEROUTPUT
+rm -fr $PREHEATBEDOUTPUT
+rm -fr $PREHEATOUTPUTBOTH
 rm -fr $FILAMENTOUTPUT
 echo ' ... done'
 echo
@@ -306,22 +308,22 @@ echo
 # =========================================================================================================
 # read existing variants
 while IFS= read -r -d $'\0' f; do
-    preheatoptions[i++]="$f"
-done < <(find $PREHEATPATHEXTRUDER/*.h -maxdepth 1 -type f -name "*" -print0 )
-PREHEATVARIANTS=${preheatoptions[*]}
+    preheatextruderoptions[i++]="$f"
+done < <(find $PREHEATEXTRUDERPATH/*.h -maxdepth 1 -type f -name "*" -print0 )
+PREHEATVARIANTS=${preheatextruderoptions[*]}
 # prepare output folder
-if [ ! -d "$PREHEATOUTPUTEXTRUDER" ]; then
-    mkdir -p $PREHEATOUTPUTEXTRUDER || exit 27
+if [ ! -d "$PREHEATEXTRUDEROUTPUT" ]; then
+    mkdir -p $PREHEATEXTRUDEROUTPUT || exit 27
 else
-    rm -fr $PREHEATOUTPUTEXTRUDER || exit 27
-    mkdir -p $PREHEATOUTPUTEXTRUDER || exit 27
+    rm -fr $PREHEATEXTRUDEROUTPUT || exit 27
+    mkdir -p $PREHEATEXTRUDEROUTPUT || exit 27
 fi
 i=0
 for v in ${PREHEATVARIANTS[*]}
 do
     VARIANT=$(basename "$v" ".h")
     # read filament definition
-    source $PREHEATPATHEXTRUDER/$VARIANT.h
+    source $PREHEATEXTRUDERPATH/$VARIANT.h
     i=$((i+1))
     if [ $i -lt 10 ]; then
         number=0$i
@@ -334,11 +336,11 @@ do
     {s/#FILAMENT_NAME/${FILAMENTNAME}/g};
     {s/#FILAMENT_TEMPERATURE_ACTIVE/${FILAMENT_TEMPERATURE_ACTIVE}/g}
     {s/#FILAMENT_TEMPERATURE_STANDBY/${FILAMENT_TEMPERATURE_STANDBY}/g}
-    " < $PREHEATPATHEXTRUDER/Preheat_Extruder > $PREHEATOUTPUTEXTRUDER/$number-$FILAMENTNAME-$FILAMENT_TEMPERATURE_ACTIVE
+    " < $PREHEATEXTRUDERPATH/Preheat_Extruder > $PREHEATEXTRUDEROUTPUT/$number-$FILAMENTNAME-$FILAMENT_TEMPERATURE_ACTIVE
 done
 echo
 echo '... done'
-cp $PREHEATPATHEXTRUDER/*Cooldown* $PREHEATOUTPUTEXTRUDER
+cp $PREHEATEXTRUDERPATH/*Cooldown* $PREHEATEXTRUDEROUTPUT
 #
 # =========================================================================================================
 #
@@ -352,21 +354,21 @@ echo
 # read existing variants
 while IFS= read -r -d $'\0' f; do
     preheatbedoptions[i++]="$f"
-done < <(find $PREHEATPATHBED/*.h -maxdepth 1 -type f -name "*" -print0 )
+done < <(find $PREHEATBEDPATH/*.h -maxdepth 1 -type f -name "*" -print0 )
 PREHEATVARIANTS=${preheatbedoptions[*]}
 # prepare output folder
-if [ ! -d "$PREHEATOUTPUTBED" ]; then
-    mkdir -p $PREHEATOUTPUTBED || exit 27
+if [ ! -d "$PREHEATBEDOUTPUT" ]; then
+    mkdir -p $PREHEATBEDOUTPUT || exit 27
 else
-    rm -fr $PREHEATOUTPUTBED || exit 27
-    mkdir -p $PREHEATOUTPUTBED || exit 27
+    rm -fr $PREHEATBEDOUTPUT || exit 27
+    mkdir -p $PREHEATBEDOUTPUT || exit 27
 fi
 i=0
 for v in ${PREHEATVARIANTS[*]}
 do
     VARIANT=$(basename "$v" ".h")
     # read filament definition
-    source $PREHEATPATHBED/$VARIANT.h
+    source $PREHEATBEDPATH/$VARIANT.h
     i=$((i+1))
     if [ $i -lt 10 ]; then
         number=0$i
@@ -385,12 +387,68 @@ do
     {s/#FILAMENT_NAME/${FILAMENTNAME}/g};
     {s/#BED_TEMPERATURE_STR/${BED_TEMPERATURE_STR}/g}
     {s/#BED_TEMPERATURE/${BED_TEMPERATURE}/g}
-    " < $PREHEATPATHBED/Preheat_Bed > $PREHEATOUTPUTBED/$number-$FILAMENTNAME-$BED_TEMPERATURE
+    " < $PREHEATBEDPATH/Preheat_Bed > $PREHEATBEDOUTPUT/$number-$FILAMENTNAME-$BED_TEMPERATURE
 done
 echo
 echo '... done'
 
-cp $PREHEATPATHBED/*Cooldown* $PREHEATOUTPUTBED
+cp $PREHEATBEDPATH/*Cooldown* $PREHEATBEDOUTPUT
+#
+#
+# =========================================================================================================
+#
+# generate files for preheat both menu
+#
+echo
+echo 'creating macros for preheat both menu ...'
+echo
+#
+# =========================================================================================================
+# read existing variants
+while IFS= read -r -d $'\0' f; do
+    preheatbothoptions[i++]="$f"
+done < <(find $PREHEATBOTHPATH/*.h -maxdepth 1 -type f -name "*" -print0 )
+PREHEATVARIANTS=${preheatbothoptions[*]}
+# prepare output folder
+if [ ! -d "$PREHEATBOTHOUTPUT" ]; then
+    mkdir -p $PREHEATBOTHOUTPUT || exit 27
+else
+    rm -fr $PREHEATBOTHOUTPUT || exit 27
+    mkdir -p $PREHEATBOTHOUTPUT || exit 27
+fi
+i=0
+for v in ${PREHEATVARIANTS[*]}
+do
+    VARIANT=$(basename "$v" ".h")
+    # read filament definition
+    source $PREHEATBOTHPATH/$VARIANT.h
+    i=$((i+1))
+    if [ $i -lt 10 ]; then
+        number=0$i
+    else
+        number=$i
+    fi
+    echo 'generating file for:' $FILAMENTNAME
+    # create preheat files
+    n=`echo $BED_TEMPERATURE | awk '{print length}'`
+    if [ $n -lt 3 ]; then
+        BED_TEMPERATURE_STR=$BED_TEMPERATURE" "
+    else
+        BED_TEMPERATURE_STR=$BED_TEMPERATURE
+    fi
+
+    sed "
+    {s/#FILAMENT_NAME/${FILAMENTNAME}/g};
+    {s/#FILAMENT_TEMPERATURE_ACTIVE/${FILAMENT_TEMPERATURE_ACTIVE}/g}
+    {s/#FILAMENT_TEMPERATURE_STANDBY/${FILAMENT_TEMPERATURE_STANDBY}/g}
+    {s/#BED_TEMPERATURE_STR/${BED_TEMPERATURE_STR}/g}
+    {s/#BED_TEMPERATURE/${BED_TEMPERATURE}/g}
+
+    " < $PREHEATBOTHPATH/Preheat_Both > $PREHEATBOTHOUTPUT/$number-$FILAMENTNAME-$FILAMENT_TEMPERATURE_ACTIVE
+done
+echo
+echo '... done'
+cp $PREHEATBOTHPATH/*Cooldown* $PREHEATBOTHOUTPUT
 #
 # =========================================================================================================
 
@@ -526,7 +584,7 @@ do
     {s/#DUETBOARDNAME/$DUETBOARDNAME/};
     {s/#CARIBOUDUETVERSION/$CCDOT/};
     {s/#CARIBOUDUETBUILD/$BUILD/};
-    " < $MacrosDir/05-Maintenance/00-CaribouDuetVersion > $MacroOutputPath/05-Maintenance/00-CaribouDuetVersion
+    " < $MacrosDir/06-Maintenance/00-CaribouDuetVersion > $MacroOutputPath/06-Maintenance/00-CaribouDuetVersion
     echo '   ... done'
     # copy files for sys and remove processed files
     echo
@@ -705,6 +763,7 @@ fi
 #
 # housekeeping: delete filament folders in source directory
 rm -fr $FIRSTLAYEROUTPUT
-rm -fr $PREHEATOUTPUTEXTRUDER
-rm -fr $PREHEATOUTPUTBED
+rm -fr $PREHEATEXTRUDEROUTPUT
+rm -fr $PREHEATBEDOUTPUT
+rm -fr $PREHEATBOTHOUTPUT
 rm -fr $FILAMENTOUTPUT

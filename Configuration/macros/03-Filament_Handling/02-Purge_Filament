@@ -1,0 +1,27 @@
+; =========================================================================================================
+;
+; purge filament. Inifinite loop, can be canceled once filament is loaded correctly
+;
+; =========================================================================================================
+;
+if {state.status == "processing"}                                      ; printer is not currently printing!
+    M291 P"Cannot run during an ongoing print. Please run this macro when the printer is paused!" R"WARNING!" S2
+    M99
+;
+; =========================================================================================================
+;
+if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check extrude temperature
+    if heat.heaters[1].current < heat.coldRetractTemperature           ; check retract temperature
+        M291 P"Hotend too cold. Preheat extruder first!" S2            ; ask to preheat extruder
+        M99
+;
+T0                                                                     ; select tool 0
+;
+while true
+    M291 R"Purging needed?" P"Press OK to purge, press Cancel if color is correct."  S3
+    G1 E30 F300                                                        ; extrude 30mm
+    M400                                                               ; finish all moves, clear the buffer
+    M300 S500 P200                                                     ; play beep sound
+;
+; =========================================================================================================
+;

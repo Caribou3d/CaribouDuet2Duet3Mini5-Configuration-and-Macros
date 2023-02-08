@@ -9,7 +9,7 @@ if {move.axes[0].workplaceOffsets[8] != 1}                             ; check i
     M500                                                               ; save status to config-override.g
     M98 P"0:/sys/00-Functions/FilamentSensorStatus"                    ; update sensor status
 ;
-M98 P"0:/macros/04-Filament_Sensor/00-Sensor_STATUS"
+M98 P"0:/macros/05-Filament_Sensor/00-Sensor_STATUS"
 ;
 ; =========================================================================================================
 ;

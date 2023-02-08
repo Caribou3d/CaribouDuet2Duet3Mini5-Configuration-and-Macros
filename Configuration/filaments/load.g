@@ -13,7 +13,7 @@ G1 Z5 F6000 H2                                                         ; lift z 
 M568 S#FILAMENT_TEMPERATURE_ACTIVE R#FILAMENT_TEMPERATURE_STANDBY A2                                                      ; set current tool temperature to #FILAMENT_TEMPERATURE_ACTIVE°C
 M116                                                                   ; wait for the temperatures to be reached
 ;
-M98 P"0:/macros/02-Filament_Handling/00-Load_Filament"                 ; execute macro to load and purge filament
+M98 P"0:/macros/03-Filament_Handling/00-Load_Filament"                 ; execute macro to load and purge filament
 ;
 ; =========================================================================================================
 ;

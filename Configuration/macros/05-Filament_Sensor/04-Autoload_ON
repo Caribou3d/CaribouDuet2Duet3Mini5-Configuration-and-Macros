@@ -21,7 +21,7 @@ else
 G10 L2 P9 Y1                                                           ; save status into y-offset of tool 9
 M500                                                                   ; save status to config-override.g
 ;
-M98 P"0:/macros/04-Filament_Sensor/00-Sensor_STATUS"
+M98 P"0:/macros/05-Filament_Sensor/00-Sensor_STATUS"
 ;
 ; =========================================================================================================
 ;

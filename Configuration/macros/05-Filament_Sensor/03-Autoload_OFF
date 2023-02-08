@@ -20,7 +20,7 @@ if !exists(sensors.filamentMonitors[0])                        ; in run-out mode
     M98 P"0:/sys/00-Functions/ActivateRunOutSensor"            ; activate run out sensor
     set global.filamentErrorIgnore = 0
 ;
-M98 P"0:/macros/04-Filament_Sensor/00-Sensor_STATUS"
+M98 P"0:/macros/05-Filament_Sensor/00-Sensor_STATUS"
 ;
 ; =========================================================================================================
 ;
