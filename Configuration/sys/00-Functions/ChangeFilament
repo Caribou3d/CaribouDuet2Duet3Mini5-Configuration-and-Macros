@@ -21,7 +21,9 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
 ; #CARIBOU_TRIGGER
        M950 J0 C"nil"                                                  ; free input 0 e0 filament sensor
 ;
-if {global.AskToChange == 1}                                           ; do not ask if filament ran out
+if {global.AskToChange == 0}                                           ; do not ask if filament ran out
+    M291 R"Change filament ..." P"Press OK to start." S2               ; display message
+else
     M291 R"Change filament ..." P"Press OK to start or CANCEL to abort." S3  ; display message
 ;
 T0                                                                     ; select tool 0
@@ -62,28 +64,28 @@ set global.purge = -1                                                  ; disable
 ;
 if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is enabled
     if {move.axes[1].workplaceOffsets[8] == 1}                         ; if autoload is enabled
-        M291 P"Insert filament ..." S1 T5                              ; display new message
         M300 S500 P600                                                 ; beep
+        M291 P"Insert filament ..." S1 T5                              ; display new message
         while {var.sensor_flag = 0}
            G4 P1000                                                    ; wait 1000 milliseconds
            if exists(sensors.filamentMonitors[0])                      ; if filament sensor is detected in object model
                set var.sensor_flag = 1                                 ; set flag to 1
         M400                                                           ; wait for current moves to finish
-        M98 P"0:/macros/02-Filament_Handling/02-Purge_Filament"
+        M98 P"0:/macros/03-Filament_Handling/02-Purge_Filament"
         M292
         M400                                                          ; wait for current moves to finish
 ;
 set global.purge = 0                                                   ; enable purge in trigger2.g
 ;
-if {move.axes[0].workplaceOffsets[8] == 0}
-    M291 R"Insert filament ..." P"Press OK to start feeding filament ..." S2  ; display new message
+if {move.axes[0].workplaceOffsets[8] == 0} || {move.axes[1].workplaceOffsets[8] == 0}  ; filament sensor diabled or autoload off
     M300 S500 P600                                                     ; beep
+    M291 R"Insert filament ..." P"Press OK to start feeding filament ..." S2  ; display new message
     M291 P"Feeding filament ..." S1 T15                                ; display new message
     M83                                                                ; set extruder to relative positioning
     G1 E#CARIBOU_INITIALLOAD F400                                                        ; feed #CARIBOU_INITIALLOADmm of filament at 400mm/mi
     G1 E15 F200                                                        ; feed 15mm of filament at 200mm/min
     M400
-    M98 P"0:/macros/02-Filament_Handling/02-Purge_Filament"
+    M98 P"0:/macros/03-Filament_Handling/02-Purge_Filament"
 ;
 M400                                                                   ; finish all moves, clear the buffer
 ;
