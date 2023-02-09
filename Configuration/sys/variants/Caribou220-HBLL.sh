@@ -480,7 +480,6 @@ cp -r $MacrosDir/06-Maintenance/01-First_Layer_Calibration/processed $MacroOutpu
 cp -r $MacrosDir/00-Preheat_Extruder/processed $MacroOutputPath/00-Preheat_Extruder
 cp -r $MacrosDir/01-Preheat_Bed/processed $MacroOutputPath/01-Preheat_Bed
 cp -r $MacrosDir/02-Preheat_Both/processed $MacroOutputPath/02-Preheat_Both
-rm -f $MacroOutputPath/06-Maintenance/00-Self_Tests/11-z-Offset_Calibration
 
 # create 00-Test_Homing
 #
