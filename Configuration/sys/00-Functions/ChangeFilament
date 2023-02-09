@@ -27,6 +27,7 @@ else
     M291 R"Change filament ..." P"Press OK to start or CANCEL to abort." S3  ; display message
 ;
 T0                                                                     ; select tool 0
+;
 M83                                                                    ; set extruder to relative positioning
 M913 E100                                                              ; set motor current to 100% of set current;
 ;

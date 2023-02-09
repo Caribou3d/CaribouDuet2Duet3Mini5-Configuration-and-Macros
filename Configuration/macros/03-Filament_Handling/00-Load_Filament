@@ -29,6 +29,8 @@ else
 ;
 M400                                                                   ; finish all moves, clear the buffer
 ;
+T0                                                                     ; select tool 0
+;
 set global.purge = -1                                                  ; disable purge in trigger2.g
 ;
 if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is enabled
