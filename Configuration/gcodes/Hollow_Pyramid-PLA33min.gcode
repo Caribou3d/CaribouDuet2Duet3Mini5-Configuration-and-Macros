@@ -214,8 +214,6 @@ G90 ; use absolute coordinates
 M83 ; use relative distances for extrusion
 ;_TOOLCHANGE 0
 ;
-M116 ; wait for temperature to be reached
-M106 S0
 ;LAYER_CHANGE
 ;Z:0.2
 ;HEIGHT:0.2

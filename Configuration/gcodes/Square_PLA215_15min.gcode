@@ -234,7 +234,6 @@ G21 ; set units to millimeters
 G90 ; use absolute coordinates
 M83 ; use relative distances for extrusion
 ;_TOOLCHANGE 0
-M106 S0
 ;LAYER_CHANGE
 ;Z:0.2
 ;HEIGHT:0.2
