@@ -318,7 +318,7 @@ else
     rm -fr $PREHEATEXTRUDEROUTPUT || exit 27
     mkdir -p $PREHEATEXTRUDEROUTPUT || exit 27
 fi
-i=0
+i=-1
 for v in ${PREHEATVARIANTS[*]}
 do
     VARIANT=$(basename "$v" ".h")
@@ -363,7 +363,7 @@ else
     rm -fr $PREHEATBEDOUTPUT || exit 27
     mkdir -p $PREHEATBEDOUTPUT || exit 27
 fi
-i=0
+i=-1
 for v in ${PREHEATVARIANTS[*]}
 do
     VARIANT=$(basename "$v" ".h")
@@ -416,7 +416,7 @@ else
     rm -fr $PREHEATBOTHOUTPUT || exit 27
     mkdir -p $PREHEATBOTHOUTPUT || exit 27
 fi
-i=0
+i=-1
 for v in ${PREHEATVARIANTS[*]}
 do
     VARIANT=$(basename "$v" ".h")
