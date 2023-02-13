@@ -6,7 +6,6 @@
 ;
 ; =========================================================================================================
 ;
-;
 var sensor_flag = 0                                                    ; create variable sensor_flag
 ;
 if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check extrude temperature
