@@ -28,7 +28,6 @@ G1 H1 Z15 F300                                                         ; move z 
 M913 Z100                                                              ; return z motor current to 100% of set current
 G90                                                                    ; absolute positioning
 M564 S1                                                                ; enable minimum and maximum axes limits
-M208 X256.9 Y214 #CARIBOU_ZHEIGHT S0                                            ; set axis maximum
 G30                                                                    ; probe bed
 G1 X11.5 Y4.5 Z10.0 F6000                                              ; go to first probe point
 M400                                                                   ; wait for current moves to finish
