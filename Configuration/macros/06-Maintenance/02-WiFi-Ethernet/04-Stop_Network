@@ -1,15 +1,12 @@
 ; =========================================================================================================
 ;
-; start network module
+; stop network module
 ;
 ; =========================================================================================================
 ;
-M552 S1
+M291 P"Access to DWC will be stopped! Press OK to continue or CANCEL to abort." R"Disable Network module?" S3
 ;
-if {network.interfaces[0].type = "wifi"}
-    M291 P"WiFi module started. Check console or DWC for more information."
-else
-    M291 P"Ethernet module started. Check console or DWC for more information."
+M552 S-1                                                               ; disable WiFi module
 ;
 ; =========================================================================================================
 ;

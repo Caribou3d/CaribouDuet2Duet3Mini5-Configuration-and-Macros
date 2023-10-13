@@ -7,9 +7,8 @@
 G91                                                                    ; relative positioning
 M98 P"0:/sys/00-Functions/CurrentSenseHoming"                          ; ensure the current and sensitivity is set for homing routines.
 ;
-G1 H2 Y0.5 F10000                                                      ; energise motor to ensure it's not stalled
-M400                                                                   ; wait for current moves to finish
-G4 P200                                                                ; wait 200ms
+M17 Y                                                                  ; energise motor to ensure it's not stalled
+G4 P100                                                                ; wait 100ms
 ;
 set global.zLiftDistance = 5                                           ; set distance to lift
 M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z

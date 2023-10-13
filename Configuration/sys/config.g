@@ -6,7 +6,7 @@
 ;
 ; for #CARIBOU_VARIANT
 ;
-; CariboDuetConfiguration Release : "2.1.3"
+; CariboDuetConfiguration Release : "2.2.0"
 ;                           Build :   546
 ;
 ; Copyright Caribou Research & Development 2023. Licensed under GPL3. No commercial use.
@@ -43,7 +43,11 @@ G21                                                                    ; work in
 ;
 #CARIBOU_NAME
 ;
-M552 S1                                                                ; enable network
+if {network.interfaces[0].type = "ethernet"}
+  echo >"0:/sys/runonce.g" "M98 P""0:/status/ethernet.g"""
+else
+  M98 P"0:/status/WiFi-mode.g"
+;
 M586 P0 S1                                                             ; enable HTTP
 M586 P1 S1                                                             ; enable FTP
 M586 P2 S0                                                             ; disable Telnet

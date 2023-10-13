@@ -16,9 +16,8 @@ M98 P"0:/sys/00-Functions/zLift"                                       ; call ma
 ; home x Axis
 ; =========================================================================================================
 ;
-G1 H2 X0.5 F10000                                                      ; energise motors to ensure they are not stalled
-M400                                                                   ; wait for current moves to finish
-G4 P200                                                                ; wait 200ms
+M17 X                                                                  ; energise motors to ensure they are not stalled
+G4 P100                                                                ; wait 100ms
 ;
 if !move.axes[0].homed
     G1 H1 X5 F1000                                                     ; move slowly away
@@ -31,9 +30,8 @@ if !move.axes[0].homed
 ; home y Axis
 ; =========================================================================================================
 ;
-G1 H2 Y0.5 F10000                                                      ; energise motors to ensure they are not stalled
-M400                                                                   ; wait for current moves to finish
-G4 P200                                                                ; wait 200ms
+M17 Y                                                                  ; energise motors to ensure they are not stalled
+G4 P100                                                                ; wait 100ms
 ;
 if !move.axes[1].homed
     G1 H1 Y5 F1000                                                     ; move slowly away

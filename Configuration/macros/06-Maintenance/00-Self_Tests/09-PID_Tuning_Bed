@@ -19,8 +19,12 @@ var target_temperature = 60                                            ; target 
 ;
 ; =========================================================================================================
 ;
-M291 P"PID tuning for the heated bed will take approx. 20 min." R"PID tuning heated bed" S3
-M291 P{"Press OK if target for heated bed is " ^ var.target_temperature ^ "°C."} R"PID tuning heated bed" S3
+M291 P"PID tuning for the heat bed will take approx. 20 min." R"PID tuning heat bed" S3
+;
+M291 J1 R"Enter target temperature in °C:" P"Heat bed PID tuning interval: 50°C - 100°C" F{var.target_temperature} S5 L50 H100
+set var.target_temperature = {input}
+;
+M291 P{"Press OK if target for heat bed is " ^ var.target_temperature ^ "°C."} R"PID tuning heat bed" S3
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
     G28                                                                ; home all axes without mesh bed level
@@ -31,13 +35,13 @@ if heat.heaters[0].current > 40                                        ; check i
     M140 S0 R0                                                         ; set bed temperature to 0C
     M140 S-274                                                         ; set bed temperature to 0K to turn it off
     while heat.heaters[0].current > 40                                 ; while waiting to cool down
-        M291 P"Cooling down the heated bed below 40°C ..." R"PID tuning heated bed" S1 ; display message
+        M291 P"Cooling down the heat bed below 40°C ..." R"PID tuning heat bed" S1 ; display message
         G4 S10                                                         ; wait 10 seconds
 ;
 M303 H0 S{var.target_temperature}                                      ; start PID tuning for target temperature
 ;
 while heat.heaters[0].state = "tuning"                                 ; while the tuning
-    M291 P"Running ..." R"PID tuning heated bed" S1                    ; display message
+    M291 P"Running ..." R"PID tuning heat bed" S1                    ; display message
     G4 S10                                                             ; wait 10 seconds
 ;
 M500 P31                                                               ; save to config-override.g
@@ -48,7 +52,7 @@ M140 S-274                                                             ; set bed
 M300 S500 P1000                                                        ; beep
 G4 P2000                                                               ; wait two seconds
 ;
-M291 P"Completed. PID values have been saved." R"PID tuning heated bed" S2
+M291 P"Completed. PID values have been saved." R"PID tuning heat bed" S2
 ;
 ; =========================================================================================================
 ;

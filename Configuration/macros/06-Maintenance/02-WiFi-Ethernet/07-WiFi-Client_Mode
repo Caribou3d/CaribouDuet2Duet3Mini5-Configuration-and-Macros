@@ -1,0 +1,19 @@
+; =========================================================================================================
+;
+;  Switch WiFI module to client mode. If no connectionis possible it will fall back to
+;  access point mode.
+;
+; =========================================================================================================
+;
+echo >"0:/status/WiFi-Mode.g" "M552 S1  ; enable client mode"
+;
+if !exists(param.R)
+    M291 R"Do you want to switch to client mode?" P" " S3
+    M552 S-1                                                           ; disable WiFi module
+    G4 S1                                                              ; wait 1 second
+    M98 P"0:/status/WiFi-Mode.g"                                       ; execute WiFi-Mode.g
+    G4 S1                                                              ; wait 1 second
+    M98 P"0:/sys/test-WiFi.g"                                          ; execute WiFi.g
+;
+; =========================================================================================================
+;

@@ -90,9 +90,8 @@ M208 Y225 S0                                                           ; set axi
 ;
 G91                                                                    ; relative positioning
 ;
-G1 H2 Y0.5 F10000                                                      ; energise motor to ensure it is not stalled
-M400                                                                   ; wait for current moves to finish
-G4 P200                                                                ; wait 200ms
+M17 Y                                                                  ; energise motor to ensure it is not stalled
+G4 P100                                                                ; wait 100ms
 ;
 G1 H1 Y5 F1000                                                         ; move slowly away
 G1 H1 Y-225 F3000                                                      ; move quickly to y axis endstop and stop there (first pass)

@@ -619,6 +619,22 @@ do
     cp -r $INPUT/* $OUTPUT
     echo '   ... done'
     # =========================================================================================================
+    # copy status directory
+    echo
+    echo '   copying status directory ....'
+    # prepare output folder
+    INPUT=$SCRIPT_PATH/Configuration/status
+    OUTPUT=$VARIANTOUTPUT/status
+    if [ ! -d "$OUTPUT" ]; then
+        mkdir -p $OUTPUT || exit 27
+    else
+        rm -fr $OUTPUT || exit 27
+        mkdir -p $OUTPUT || exit 27
+    fi
+    cp -r $INPUT/* $OUTPUT
+    echo '   ... done'
+    #
+    # =========================================================================================================
     # copy files for SlicerScripts
     echo
     echo '   copying files for SlicerScripts ....'
