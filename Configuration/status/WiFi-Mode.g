@@ -1,1 +1,1 @@
-M552 S1  ; enable client mode
+M552 S2 ; enable access point mode

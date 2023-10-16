@@ -1,0 +1,75 @@
+; =========================================================================================================
+;
+; test routine for Duet2 and Duet3Mini5+ WiFi/Ethernet
+; part of self tests
+;
+; calibrate z-Offset for a chosen extruder_temperature / bed_temperature
+;
+; =========================================================================================================
+;
+var bed_temperature = 60                                               ; set default bed_temperature
+var extruder_temperature = 215                                         ; set default extruder_temperature
+;
+; =========================================================================================================
+;
+if {state.status == "processing"} || {state.status == "paused"}        ; printer is not currently printing!
+    M291 P"Cannot run during an ongoing print. Please run this macro when the printer is not printing!" R"WARNING!" S2
+    M99
+;
+; =========================================================================================================
+;
+M291 P"Press OK to continue or CANCEL to abort." R"Setting the z-probe offset" S3
+;
+M291 J1 R"Enter bed target temperature in °C:" P"z-Calibration tuning interval: 50°C - 100°C" F{var.bed_temperature} S5 L50 H100
+set var.bed_temperature = {input}
+;
+M291 J1 R"Enter extruder target temperature in °C:" P"z-Calibration tuning interval: 180°C - 295°C" F{var.extruder_temperature} S5 L180 H295
+set var.extruder_temperature = {input}
+;
+M291 P"Press OK to continue or CANCEL to abort." R{"Heat up bed / extruder to " ^ var.bed_temperature ^ "°C / " ^ var.extruder_temperature ^ "°C?"} S3
+;
+M140 S{var.bed_temperature}                                            ; set bed temperature to filament 60°C
+M568 P0 S{var.extruder_temperature} R0 A2                              ; set tool active temperature and turn tool on
+;
+if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
+    G28                                                                ; home all axes without mesh bed level
+G29 S2                                                                 ; cancel mesh bed compensation
+M290 R0 S0                                                             ; cancel baby stepping
+;
+G90                                                                    ; absolute positioning
+G1 X110 Y0 Z20 F2000                                                   ; lift z axis
+M400                                                                   ; wait for moves to finish
+;
+while ((heat.heaters[0].current < heat.heaters[0].active) || (heat.heaters[1].current < heat.heaters[1].active))
+    M291 P{"Heating up to " ^var.bed_temperature ^ "°C / " ^var.extruder_temperature^ "°C ..."} S1 T10 ; display new message
+    G4 S10                                                             ; wait 10 seconds
+;
+M300 S500 P1000                                                        ; beep when temperature is reached
+;
+G90                                                                    ; absolute positioning
+G1 Z10 F2000                                                           ; move z axis 10mm above the bed
+M400                                                                   ; wait for moves to finish
+;
+M564 H1 S0                                                             ; ignore axis limits
+;
+M291 P"Place a sheet of paper under the nozzle and CAREFULLY lower the extruder until slight friction can be noticed." R"Setting the z-offset height" S2 Z1 ;
+;
+M564 H0 S1                                                             ; limit movement within axis boundaries, allow movemonet of unhomed axes
+M140 S0 R0                                                             ; set bed temperature to 0C
+M140 S-274                                                             ; set bed temperature to 0K to turn it off
+M568 P0 S0 R0 A0                                                       ; set extruder temperatures and turn extruder off
+;
+if (move.axes[2].machinePosition != 0)
+    var newoffset = sensors.probes[0].triggerHeight - move.axes[2].machinePosition
+    M291 R{"z-probe offset: Old: " ^ sensors.probes[0].triggerHeight ^ ", New: " ^ var.newoffset} P{"Press OK to save or CANCEL to abort."} S3
+    G31 Z{var.newoffset}                                               ; set G31 z offset to corrected
+    echo >"0:/sys/zoffset.g" "G31 Z"^{var.newoffset}^" ; set z-offset"
+    M291 P"New z-offset saved." S1 T10                                 ; display new message
+    G28                                                                ; home all
+else
+    M291 P"z-offset has not changed." S1 T10                           ; display new message
+;
+G1 Z20 F2000                                                           ; lift z axis
+;
+; =========================================================================================================
+;

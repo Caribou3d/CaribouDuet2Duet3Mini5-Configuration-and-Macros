@@ -1,0 +1,16 @@
+; =========================================================================================================
+;
+; resst e-steps to default
+;
+; =========================================================================================================
+;
+var default_esteps = #CARIBOU_EESTEPS
+var new_esteps = move.extruders[0].stepsPerMm
+;
+M291 R{"Current E_Steps = " ^ move.extruders[0].stepsPerMm ^ " rpm." } P{"Reset to " ^ var.default_esteps^ " rpm? Press Ok to save or CANCEL to abort."} S3
+echo >"0:/status/Set-E_Steps.g" "M92 E" ^{var.default_esteps}^ "  ; set esteps"
+M98 P"0:/status/Set-E_Steps.g"                                         ; set esteps
+M291 P{"E-Steps set to " ^ var.default_esteps ^" rpm."} S2
+;
+; =========================================================================================================
+;

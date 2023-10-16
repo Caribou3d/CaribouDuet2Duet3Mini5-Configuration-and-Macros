@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "2.2.0"
-;                           Build :   546
+;                           Build :   551
 ;
 ; Copyright Caribou Research & Development 2023. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -31,6 +31,8 @@ global y_accel = 0                                                     ; stores 
 global y_jerk = 0                                                      ; maximum y instantaneous speed changes (mm/min)
 global filamentErrorIgnore = 0                                         ; enable / disable execution of filament-error.g
 global filamentTriggerIgnore = 0                                       ; enable / disable execution of trigger2.g
+global calibration_bed_temperature = 60                                ; set default bed_temperature
+global calibration_extruder_temperature = 215                          ; set default extruder_temperature
 ;
 ; general settings
 ;
@@ -63,7 +65,8 @@ M575 P1 S1 B57600                                                      ; enable 
 ; =========================================================================================================
 ;
 M350 X16 Y16 Z16 E16 I1                                                ; configure microstepping with interpolation
-M92 X200.00 Y200.00 Z400.00 E#CARIBOU_EESTEPS                                    ; set steps per mm
+M92 X200.00 Y200.00 Z400.00                                            ; set steps per mm
+M98 P"0:/status/Set-E-Steps.g"                                         ; set esteps
 ;
 ; set motor currents
 ; =========================================================================================================
@@ -155,6 +158,7 @@ M302 S#CARIBOU_MINEXTRUDETEMP R#CARIBOU_MINRETRACTTEMP                          
 ;
 M18 XY                                                                 ; release / unlock x, y
 M501                                                                   ; use config-override (for Thermistor Parameters and other settings)
+M98 P"0:/status/zoffset.g"                                             ; set z-offset
 G90                                                                    ; send absolute coordinates...
 M83                                                                    ; ... but relative extruder moves
 ;
