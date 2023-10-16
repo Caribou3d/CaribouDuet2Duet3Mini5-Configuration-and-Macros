@@ -34,6 +34,7 @@
 # 17 Jan 2023, wschadow, updated generation of temperature files
 # 18 Jan 2023, wschadow, added generation of files for preheating bed
 # 20 Jan 2023, wschadow, added option for cleaning up only (usage: ./CC-build.sh clean)
+# 17 Oct 2023, wschadow, generation of preheat folder removed
 #
 # Copyright Caribou Research & Development 2021. Licensed under GPL3. Non-commercial use only.
 # Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
