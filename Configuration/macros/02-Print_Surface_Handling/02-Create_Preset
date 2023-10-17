@@ -33,6 +33,7 @@ echo >"0:/status/zoffset.g" "G31 Z"^{var.newoffset}^"               ; set z-offs
 ;
 G31 Z{var.newoffset}                                                   ; set G31 z offset to corrected
 M290 R0 S0                                                             ; set babystep to 0mm absolute
+G28                                                                    ; home all axes without mesh bed level
 ;
 M291 P"New preset generated under macros/02-Print_Surface_Handling." S2
 ;
