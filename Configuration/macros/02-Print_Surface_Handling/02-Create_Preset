@@ -1,0 +1,40 @@
+; =========================================================================================================
+;
+;  create a new preset macro for a sheet / nozzle combination
+;
+; =========================================================================================================
+;
+if {state.status == "processing"} || {state.status == "paused"}        ; printer is not currently printing!
+    M291 P"Cannot run during an ongoing print. Please run this macro when the printer is not printing!" R"WARNING!" S2
+    M99
+;
+; =========================================================================================================
+;
+if !exists(param.R)
+   M291 P"Press OK to continue or CANCEL to abort." R"Create a new preset with current z-probe offset?" S3
+;
+M291 J1 R"Enter filename:" P"(max. 15 characters long) " S7 H15
+var filename = {input}
+M291 J1 R"Enter sheet name:" P"(max. 15 characters long) " S7 H15
+var sheetname = {input}
+var path = "0:/macros/02-Print_Surface_Handling/"^var.filename
+;
+var newoffset = sensors.probes[0].triggerHeight - move.axes[2].babystep
+;
+echo >{var.path} "if {state.status == ""processing""} || {state.status == ""paused"" }        ; printer is not currently printing!"
+echo >>{var.path} "    M291 P""Cannot run during an ongoing print. Please run this macro when the printer is not printing!"" R""WARNING!"" S2"
+echo >>{var.path} "    M99"
+echo >>{var.path} "G31 Z"^{var.newoffset}^"               ; set z-offset"
+echo >>{var.path} "M290 R0 S0                                                                 ; set babystep to 0mm absolute"
+echo >>{var.path} "echo >""0:/status/zoffset.g"" ""G31 Z"^{var.newoffset}^"                ; set z-offset"""
+echo >>{var.path} "M291 P{"" z-offset: ""^sensors.probes[0].triggerHeight^""mm  set for sheet: "^var.sheetname^"""} S2 "
+;
+echo >"0:/status/zoffset.g" "G31 Z"^{var.newoffset}^"               ; set z-offset"
+;
+G31 Z{var.newoffset}                                                   ; set G31 z offset to corrected
+M290 R0 S0                                                             ; set babystep to 0mm absolute
+;
+M291 P"New preset generated under macros/02-Print_Surface_Handling." S2
+;
+; =========================================================================================================
+;
