@@ -19,8 +19,7 @@ if network.interfaces[0].actualIP = "0.0.0.0"
   M98 P"0:/status/WiFi-Credentials.g"                                  ; set network credentials
   G4 S1                                                                ; wait 1 second
   M552 S2                                                              ; start access point mode
-;
-M291 S2 R"Connection not established" P"WiFi module was switched to access point mode"
+  M291 S2 R"Connection not established" P"WiFi module was switched to access point mode"
 ;
 ; =========================================================================================================
 ;
