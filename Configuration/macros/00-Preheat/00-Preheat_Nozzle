@@ -1,49 +1,38 @@
 ; =========================================================================================================
 ;
-;  Preheat bed and nozzle: chose target temperatures combination from a list.
+;  Preheat nozzle: chose target temperature from a list.
 ;
 ; =========================================================================================================
 ;
-var bed_temp = 0
 var nozzle_temp = 0
 ;
-M291 R"Preheat bed / nozzle to:" P"Select a temperature combination or press CANCEL." S4 K{"55°C/215°C","60°C/220°C", "70°C/230°C", "50°C/240°C","100°C/250°C","105°C/260°C","110°C/275°C","Cancel",} ; Display user prompt
+M291 R"Preheat nozzle to:" P"Select a temperature or press CANCEL." S4 K{"215°C","220°C","230°C", "240°C","250°C","260°C","275°C","Cancel",} ; Display user prompt
 var selected = {input}
 ;
 if (var.selected = 0)
-   set var.bed_temp = 55
    set var.nozzle_temp = 215
 elif (var.selected = 1)
-   set var.bed_temp = 60
    set var.nozzle_temp = 220
 elif (var.selected = 2)
-   set var.bed_temp = 70
    set var.nozzle_temp = 230
 elif (var.selected = 3)
-   set var.bed_temp = 50
    set var.nozzle_temp = 240
 elif (var.selected = 4)
-   set var.bed_temp = 100
    set var.nozzle_temp = 250
 elif (var.selected = 5)
-   set var.bed_temp = 105
    set var.nozzle_temp = 260
 elif (var.selected = 6)
-   set var.bed_temp = 110
    set var.nozzle_temp = 275
 else
    M99
 ;
-M291 P"Press OK to continue or CANCEL to abort." R{"Heat up bed / nozzle to " ^ var.bed_temp ^ "°C / " ^ var.nozzle_temp ^ "°C?"} S3
+M291 P"Press OK to continue or CANCEL to abort." R{"Heat up nozzle to " ^ var.nozzle_temp ^ "°C?"} S3
 ;
 set global.zLiftDistance = 5                                           ; set distance to lift
 M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z
 ;
-M140 S{var.bed_temp}                                                   ; set bed temperature to filament #FILAMENT_NAME at #BED_TEMPERATURE°C
 M568 P0 S{var.nozzle_temp} R{var.nozzle_temp-50} A2                ; set tool active and standby temperatures
-;
 set global.waitForNozzleTemperature = true                           ; daemon beeps when temperature is reached
-set global.waitForBedTemperature = true                                ; daemon beeps when temperature is reached
 ;
 ; =========================================================================================================
 ;

@@ -21,9 +21,9 @@ var pp = {input}
 ;
 ; =========================================================================================================
 ; save credentials to file
-echo >"0:/status/WiFi-Credentials.g" "M587 S"""^{var.nn}^""" P"""^{var.pp}^""""
+echo >"0:/settings/WiFi-Credentials.g" "M587 S"""^{var.nn}^""" P"""^{var.pp}^""""
 ;
-M98 P"0:/status/WiFi-Credentials.g"                                   ; write to WiFi module
+M98 P"0:/settings/WiFi-Credentials.g"                                   ; write to WiFi module
 ;
 M291 J1 R"Do you want to the test WiFi connection?" P"The printer will disconnect from DWC, and change the WiFi mode." S3
 ;

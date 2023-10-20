@@ -1,6 +1,6 @@
 ; =========================================================================================================
 ;
-; turn off extruder heater and part cooling fan
+; turn off nozzle heater and part cooling fan
 ;
 ; =========================================================================================================
 ;
@@ -10,12 +10,12 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
 ;
 ; =========================================================================================================
 ;
-set global.waitForExtruderTemperature = false                          ; set waiting to false
+set global.waitForNozzleTemperature = false                          ; set waiting to false
 ;
-M568 P0 S0 R0 A0                                                       ; turn off extruder
-M106 P0 S0                                                             ; set fan 0 value
+M568 P0 S0 R0 A0                                                     ; turn off nozzle heater
+M106 P0 S0                                                           ; set fan 0 value
 ;
-M291 P"Turned extruder heater off." S1 T5                              ; display new message
+M291 P"Turned nozzle heater off." S1 T5                              ; display new message
 ;
 ; =========================================================================================================
 ;

@@ -26,10 +26,10 @@ echo >>{var.path} "    M291 P""Cannot run during an ongoing print. Please run th
 echo >>{var.path} "    M99"
 echo >>{var.path} "G31 Z"^{var.newoffset}^"               ; set z-offset"
 echo >>{var.path} "M290 R0 S0                                                                 ; set babystep to 0mm absolute"
-echo >>{var.path} "echo >""0:/status/zoffset.g"" ""G31 Z"^{var.newoffset}^"                ; set z-offset"""
+echo >>{var.path} "echo >""0:/settings/zoffset.g"" ""G31 Z"^{var.newoffset}^"                ; set z-offset"""
 echo >>{var.path} "M291 P{"" z-offset: ""^sensors.probes[0].triggerHeight^""mm, set for sheet: "^var.sheetname^"""} S2 "
 ;
-echo >"0:/status/zoffset.g" "G31 Z"^{var.newoffset}^"               ; set z-offset"
+echo >"0:/settings/zoffset.g" "G31 Z"^{var.newoffset}^"               ; set z-offset"
 ;
 echo >"0:/macros/02-Print_Surface_Handling/00-Show_z-Offset" "M291 R{""z-Offset""} P{""Current: "" ^ sensors.probes[0].triggerHeight ^ "", Babysteps: "" ^ move.axes[2].babystep ^ "" , Sheet: "^var.sheetname^"""} S2"
 G31 Z{var.newoffset}                                                   ; set G31 z offset to corrected

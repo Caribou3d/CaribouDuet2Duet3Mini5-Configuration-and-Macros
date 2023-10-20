@@ -54,11 +54,11 @@ if (!(state.status == "processing"))
 ;
 ; =========================================================================================================
 ;
-if (global.waitForExtruderTemperature == true)                         ; if pre-heating
+if (global.waitForNozzleTemperature == true)                         ; if pre-heating
     if (heat.heaters[1].current >= heat.heaters[1].active)
         echo "Extruder temperature reached."                           ; display new message
         M300 S500 P1000                                                ; beep when temperature is reached
-        set global.waitForExtruderTemperature = false
+        set global.waitForNozzleTemperature = false
 ;
 ; =========================================================================================================
 ;

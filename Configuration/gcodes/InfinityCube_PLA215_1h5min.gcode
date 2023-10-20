@@ -80599,7 +80599,7 @@ M73 P100 R0
 ; extruder_colour = ""
 ; extruder_fan_offset = 0%
 ; extruder_offset = 0x0
-; extruder_temperature_offset = 0
+; nozzle_temperature_offset = 0
 ; extrusion_axis = E
 ; extrusion_multiplier = 0.88
 ; extrusion_spacing =

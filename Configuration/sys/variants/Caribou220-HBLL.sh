@@ -36,7 +36,7 @@ else
     mkdir -p $SysOutputPath || exit 27
 fi
 
-StatusDir=../../status
+StatusDir=../../settings
 StatusOutputPath=$StatusDir/processed
 # prepare output folder
 if [ ! -d "$StatusOutputPath" ]; then

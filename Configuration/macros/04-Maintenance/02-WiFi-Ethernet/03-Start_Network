@@ -4,7 +4,7 @@
 ;
 ; =========================================================================================================
 ;
-M98 P"0:/status/WiFi-Mode.g"                                           ; execute WiFi-Mode.g
+M98 P"0:/settings/WiFi-Mode.g"                                           ; execute WiFi-Mode.g
 ;
 if {network.interfaces[0].type = "wifi"}
     M291 P"WiFi module started. Check console or DWC for more information."

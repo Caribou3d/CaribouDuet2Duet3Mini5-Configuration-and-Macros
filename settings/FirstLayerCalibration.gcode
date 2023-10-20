@@ -12,7 +12,7 @@ if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
     G28                                                                ; home all axis without mesh bed level
 G0 X125 Y-7 Z80                                                        ; move extruder above bed keep extruder in front for cleaning and checking
 ;
-M568 P0 S{global.calibration_extruder_temperature} R{global.calibration_extruder_temperature-50} A1 ; set current tool temperatures
+M568 P0 S{global.calibration_nozzle_temperature} R{global.calibration_nozzle_temperature-50} A1 ; set current tool temperatures
 ;
 M140 S{global.calibration_bed_temperature}                             ; set temperature for bed
 M190 S{global.calibration_bed_temperature}                             ; wait for bed temp

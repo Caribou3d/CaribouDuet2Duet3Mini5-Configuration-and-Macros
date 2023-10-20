@@ -3,12 +3,12 @@
 ; test routine for Duet2 and Duet3Mini5+ WiFi/Ethernet
 ; part of self tests
 ;
-; calibrate z-Offset for a chosen extruder_temperature / bed_temperature
+; calibrate z-Offset for a chosen nozzle_temperature / bed_temperature
 ;
 ; =========================================================================================================
 ;
 var bed_temperature = 60                                               ; set default bed_temperature
-var extruder_temperature = 215                                         ; set default extruder_temperature
+var nozzle_temperature = 215                                         ; set default nozzle_temperature
 ;
 ; =========================================================================================================
 ;
@@ -23,13 +23,13 @@ M291 P"Press OK to continue or CANCEL to abort." R"Setting the z-probe offset" S
 M291 J1 R"Enter bed target temperature in °C:" P"z-Calibration tuning interval: 50°C - 100°C" F{var.bed_temperature} S5 L50 H100
 set var.bed_temperature = {input}
 ;
-M291 J1 R"Enter extruder target temperature in °C:" P"z-Calibration tuning interval: 180°C - 295°C" F{var.extruder_temperature} S5 L180 H295
-set var.extruder_temperature = {input}
+M291 J1 R"Enter extruder target temperature in °C:" P"z-Calibration tuning interval: 180°C - 295°C" F{var.nozzle_temperature} S5 L180 H295
+set var.nozzle_temperature = {input}
 ;
-M291 P"Press OK to continue or CANCEL to abort." R{"Heat up bed / extruder to " ^ var.bed_temperature ^ "°C / " ^ var.extruder_temperature ^ "°C?"} S3
+M291 P"Press OK to continue or CANCEL to abort." R{"Heat up bed / extruder to " ^ var.bed_temperature ^ "°C / " ^ var.nozzle_temperature ^ "°C?"} S3
 ;
 M140 S{var.bed_temperature}                                            ; set bed temperature to filament 60°C
-M568 P0 S{var.extruder_temperature} R0 A2                              ; set tool active temperature and turn tool on
+M568 P0 S{var.nozzle_temperature} R0 A2                              ; set tool active temperature and turn tool on
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
     G28                                                                ; home all axes without mesh bed level
@@ -41,7 +41,7 @@ G1 X110 Y0 Z20 F2000                                                   ; lift z 
 M400                                                                   ; wait for moves to finish
 ;
 while ((heat.heaters[0].current < heat.heaters[0].active) || (heat.heaters[1].current < heat.heaters[1].active))
-    M291 P{"Heating up to " ^var.bed_temperature ^ "°C / " ^var.extruder_temperature^ "°C ..."} S1 T10 ; display new message
+    M291 P{"Heating up to " ^var.bed_temperature ^ "°C / " ^var.nozzle_temperature^ "°C ..."} S1 T10 ; display new message
     G4 S10                                                             ; wait 10 seconds
 ;
 M300 S500 P1000                                                        ; beep when temperature is reached

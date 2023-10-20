@@ -18,9 +18,9 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
 ; =========================================================================================================
 ;
 M291 J1 R"Enter target temperature in °C:" P"Extruder cailibration interval: 180°C - 295°C" F{var.target_temperature} S5 L180 H295
-var extruder_temp = {input}
+var nozzle_temp = {input}
 ;
-M291 P"Press OK to continue or CANCEL to abort." R{"Run extruder calibration at " ^ var.extruder_temp ^ "°C?"} S3
+M291 P"Press OK to continue or CANCEL to abort." R{"Run extruder calibration at " ^ var.nozzle_temp ^ "°C?"} S3
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
     G28                                                                ; home all axes without mesh bed level
@@ -30,7 +30,7 @@ G0 X125 Y-7 Z80                                                        ; move ex
 T0                                                                     ; select tool 0
 M568 P0 S215 A2                                                        ; pre-heat extruder to 215°C
 ;
-M291 P"Mark 120mm on filament from top of extruder body." R{"Heating to " ^ var.extruder_temp ^ "°C"} S2
+M291 P"Mark 120mm on filament from top of extruder body." R{"Heating to " ^ var.nozzle_temp ^ "°C"} S2
 ;
 M116                                                                   ; wait for temp to 215°C
 ;
@@ -49,8 +49,8 @@ M291 J1 R"How much filament is left?" P"Measure distance to mark and enter value
 var new_esteps = move.extruders[0].stepsPerMm * (100.0 / (120.0 - var.distance))
 ;
 M291 R{"Calculated new e_steps = " ^ var.new_esteps  } P"Save new e_steps? Press Ok to save or CANCEL to abort." S3
-echo >"0:/status/Set-E_Steps.g" "M92 E" ^{var.new_esteps}^ "  ; set esteps"
-M98 P"0:/status/Set-E_Steps.g"                                         ; set esteps
+echo >"0:/settings/Set-E_Steps.g" "M92 E" ^{var.new_esteps}^ "  ; set esteps"
+M98 P"0:/settings/Set-E_Steps.g"                                         ; set esteps
 M291 P"Repeat test to verify." R"Extruder calibration done." S2
 ;
 ; =========================================================================================================

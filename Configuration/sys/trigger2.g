@@ -17,7 +17,7 @@ if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check t
     M98 P"0:/sys/00-Functions/ActivateRunOutSensor"                    ; activate RunOut Sensor to check if filament is loaded
     set global.filamentErrorIgnore = 1
     M292 P1                                                            ; cancel previous operation
-    M291 R"Hotend too cold. Preheat extruder first!" P"Please pull out filament!" S2 ; ask to preheat extruder
+    M291 R"Hotend too cold. Preheat nozzle first!" P"Please pull out filament!" S2 ; ask to Preheat nozzle
     set global.filamentErrorIgnore = 0
     M99
 ;

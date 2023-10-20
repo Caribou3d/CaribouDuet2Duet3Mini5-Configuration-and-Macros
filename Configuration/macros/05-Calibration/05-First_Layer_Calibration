@@ -15,14 +15,14 @@ M291 R{"First layer calibration"} P{"Press OK to continue or CANCEL to abort."} 
 M291 J1 R"Enter bed target temperature in °C:" P"First layer calibration interval: 50°C - 100°C" F{global.calibration_bed_temperature} S5 L50 H100
 set global.calibration_bed_temperature = {input}
 ;
-M291 J1 R"Enter extruder target temperature in °C:" P"First layer calibration  interval: 180°C - 295°C" F{global.calibration_extruder_temperature} S5 L180 H295
-set global.calibration_extruder_temperature = {input}
+M291 J1 R"Enter extruder target temperature in °C:" P"First layer calibration  interval: 180°C - 295°C" F{global.calibration_nozzle_temperature} S5 L180 H295
+set global.calibration_nozzle_temperature = {input}
 ;
-M291 P"Press OK to continue or CANCEL to abort." R{"Calibration at bed / extruder temperatures: " ^ global.calibration_bed_temperature ^ "°C / " ^ global.calibration_extruder_temperature ^ "°C?"} S3
+M291 P"Press OK to continue or CANCEL to abort." R{"Calibration at bed / extruder temperatures: " ^ global.calibration_bed_temperature ^ "°C / " ^ global.calibration_nozzle_temperature ^ "°C?"} S3
 ;
 ;====== print meander and square ==========================================================================
 ;
-M32 0:/status/01-First_Layer_Calibration/gcodes/FirstLayerCalibration.gcode
+M32 0:/settings/01-First_Layer_Calibration/gcodes/FirstLayerCalibration.gcode
 ;
 ;====== end meander and square ============================================================================
 ;

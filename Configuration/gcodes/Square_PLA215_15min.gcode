@@ -1133,7 +1133,7 @@ M98 P"0:/sys/00-Functions/Endscript"    ; execute end script
 ; extruder_colour = ""
 ; extruder_fan_offset = 0%
 ; extruder_offset = 0x0
-; extruder_temperature_offset = 0
+; nozzle_temperature_offset = 0
 ; extrusion_axis = E
 ; extrusion_multiplier = 1
 ; extrusion_spacing =

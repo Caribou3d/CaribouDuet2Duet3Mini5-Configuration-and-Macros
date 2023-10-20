@@ -404,12 +404,12 @@ do
     echo '   ... done'
     # =========================================================================================================
     # copy status directory
-    StatusOutputPath=$SCRIPT_PATH/Configuration/status/processed
+    StatusOutputPath=$SCRIPT_PATH/Configuration/settings/processed
     echo
     echo '   copying status directory ....'
     # prepare output folder
     INPUT=$StatusOutputPath
-    OUTPUT=$VARIANTOUTPUT/status/
+    OUTPUT=$VARIANTOUTPUT/settings/
     if [ ! -d "$OUTPUT" ]; then
         mkdir -p $OUTPUT || exit 27
     else

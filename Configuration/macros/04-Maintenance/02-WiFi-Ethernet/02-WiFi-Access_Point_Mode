@@ -4,7 +4,7 @@
 ;
 ; =========================================================================================================
 ;
-echo >"0:/status/WiFi-Mode.g" "M552 S2  ; enable access point mode"
+echo >"0:/settings/WiFi-Mode.g" "M552 S2  ; enable access point mode"
 ;
 if !exists(param.R)
     M291 R"Do you want to switch to access point mode?" P" " S3
@@ -12,7 +12,7 @@ if !exists(param.R)
     G4 S1                                                              ; wait 1 second
     M589 S"CaribouDuet" P"CaribouDuet" I180.180.0.1                    ; configure access point parameters
     G4 S1                                                              ; wait 1 second
-    M98 P"0:/status/WiFi-Mode.g"                                       ; execute WiFi-Mode.g
+    M98 P"0:/settings/WiFi-Mode.g"                                       ; execute WiFi-Mode.g
 ;
 ; =========================================================================================================
 ;
