@@ -34,14 +34,14 @@ else
     mkdir -p $SysOutputPath || exit 27
 fi
 
-StatusDir=../../settings
-StatusOutputPath=$StatusDir/processed
+SettingsDir=../../settings
+SettingsOutputPath=$SettingsDir/processed
 # prepare output folder
-if [ ! -d "$StatusOutputPath" ]; then
-    mkdir -p $StatusOutputPath || exit 27
+if [ ! -d "$SettingsOutputPath" ]; then
+    mkdir -p $SettingsOutputPath || exit 27
 else
-    rm -fr $StatusOutputPath || exit 27
-    mkdir -p $StatusOutputPath || exit 27
+    rm -fr $SettingsOutputPath || exit 27
+    mkdir -p $SettingsOutputPath || exit 27
 fi
 
 MacrosDir=../../macros
@@ -307,9 +307,6 @@ sed -i "
 ;\\
 M558 P5 C\"^zprobe.in\" H1.5 F600 T8000 A3 S0.03                         ; set z probe to SuperPINDA\\
 M557 X23:235 Y5:186 S30.25:30                                          ; define mesh grid
-};
-{/#CARIBOU_OFFSETS/ c\
-G31 P1000 X23 Y5
 }
 " $SysOutputPath/config.g
 else
@@ -319,9 +316,6 @@ sed -i "
 ;\\
 M558 P5 C\"^io1.in\" H1.5 F600 T8000 A3 S0.03                            ; set z probe to SuperPINDA\\
 M557 X23:235 Y5:186 S30.25:30                                          ; define mesh grid
-};
-{/#CARIBOU_OFFSETS/ c\
-G31 P1000 X23 Y5
 }
 " $SysOutputPath/config.g
 fi
@@ -413,17 +407,24 @@ sed "
 " < ../trigger2.g > $SysOutputPath/trigger2.g
 
 # =========================================================================================================
-# create status files
+# create settings files
 # =========================================================================================================
 
-#cp -r $StatusDir/*.* $StatusOutputPath
-find $StatusDir/* -maxdepth 0  ! \( -name "*processed*"  \) -exec cp -r -t  $StatusOutputPath {} \+
+#cp -r $SettingsDir/*.* $SettingsOutputPath
+#
+find $SettingsDir/* -maxdepth 0  ! \( -name "*processed*"  \) -exec cp -r -t  $SettingsOutputPath {} \+
 
-# create status/Set-E-Steps.g
+# create settinsgs/Set-E-Steps.g
 #
 sed "
 {s/#CARIBOU_EESTEPS/$CARIBOU_EESTEPS/};
-" < $StatusDir/Set-E-Steps.g > $StatusOutputPath/Set-E-Steps.g
+" < $SettingsDir/Set-E-Steps.g > $SettingsOutputPath/Set-E-Steps.g
+
+# create settinsgs/Set-Probe-XY-Offsets.g
+#
+sed "
+{s/#CARIBOU_OFFSETS/G31 P1000 X23 Y5  ; set xy-offsets/};
+" < $SettingsDir/Set-Probe-XY-Offsets.g > $SettingsOutputPath/Set-Probe-XY-Offsets.g
 
 # =========================================================================================================
 # create macro files

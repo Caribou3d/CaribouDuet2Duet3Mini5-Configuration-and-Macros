@@ -7,37 +7,21 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "2.2.0"
-;                           Build :   560
+;                           Build :   561
 ;
 ; Copyright Caribou Research & Development 2023. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
 ;
 ; =========================================================================================================
 ;
-; global variables
-;
-global IdleCounter = 0                                                 ; counts idle time
-global ExtruderTempActive_Old = 0                                      ; stores extruder temperature for idle check
-global BedTempActive_Old = 0                                           ; stores bed temperature for idle check
-global OldStateStatus = 0                                              ; stores the status of the printer, processing = 1
-global purge = 0                                                       ; stores status to purge when autoloading
-global zLiftDistance = 0                                               ; stores distance for lifting z axis
-global waitForNozzleTemperature = false                                ; beeps when pre-heat temperature is reached
-global waitForBedTemperature = false                                   ; beeps when pre-heat temperature is reached
-global AskToChange = 1                                                 ; ask if filament should be changed?
-global x_accel = 0                                                     ; stores x accelerations (mm/s^2)
-global x_jerk = 0                                                      ; stores x maximum instantaneous speed changes (mm/min)
-global y_accel = 0                                                     ; stores y accelerations (mm/s^2)
-global y_jerk = 0                                                      ; maximum y instantaneous speed changes (mm/min)
-global filamentErrorIgnore = 0                                         ; enable / disable execution of filament-error.g
-global filamentTriggerIgnore = 0                                       ; enable / disable execution of trigger2.g
-global calibration_bed_temperature = 60                                ; set default bed_temperature
-global calibration_nozzle_temperature = 215                            ; set default nozzle_temperature
-;
 ; general settings
 ;
 M111 S0                                                                ; debugging off
 G21                                                                    ; work in millimetres
+;
+; global variables
+;
+M98 P"0:/settings/Set-Global-Variables.g"                              ; set global variables
 ;
 ; =========================================================================================================
 ; network settings
@@ -46,9 +30,9 @@ G21                                                                    ; work in
 #CARIBOU_NAME
 ;
 if {network.interfaces[0].type = "ethernet"}
-  echo >"0:/sys/runonce.g" "M98 P""0:/settings/ethernet.g"""
+  echo >"0:/sys/runonce.g" "M98 P""0:/settings/Set-Ethernet-Mode.g"""
 else
-  M98 P"0:/settings/WiFi-mode.g"
+  M98 P"0:/settings/Set-WiFi-mode.g"
 ;
 M586 P0 S1                                                             ; enable HTTP
 M586 P1 S1                                                             ; enable FTP
@@ -158,9 +142,6 @@ M302 S#CARIBOU_MINEXTRUDETEMP R#CARIBOU_MINRETRACTTEMP                          
 ;
 M18 XY                                                                 ; release / unlock x, y
 M501                                                                   ; use config-override (for Thermistor Parameters and other settings)
-M98 P"0:/settings/zoffset.g"                                           ; set z-offset
-G90                                                                    ; send absolute coordinates...
-M83                                                                    ; ... but relative extruder moves
 ;
 ; =========================================================================================================
 ; filament handling
@@ -174,10 +155,17 @@ M98 P"0:/sys/00-Functions/FilamentsensorStatus"
 ;
 ; offsets - place off-sets for x and y here. z-offsets are handled in the print sheet macros
 ;
-; #CARIBOU_OFFSETS
+M98 P"0:/settings/Set-Probe-XY-Offsets.g"                              ; set probe xy-offset
+M98 P"0:/settings/Set-Probe-Z-Offset.g"                                ; set probe z-offset
+G90                                                                    ; send absolute coordinates...
+M83                                                                    ; ... but relative extruder moves
 ;
 ; =========================================================================================================
 ;
+; check connectivity
+;
 if {network.interfaces[0].type = "wifi"}
   echo >"0:/sys/runonce.g" "M98 P""0:/sys/test-WiFi.g"""
+;
+; =========================================================================================================
 ;

@@ -18,7 +18,7 @@ if (move.axes[2].babystep !=0)                                        ; if no ba
    M291 P{"Press OK to save or CANCEL to abort."} R{"Setting z-Offset to " ^ var.newoffset ^ "?"}  S3
    M400                                                             ; finish all current moves / clear the buffer
    G31 Z{var.newoffset}                                             ; set G31 z offset to corrected
-   echo >"0:/settings/zoffset.g" "G31 Z"^{var.newoffset}^"  ; set z-offset"
+   echo >"0:/settings/Set-Probe-Z-Offset.g" "G31 Z"^{var.newoffset}^"  ; set z-offset"
    M290 R0 S0                                                       ; set babystep to 0mm absolute
    G28                                                              ; home all axes without mesh bed level
 G90 else

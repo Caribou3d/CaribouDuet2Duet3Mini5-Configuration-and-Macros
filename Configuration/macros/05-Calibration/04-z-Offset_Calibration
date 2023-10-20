@@ -63,7 +63,7 @@ if (move.axes[2].machinePosition != 0)
     var newoffset = sensors.probes[0].triggerHeight - move.axes[2].machinePosition
     M291 R{"z-probe offset: Old: " ^ sensors.probes[0].triggerHeight ^ ", New: " ^ var.newoffset} P{"Press OK to save or CANCEL to abort."} S3
     G31 Z{var.newoffset}                                               ; set G31 z offset to corrected
-    echo >"0:/sys/zoffset.g" "G31 Z"^{var.newoffset}^"  ; set z-offset"
+    echo >"0:/sys/Set-Probe-Z-Offset.g" "G31 Z"^{var.newoffset}^"  ; set z-offset"
     M291 P"New z-offset saved." S1 T10                                 ; display new message
     G28                                                                ; home all
 else

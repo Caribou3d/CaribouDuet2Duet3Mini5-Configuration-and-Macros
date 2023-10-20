@@ -308,9 +308,6 @@ sed -i "
 ;\\
 M558 P5 C\"^zprobe.in\" H1.5 F600 T8000 A3 S0.03                         ; set z probe to SuperPINDA\\
 M557 X23:235 Y5:186 S30.25:30                                          ; define mesh grid
-};
-{/#CARIBOU_OFFSETS/ c\
-G31 P1000 X23 Y5
 }
 " $SysOutputPath/config.g
 else
@@ -320,9 +317,6 @@ sed -i "
 ;\\
 M558 P5 C\"^io1.in\" H1.5 F600 T8000 A3 S0.03                            ; set z probe to SuperPINDA\\
 M557 X23:235 Y5:186 S30.25:30                                          ; define mesh grid
-};
-{/#CARIBOU_OFFSETS/ c\
-G31 P1000 X23 Y5
 }
 " $SysOutputPath/config.g
 fi
@@ -414,17 +408,24 @@ sed "
 " < ../trigger2.g > $SysOutputPath/trigger2.g
 
 # =========================================================================================================
-# create status files
+# create settings files
 # =========================================================================================================
 
 #cp -r $SettingsDir/*.* $SettingsOutputPath
+#
 find $SettingsDir/* -maxdepth 0  ! \( -name "*processed*"  \) -exec cp -r -t  $SettingsOutputPath {} \+
 
-# create status/Set-E-Steps.g
+# create settinsgs/Set-E-Steps.g
 #
 sed "
 {s/#CARIBOU_EESTEPS/$CARIBOU_EESTEPS/};
 " < $SettingsDir/Set-E-Steps.g > $SettingsOutputPath/Set-E-Steps.g
+
+# create settinsgs/Set-Probe-XY-Offsets.g
+#
+sed "
+{s/#CARIBOU_OFFSETS/G31 P1000 X23 Y5  ; set xy-offsets/};
+" < $SettingsDir/Set-Probe-XY-Offsets.g > $SettingsOutputPath/Set-Probe-XY-Offsets.g
 
 # =========================================================================================================
 # create macro files
