@@ -403,12 +403,12 @@ do
     cp -r $INPUT/* $OUTPUT
     echo '   ... done'
     # =========================================================================================================
-    # copy status directory
-    StatusOutputPath=$SCRIPT_PATH/Configuration/settings/processed
+    # copy settings directory
+    SettingsOutputPath=$SCRIPT_PATH/Configuration/settings/processed
     echo
-    echo '   copying status directory ....'
+    echo '   copying settings directory ....'
     # prepare output folder
-    INPUT=$StatusOutputPath
+    INPUT=$SettingsOutputPath
     OUTPUT=$VARIANTOUTPUT/settings/
     if [ ! -d "$OUTPUT" ]; then
         mkdir -p $OUTPUT || exit 27
@@ -420,7 +420,7 @@ do
     echo '   ... done'
     #
     # delete processed files
-    rm -fr $StatusOutputPath
+    rm -fr $SettingsOutputPath
     # =========================================================================================================
     # copy files for SlicerScripts
     echo
