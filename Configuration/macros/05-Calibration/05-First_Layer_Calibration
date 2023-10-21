@@ -22,7 +22,7 @@ M291 P"Press OK to continue or CANCEL to abort." R{"Calibration at bed / extrude
 ;
 ;====== print meander and square ==========================================================================
 ;
-M32 0:/settings/01-First_Layer_Calibration/gcodes/FirstLayerCalibration.gcode
+M32 0:/settings/gcodes/FirstLayerCalibration.gcode
 ;
 ;====== end meander and square ============================================================================
 ;
