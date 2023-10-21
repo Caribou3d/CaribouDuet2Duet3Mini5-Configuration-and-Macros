@@ -28,7 +28,7 @@ T0                                                                     ; ensure 
 M572 D0 S0.0                                                           ; clear pressure advance.
 M220 S100                                                              ; set speed factor back to 100% in case it was changed
 M221 S100                                                              ; set extrusion factor back to 100% in case it was changed
-M290 R0 S0                                                             ; clear any baby-stepping
+M290 R0 S0                                                             ; set babystep to 0mm absolute
 ;
 M106 P0 S0                                                             ; turn off fan 0
 ;

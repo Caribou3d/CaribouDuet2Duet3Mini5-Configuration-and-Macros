@@ -8,7 +8,7 @@
 ; =========================================================================================================
 ;
 var bed_temperature = 60                                               ; set default bed_temperature
-var nozzle_temperature = 215                                         ; set default nozzle_temperature
+var nozzle_temperature = 215                                           ; set default nozzle_temperature
 ;
 ; =========================================================================================================
 ;
@@ -29,12 +29,13 @@ set var.nozzle_temperature = {input}
 M291 P"Press OK to continue or CANCEL to abort." R{"Heat up bed / extruder to " ^ var.bed_temperature ^ "°C / " ^ var.nozzle_temperature ^ "°C?"} S3
 ;
 M140 S{var.bed_temperature}                                            ; set bed temperature to filament 60°C
-M568 P0 S{var.nozzle_temperature} R0 A2                              ; set tool active temperature and turn tool on
+M568 P0 S{var.nozzle_temperature} R0 A2                                ; set tool active temperature and turn tool on
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
     G28                                                                ; home all axes without mesh bed level
+G32                                                                    ; execute bed.g (level gantry)
 G29 S2                                                                 ; cancel mesh bed compensation
-M290 R0 S0                                                             ; cancel baby stepping
+M290 R0 S0                                                             ; set babystep to 0mm absolute
 ;
 G90                                                                    ; absolute positioning
 G1 X110 Y0 Z20 F2000                                                   ; lift z axis
