@@ -25,11 +25,11 @@ set var.target_temperature = {input}
 M291 P{"Press OK if target for the nozzle is " ^ var.target_temperature ^ "°C."} R"PID tuning extruder" S3
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
-    G28                                                                ; home all axes without mesh bed level
+    G28                                                                ; home all axes without mesh nozzle level
 G90                                                                    ; absolute positioning
-G0 X125 Y-7 Z80                                                        ; move extruder above bed
+G0 X125 Y-7 Z80                                                        ; move extruder above nozzle
 ;
-if heat.heaters[1].current > 40                                        ; check if bed is cooled down
+if heat.heaters[1].current > 40                                        ; check if nozzle is cooled down
     M568 P0 S0 R0 A0                                                   ; turn off extruder
     M106 P0 S1                                                         ; turn on part cooling fan
     M106 P1 H1 T0                                                      ; turn on extruder fan
@@ -42,10 +42,17 @@ if heat.heaters[1].current > 40                                        ; check i
 M303 H1 S{var.target_temperature}                                      ; start PID tuning for target temperature
 ;
 while heat.heaters[1].state = "tuning"                                 ; while the tuning
-    M291 P"Running ..." R"PID tuning nozzle." S1                     ; display message
+    M291 P"Running ..." R"PID tuning nozzle." S1                       ; display message
     G4 S10                                                             ; wait 10 seconds
 ;
-M500 P31                                                               ; save to config-override.g
+var rnozzle = heat.heaters[1].model.heatingRate
+var k1nozzle = heat.heaters[1].model.coolingRate
+var k2nozzle = heat.heaters[1].model.fanCoolingRate
+var dnozzle = (10.0 * heat.heaters[1].model.deadTime) / 10.0           ; factors required due to a bug in the numerics 3.5-rc1
+var enozzle = (10.0 * heat.heaters[1].model.coolingExp) / 10.0         ; factors required due to a bug in the numerics 3.5-rc1
+var vnozzle = heat.heaters[1].model.standardVoltage
+;
+echo >"0:/settings/Set-PID-nozzle.g" "M307 H0 R"^{var.rnozzle}^" K"^{var.k1nozzle}^":"^{var.k2nozzle}^" D"^{var.dnozzle}^" E"^{var.enozzle}^" S1.00 B0 V"^{var.vnozzle}^"  ;  set PID parameters nozzle"
 ;
 M568 P0 S0 R0 A0                                                       ; turn off extruder
 ;

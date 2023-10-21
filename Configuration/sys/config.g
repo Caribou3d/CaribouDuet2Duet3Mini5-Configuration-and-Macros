@@ -142,6 +142,8 @@ M302 S#CARIBOU_MINEXTRUDETEMP R#CARIBOU_MINRETRACTTEMP                          
 ;
 M18 XY                                                                 ; release / unlock x, y
 M501                                                                   ; use config-override (for Thermistor Parameters and other settings)
+M98 P"0:/settings/Set-PID-Bed.g"                                       ; set PID values for the heated bed
+M98 P"0:/settings/Set-PID-Nozzle.g"                                    ; set PID values for the nozzle
 ;
 ; =========================================================================================================
 ; filament handling
