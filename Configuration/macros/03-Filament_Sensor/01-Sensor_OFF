@@ -8,7 +8,7 @@ if {move.axes[0].workplaceOffsets[8] != 0}                             ; check i
     M98 P"0:/sys/00-Functions/TriggerOff"                              ; turn trigger off
     M98 P"0:/sys/00-Functions/RunOutOff"                               ; turn run out sensor off
     G10 L2 P9 X0                                                       ; save status into tool 9
-    M500                                                               ; save status to config-override.g
+    echo >"0:/settings/Set-FilamentSensorStatus.g" "G10 L2 P9 X0  ; set filament sensor off"  ; save to file
 ;
 M291 P"Filament sensor is turned OFF." S2                              ; display new message
 ;

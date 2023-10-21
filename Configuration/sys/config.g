@@ -7,7 +7,7 @@
 ; for #CARIBOU_VARIANT
 ;
 ; CariboDuetConfiguration Release : "2.2.0"
-;                           Build :   564
+;                           Build :   565
 ;
 ; Copyright Caribou Research & Development 2023. Licensed under GPL3. No commercial use.
 ; Source code and release notes are available on github: https://github.com/Caribou3d/CaribouDuet2-ConfigurationMacros
@@ -140,8 +140,6 @@ M302 S#CARIBOU_MINEXTRUDETEMP R#CARIBOU_MINRETRACTTEMP                          
 ; other settings
 ; =========================================================================================================
 ;
-M18 XY                                                                 ; release / unlock x, y
-M501                                                                   ; use config-override (for Thermistor Parameters and other settings)
 M98 P"0:/settings/Set-PID-Bed.g"                                       ; set PID values for the heated bed
 M98 P"0:/settings/Set-PID-Nozzle.g"                                    ; set PID values for the nozzle
 ;
@@ -151,20 +149,23 @@ M98 P"0:/settings/Set-PID-Nozzle.g"                                    ; set PID
 ;
 ; execute macros that determine the status of the filament sensor
 ;
-M98 P"0:/sys/00-Functions/FilamentsensorStatus"
+M98 P"0:/settings/Set-FilamentSensorStatus.g"                          ; load filament sensor settings
+M98 P"0:/settings/Set-AutoLoadStatus.g"                                ; load autoload settings
+M98 P"0:/sys/00-Functions/FilamentsensorStatus"                        ; update sensor status
 ;
 ; =========================================================================================================
-;
 ; offsets - place off-sets for x and y here. z-offsets are handled in the print sheet macros
+; =========================================================================================================
 ;
 M98 P"0:/settings/Set-Probe-XY-Offsets.g"                              ; set probe xy-offset
 M98 P"0:/settings/Set-Probe-Z-Offset.g"                                ; set probe z-offset
+M18 XY                                                                 ; release / unlock x, y
 G90                                                                    ; send absolute coordinates...
 M83                                                                    ; ... but relative extruder moves
 ;
 ; =========================================================================================================
-;
 ; check connectivity
+; =========================================================================================================
 ;
 if {network.interfaces[0].type = "wifi"}
   echo >"0:/sys/runonce.g" "M98 P""0:/sys/test-WiFi.g"""

@@ -1,0 +1,1 @@
+G10 L2 P9 Y1   ; set autoload on

@@ -13,7 +13,7 @@ if {move.axes[0].workplaceOffsets[8] != 1}                     ; check if filame
     M99
 ;
 G10 L2 P9 Y0                                                   ; save status into y-offset of tool 9
-M500                                                           ; save status to config-override.g
+echo >"0:/settings/Set-AutoLoadStatus.g" "G10 L2 P9 Y0   ; set autoload off"  ; save to file
 ;
 if !exists(sensors.filamentMonitors[0])                        ; in run-out mode?
     set global.filamentErrorIgnore = 1

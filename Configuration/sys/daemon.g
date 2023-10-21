@@ -46,15 +46,16 @@ if (!(state.status == "processing"))
     if (!(state.status == "pausing") && !(state.status == "paused"))
         if (!(state.status == "resuming") && global.OldStateStatus = 1) ; print just finished
             if move.axes[2].babystep !=0                               ; if no babysteps are currently adjusted - exit routine
-                G31 Z{sensors.probes[0].triggerHeight - move.axes[2].babystep}
-                M500 P10:31                                            ; save settings to config-overide.g
+                var newoffset = sensors.probes[0].triggerHeight - move.axes[2].babystep
+                G31 Z{var.newoffset}                                             ; set G31 z offset to corrected
+                echo >"0:/settings/Set-Probe-Z-Offset.g" "G31 Z"^{var.newoffset}^"  ; set z-offset"
                 M290 R0 S0                                             ; set babystep to 0mm absolute
                 set global.OldStateStatus = 0
                 echo "babysteps saved"
 ;
 ; =========================================================================================================
 ;
-if (global.waitForNozzleTemperature == true)                         ; if pre-heating
+if (global.waitForNozzleTemperature == true)                           ; if pre-heating
     if (heat.heaters[1].current >= heat.heaters[1].active)
         echo "Extruder temperature reached."                           ; display new message
         M300 S500 P1000                                                ; beep when temperature is reached

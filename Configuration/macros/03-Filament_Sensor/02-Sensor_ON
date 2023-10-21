@@ -6,7 +6,7 @@
 ;
 if {move.axes[0].workplaceOffsets[8] != 1}                             ; check if filament sensor is not enabled in x-offset of tool 9
     G10 L2 P9 X1.00                                                    ; save status into tool 9
-    M500                                                               ; save status to config-override.g
+    echo >"0:/settings/Set-FilamentSensorStatus.g" "G10 L2 P9 X1  ; set filament sensor on"  ; save to file
     M98 P"0:/sys/00-Functions/FilamentSensorStatus"                    ; update sensor status
 ;
 M98 P"0:/macros/03-Filament_Sensor/00-Sensor_STATUS"
