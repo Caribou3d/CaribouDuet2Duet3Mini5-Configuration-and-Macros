@@ -52,7 +52,7 @@ var dnozzle = (10.0 * heat.heaters[1].model.deadTime) / 10.0           ; factors
 var enozzle = (10.0 * heat.heaters[1].model.coolingExp) / 10.0         ; factors required due to a bug in the numerics 3.5-rc1
 var vnozzle = heat.heaters[1].model.standardVoltage
 ;
-echo >"0:/settings/Set-PID-nozzle.g" "M307 H0 R"^{var.rnozzle}^" K"^{var.k1nozzle}^":"^{var.k2nozzle}^" D"^{var.dnozzle}^" E"^{var.enozzle}^" S1.00 B0 V"^{var.vnozzle}^"  ;  set PID parameters nozzle"
+echo >"0:/settings/Set-PID-nozzle.g" "M307 H1 R"^{var.rnozzle}^" K"^{var.k1nozzle}^":"^{var.k2nozzle}^" D"^{var.dnozzle}^" E"^{var.enozzle}^" S1.00 B0 V"^{var.vnozzle}^"  ;  set PID parameters nozzle"
 ;
 M568 P0 S0 R0 A0                                                       ; turn off extruder
 ;
