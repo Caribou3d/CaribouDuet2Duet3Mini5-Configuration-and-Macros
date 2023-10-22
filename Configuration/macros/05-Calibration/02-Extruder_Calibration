@@ -41,10 +41,9 @@ G1 E100 F60                                                            ; extrude
 M400                                                                   ; wait for moves to finish
 M568 P0 S0 R0 A0                                                       ; turn off extruder
 ;
-
 var distance = 0
 M291 J1 R"How much filament is left?" P"Measure distance to mark and enter value in mm"  S5 L-40 H40
-  set var.distance = {input}
+set var.distance = {input}
 ;
 var new_esteps = move.extruders[0].stepsPerMm * (100.0 / (120.0 - var.distance))
 ;
