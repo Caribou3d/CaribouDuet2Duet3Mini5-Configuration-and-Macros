@@ -33,7 +33,8 @@ M290 R0 S0                                                             ; set bab
 M106 P0 S0                                                             ; turn off fan 0
 ;
 G32                                                                    ; execute bed.g (level gantry)
-G29 S1                                                                 ; load bed mesh for the system's set filament type
+if fileexists("heightmap.csv")                                         ; does the height map exist?
+    G29 S1                                                             ; load height map for the system's set filament type
 M400                                                                   ; finish all moves, clear the buffer
 G90                                                                    ; absolute Positioning
 M83                                                                    ; extruder relative mode
