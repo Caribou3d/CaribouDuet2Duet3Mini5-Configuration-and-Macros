@@ -146,8 +146,19 @@ M84 XY                                                                 ; disable
 ;
 ; print results
 ;
-M291 R{"z-Trigger Height"} P{"Current: " ^ sensors.probes[0].triggerHeight ^ ", Babysteps:" ^ move.axes[2].babystep ^ ", New: " ^ sensors.probes[0].triggerHeight - move.axes[2].babystep} S2
-M291 P{"Enter the number for the trigger height in your sheet / nozzle macro, like: G31 Z" ^ sensors.probes[0].triggerHeight - move.axes[2].babystep } S2
+if (move.axes[2].babystep !=0)                                        ; if no babysteps are currently adjusted - exit routine
+   var newoffset = sensors.probes[0].triggerHeight - move.axes[2].babystep
+   M290 R0 S0                                                         ; set babystep to 0mm absolute
+   M291 R{"z-Offset"} P{"Current: " ^ sensors.probes[0].triggerHeight ^ ", Babysteps:" ^ move.axes[2].babystep ^ ", New: " ^ var.newoffset} S2
+   M291 P{"Press OK to save or CANCEL to abort."} R{"Setting z-Offset to " ^ var.newoffset ^ "?"}  S3
+   M400                                                               ; finish all current moves / clear the buffer
+   G31 Z{var.newoffset}                                               ; set G31 z offset to corrected
+   echo >"0:/settings/Set-Probe-Z-Offset.g" "G31 Z"^{var.newoffset}^" ; set z-offset"
+   M290 R0 S0                                                         ; set babystep to 0mm absolute
+   G28                                                                ; home all axes without mesh bed level
+   G90
+else
+   M291 P"Babysteps are 0.00. z-offset will not be changed." S1
 ;
 ; =========================================================================================================
 ;
