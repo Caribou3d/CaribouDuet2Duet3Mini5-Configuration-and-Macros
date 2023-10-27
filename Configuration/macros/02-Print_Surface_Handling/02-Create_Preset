@@ -10,8 +10,10 @@ if {state.status == "processing"} || {state.status == "paused"}        ; printer
 ;
 ; =========================================================================================================
 ;
+var newoffset = sensors.probes[0].triggerHeight - move.axes[2].babystep
+;
 if !exists(param.R)
-   M291 P"Press OK to continue or CANCEL to abort." R"Create a new preset with current z-probe offset?" S3
+   M291 P"Press OK to continue or CANCEL to abort." R{"Create a new preset with current z-probe offset: "^var.newoffset^"mm?"} S3
 ;
 M291 J1 R"Enter filename:" P"(max. 15 characters long) " S7 H15
 var filename = {input}
@@ -30,8 +32,6 @@ while (fileexists(var.path))
 ;
 M291 J1 R"Enter sheet name:" P"(max. 15 characters long) " S7 H15
 var sheetname = {input}
-;
-var newoffset = sensors.probes[0].triggerHeight - move.axes[2].babystep
 ;
 echo >{var.path} "if {state.status == ""processing""} || {state.status == ""paused"" }       ; printer is not currently printing!"
 echo >>{var.path} "    M291 P""Cannot run during an ongoing print. Please run this macro when the printer is not printing!"" R""WARNING!"" S2"

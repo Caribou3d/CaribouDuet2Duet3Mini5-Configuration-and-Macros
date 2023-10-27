@@ -8,7 +8,6 @@ G90                                           ; absolute positioning
 G1 X125 Y-7 Z80 F4000                         ; move extruder above bed,
 ;
 M568 P0 S[extruder0_temperature] R160 A1                          ; pre-heat tool 0 to 160C (standby)
-M568 P1 S0 R0 A0                              ; pre-heat tool 1 to 0C (off)
 ;
 M140 S[bed0_temperature]                                      ; this will take the layer 1 temperature for bed 0
 M190 S[bed0_temperature]                                      ; wait for bed temp
@@ -22,7 +21,7 @@ M116 P0                                       ; wait for tool 0 temp
 ;
 ; ====================================================================================
 ;
-M98 P"0:/sys/primeLine-X.g"                   ; execute primeline macro
+M98 P"0:/sys/primeLine.g"                     ; execute primeline macro
 ;
 G92 E0.0                                      ; set extruder position
 ;
