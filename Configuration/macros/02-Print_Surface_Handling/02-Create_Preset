@@ -15,9 +15,21 @@ if !exists(param.R)
 ;
 M291 J1 R"Enter filename:" P"(max. 15 characters long) " S7 H15
 var filename = {input}
+var path = "0:/macros/02-Print_Surface_Handling/"^var.filename
+var selected = 0
+;
+while (fileexists(var.path))
+    M291 J1 R"File exists already" P"Selct OK to overwrite, NEW NAME to enter name, ode CANCEL to abort" S4 K{"OK","NEW NAME"}
+    set var.selected = {input}
+    if (var.selected = 0)
+        break
+    elif (var.selected = 1)
+        M291 J1 R"Enter filename:" P"(max. 15 characters long) " S7 H15
+        set var.filename = {input}
+        set var.path = "0:/macros/02-Print_Surface_Handling/"^var.filename
+;
 M291 J1 R"Enter sheet name:" P"(max. 15 characters long) " S7 H15
 var sheetname = {input}
-var path = "0:/macros/02-Print_Surface_Handling/"^var.filename
 ;
 var newoffset = sensors.probes[0].triggerHeight - move.axes[2].babystep
 ;
