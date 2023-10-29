@@ -13,20 +13,21 @@ var nozzle_temperature = 215                                           ; set def
 ; =========================================================================================================
 ;
 if {state.status == "processing"} || {state.status == "paused"}        ; printer is not currently printing!
-    M291 P"Cannot run during an ongoing print. Please run this macro when the printer is not printing!" R"WARNING!" S2
+    M291 P"Cannot run during an ongoing print. Please run this macro when the printer is not printing!" R"WARNING!" S2 ; display user prompt
     M99
 ;
 ; =========================================================================================================
 ;
-M291 P"Press OK to continue or CANCEL to abort." R"Setting the z-probe offset" S3
+M291 P"Press OK to continue or CANCEL to abort." R"Setting the z-probe offset." S3           ; display user prompt
+M291 P"Press OK to continue or CANCEL to abort." R"Is SuperPINDA 1.5mm above the nozzle?" S3 ; display user prompt
 ;
-M291 J1 R"Enter bed target temperature in °C:" P"z-Calibration tuning interval: 50°C - 100°C" F{var.bed_temperature} S5 L50 H100
+M291 J1 R"Enter bed target temperature in °C:" P"z-Calibration tuning interval: 50°C - 100°C" F{var.bed_temperature} S5 L50 H100 ; display user prompt
 set var.bed_temperature = {input}
 ;
 M291 J1 R"Enter extruder target temperature in °C:" P"z-Calibration tuning interval: 180°C - 295°C" F{var.nozzle_temperature} S5 L180 H295
 set var.nozzle_temperature = {input}
 ;
-M291 P"Press OK to continue or CANCEL to abort." R{"Heat up bed / extruder to " ^ var.bed_temperature ^ "°C / " ^ var.nozzle_temperature ^ "°C?"} S3
+M291 P"Press OK to continue or CANCEL to abort." R{"Heat up bed / extruder to " ^ var.bed_temperature ^ "°C / " ^ var.nozzle_temperature ^ "°C?"} S3 ; display user prompt
 ;
 M140 S{var.bed_temperature}                                            ; set bed temperature to filament 60°C
 M568 P0 S{var.nozzle_temperature} R0 A2                                ; set tool active temperature and turn tool on
@@ -38,7 +39,7 @@ G29 S2                                                                 ; cancel 
 M290 R0 S0                                                             ; set babystep to 0mm absolute
 ;
 G90                                                                    ; absolute positioning
-G1 X110 Y0 Z20 F2000                                                   ; lift z axis
+G1 X110 Y0 Z10 F2000                                                   ; lift z axis
 M400                                                                   ; wait for moves to finish
 ;
 while ((heat.heaters[0].current < heat.heaters[0].active) || (heat.heaters[1].current < heat.heaters[1].active))
@@ -48,13 +49,54 @@ while ((heat.heaters[0].current < heat.heaters[0].active) || (heat.heaters[1].cu
 M300 S500 P1000                                                        ; beep when temperature is reached
 ;
 G90                                                                    ; absolute positioning
-G1 Z10 F2000                                                           ; move z axis 10mm above the bed
+G1 Z5 F2000                                                            ; move z axis 10mm above the bed
 M400                                                                   ; wait for moves to finish
 ;
 M564 H1 S0                                                             ; ignore axis limits
 ;
-M291 P"Place a sheet of paper under the nozzle and CAREFULLY lower the extruder until slight friction can be noticed." R"Setting the z-offset height" S2 Z1 ;
+M291 P"Place a sheet of paper on the  heat bed under the nozzle." S2   ; display user prompt
 ;
+G91                                                                    ; set to relative positioning
+;
+var z_pos = move.axes[2].machinePosition
+;
+while true
+    M291  R{"Setting the z-offset height "^var.z_pos} P"Lower the z-axis until light friction can be noticed." S4 K{"< X-1.0","< X-0.1","< X-0.05","< X-0.01", "X+0.01 >","X+0.05 >","X+0.1 > ","X+1.0>","Ok","Cancel"} ; display user prompt
+    var selected = {input}
+    if (var.selected = 0)
+        G1 Z-1
+        set var.z_pos = var.z_pos -1
+    elif (var.selected = 1)
+        G1 Z-0.1
+        set var.z_pos = var.z_pos -0.1
+    elif (var.selected = 2)
+        G1 Z-0.05
+        set var.z_pos = var.z_pos -0.05
+    elif (var.selected = 3)
+        G1 Z-0.01
+        set var.z_pos = var.z_pos -0.01
+    elif (var.selected = 4)
+        G1 Z0.01
+        set var.z_pos = var.z_pos + 0.01
+    elif (var.selected = 5)
+        G1 Z0.05
+        set var.z_pos = var.z_pos +0.05
+    elif (var.selected = 6)
+        G1 Z0.1
+        set var.z_pos = var.z_pos + 0.1
+    elif (var.selected = 7)
+        G1 Z1
+        set var.z_pos = var.z_pos +1
+    elif (var.selected = 8)
+        break
+    else
+        M564 H0 S1                                                     ; limit movement within axis boundaries, allow movemonet of unhomed axes
+        G90                                                            ; set to absolute positioning
+        M99                                                            ; leave macro
+;
+;M291 P"Place a sheet of paper under the nozzle and CAREFULLY lower the extruder until slight friction can be noticed." R"Setting the z-offset height" S2 Z1 ;
+;
+G90                                                                    ; set to absolute positioning
 M564 H0 S1                                                             ; limit movement within axis boundaries, allow movemonet of unhomed axes
 M140 S0 R0                                                             ; set bed temperature to 0C
 M140 S-274                                                             ; set bed temperature to 0K to turn it off
