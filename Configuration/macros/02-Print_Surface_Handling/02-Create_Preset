@@ -36,7 +36,7 @@ var sheetname = {input}
 echo >{var.path} "if {state.status == ""processing""} || {state.status == ""paused"" }       ; printer is not currently printing!"
 echo >>{var.path} "    M291 P""Cannot run during an ongoing print. Please run this macro when the printer is not printing!"" R""WARNING!"" S2"
 echo >>{var.path} "    M99"
-echo >>{var.path} "G31 Z"^{var.newoffset}^"                                                             ; set z-offset"
+echo >>{var.path} "G31 Z"^{var.newoffset}^"                                                            ; set z-offset"
 echo >>{var.path} "M290 R0 S0                                                             ; set babystep to 0mm absolute"
 echo >>{var.path} "echo >""0:/settings/Set-Probe-Z-Offset.g"" ""G31 Z"^{var.newoffset}^"  ; set z-offset"""
 echo >>{var.path} "M291 P{"" z-offset: ""^sensors.probes[0].triggerHeight^""mm, set for sheet: "^var.sheetname^"""} S2 "
