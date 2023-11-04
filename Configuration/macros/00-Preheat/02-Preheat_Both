@@ -7,7 +7,7 @@
 var bed_temp = 0
 var nozzle_temp = 0
 ;
-M291 R"Preheat bed / nozzle to:" P"Select a temperature combination or press CANCEL." S4 K{"55°C/215°C","60°C/220°C", "70°C/230°C", "50°C/240°C","100°C/250°C","105°C/260°C","110°C/275°C","Cancel",} ; Display user prompt
+M291 R"Preheat bed / nozzle to:" P"Select a temperature combination or press CANCEL." S4 K{"55/215°C","60/220°C", "70/230°C", "50/240°C","100/250°C","105/260°C","110/275°C","Cancel",} ; Display user prompt
 var selected = {input}
 ;
 if (var.selected = 0)
