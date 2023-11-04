@@ -483,6 +483,7 @@ find $MacrosDir/* -maxdepth 0  ! \( -name "*Main*" -o -name "*processed*"  \) -e
 
 mkdir $MacroOutputPath/04-Maintenance
 find $MacrosDir/04-Maintenance/* -maxdepth 0  ! \( -name "*First*" \) -exec cp -r -t  $MacroOutputPath/04-Maintenance {} \+
+rm -f $MacroOutputPath/04-Maintenance/02-WiFi-Ethernet/add*
 
 # create 03-Reset_E-Steps
 #

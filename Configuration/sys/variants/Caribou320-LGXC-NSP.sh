@@ -436,7 +436,7 @@ find $MacrosDir/* -maxdepth 0  ! \( -name "*Main*" -o -name "06-BL-Touch" -o -na
 
 mkdir $MacroOutputPath/04-Maintenance
 find $MacrosDir/04-Maintenance/* -maxdepth 0  ! \( -name "*First*" \) -exec cp -r -t  $MacroOutputPath/04-Maintenance {} \+
-
+rm -f $MacroOutputPath/04-Maintenance/02-WiFi-Ethernet/add*
 cp -r $MacrosDir/07-Fun $MacroOutputPath/06-Fun
 
 # create 03-Reset_E-Steps
