@@ -74,7 +74,7 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
         M400                                                           ; wait for current moves to finish
         M98 P"0:/macros/01-Filament_Handling/02-Purge_Filament"
         M292
-        M400                                                          ; wait for current moves to finish
+        M400                                                           ; wait for current moves to finish
 ;
 set global.purge = 0                                                   ; enable purge in trigger2.g
 ;
