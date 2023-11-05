@@ -4,26 +4,28 @@
 ;
 ; =========================================================================================================
 ;
+T0                                 ; select tool 0
+;
 G90                                ; absolute positioning
 G1 X125 Y-7 Z80 F4000              ; move extruder above bed,
 ;
 M568 P0 S160 A2                    ; pre-heat extruder to 160C
+;
 M140 S{material_bed_temperature}             ; this will take the layer 1 temperature for bed 0
 M190 S{material_bed_temperature}             ; wait for bed temp
 ;
 G29                                ; mesh bed leveling using defined mesh grid
 G1 X0 Y-3 Z0.6 F4000               ; go outside print area
+M400                               ; wait for current moves to finish
 ;
-M568 P0 S{material_print_temperature} A2    ; set extruder temperature
+M568 P0 S{material_print_temperature} A2  ; set extruder temperature
 M116 P0                            ; wait for extruder temp
 ;
 ; =========================================================================================================
 ;
-;
 M98 P"0:/sys/primeLine.g"          ; execute primeline macro
 ;
 G92 E0.0                           ; set extruder position
-;
 M572 D0 S0.07                      ; set pressure advance
 ;
 ; =========================================================================================================

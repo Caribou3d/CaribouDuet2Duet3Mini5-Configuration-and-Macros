@@ -3,29 +3,30 @@
 ; start script for S3d for CaribouDuet
 ;
 ; ===========================================================================================
+;     
+T0                                 ; select tool 0
 ;
-G90                                           ; absolute positioning
-G1 X125 Y-7 Z80 F4000                         ; move extruder above bed,
+G90                                ; absolute positioning
+G1 X125 Y-7 Z80 F4000              ; move extruder above bed,
 ;
-M568 P0 S[extruder0_temperature] R160 A1                          ; pre-heat tool 0 to 160C (standby)
+M568 P0 S[extruder0_temperature] R160 A1                      ; pre-heat tool 0 to 160C (standby)
 ;
-M140 S[bed0_temperature]                                      ; this will take the layer 1 temperature for bed 0
-M190 S[bed0_temperature]                                      ; wait for bed temp
+M140 S[bed0_temperature]                                  ; this will take the layer 1 temperature for bed 0
+M190 S[bed0_temperature]                                  ; wait for bed temp
 ;
-G29                                           ; mesh bed leveling using defined mesh grid
-G0 X0 Y-3 Z0.6                                ; go outside print area
-M400                                          ; wait for current moves to finish
+G29                                ; mesh bed leveling using defined mesh grid
+G0 X0 Y-3 Z0.6                     ; go outside print area
+M400                               ; wait for current moves to finish
 ;
-M568 P0 A2                                    ; set tool 0 to active temperature
-M116 P0                                       ; wait for tool 0 temp
+M568 P0 A2                         ; set tool 0 to active temperature
+M116 P0                            ; wait for tool 0 temp
 ;
 ; ===========================================================================================
 ;
-M98 P"0:/sys/primeLine.g"                     ; execute primeline macro
+M98 P"0:/sys/primeLine.g"          ; execute primeline macro
 ;
-G92 E0.0                                      ; set extruder position
-;
-M572 D0 S0.07                                 ; set pressure advance
+G92 E0.0                           ; set extruder position
+M572 D0 S0.07                      ; set pressure advance
 ;
 ; ============================================================================================
 ;
