@@ -490,14 +490,4 @@ sed "
 {s/#CARIBOU_FINALUNLOAD/$CARIBOU_FINALUNLOAD/g}
 " < $MacrosDir/01-Filament_Handling/01-Unload_Filament > $MacroOutputPath/01-Filament_Handling/01-Unload_Filament
 
-# create Change_Filament
-#
-sed "
-{s/#CARIBOU_VARIANT/$CARIBOU_VARIANT/};
-{s/#CARIBOU_MINEXTRUDETEMP/$CARIBOU_MINEXTRUDETEMP/};
-{s/#CARIBOU_MINRETRACTTEMP/$CARIBOU_MINRETRACTTEMP/};
-{s/#CARIBOU_INITIALLOAD/$CARIBOU_INITIALLOAD/g};
-{s/#CARIBOU_FINALUNLOAD/$CARIBOU_FINALUNLOAD/g}
-" < $MacrosDir/01-Filament_Handling/03-Change_Filament > $MacroOutputPath/01-Filament_Handling/03-Change_Filament
-
 # =========================================================================================================

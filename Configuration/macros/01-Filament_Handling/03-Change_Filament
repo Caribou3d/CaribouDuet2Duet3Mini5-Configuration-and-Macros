@@ -1,16 +1,13 @@
 ; =========================================================================================================
 ;
-; Macro to change filament (unloading / loading).
-;
-; for #CARIBOU_VARIANT
-;
-; Assumption is that users has chosen the correct temperature!
+; change filament (unloading / loading)
+; assumption is that user has chosen the correct temperature for filament!
 ;
 ; =========================================================================================================
 ;
-if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check extrude temperature
-    if heat.heaters[1].current < heat.coldRetractTemperature           ; check retract temperature
-        M291 P"Hotend too cold. Preheat nozzle first!" S2            ; ask to Preheat nozzle
+if (heat.heaters[1].current < heat.coldExtrudeTemperature)             ; check extrude temperature
+    if (heat.heaters[1].current < heat.coldRetractTemperature)         ; check retract temperature
+        M291 P"Hotend too cold. Preheat nozzle first!" S2              ; ask to Preheat nozzle
         M99
 ;
 if state.status == "processing"                                        ; printer is currently printing!
@@ -22,7 +19,7 @@ else
         M98 P"0:/sys/00-Functions/zLift"                               ; call macro to lift z
     else
         G90                                                            ; set absolute positioning
-        if  {move.axes[2].machinePosition < 80}                        ; if z position is below 80mm
+        if (move.axes[2].machinePosition < 80)                         ; if z position is below 80mm
             G0 X125 Y-7 Z80 F6000                                      ; go to the parking position
         else
             G0 X125 Y-7 F6000                                          ; go to the parking position

@@ -9,9 +9,9 @@
 ;
 var sensor_flag = 0                                                    ; create variable sensor_flag
 ;
-if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check extrude temperature
-    if heat.heaters[1].current < heat.coldRetractTemperature           ; check retract temperature
-        M291 P"Hotend too cold. Preheat nozzle first!" S2            ; ask to Preheat nozzle
+if (heat.heaters[1].current < heat.coldExtrudeTemperature)             ; check extrude temperature
+    if (heat.heaters[1].current < heat.coldRetractTemperature)         ; check retract temperature
+        M291 P"Hotend too cold. Preheat nozzle first!" S2              ; ask to Preheat nozzle
         M99
 ;
 ; disable run-out sensor if active

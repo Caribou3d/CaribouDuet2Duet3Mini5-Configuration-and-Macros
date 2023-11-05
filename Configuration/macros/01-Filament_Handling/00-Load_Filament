@@ -14,9 +14,9 @@ if {state.status == "processing"}                                      ; printer
 ;
 var sensor_flag = 0                                                    ; create variable sensor_flag
 ;
-if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check extrude temperature
-    if heat.heaters[1].current < heat.coldRetractTemperature           ; check retract temperature
-        M291 P"Hotend too cold. Preheat nozzle first!" S2            ; ask to Preheat nozzle
+if (heat.heaters[1].current < heat.coldExtrudeTemperature)             ; check extrude temperature
+    if (heat.heaters[1].current < heat.coldRetractTemperature)         ; check retract temperature
+        M291 P"Hotend too cold. Preheat nozzle first!" S2              ; ask to Preheat nozzle
         M99
 ;
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
@@ -24,7 +24,7 @@ if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
     M98 P"0:/sys/00-Functions/zLift"                                   ; call macro to lift z
 else
     G90                                                                ; set absolute positioning
-    if  {move.axes[2].machinePosition < 80}                            ; if z position is below 80mm
+    if  (move.axes[2].machinePosition < 80)                            ; if z position is below 80mm
         G0 X125 Y-7 Z80 F6000                                          ; go to the parking position
     else
         G0 X125 Y-7 F6000                                              ; go to the parking position
@@ -35,8 +35,8 @@ T0                                                                     ; select 
 ;
 set global.purge = -1                                                  ; disable purge in trigger2.g
 ;
-if {move.axes[0].workplaceOffsets[8] == 1}                             ; if filament sensor is enabled
-    if {move.axes[1].workplaceOffsets[8] == 1}                         ; if autoload is enabled
+if (move.axes[0].workplaceOffsets[8] == 1)                             ; if filament sensor is enabled
+    if (move.axes[1].workplaceOffsets[8] == 1)                         ; if autoload is enabled
         M300 S500 P600                                                 ; beep
         M291 P"Insert filament ..." S1 T5                              ; display new message
         while {var.sensor_flag = 0}
@@ -50,7 +50,7 @@ if {move.axes[0].workplaceOffsets[8] == 1}                             ; if fila
 ;
 set global.purge = 0                                                   ; enable purge in trigger2.g
 ;
-if {move.axes[0].workplaceOffsets[8] == 0} || {move.axes[1].workplaceOffsets[8] == 0}  ; filament sensor diabled or autoload off
+if ((move.axes[0].workplaceOffsets[8] == 0) || (move.axes[1].workplaceOffsets[8] == 0))  ; filament sensor diabled or autoload off
     M300 S500 P600                                                     ; beep
     M291 R"Insert filament ..." P"Press OK to start feeding filament ..." S2  ; display new message
     M291 P"Feeding filament ..." S1 T15                                ; display new message

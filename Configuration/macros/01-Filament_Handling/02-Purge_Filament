@@ -10,9 +10,9 @@ if {state.status == "processing"}                                      ; printer
 ;
 ; =========================================================================================================
 ;
-if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check extrude temperature
-    if heat.heaters[1].current < heat.coldRetractTemperature           ; check retract temperature
-        M291 P"Hotend too cold. Preheat nozzle first!" S2            ; ask to Preheat nozzle
+if (heat.heaters[1].current < heat.coldExtrudeTemperature)             ; check extrude temperature
+    if (heat.heaters[1].current < heat.coldRetractTemperature)         ; check retract temperature
+        M291 P"Hotend too cold. Preheat nozzle first!" S2              ; ask to Preheat nozzle
         M99
 ;
 T0                                                                     ; select tool 0
