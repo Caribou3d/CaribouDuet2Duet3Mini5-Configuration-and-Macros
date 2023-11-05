@@ -94,8 +94,6 @@ while true
         G90                                                            ; set to absolute positioning
         M99                                                            ; leave macro
 ;
-;M291 P"Place a sheet of paper under the nozzle and CAREFULLY lower the extruder until slight friction can be noticed." R"Setting the z-offset height" S2 Z1 ;
-;
 G90                                                                    ; set to absolute positioning
 M564 H0 S1                                                             ; limit movement within axis boundaries, allow movemonet of unhomed axes
 M140 S0 R0                                                             ; set bed temperature to 0C
@@ -113,6 +111,8 @@ else
     M291 P"z-offset has not changed." S1 T10                           ; display new message
 ;
 G1 Z20 F2000                                                           ; lift z axis
+;
+M98 P"0:/macros/02-Print_Surface_Handling/02-Create_Preset"            ; call macro to creat preset
 ;
 ; =========================================================================================================
 ;
