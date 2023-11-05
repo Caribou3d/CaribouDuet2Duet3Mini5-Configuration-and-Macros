@@ -4,9 +4,9 @@
 ;
 ; =========================================================================================================
 ;
-if exists(sensors.filamentMonitors[0])                             ; in run-out mode?
+if exists(sensors.filamentMonitors[0])                                 ; in run-out mode?
 ;   #CARIBOU_DISABLE_FILAMENT_SENSOR
-    M950 J0 C"nil"                                                 ; free input 1 e0 filament sensor
+    M950 J0 C"nil"                                                     ; free input 1 e0 filament sensor
 ;
 ; =========================================================================================================
 ;

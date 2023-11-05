@@ -5,7 +5,7 @@
 ; =========================================================================================================
 ;
 G91                                                                    ; relative positioning
-if {move.axes[2].machinePosition < (move.axes[2].max -20)}             ; if the z position is below 20mm below max z
+if (move.axes[2].machinePosition < (move.axes[2].max -20))             ; if the z position is below 20mm below max z
     G1 Z15                                                             ; lift z axis by 15mm
 G90                                                                    ; absolute positioning
 G1 X{move.axes[0].min} Y{move.axes[1].max-7} F4000                     ; park xy axes
