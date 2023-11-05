@@ -1,11 +1,9 @@
 ; =========================================================================================================
 ;
 ; test routine for Duet2 and Duet3Mini5+ WiFi/Ethernet
-; part of self tests
+; part of calibration routines
 ;
 ; PID tuning heated bed
-;
-; set var target_temperature to the desired temperature
 ;
 ; =========================================================================================================
 ;

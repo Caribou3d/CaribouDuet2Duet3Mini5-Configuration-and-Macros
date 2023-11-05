@@ -1,5 +1,8 @@
 ; =========================================================================================================
 ;
+; test routine for Duet2 and Duet3Mini5+ WiFi/Ethernet
+; part of calibration routines
+;
 ; testcode for printing a meander and a rectangle at the end to adjust babysteps
 ;
 ; =========================================================================================================
