@@ -40,9 +40,9 @@ set global.zLiftDistance = 5                                           ; set dis
 M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z
 ;
 M140 S{var.bed_temp}                                                   ; set bed temperature to filament #FILAMENT_NAME at #BED_TEMPERATURE°C
-M568 P0 S{var.nozzle_temp} R{var.nozzle_temp-50} A2                ; set tool active and standby temperatures
+M568 P0 S{var.nozzle_temp} R{var.nozzle_temp-50} A2                    ; set tool active and standby temperatures
 ;
-set global.waitForNozzleTemperature = true                           ; daemon beeps when temperature is reached
+set global.waitForNozzleTemperature = true                             ; daemon beeps when temperature is reached
 set global.waitForBedTemperature = true                                ; daemon beeps when temperature is reached
 ;
 ; =========================================================================================================

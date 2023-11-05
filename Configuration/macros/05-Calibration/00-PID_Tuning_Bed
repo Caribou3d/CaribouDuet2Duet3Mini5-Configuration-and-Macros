@@ -50,7 +50,7 @@ var k2bed = heat.heaters[0].model.fanCoolingRate
 var dbed = (10.0 * heat.heaters[0].model.deadTime) / 10.0              ; factors required due to a bug in the numerics 3.5-rc1
 var ebed = (10.0 * heat.heaters[0].model.coolingExp) / 10.0            ; factors required due to a bug in the numerics 3.5-rc1
 ;
-echo >"0:/settings/Set-PID-Bed.g" "M307 H0 R"^{var.rbed}^" K"^{var.k1bed}^":"^{var.k2bed}^" D"^{var.dbed}^" E"^{var.ebed}^" S1.00 B0  ;  set PID parameters bed"
+echo >"0:/settings/Set-PID-Bed.g" "M307 H0 R"^{var.rbed}^" K"^{var.k1bed}^":"^{var.k2bed}^" D"^{var.dbed}^" E"^{var.ebed}^" S1.00 B0  ; set PID parameters bed"
 ;
 M140 S0 R0                                                             ; set bed temperature to 0C
 M140 S-274                                                             ; set bed temperature to 0K to turn it off

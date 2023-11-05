@@ -4,10 +4,10 @@
 ;
 ; =========================================================================================================
 ;
-while network.interfaces[0].actualIP = "0.0.0.0" && iterations < 30
+while (network.interfaces[0].actualIP = "0.0.0.0" && iterations < 15)
     G4 S1                                                              ; wait 1 second
 ;
-if network.interfaces[0].actualIP = "0.0.0.0"
+if (network.interfaces[0].actualIP = "0.0.0.0")
     M552 S0                                                            ; enable WiFi module
     G4 S1                                                              ; wait 1 second
     M552 S-1                                                           ; disable WiFi module

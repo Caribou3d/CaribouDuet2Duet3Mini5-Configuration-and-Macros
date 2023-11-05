@@ -13,7 +13,7 @@ if (global.filamentTriggerIgnore == 1)
 M300 S500 P600                                                         ; beep
 G4 P2000                                                               ; wait two seconds
 ;
-if heat.heaters[1].current < heat.coldExtrudeTemperature               ; check temperature
+if (heat.heaters[1].current < heat.coldExtrudeTemperature)             ; check temperature
     M98 P"0:/sys/00-Functions/ActivateRunOutSensor"                    ; activate RunOut Sensor to check if filament is loaded
     set global.filamentErrorIgnore = 1
     M292 P1                                                            ; cancel previous operation

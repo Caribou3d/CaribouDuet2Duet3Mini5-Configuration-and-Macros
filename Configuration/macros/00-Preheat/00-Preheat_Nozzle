@@ -31,8 +31,8 @@ M291 P"Press OK to continue or CANCEL to abort." R{"Heat up nozzle to " ^ var.no
 set global.zLiftDistance = 5                                           ; set distance to lift
 M98 P"0:/sys/00-Functions/zLift"                                       ; call macro to lift z
 ;
-M568 P0 S{var.nozzle_temp} R{var.nozzle_temp-50} A2                ; set tool active and standby temperatures
-set global.waitForNozzleTemperature = true                           ; daemon beeps when temperature is reached
+M568 P0 S{var.nozzle_temp} R{var.nozzle_temp-50} A2                    ; set tool active and standby temperatures
+set global.waitForNozzleTemperature = true                             ; daemon beeps when temperature is reached
 ;
 ; =========================================================================================================
 ;
