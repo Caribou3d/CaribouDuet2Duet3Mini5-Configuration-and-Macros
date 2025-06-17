@@ -24,7 +24,6 @@ if !move.axes[0].homed
     G1 H1 X-260 F4000                         ; move quickly to x axis endstop and stop there (first pass)
     G1 H2 X5 F3000                            ; go back a few mm
     G1 H1 X-10 F4000                          ; move slowly to x axis endstop once more (second pass)
-    G1 H2 Z-5 F6000                           ; wait for current moves to finish
     M400                                      ; wait for current moves to finish
 ;
 ; =========================================================================================================
@@ -39,7 +38,6 @@ if !move.axes[1].homed
     G1 H1 Y-225 F3000                         ; move quickly to y axis endstop and stop there (first pass)
     G1 H2 Y5 F4000                            ; go back a few mm
     G1 H1 Y-10 F3000                          ; move slowly to y axis endstop once more (second pass)
-    G1 H2 Z-5 F4000                           ; lower z again
     M400                                      ; wait for current moves to finish
 ;
 ; =========================================================================================================
